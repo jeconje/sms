@@ -264,8 +264,7 @@
             }            
         }
 
-        public function viewDistinctLogs($data)
-        {
+        public function viewDistinctLogs($data) {
           $this->db->distinct();
           $this->db->select ('date');
           $this->db->from('attendance');
@@ -273,10 +272,10 @@
           $this->db->join('subject','subject.offer_code = offering.offer_code');
           $this->db->where('faculty_id',$data['faculty_id']);
           $this->db->order_by('attendance.date',desc);
+
           $query = $this->db->get();
           $result = $query -> result_array();
           return $result;
-
         }
 
         public function viewLogs($data)
@@ -314,9 +313,10 @@
         public function updateAttendance($data)
         {
           $update = array (
-                              'status' => 'X'
+                            'status' => 'X'
                            );
           $this->db->where('student_number',$data['student_number']);
+          $this->db->where('date', $data['date']);
           $this->db->update('attendance',$update);
         }
 
@@ -372,19 +372,26 @@
         {
             $this->db->select();
             $this->db->from('calendar');
-            $this->db->where('date',$data['date']);
+            $this->db->where('date',$data['date']);          
+            $this->db->where('event','no_class');  
             $query = $this->db->get();
-            $result = $query -> result_array();
+            $result = $query -> first_row('array');
 
             return $result;
         }
 
-        public function suspendClass()
-        {
+        public function suspendClass($data)
+        { 
+          date_default_timezone_set('Asia/Manila');
+          $date = date('Y-m-d');
+
             $this->db->select();
-            $this->db->from('calendar');                      
+            $this->db->from('calendar'); 
+            $this->db->where('date', $date);
+            $this->db->where('event', 'Suspended');
+
             $query = $this->db->get();
-            $result = $query -> result_array();
+            $result = $query -> first_row('array');
 
             return $result; 
         }

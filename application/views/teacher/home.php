@@ -185,25 +185,33 @@
       $check = "assign_classroom";
   }
 ?>
-                    
+
 <td><a href='<?php echo base_url(); ?>teacher/<?php echo $check ?>/<?php echo $value['offer_code']; ?>'><input class="btn btn-primary" type="submit" value="Assign Seats"/></a></td>
 <td><a href='<?php echo base_url(); ?>teacher/<?php echo $room ?>/<?php echo $value['offer_code']; ?>'>
 <input  
-    <?php foreach($suspendClass as $suspend){ 
-      if($noClass != "") {
+    <?php 
+      if($wayKlase != "") {
+        echo "disabled";
+      }
+      else 
+      {
+        if($event == "Suspended" && $petsa == date('Y-m-d')) {
+        if(strtotime(date('h:i A')) >= strtotime($start_time) && strtotime(date('h:i A')) <= strtotime($end_time)) {
+       echo "disabled";
+          
+        }
+      }
+     if(strtotime(date('h:i A')) >= strtotime($value['start_time']) && strtotime(date('h:i A')) <= strtotime($value['end_time']))   {                                                         
         echo "";
-     }  
-     else if($suspend['start_time'] >= $value['start_time'] && $suspend['end_time'] <= $value['end_time']) {
-        echo "";
-      }  
-    if ( strtotime(date('h:i A')) >= strtotime($value['start_time']) && strtotime(date('h:i A')) <= strtotime($value['end_time']))   {                                                         
-      echo ""; 
-     } ?>
+     }      
+     else
+      echo "disabled";
+    }
+     ?>
      
- class="btn btn-primary" type="submit" value="Check Attendance"
-    <?php } ?>
+ class="btn btn-primary" type="submit" value="Check Attendance"/>
 
-/></a></td>                                        
+</a></td>                                        
 
                             
                   </tr>

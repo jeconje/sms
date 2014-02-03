@@ -27,6 +27,7 @@
     		$data['account_id'] = $data['info']['account_id'];	 
 			$data['account_type'] = $data['info']['account_type'];
 
+
 			$data['teacherInfo'] = $this->teacher_model->teacherInfo($data);
 			
 			$data['first_name'] = $data['teacherInfo']['first_name'];
@@ -52,11 +53,21 @@
 			$data['view'] = $this->teacher_model->viewPhoto($data);
 			$data['image_path'] = $data['view']['image_path'];
 			$config['upload_path'] = "./images/faculty";
-   		$config['allowed_types'] = 'jpg|jpeg|png';
-  		$this->load->library('upload',$config);    
+	   		$config['allowed_types'] = 'jpg|jpeg|png';
+	  		$this->load->library('upload',$config);    
 
-  		$data['noClass'] = $this->teacher_model->noClass($data);		
-  		$data['suspendClass'] = $this->teacher_model->suspendClass($data);
+	  		$data['noClass'] = $this->teacher_model->noClass($data);	
+	  		$data['wayKlase'] = $data['noClass']['date'];	
+
+	  		$data['datepicker'] = $this->input->post('date');
+			$data['start_time'] = $this->input->post('start_time');
+			$data['end_time'] = $this->input->post('end_time');
+
+	  		$data['suspendClass'] = $this->teacher_model->suspendClass($data);
+	  		$data['petsa'] = $data['suspendClass']['date'];
+	  		$data['sugod'] = $data['suspendClass']['start_time'];
+	  		$data['end_time'] = $data['suspendClass']['end_time'];
+	  		$data['event'] = $data['suspendClass']['event'];
 
    		if(!$this->upload->do_upload()) {  
    			$data['error'] = $this->upload->display_errors();
@@ -131,7 +142,7 @@
 			$data['account_type'] = $data['info']['account_type'];
 
 			$data['teacherInfo'] = $this->teacher_model->teacherInfo($data);
-			
+			$data['faculty_id'] = $data['teacherInfo']['faculty_id'];
 			$data['first_name'] = $data['teacherInfo']['first_name'];
 			$data['last_name'] = $data['teacherInfo']['last_name'];
 
@@ -142,32 +153,40 @@
 				$this->index();
 		}
 
-
 		//View Attendance Logs
-
-		public function updateStatus(){
-			$data['student_number'] = $this->uri->segment(4);
+		public function updateStatus($id){
+			$data['student_number'] = $_GET['id'];
+			$data['date'] = $id;
 			$this->teacher_model->updateAttendance($data);	
 			
-
-			// $this->load->view('teacher/logs');
+			$newURL = "http://localhost/sms/teacher/logs";
+	          header('Location: '.$newURL);
 		}
 
 		public function logs($id)
 		{
 			$data['info'] = $this->session->userdata('logged_in');
 			if($data['info'] == TRUE){
-				$data['date'] = $id;
-				$data['faculty_id'] = $data['info']['faculty_id'];
-				$data['first_name'] = $data['info']['first_name'];
-				$data['last_name'] = $data['info']['last_name'];				
-				$data['viewLogs'] = $this->teacher_model->viewLogs($data);
-				
-				$data['subject'] = $this->input->post('subject');
-				$data['classes'] = $this->teacher_model->viewClasses($data);
+			$data['account_id'] = $data['info']['account_id'];	 
+			$data['account_type'] = $data['info']['account_type'];
 
-				
-				$data['viewLogs'] = $this->teacher_model->viewSearchedLogs($data);
+			$data['teacherInfo'] = $this->teacher_model->teacherInfo($data);
+			$data['faculty_id'] = $data['teacherInfo']['faculty_id'];
+			$data['first_name'] = $data['teacherInfo']['first_name'];
+			$data['last_name'] = $data['teacherInfo']['last_name'];		
+
+			$data['viewDistinctLogs'] = $this->teacher_model->viewDistinctLogs($data);
+			foreach($data['viewDistinctLogs'] as $logs){ 	
+				// $data['date'] = $data['viewDistinctLogs']['date'];
+				$data['date'] = $logs['date'];
+			}
+			$data['viewLogs'] = $this->teacher_model->viewLogs($data);
+			
+			$data['subject'] = $this->input->post('subject');
+			$data['classes'] = $this->teacher_model->viewClasses($data);
+
+			
+			$data['viewLogs'] = $this->teacher_model->viewSearchedLogs($data);
 				
 			
 				
