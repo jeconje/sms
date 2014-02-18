@@ -64,7 +64,7 @@
             
     </table>
   </div> 
-  <?php echo form_close(); ?>
+  
 <br>
    <div class="table-responsive">
               <table class="table table-hover tablesorter">
@@ -88,12 +88,13 @@
                   ?>    
                       <?php foreach($viewCandidates as $viewAttendance) 
                       {
-                        if($viewAttendance['attendance'] == 'L' && $viewAttendance['offer_code'] == $value['offer_code']) {
+
+                        if($viewAttendance['status'] == 'L' && $viewAttendance['offer_code'] == $value['offer_code']) {
                           $late++;
                         }                              
-                        if($viewAttendance['attendance'] == 'A' && $viewAttendance['offer_code'] == $value['offer_code']) {
+                        if($viewAttendance['status'] == 'A' && $viewAttendance['offer_code'] == $value['offer_code']) {
                           $absences++;
-                        }
+                        }                        
                       }
                       ?>
                   <?php if(($absences >= '5' && $value['days'] == 'Monday,Wednesday,Friday') || ($absences >= '3' && $value['days'] == 'Tuesday,Thursday') ){ ?>
@@ -114,7 +115,7 @@
                           <?php echo $absences; ?>
                       </td>
                       <td>
-                          <?php echo anchor('notification/notifyCandidate?id='.$viewAttendance['account_id'], 'Notify', 'id="$viewAttendance->account_id" class="btn btn-danger"'); ?>
+                          <?php echo anchor('notification/notifyCandidate?id='.$viewAttendance['student_number'], 'Notify', 'id="$viewAttendance->student_number" class="btn btn-danger"'); ?>
                       </td>
                     </tr>
               <?php }
@@ -123,6 +124,7 @@
               </table>
             </div>
           </div>
+          <?php echo form_close(); ?>
 
 <script type="text/javascript">
  $(document).ready(function(){
