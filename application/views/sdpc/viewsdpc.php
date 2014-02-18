@@ -96,7 +96,7 @@
                         }
                       }
                       ?>
-                  <?php if(($absences >= '5' && $value['days'] == 'MWF') || ($absences >= '3' && $value['days'] == 'TTH') ){ ?>
+                  <?php if(($absences >= '5' && $value['days'] == 'Monday,Wednesday,Friday') || ($absences >= '3' && $value['days'] == 'Tuesday,Thursday') ){ ?>
                   <tr>                 
                       <td>
                         <?php echo $viewAttendance['last_name'].', '.$viewAttendance['first_name']; ?>

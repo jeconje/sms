@@ -117,7 +117,6 @@
 			$data['id'] = $_GET['id'];
 
 			$data['studentInfo'] = $this->notification_model->studentInfo($data); // Gets student data
-			 
 			$data['parentInfo'] = $this->notification_model->parentOfStudent($data); // Gets parent data
 			$data['teacherInfo'] = $this->notification_model->teacherOfStudent($data); // Gets teacher data
 
@@ -134,7 +133,7 @@
 			}
 
 			foreach($data['parentInfo'] as $parent) {
-				$data['parent_id'] = $parent['parent_id'];
+				$data['tracker_id'] = $parent['tracker_id'];
 			}
 			
 			// echo "<pre>";
