@@ -98,17 +98,20 @@
           </ul>
         </nav>
 <center>
+  <?php echo form_open("teacher/classroom/$id_code"); ?>
 <div>
  <td rowspan="6" style="width: 50px"></td>
+
     <td colspan="5" style="height: 13px" align="left" valign="top">
   <div>
     <div> 
       <button 
-          <?php 
-              if($onlyonce != ""){
-            echo "disabled"; } ?>   
+                  <button 
+                   <?php 
+                  if($onlyonce != ""){
+                 echo "disabled"; } ?>   
                 type="submit" name ="submit" class="btn btn-primary" onClick = "return confirm('Are you sure you want to submit because you can only submit once?')" >Submit Attendance</button>
-       <?php echo form_open("teacher/classroom/$id_code"); ?>
+       
     </div>
     <br>
   </div>
@@ -910,7 +913,7 @@
                   </div>  <?php } ?>                                           
     <?php } 
   } ?>
-
+</td>
 <!-- 14 -->
     <td style="width: 120px; height: 160px;">
        <?php foreach($viewStudents as $value){

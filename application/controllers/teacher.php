@@ -25,6 +25,15 @@
 			$this->load->view('seatplan_teacher/review_laboratory',$data);
 		}
 
+		public function huehue2($id)
+		{
+			$data['id_code'] = $id;
+			$data['viewStudents'] = $this->teacher_model->viewStudents($data);
+			$data['viewAttendance'] = $this->teacher_model->viewReviewAttendance($data);			
+
+			$this->load->view('seatplan_teacher/review_classroom',$data);
+		}
+
 		public function profile() {			
     	$data['info'] = $this->session->userdata('logged_in'); 
     	if($data['info'] == TRUE){
@@ -343,7 +352,7 @@
 				$data['last_name'] = $data['info']['last_name'];
 				$data['viewAttendance'] = $this->teacher_model->viewAttendance($data);				
 				$data['logins'] = $this->teacher_model->viewCampusLogin($data);
-				$data['violation'] = $this->teacher_model->viewViolation($data);	
+				$data['violation'] = $this->teacher_model->viewViolation($data);		
 				$data['suspension'] = $this->teacher_model->viewSuspension($data);
 
 				
@@ -362,7 +371,7 @@
 				if(isset($_POST['submit']))
 				{								
 					$this->teacher_model->insertAttendance($data);
-					header('Location:http://localhost/sms/teacher/classroom/'.$data['id_code']);							
+					header('Location:http://localhost/sms/teacher/huehue2/'.$data['id_code']);												
 				}
 
 				$data['viewStudents'] = $this->teacher_model->viewStudents($data);
