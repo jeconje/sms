@@ -40,15 +40,9 @@
 		     	$data['image_path'] = $data['view']['image_path'];
 
 				$data['viewLogs'] = $this->parent_model->viewLogs($data);
-				
-				/*$data['id']	= $_GET['id'];
-				$data['result'] = $this->parent_model->displayNames($data);
-				$data['parentinfo'] = $this->parent_model->parentInfo($data);
-				$this->load->view('parent/home',$data);*/
 
-				$data['id'] = $data['account_id']['id'];
+				$data['id']	= $_GET['id'];
 				$data['result'] = $this->parent_model->displayNames($data);
-				print_r($data['id']);
 
 				$config['upload_path'] = "./images/parents";
 	     		$config['allowed_types'] = 'jpg|jpeg|png';
@@ -152,9 +146,9 @@
 			if($data['parentInfo'] == TRUE){
 				$data['first_name'] = $data['parentInfo']['first_name'];
 				$data['last_name'] = $data['parentInfo']['last_name'];
-
 				$data['referral_key'] = $data['parentInfo']['referral_key'];
 				$data['account_id'] = $data['parentInfo']['account_id'];
+
 				$data['id']	= $_GET['id'];
 				$data['result'] = $this->parent_model->displayNames($data);	
 				$data['result2'] = $this->parent_model->viewChildrensGrades($data);
@@ -186,7 +180,7 @@
 		}
 
 
-		public function viewLasent()
+		public function viewlasent()
 		{
 			$data['parentInfo'] = $this->session->userdata('logged_in');
 			if($data['parentInfo'] == TRUE){
@@ -197,7 +191,9 @@
 
 				$data['result'] = $this->parent_model->displayNames($data);
 				$data['displaySubjects'] = $this->parent_model->displaySubjects($data);
-				$data['displayAttendance'] = $this->parent_model->childrensAttendnce($data);
+
+				$data['info'] = $this->parent_model->viewStudentInfoInSL($data);										
+				$data['displayAttendance'] = $this->parent_model->childrensAttendance($data);
 				
 				$this->load->view('parent/viewlasent',$data);
 			} else

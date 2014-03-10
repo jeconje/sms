@@ -203,7 +203,6 @@
       $result = $query -> result_array();
 
       return $result;
-
     }
 
     //View Grades

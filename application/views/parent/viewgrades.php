@@ -36,10 +36,11 @@
             <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon32 icon-color icon-document"></i><b class="caret"></b>Grades</a>
                       <ul class="dropdown-menu">
+
                           <?php foreach($result as $value){ ?>
                           <li><a href="<?php echo base_url(); ?>parents/viewgrades?id=<?php echo $value['account_id']; ?>"> <?php echo $value['last_name'].', '.$value['first_name']; ?></a></li>          
                           <?php } ?>
-                      </ul>
+                      </ul> 
             </li>
             <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon32 icon-color icon-compose"></i><b class="caret"></b> Study Load</a>
@@ -53,7 +54,7 @@
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon32 icon-red icon-clock"></i><b class="caret"></b> Attendance</a>
                       <ul class="dropdown-menu">
                           <?php foreach($result as $value){ ?>
-                          <li><a href="<?php echo base_url(); ?>parents/viewlasent?id=<?php echo $value['account_id']; ?>"> <?php echo $value['last_name'].', '.$value['first_name']; ?></a></li>          
+                          <li><a href="<?php echo base_url(); ?>parents/viewlasent?id=<?php echo $value['student_number']; ?>"> <?php echo $value['last_name'].', '.$value['first_name']; ?></a></li>          
                           <?php } ?>
                       </ul>
             </li>
@@ -125,7 +126,7 @@
                   </tr>
                 </thead>
                 <tbody  align="center">
-                  <?php foreach($result2 as $value){?>
+                  <?php foreach($result2 as $value) { ?>
                   <tr>                              
                     <td><?php echo $value['offer_code'];  ?></td>             
                     <td><?php echo $value['subject_description'];  ?></td>             

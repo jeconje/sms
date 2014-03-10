@@ -11,14 +11,6 @@
     <?php include ('/application/views/templates/nav.php'); ?>
   </head>
 
-<style>
-.upload
-{
-  width: 10px;
-  height: 180px;
-}
-</style>
-
 <body>
     <div id="wrapper">
       <!-- Sidebar -->
@@ -38,11 +30,12 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
-         <!--  <ul class="nav navbar-nav side-nav">
+          <ul class="nav navbar-nav side-nav">
             <li  class="active"><a href="<?php echo base_url(); ?>parents/profile"><i class="icon32 icon-color icon-home"></i> Dashboard</a></li>      
             <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon32 icon-color icon-document"></i><b class="caret"></b>Grades</a>
                       <ul class="dropdown-menu">
+
                            <?php foreach($result as $value){ ?>
                           <li><a href="<?php echo base_url(); ?>parents/viewgrades?id=<?php echo $value['account_id']; ?>"> <?php echo $value['last_name'].', '.$value['first_name']; ?></a></li>          
                           <?php } ?>
@@ -60,13 +53,13 @@
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon32 icon-red icon-clock"></i><b class="caret"></b> Attendance</a>
                       <ul class="dropdown-menu">
                           <?php foreach($result as $value){ ?>
-                          <li><a href="<?php echo base_url(); ?>parents/viewlasent?id=<?php echo $value['account_id']; ?>"> <?php echo $value['last_name'].', '.$value['first_name']; ?></a></li>          
+                          <li><a href="<?php echo base_url(); ?>parents/viewlasent?id=<?php echo $value['student_number']; ?>"> <?php echo $value['last_name'].', '.$value['first_name']; ?></a></li>          
                           <?php } ?>
                       </ul>
             </li>
           <li><a href="<?php echo base_url(); ?>parents/viewaddchild"><i class="icon32 icon-color icon-users"></i> Add Child</a></li>
           <li><a href="<?php echo base_url(); ?>parents/calendarforparents"><i class="icon32 icon-color icon-calendar"></i> Calendar</a></li>
-        </ul> -->
+        </ul>
 
             <ul class="nav navbar-nav navbar-right navbar-user">
         <li class="dropdown messages-dropdown">
@@ -181,7 +174,8 @@
                       </tr>
                     </thead>                    
                     <tbody>                      
-                    <?php foreach($result as $value){ ?>                      
+                    <?php                
+                    foreach($result as $value){ ?>                      
                       <tr>
                         <td><?php echo $value['student_number']; ?></td>        
                         <td><?php echo $value['last_name'].', '.$value['first_name']; ?></td>     

@@ -17,8 +17,7 @@
       <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 
         <!-- Brand and toggle get grouped for better mobile display -->
-        <?php $home = 'parents/profile'; ?>
-
+        <?php $home = 'parents/profile'; ?>        
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
             <span class="sr-only">Toggle navigation</span>
@@ -30,7 +29,7 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
-          <ul class="nav navbar-nav side-nav">
+           <ul class="nav navbar-nav side-nav">
             <li><a href="<?php echo base_url(); ?>parents/profile"><i class="icon32 icon-color icon-home"></i> Dashboard</a></li>      
             <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon32 icon-color icon-document"></i><b class="caret"></b>Grades</a>
@@ -52,14 +51,13 @@
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon32 icon-red icon-clock"></i><b class="caret"></b> Attendance</a>
                       <ul class="dropdown-menu">
                           <?php foreach($result as $value){ ?>
-                          <li><a href="<?php echo base_url(); ?>parents/viewLasent?id=<?php echo $value['account_id']; ?>"> <?php echo $value['last_name'].', '.$value['first_name']; ?></a></li>          
+                          <li><a href="<?php echo base_url(); ?>parents/viewLasent?id=<?php echo $value['student_number']; ?>"> <?php echo $value['last_name'].', '.$value['first_name']; ?></a></li>          
                           <?php } ?>
                       </ul>
             </li>
           <li><a href="<?php echo base_url(); ?>parents/viewaddchild"><i class="icon32 icon-color icon-users"></i>   Add Child</a></li>
           <li><a href="<?php echo base_url(); ?>parents/calendarforparents"><i class="icon32 icon-color icon-calendar"></i> Calendar</a></li>
         </ul>
-
 
             <ul class="nav navbar-nav navbar-right navbar-user">
         <li class="dropdown messages-dropdown">

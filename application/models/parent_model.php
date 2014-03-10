@@ -123,12 +123,13 @@ class Parent_model extends CI_Model
   public function displayNames($data)
   {
     $this->db->select();
-    $this->db->from('tracker', 'account', 'parent');      
-    $this->db->join('account','account.account_id = students.account_id');
-    $this->db->join('account','account.account_id = tracker.account_id');    
-    $this->db->where('account.account_id', $data['account_id']);
-    $query = $this->db->get();
-    $result = $query -> result_array();
+    $this->db->from('students');
+    $this->db->join('tracker','tracker.account_id = students.account_id');    
+    $this->db->join('parent','parent.parent_id = tracker.parent_id');
+    $this->db->join('account','students.account_id = account.account_id');   
+    $this->db->where('parent.account_id',$data['account_id']);     
+    $query = $this->db->get();  
+    $result = $query -> result_array(); 
 
     return $result;
   }
@@ -137,16 +138,14 @@ class Parent_model extends CI_Model
   public function viewChildrensGrades($data)
   {
     $this->db->select();
-    $this->db->from('study_load');
-    $this->db->join('students','students.student_number = study_load.student_number');
-    $this->db->join('account','students.account_id = account.account_id');
-    $this->db->join('tracker','tracker.account_id = account.account_id');
-    $this->db->join('subject','subject.offer_code = study_load.offer_code');
-    $this->db->where('tracker.parent_id',$data['account_id']);
+    $this->db->from('students');
+    $this->db->join('study_load','students.student_number = study_load.student_number');
+    $this->db->join('account','students.account_id = account.account_id');        
+    $this->db->join('subject','subject.offer_code = study_load.offer_code');     
     $this->db->where('account.account_id',$data['id']);
 
     $query = $this->db->get();
-    $result = $query->result_array();
+    $result = $query->result_array(); 
 
     return $result;
   }
@@ -357,7 +356,7 @@ class Parent_model extends CI_Model
     $this->db->join('subject','subject.offer_code = study_load.offer_code');
     $this->db->join('students','students.student_number = study_load.student_number');
     $this->db->join('tracker','tracker.account_id = students.account_id ');
-    $this->db->where('tracker.account_id',$data['id']);
+    $this->db->where('study_load.student_number',$data['id']);
     $this->db->where('tracker.parent_id',$data['account_id']);   
     
     $query = $this->db->get();
@@ -366,15 +365,15 @@ class Parent_model extends CI_Model
 
   }
 
-  public function childrensAttendnce($data)
+  public function childrensAttendance($data)
   {
     $this->db->select();
-    $this->db->from('attendance');
-    $this->db->where('account_id',$data['id']);
+      $this->db->from('attendance');
+      $this->db->where('student_number',$data['id']);
+      $query = $this->db->get();
+      $result = $query -> result_array();
 
-    $query = $this->db->get();
-    $result = $query -> result_array();
-    return $result; 
+      return $result;
   }
 
 }
