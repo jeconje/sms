@@ -281,7 +281,8 @@
 				$data['first_name'] = $data['studentinfo']['first_name'];
 				$data['last_name'] = $data['studentinfo']['last_name'];
 						
-				$data['info'] = $this->sms_model->viewParents($data); 			
+				$data['info'] = $this->sms_model->viewParents($data);
+
 				$this->load->view('student/viewdependent',$data);
 			} else
 				$this->index();

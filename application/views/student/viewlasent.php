@@ -85,7 +85,6 @@
                   </tr>
                 </thead>
                 <tbody align="center">
-                  <?php print_r($student_number) ?>
                   <?php
                     foreach ($info as $value) 
                     {

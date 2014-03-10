@@ -46,8 +46,9 @@
 				$data['parentinfo'] = $this->parent_model->parentInfo($data);
 				$this->load->view('parent/home',$data);*/
 
-				$data['id'] = $_GET['id'];
+				$data['id'] = $data['account_id']['id'];
 				$data['result'] = $this->parent_model->displayNames($data);
+				print_r($data['id']);
 
 				$config['upload_path'] = "./images/parents";
 	     		$config['allowed_types'] = 'jpg|jpeg|png';
