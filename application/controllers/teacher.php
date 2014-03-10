@@ -95,7 +95,7 @@
 				$offer_code = $this->input->post('offer_code');
 
 				$data['viewSubjects'] = $this->teacher_model->viewClasses($data);
-				$data['viewCandidates'] = $this->teacher_model->viewCandidates($data);
+				$data['viewCandidates'] = $this->teacher_model->viewCandidates($offer_code);
 
 				$this->load->view('teacher/viewsdpc',$data);
 			} else
