@@ -1,0 +1,33 @@
+#content textarea {
+	width: 300px;
+	height: 156px;
+	resize: none;
+	background-color: rgba(255, 255, 255, 0.4);
+	border: 1px solid rgba(122, 192, 0, 0.15); 
+	padding: 7px; font-family: Keffeesatz, Arial; 
+	color: #4b4b4b; font-size: 14px; 
+	-webkit-border-radius: 5px; 
+	margin-bottom: 15px; 
+	margin-top: -10px; 
+}
+
+#student_number {
+	width: 280px;
+	background-color: rgba(255, 255, 255, 0.4);
+	border: 1px solid rgba(122, 192, 0, 0.15); 
+	padding: 7px; font-family: Keffeesatz, Arial; 
+	color: #4b4b4b; font-size: 14px; 
+	-webkit-border-radius: 5px; 
+	margin-bottom: 15px; 
+	margin-top: -10px; 
+}
+
+#student_number:focus {
+	border: 1px solid rgba(122, 192, 0, 0.15); 
+	background-color: rgba(255, 255, 255, 1); 
+}
+
+.content textarea:focus { 
+	border: 1px solid rgba(122, 192, 0, 0.15); 
+	background-color: rgba(255, 255, 255, 1); 
+}

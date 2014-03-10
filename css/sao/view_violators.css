@@ -1,0 +1,36 @@
+.view_violators {
+	padding: 10px;
+	border: 1px solid #D8D8D8;
+	border-bottom-width: 2px;
+	border-top-width: 0;
+	max-width: 290px;
+	padding: 19px 29px 29px;
+	background-color: #F2F2F2;
+	border: 1px solid #BDBDBD;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
+.view_violators  tr {
+	position: fixed;
+	padding: 3px;
+}
+
+.view_violators td {
+	padding: 3px;
+}
+
+.view_violators input[type="text"]{
+	background-color: #F2F2F2;
+	border: 1px solid #BDBDBD;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	height: 30px;
+}
+
+#violator_student_number:focus {
+	border: 1px solid rgba(122, 192, 0, 0.15); 
+	background-color: rgba(255, 255, 255, 1);
+}
