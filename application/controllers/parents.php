@@ -36,6 +36,7 @@
 				$data['contact_number'] = $data['info']['contact_number'];
 				$data['date_of_birth'] = $data['info']['date_of_birth'];
 				$data['address'] = $data['info']['address'];
+
 				$data['view'] = $this->parent_model->viewPhoto($data);
 		     	$data['image_path'] = $data['view']['image_path'];
 				
@@ -44,8 +45,8 @@
 				$data['parentinfo'] = $this->parent_model->parentInfo($data);
 				$this->load->view('parent/home',$data);*/
 
-				$data['id']	= $_GET['id'];
-				$data['result'] = $this->parent_model->displayNames($data);	
+				$data['id'] = $_GET['id'];
+				$data['result'] = $this->parent_model->displayNames($data);
 
 				$config['upload_path'] = "./images/parents";
 	     		$config['allowed_types'] = 'jpg|jpeg|png';
@@ -63,7 +64,6 @@
 		     	   	$data['file_path'] = "../images/parents/";  		    	     		    	
 		     	  	$data['file_name'] = $data['upload']['file_name'];     		    	
 		     	  	$data['update'] = $this->parent_model->upload($data);
-		     	  	
 
 					$this->load->view('parent/home',$data);
 				}

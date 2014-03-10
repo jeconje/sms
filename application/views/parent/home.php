@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<?php //header("refresh: 3;") ?>
 <?php error_reporting(0); ?>
 <html lang="en">
   <head>
@@ -10,14 +9,6 @@
     <title>USJR - SMS</title>
     <?php include ('/application/views/templates/nav.php'); ?>
   </head>
-
-<style>
-.upload
-{
-  width: 10px;
-  height: 180px;
-}
-</style>
 
 <body>
     <div id="wrapper">
@@ -122,7 +113,6 @@
                   <center>
                     <?php echo form_open_multipart('parents/profile'); ?>
                           <input  type = "file" name = "userfile" /> <br>
-                          <?php //echo $error; ?> 
                           <input class="btn btn-primary" type="submit" value="Upload Photo"/>
                     <?php echo form_close();?>    
                   </center>
@@ -175,7 +165,7 @@
                   <table class="table table-bordered table-hover table-striped tablesorter">
                     <thead>
                       <tr>
-                        <th>Student ID</th>
+                        <th>Student Number</th>
                         <th>Name of Child</th>
                         <th>Course</th>
                         <th>Year</th>
@@ -231,7 +221,7 @@
             </div>
           </div>
     </div>
-
+<!-- 
 <script>
   var es = new EventSource("<?php echo base_url(); ?>sdpc/notify");
   var listener = function (event) {
@@ -244,6 +234,7 @@
   es.addEventListener("message", listener);
   es.addEventListener("error", listener);
 </script>
+-->
 
   </body>
 </html>

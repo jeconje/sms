@@ -198,7 +198,7 @@
     {
       $this->db->select();
       $this->db->from('attendance');
-      $this->db->where('account_id',$data['account_id']);
+      $this->db->where('student_number',$data['student_number']);
       $query = $this->db->get();
       $result = $query -> result_array();
 

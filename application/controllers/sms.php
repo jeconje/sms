@@ -298,7 +298,8 @@
 				$data['last_name'] = $data['studentinfo']['last_name'];	
 
 				$data['info'] = $this->sms_model->viewsubjects($data);		
-				$data['lates'] = $this->sms_model->viewLates($data);		
+				$data['lates'] = $this->sms_model->viewLates($data);
+
 				$this->load->view('student/viewlasent',$data);
 			} else
 				$this->index();
