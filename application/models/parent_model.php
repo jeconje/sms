@@ -192,8 +192,8 @@ class Parent_model extends CI_Model
     return $result;
   }
 
-  
-    //View Logs
+
+    //Sa home ni
     public function viewLogs($data)
     {
       $this->db->select();
@@ -211,7 +211,7 @@ class Parent_model extends CI_Model
       return $result;
     }
 
-    //sa home ni
+    //View Logs
     public function logs($data)
     {
      $this->db->select();

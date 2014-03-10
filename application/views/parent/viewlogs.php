@@ -105,7 +105,6 @@
       </ul><!-- /.nav navbar-nav navbar-right navbar-user -->
     </div><!-- /.navbar-collapse -->
   </nav> <!--/.navbar navbar-inverse navbar-fixed-top -->
-  <?php print_r($parentInfo); ?>
      <div class="table-responsive">
               <table class="table table-hover tablesorter">
                 <thead>
