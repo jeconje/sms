@@ -179,6 +179,7 @@
             $this->db->order_by('last_name');
             $query = $this->db->get();
             $result = $query -> result_array();
+            return $result;
         }
 
     //Get subjects

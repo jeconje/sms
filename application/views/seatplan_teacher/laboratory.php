@@ -52,7 +52,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
-          </button>
+          </button>           
           <a class="navbar-brand" href="<?php echo base_url(); ?><?php echo $home; ?>">University Of San Jose Recoletos - Student Monitoring System</a></div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
@@ -115,6 +115,7 @@
        <table style="width: 1070px; height: 632px" class="table table-bordered">  
   <tr>
     <td>
+
       <?php foreach($viewStudents as $value){
         $late = 0;
         $absent = 0;

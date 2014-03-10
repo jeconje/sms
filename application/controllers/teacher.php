@@ -320,6 +320,7 @@
 				$data['id_code'] = $id;
 				$data['first_name'] = $data['info']['first_name'];
 				$data['last_name'] = $data['info']['last_name'];
+				$data['viewStudents'] = $this->teacher_model->viewStudents($data);
 
 				for ($i=1; $i < 41 ; $i++) { 
 				$data['a'.$i] = $this->input->post(''.$i);
@@ -371,13 +372,15 @@
 			
 			$data['info'] = $this->session->userdata('logged_in');
 			if($data['info'] == TRUE){
+
 				$data['id_code'] = $id;
 				$data['first_name'] = $data['info']['first_name'];
-				$data['last_name'] = $data['info']['last_name'];			
+				$data['last_name'] = $data['info']['last_name'];				
+				$data['viewStudents'] = $this->teacher_model->viewStudents($data);
 				
-
+				
 				for ($i=1; $i < 41 ; $i++) { 
-				$data['a'.$i] = $this->input->post(''.$i);
+				$data['a'.$i] = $this->input->post($i);
 				}					
 				
 				if(isset($_POST['submit'])){			
@@ -426,7 +429,7 @@
 				$data['id_code'] = $id;
 				$data['first_name'] = $data['info']['first_name'];
 				$data['last_name'] = $data['info']['last_name'];
-				
+				$data['viewStudents'] = $this->teacher_model->viewStudents($data);
 				
 				for ($i=1; $i < 41 ; $i++) { 
 				$data['a'.$i] = $this->input->post($i);
