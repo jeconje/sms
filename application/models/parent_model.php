@@ -123,8 +123,8 @@ class Parent_model extends CI_Model
   public function displayNames($data)
   {
     $this->db->select();
-    $this->db->from('tracker', 'account');      
-    $this->db->join('students','tracker.account_id = students.account_id');
+    $this->db->from('tracker', 'account', 'parent');      
+    $this->db->join('account','account.account_id = students.account_id');
     $this->db->join('account','account.account_id = tracker.account_id');    
     $this->db->where('account.account_id', $data['account_id']);
     $query = $this->db->get();
