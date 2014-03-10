@@ -192,6 +192,44 @@ class Parent_model extends CI_Model
     return $result;
   }
 
+  
+    //View Logs
+    public function viewLogs($data)
+    {
+      $this->db->select();
+      $this->db->from('students');
+      $this->db->join('campus_login', 'students.student_number = campus_login.student_number');      
+      $this->db->join('account','students.account_id = account.account_id');
+      $this->db->join('tracker','tracker.account_id = account.account_id');
+      $this->db->where('tracker.parent_id',$data['account_id']);
+      $this->db->limit('5');
+      $this->db->order_by('log_id','desc');
+
+      $query = $this->db->get();
+      $result = $query -> result_array();
+
+      return $result;
+    }
+
+    //sa home ni
+    public function logs($data)
+    {
+     $this->db->select();
+      $this->db->from('students');
+      $this->db->join('campus_login', 'students.student_number = campus_login.student_number');      
+      $this->db->join('account','students.account_id = account.account_id');
+      $this->db->join('tracker','tracker.account_id = account.account_id');
+      $this->db->where('tracker.parent_id',$data['account_id']);      
+      $this->db->order_by('log_id','desc');
+
+      $query = $this->db->get();
+      $result = $query -> result_array();
+
+      return $result;
+
+    }
+
+
 
 	//View Details in Edit Profile
 	public function editProfile($data) 

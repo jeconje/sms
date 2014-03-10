@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<?php header("refresh: 3;") ?>
 <?php error_reporting(0); ?>
 <html lang="en">
   <head>
@@ -9,6 +10,14 @@
     <title>USJR - SMS</title>
     <?php include ('/application/views/templates/nav.php'); ?>
   </head>
+
+<style>
+.upload
+{
+  width: 10px;
+  height: 180px;
+}
+</style>
 
 <body>
     <div id="wrapper">
@@ -113,6 +122,7 @@
                   <center>
                     <?php echo form_open_multipart('parents/profile'); ?>
                           <input  type = "file" name = "userfile" /> <br>
+                          <?php //echo $error; ?> 
                           <input class="btn btn-primary" type="submit" value="Upload Photo"/>
                     <?php echo form_close();?>    
                   </center>
@@ -135,7 +145,6 @@
             </div>
           </div>
         </div><!-- /.row -->
-
         <div class="row">
           <div class="col-lg-12" style="left: 0px; top: 0px">
             <div class="panel panel-primary">
@@ -165,7 +174,7 @@
                   <table class="table table-bordered table-hover table-striped tablesorter">
                     <thead>
                       <tr>
-                        <th>Student Number</th>
+                        <th>Student ID</th>
                         <th>Name of Child</th>
                         <th>Course</th>
                         <th>Year</th>
@@ -196,32 +205,26 @@
               </div>
               <div class="panel-body">
                 <div class="list-group">
-                  <a href="#" class="list-group-item">
-                    <span class="badge">LOG IN: 10:20 am</span>
-                    <i class="fa fa-user"></i> Child 1
-                  </a>
-                  <a href="#" class="list-group-item">
-                    <span class="badge">LOG IN: 1:25 pm</span>
-                    <i class="fa fa-user"></i> Child 2
-                  </a>
-                  <a href="#" class="list-group-item">
-                    <span class="badge">LOG OUT: 3:25 pm</span>
-                    <i class="fa fa-user"></i> Child 2
-                  </a>
-                   <a href="#" class="list-group-item">
-                    <span class="badge">LOG OUT: 5:00 pm</span>
-                    <i class="fa fa-user"></i> Child 1
-                  </a>
+                  
+                  <?php foreach($viewLogs as $value) {   ?>
 
+                    <?php if($value['time_in'] != '00:00:00') { ?>
+                      <a class="list-group-item"> <?php echo $value['first_name'];?> / Login Time: <?php echo $value['time_in']; ?></a>
+                    <?php } ?>   
+
+                    <?php if($value['time_out'] != '00:00:00'){?>
+                      <a class="list-group-item"> <?php echo $value['first_name'];?> / Logout Time: <?php echo $value['time_in']; ?></a>
+                    <?php } ?>
+                   <?php } ?>
                 </div>
                 <div class="text-right">
-                  <a href="#">View All Activity <i class="fa fa-arrow-circle-right"></i></a>
+                  <a href="<?php echo base_url(); ?>parents/viewLogs">View All Activity <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
               </div>
             </div>
           </div>
     </div>
-<!-- 
+<!---
 <script>
   var es = new EventSource("<?php echo base_url(); ?>sdpc/notify");
   var listener = function (event) {
@@ -235,6 +238,5 @@
   es.addEventListener("error", listener);
 </script>
 -->
-
   </body>
 </html>

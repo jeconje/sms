@@ -36,9 +36,10 @@
 				$data['contact_number'] = $data['info']['contact_number'];
 				$data['date_of_birth'] = $data['info']['date_of_birth'];
 				$data['address'] = $data['info']['address'];
-
 				$data['view'] = $this->parent_model->viewPhoto($data);
 		     	$data['image_path'] = $data['view']['image_path'];
+
+				$data['viewLogs'] = $this->parent_model->viewLogs($data);
 				
 				/*$data['id']	= $_GET['id'];
 				$data['result'] = $this->parent_model->displayNames($data);
@@ -126,6 +127,20 @@
 
 
 				$this->load->view('parent/message',$data);
+			} else
+				$this->index();
+		}
+
+		public function viewLogs()
+		{
+			$data['parentInfo'] = $this->session->userdata('logged_in');
+			if($data['parentInfo'] == TRUE){
+				$data['account_id'] = $data['parentInfo']['account_id'];
+				$data['first_name'] = $data['parentInfo']['first_name'];
+				$data['last_name'] = $data['parentInfo']['last_name'];
+
+				$data['logs'] = $this->parent_model->logs($data);
+				$this->load->view('parent/viewlogs',$data);
 			} else
 				$this->index();
 		}
