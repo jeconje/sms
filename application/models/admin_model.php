@@ -174,9 +174,12 @@ public function showCalendar($year,$month)
     {cal_cell_no_content}<span class="day_listing">{day}</span>&nbsp;{/cal_cell_no_content}
     {cal_cell_no_content_today}<div class="today"><span class="day_listing">{day}</span></div>{/cal_cell_no_content_today}
     '; 
+
     $events = $this->getEvents($year,$month);
     $this->load->library('calendar',$config);
-   
+    
+    
+
     return $this->calendar->generate($year,$month,$events);
   }
 
