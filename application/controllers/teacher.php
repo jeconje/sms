@@ -409,11 +409,11 @@
 				$data['last_name'] = $data['info']['last_name'];
 				$data['viewAttendance'] = $this->teacher_model->viewAttendance($data);				
 
-				for ($i=1; $i <41 ; $i++) { 
+				for ($i=1; $i <49 ; $i++) { 
 					$data['a'.$i] = $this->input->post('attendance'.$i);		
 				}
 
-				for ($i=1; $i <41 ; $i++) { 
+				for ($i=1; $i <49 ; $i++) { 
 				$data['student_number'.$i] = $this->input->post('student_number'.$i);	
 				}						
 				if(isset($_POST['submit']))
@@ -436,7 +436,7 @@
 				$data['last_name'] = $data['info']['last_name'];
 				$data['viewStudents'] = $this->teacher_model->viewStudents($data);
 				
-				for ($i=1; $i < 41 ; $i++) { 
+				for ($i=1; $i < 49 ; $i++) { 
 				$data['a'.$i] = $this->input->post($i);
 				}	
 				
@@ -464,10 +464,10 @@
 				$data['viewStudents'] = $this->teacher_model->viewStudents($data);
 				$data['viewAttendance'] = $this->teacher_model->viewAttendance($data);				
 			
-				for ($i=1; $i <41 ; $i++) { 
+				for ($i=1; $i < 32 ; $i++) { 
 					$data['a'.$i] = $this->input->post('attendance'.$i);		
 				}
-				for ($i=1; $i <41 ; $i++) { 
+				for ($i=1; $i < 32 ; $i++) { 
 				$data['student_number'.$i] = $this->input->post('student_number'.$i);	
 				}								
 											
