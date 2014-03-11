@@ -74,7 +74,7 @@
       </ul><!-- /.nav navbar-nav navbar-right navbar-user -->
     </div><!-- /.navbar-collapse -->
   </nav><!-- /.navbar navbar-inverse navbar-fixed-top--> 
-
+    
      <div class="table-responsive">
               <table class="table table-hover tablesorter">
                 <thead>
@@ -84,6 +84,7 @@
                   </tr>
                 </thead>
                 <tbody>
+
                   <?php foreach($viewLogs as $in){     ?>                  
                   <tr>
                       <?php if($in['time_in'] != '00:00:00'){?>
@@ -96,9 +97,10 @@
                                 <td><?php echo$in['date']; ?></td>
                                 <td><?php echo "Time-out: ".$in['time_out'] ?></td>                                              
                               <?php } ?>
-                            </tr>
-                                                                                                                          
+
+                            </tr>                                                                                                                        
                   <?php  }?>
+                  <?php echo $pagination; ?>
                 </tbody>
               </table>
               </div>

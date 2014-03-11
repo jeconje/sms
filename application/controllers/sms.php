@@ -9,6 +9,7 @@
 		{
 			error_reporting(0);
 			parent::__construct();
+			$this->load->library("pagination");
 		}
 
 		public function index() {
@@ -310,14 +311,29 @@
 		public function viewlogs()
 		{
 			$data['studentinfo'] = $this->session->userdata('logged_in');
-			if($data['studentinfo'] == TRUE) {	
+			if($data['studentinfo'] == TRUE) 
+			{	
 				$data['student_number'] = $data['studentinfo']['student_number'];
 				$data['first_name'] = $data['studentinfo']['first_name'];
 				$data['last_name'] = $data['studentinfo']['last_name'];
+				$data['count'] =$this->sms_model->count($data);
+				
+				$this->load->library('pagination');				
+				$config['base_url'] = base_url() . "sms/viewLogs";
+				$config['total_rows'] = $data['count'];
+				$data['limit'] = $config['per_page'] = 5; 
+				$data['start'] = $this->uri->segment(3);		
+				$this->pagination->initialize($config); 
+				$data['viewLogs'] = $this->sms_model->viewLogs($data);	
+				
+				$data['pagination'] = $this->pagination->create_links();
+				
+				//$data["links"] = $this->pagination->create_links();
 
-				$data['viewLogs'] = $this->sms_model->viewLogs($data);
 				$this->load->view('student/viewlogs',$data);
-			} else
+
+			} 
+			else
 				$this->index();
 
 		}
