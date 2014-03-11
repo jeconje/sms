@@ -124,7 +124,7 @@ public function showCalendar($year,$month)
   }
 
   public function notification_parent($data) {
-    $this->db->select()->from('notifications');/*->where(array('account_id' => $data['account_id'], 'seen' =>'no'));*/
+    $this->db->select()->from('notification');/*->where(array('account_id' => $data['account_id'], 'seen' =>'no'));*/
     $query = $this->db->get();
 
     return $query->result_array();

@@ -170,6 +170,18 @@
             return $result;
         }
 
+        public function viewCandidates($offer_code)
+        {
+            $this->db->select();
+            $this->db->from('attendance');
+            $this->db->join('students', 'students.student_number = attendance.student_number');
+            $this->db->where('offer_code', $offer_code);
+            $query = $this->db->get();
+            $result = $query -> result_array();
+
+            return $result;
+        }
+
         public function viewStudents($data)
         {
             $this->db->select();
@@ -225,18 +237,6 @@
 
       return $query->result();
     }
-
-      public function viewCandidates($offer_code)
-      {
-          $this->db->select();
-          $this->db->from('attendance');
-          $this->db->join('students', 'students.student_number = attendance.student_number');
-          $this->db->where('offer_code', $offer_code);
-          $query = $this->db->get();
-          $result = $query -> result_array();
-
-          return $result;
-      }
 
         public function viewAttendance($data)
         { 

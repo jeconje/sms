@@ -209,9 +209,9 @@
 		public function notification_of_parent() {
 			$this->notify();
 
-			$data['noti'] = $this->sdpc_model->notification_parent($data);
+			$data['notify'] = $this->sdpc_model->notification_parent($data);
 		
-			echo "data: ".json_encode($data['noti'])."\n\n";
+			echo "data: ".json_encode($data['notify'])."\n\n";
 			ob_flush(1);
 			flush();
 			sleep(1);

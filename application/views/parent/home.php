@@ -218,19 +218,18 @@
             </div>
           </div>
     </div>
--
-// <script>
-//   var es = new EventSource("<?php echo base_url(); ?>sdpc/notification_of_parent");
-//   var listener = function (event) {
-//     var div = document.createElement("div");
-//     var type = event.type;
-//     div.appendChild(document.createTextNode(type + ": " + (type === "message" ? event.data : es.url)));
-//     document.body.appendChild(div);
-//   };
-//   es.addEventListener("open", listener);
-//   es.addEventListener("message", listener);
-//   es.addEventListener("error", listener);
-// </script>
+<script>
+  var es = new EventSource("<?php echo base_url(); ?>sdpc/notification_of_parent");
+  var listener = function (event) {
+    var div = document.createElement("div");
+    var type = event.type;
+    div.appendChild(document.createTextNode(type + ": " + (type === "message" ? event.data : es.url)));
+    document.body.appendChild(div);
+  };
+  es.addEventListener("open", listener);
+  es.addEventListener("message", listener);
+  es.addEventListener("error", listener);
+</script>
 
   </body>
 </html>

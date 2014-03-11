@@ -148,7 +148,7 @@
                             <?php  echo $late; ?>
                         </td>   
                         <td>
-                            <?php echo $absences?>
+                            <?php echo $absences ?>
                         </td>
                     </tr>
                   <?php }
