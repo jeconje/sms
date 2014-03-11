@@ -207,7 +207,7 @@
                     <?php } ?>   
 
                     <?php if($value['time_out'] != '00:00:00'){?>
-                      <a class="list-group-item"> <?php echo $value['first_name'];?> / Logout Time: <?php echo $value['time_in']; ?></a>
+                      <a class="list-group-item"> <?php echo $value['first_name'];?> / Logout Time: <?php echo $value['time_out']; ?></a>
                     <?php } ?>
                    <?php } ?>
                 </div>
