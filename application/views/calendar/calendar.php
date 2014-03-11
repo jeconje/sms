@@ -60,7 +60,10 @@
   <table>
     <tr>
       <td><input name ="date" type="text" id="datepicker" placeholder="Pick Date" class="form-control" value=""></td>
-      <td><input type="text" id="event" name="event" placeholder="Enter Event" class="form-control" value=""></td>
+    </tr>
+    <tr>
+      <td><textarea id="event" name="event" placeholder="Enter Event" class="form-control" value="" resizable="false"></textarea></td>
+    </tr>
   </table>
     <br>
     <button type="submit" id="add" name="add" class="btn btn-default">Add Event</button>

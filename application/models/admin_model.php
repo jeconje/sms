@@ -200,11 +200,7 @@ public function showCalendar($year,$month)
   }
 
   public function addEvents($data)
-  {
-
-   $query = $this->db->query("SELECT DISTINCT date AS date
-                                            FROM calendar
-                                            WHERE date LIKE '$year-$month%' ");
+ {
     $data['events'] = array(
                               'event' => $data['event'],
                               'date' => $data['date']
