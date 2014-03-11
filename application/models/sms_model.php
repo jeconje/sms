@@ -231,19 +231,31 @@
         $result = $query->result_array();
         
         return $result;
+    } 
+
+    //Count
+    public function count($data)
+    {
+      $this->db->select();
+      $this->db->from('campus_login');     
+      $this->db->where('campus_login.student_number',$data['student_number']);
+
+      $query = $this->db->get();
+      $result = $query -> num_rows();
+
+      return $result;
     }
 
     //View Logs
     public function viewLogs($data)
-    {
+    {      
+      $this->db->limit($data['limit'], $data['start']);
       $this->db->select();
       $this->db->from('campus_login');
-      //$this->db->join('students', 'students.student_number = campus_login.student_number');      
+      $this->db->join('students', 'students.student_number = campus_login.student_number');      
       $this->db->where('campus_login.student_number',$data['student_number']);
-
       $query = $this->db->get();
       $result = $query -> result_array();
-
       return $result;
     }
 
