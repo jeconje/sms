@@ -232,12 +232,24 @@
         { 
           $this->db->select();
           $this->db->from('attendance');
-          $this->db->where('offer_code',$data['id_code']);                    
+          $this->db->where('offer_code',$data['id_code']);
+
           $query = $this->db->get();
           $result = $query -> result_array();
 
           return $result;          
 
+        }
+
+        public function viewCampusLogin($data)
+        {
+          $this->db->select();
+          $this->db->from('campus_login');                
+          $this->db->order_by('log_id','asc');          
+          $query = $this->db->get();
+          $result = $query -> result_array('array');
+
+          return $result;  
         }
 
         public function insertAttendance($data)

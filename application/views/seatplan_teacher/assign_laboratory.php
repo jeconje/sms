@@ -114,7 +114,7 @@
   <tr>
     <td>    	
 		<select name="1" style="width: 120px">		    		  
-		<?php foreach ($viewStudents as $value){ ?>	      
+		<?php foreach ($viewStudents as $value){ ?>	              
 				<option value ="<?php echo $value['student_number']; ?>"> <?php echo $value['last_name'].', '.$value['first_name']; ?> </option> 						  													
 			<?php }  ?>
 		</select>

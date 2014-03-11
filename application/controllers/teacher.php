@@ -4,7 +4,7 @@
 	{
 		public function __construct()
 		{
-			error_reporting(0);
+			error_reporting();
 			parent::__construct();
 		}
 
@@ -346,7 +346,8 @@
 				$data['first_name'] = $data['info']['first_name'];
 				$data['last_name'] = $data['info']['last_name'];
 				$data['viewAttendance'] = $this->teacher_model->viewAttendance($data);				
-				
+				$data['logins'] = $this->teacher_model->viewCampusLogin($data);
+
 				for ($i=1; $i <41 ; $i++) { 
 					$data['a'.$i] = $this->input->post('attendance'.$i);		
 				}
