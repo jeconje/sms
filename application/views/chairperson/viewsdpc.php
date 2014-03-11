@@ -144,7 +144,7 @@
                               }
                       }
                        ?>
-                  <?php if(($absences >= '3' && $value['days'] == 'MWF') || ($absences >= '3' && $value['days'] == 'TTH') ){ ?>
+                  <?php if(($absences >= '5' && $value['days'] == 'MWF') || ($absences >= '3' && $value['days'] == 'TTH') ){ ?>
                   <tr>
                       <td>
                           <?php echo $value['last_name'].', '.$value['first_name'].' '.$value['middle_name']; ?>
