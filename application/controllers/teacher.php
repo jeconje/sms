@@ -4,7 +4,7 @@
 	{
 		public function __construct()
 		{
-			//error_reporting(0);
+			error_reporting(0);
 			parent::__construct();			
 		}
 

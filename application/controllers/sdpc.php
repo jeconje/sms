@@ -181,7 +181,7 @@
 				$data['viewSubjects'] = $this->sdpc_model->viewClasses();
 				$data['student_number'] = $this->input->post('student_number');
 				$data['viewCandidates'] = $this->sdpc_model->viewCandidates($data);
-
+			
 				$this->load->view('sdpc/viewsdpc',$data);
 			} else
 				$this->index();
@@ -191,17 +191,17 @@
 		//Show Calendar
 		public function calendar_sdpc($year=null,$month=null) 
 		{
-			  $data['sdpcInfo'] = $this->session->userdata('logged_in');
-		      $data['first_name'] = $data['sdpcInfo']['first_name'];
-		      $data['last_name'] = $data['sdpcInfo']['last_name'];
-		      $data['event'] = $this->input->post('event');
-		      $data['atays'] = $this->sdpc_model->getEvents();
-		      if(isset($_POST['event']))
-		      { 
-		        $data['result'] = $this->sdpc_model->addEvents($data);
-		      }
-		      $data['atay'] = $this->sdpc_model->showCalendar($year,$month,$events);     
-		      $this->load->view('calendar/calendar_sdpc',$data);
+			$data['sdpcInfo'] = $this->session->userdata('logged_in');
+			$data['first_name'] = $data['sdpcInfo']['first_name'];
+			$data['last_name'] = $data['sdpcInfo']['last_name'];
+			$data['event'] = $this->input->post('event');
+			$data['atays'] = $this->sdpc_model->getEvents();
+			if(isset($_POST['event']))
+			{ 
+			$data['result'] = $this->sdpc_model->addEvents($data);
+			}
+			$data['atay'] = $this->sdpc_model->showCalendar($year,$month,$events);     
+			$this->load->view('calendar/calendar_sdpc',$data);
 		}
 
 		public function notify() {

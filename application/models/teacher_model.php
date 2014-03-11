@@ -163,7 +163,7 @@
             $this->db->from('offering');          
             $this->db->join('faculty','offering.faculty_id = faculty.faculty_id');
             $this->db->join('subject','offering.offer_code = subject.offer_code');            
-            $this->db->where('offering.faculty_id',$data['faculty_id']);            
+            $this->db->where('offering.faculty_id',$data['faculty_id']);         
             $query = $this->db->get();
             $result = $query -> result_array();
 

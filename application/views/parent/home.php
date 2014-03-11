@@ -1,6 +1,4 @@
 <!DOCTYPE html>
-<?php header("refresh: 10;") ?>
-<?php error_reporting(0); ?>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -9,6 +7,8 @@
     <meta name="author" content="">
     <title>USJR - SMS</title>
     <?php include ('/application/views/templates/nav.php'); ?>
+
+    <script src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
   </head>
 
 <body>
@@ -219,17 +219,32 @@
           </div>
     </div>
 <script>
-  var es = new EventSource("<?php echo base_url(); ?>sdpc/notification_of_parent");
-  var listener = function (event) {
-    var div = document.createElement("div");
-    var type = event.type;
-    div.appendChild(document.createTextNode(type + ": " + (type === "message" ? event.data : es.url)));
-    document.body.appendChild(div);
-  };
-  es.addEventListener("open", listener);
-  es.addEventListener("message", listener);
-  es.addEventListener("error", listener);
-</script>
+//   var es = new EventSource("<?php echo base_url(); ?>sdpc/notification_of_parent");
+//   var listener = function (event) {
+//     var div = document.createElement("div");
+//     var type = event.type;
+//     div.appendChild(document.createTextNode(type + ": " + (type === "message" ? event.data : es.url)));
+//     document.body.appendChild(div);
+//   };
+//   es.addEventListener("open", listener);
+//   es.addEventListener("message", listener);
+//   es.addEventListener("error", listener);
+// </script>
 
+<script>
+  $(document).ready(function(){
+    var es = new EventSource("<?php echo base_url(); ?>parents/profile");
+     $('#page-wrapper').load('es');
+    refresh();
+  });
+
+  function refresh() {
+    setTimeout( function () {
+      var es = new EventSource("<?php echo base_url(); ?>parents/profile");
+      $('#page-wrapper').load('es');
+      refresh();
+    }, 1000);
+  };
+</script>
   </body>
 </html>
