@@ -134,7 +134,10 @@
 				$data['first_name'] = $data['parentInfo']['first_name'];
 				$data['last_name'] = $data['parentInfo']['last_name'];
 
+				$data['id']	= $_GET['id'];
 				$data['logs'] = $this->parent_model->logs($data);
+				$data['result'] = $this->parent_model->displayNames($data);	
+				
 				$this->load->view('parent/viewlogs',$data);
 			} else
 				$this->index();
