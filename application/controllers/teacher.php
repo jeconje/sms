@@ -6,6 +6,7 @@
 		{
 			error_reporting();
 			parent::__construct();
+			error_reporting(0);
 		}
 
 		public function index() {
