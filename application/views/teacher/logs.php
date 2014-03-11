@@ -86,24 +86,25 @@
                     <th><center>Status</th>
                     <th><center></th>
                   </tr>
-                </thead>
-
+                </thead>                
                 <tbody  align="center">       
                                                                     
                   <?php foreach($viewLogs as $value) {                         
+                     
                   ?>
                   <tr>
-                    <?php $date = $value['date']; ?>
+                    <?php $date = $value['date']; $attendance_id = $value['attendance_id'] ?>                    
                     <td><?php echo $value['subject_description']; ?></td>
                     <td><?php echo $date; ?></td>
                     <td><?php echo $value['first_name']. " ". $value['last_name']; ?></td>
                     <td><?php echo $value['attendance']; ?></td>                                                                                
                     <input type = "hidden" name = "attendance_id" value="<?php echo $value['attendance_id']; ?>" />                    
-                    <td><a href="<?php echo base_url(); ?>teacher/logs/<?php echo $date; ?>"><input class="btn btn-primary" type="submit" value="Excused"/><a/></td>                    
-                    <?php ?>
+                    <td><a href="<?php echo base_url(); ?>teacher/logs/<?php echo $date;?>?id=<?php echo $value['attendance_id']; ?>"><input class="btn btn-primary" name="submit" type="submit" value="Excused"/><a/></td>                    
+
+                    
                   </tr>
                   <?php }
-                      
+                      echo form_close();
                    ?>
 
                 </tbody>

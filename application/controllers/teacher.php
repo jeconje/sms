@@ -131,12 +131,10 @@
 				$data['first_name'] = $data['info']['first_name'];
 				$data['last_name'] = $data['info']['last_name'];				
 				$data['viewLogs'] = $this->teacher_model->viewLogs($data);
-				$data['attendance_id'] = $this->input->post('attendance_id');
-
-		
-					$this->teacher_model->updateSeat($data);
-
-
+				$data['attendance_id'] = $_GET['id'];
+				
+				//if(isset($_POST['submit'])){
+				$aw = $this->teacher_model->updateAttendance($data);				
 
 				$this->load->view('teacher/logs',$data);
 			} else
