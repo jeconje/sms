@@ -74,16 +74,24 @@
   		//Get course with specified college
 		public function get_offer_codes()
 		{
-			$subject = $this->input->post('subject');
+			$data['info'] = $this->session->userdata('logged_in');
+			$data['faculty_id'] = $data['info']['faculty_id'];
+			$data['first_name'] = $data['info']['first_name'];
+			$data['last_name'] = $data['info']['last_name'];
+
+			$data['subject'] = $this->input->post('subject');
+			$data['offer_code'] = $this->input->post('offer_code');
+			$data['subjects'] = $this->teacher_model->get_subject($data);
+			
 			$i = 0;
-			$offer_codes = $this->teacher_model->get_offer_code($subject);
-			foreach ($offer_codes as $offer_code) {
-				$value[$i]['id'] = $offer_code->offer_code_id;
-				$value[$i]['o_code'] = $offer_code->offer_code;
-				$i++;
-			}
-			echo json_encode($value);
-    	}
+			$offer_codes = $this->teacher_model->get_offer_code($data);
+				foreach ($offer_codes as $offer_code) {
+					$value[$i]['id'] = $offer_code->offer_code_id;
+					$value[$i]['o_code'] = $offer_code->offer_code;
+					$i++;
+				}
+				echo json_encode($value);
+		}
 
 		public function view_candidates() 
 		{
@@ -93,12 +101,11 @@
 				$data['first_name'] = $data['info']['first_name'];
 				$data['last_name'] = $data['info']['last_name'];
 
+				$data['offer_code'] = $this->input->post('offer_code');
 				$data['subjects'] = $this->teacher_model->get_subject($data);
-				$subject = $this->input->post('subject');
-				$offer_code = $this->input->post('offer_code');
-
+				
 				$data['viewSubjects'] = $this->teacher_model->viewClasses($data);
-				$data['viewCandidates'] = $this->teacher_model->viewCandidates($offer_code);
+				$data['viewCandidates'] = $this->teacher_model->viewCandidates($data);
 
 				$this->load->view('teacher/viewsdpc',$data);
 			} else
@@ -125,7 +132,6 @@
 		{
 			$data['info'] = $this->session->userdata('logged_in');
 			if($data['info'] == TRUE){
-
 				$data['date'] = $id;
 				$data['faculty_id'] = $data['info']['faculty_id'];
 				$data['first_name'] = $data['info']['first_name'];

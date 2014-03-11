@@ -170,12 +170,12 @@
             return $result;
         }
 
-        public function viewCandidates($offer_code)
+        public function viewCandidates($data)
         {
             $this->db->select();
             $this->db->from('attendance');
             $this->db->join('students', 'students.student_number = attendance.student_number');
-            $this->db->where('offer_code', $offer_code);
+            $this->db->where('offer_code', $data['offer_code']);
             $query = $this->db->get();
             $result = $query -> result_array();
 
@@ -218,9 +218,11 @@
     }
 
     //Get offer codes based on subjects
-    public function get_offer_code($subject) 
+    public function get_offer_code($data) 
     {
-      $this->db->select()->from('subjects')->where(array('subject_description' => $subject));
+      $this->db->select();
+      $this->db->from('subjects');
+      $this->db->where(array('subject_code' => $data['subject']));
       $query = $this->db->get();
       $subject = $query->result_array();
 
@@ -231,6 +233,7 @@
       }
   
       $this->db->select()->from('offering');
+      $this->db->where('faculty_id', $data['faculty_id']);
       $this->db->where_in('subject_code',$id);
 
       $query = $this->db->get();

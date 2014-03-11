@@ -27,12 +27,12 @@
           <a class="navbar-brand" href="<?php echo base_url(); ?><?php echo $home; ?>">University Of San Jose Recoletos - Student Monitoring System</a></div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
-          <ul class="nav navbar-nav side-nav">
-            <li><a href="<?php echo base_url(); ?>teacher/profile"><i class="icon32 icon-color icon-home"></i> Dashboard</a></li>
-            <li><a href="<?php echo base_url(); ?>teacher/view_logs"><i class="icon32 icon-color icon-book-empty"></i> Attendance Logs</a></li>
-            <li class="active"><a href="<?php echo base_url(); ?>teacher/view_candidates"><i class="icon32 icon-color icon-contacts"></i> SDPC Candidates </a></li>
-            <li><a href="<?php echo base_url(); ?>teacher/calendar_teacher"><i class="icon32 icon-color icon-calendar"></i> Calendar</a></li>    
-          </ul>
+            <ul class="nav navbar-nav side-nav">
+              <li><a href="<?php echo base_url(); ?>teacher/profile"><i class="icon32 icon-color icon-home"></i> Dashboard</a></li>
+              <li><a href="<?php echo base_url(); ?>teacher/view_logs"><i class="icon32 icon-color icon-book-empty"></i> Attendance Logs</a></li>
+              <li class="active"><a href="<?php echo base_url(); ?>teacher/view_candidates"><i class="icon32 icon-color icon-contacts"></i> SDPC Candidates </a></li>
+              <li><a href="<?php echo base_url(); ?>teacher/calendar_teacher"><i class="icon32 icon-color icon-calendar"></i> Calendar</a></li>    
+            </ul>
 
           <ul class="nav navbar-nav navbar-right navbar-user">
             <li class="dropdown messages-dropdown">
@@ -92,7 +92,7 @@
                 <select class="select-style select" id="subject" name="subject">
                 <option value="" selected="selected" id="subject">- select subject -</option>
                 <?php foreach ($subjects as $subject => $value){ ?>
-                  <option value="<?php echo $value->subject_description; ?>"><?php echo $value->subject_description; ?></option>
+                  <option value="<?php echo $value->subject_code; ?>"><?php echo $value->subject_description; ?></option>
                 <?php } ?>
             </select>
             <select class="select-style select" id="offer_code" name="offer_code"> 
@@ -143,7 +143,7 @@
                         </td>
                         <td>
                             <?php echo $value['subject_description']; ?>
-                        </td>  
+                        </td>   
                         <td>                        
                             <?php  echo $late; ?>
                         </td>   
