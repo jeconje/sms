@@ -182,6 +182,16 @@
             return $result;
         }
 
+        public function studentsStudyLoad()
+        {
+            $this->db->select();
+            $this->db->from('study_load');
+            $query = $this->db->get();
+            $result = $query -> result_array();
+
+            return $result;
+        }
+
     //Get subjects
     public function get_subject($data) 
     {

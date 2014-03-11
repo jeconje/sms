@@ -35,6 +35,9 @@
 
 				$data['faculty_id'] = $data['info']['faculty_id'];
 				$data['classes'] = $this->teacher_model->viewClasses($data);
+				$data['students_load'] = $this->teacher_model->studentsStudyLoad();
+
+				//$data['offer_code'] = $this->db->get('offer_code');
 
 				//Get college
 				$data['college_id'] = $data['info']['college_id'];
