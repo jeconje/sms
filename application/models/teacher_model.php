@@ -302,6 +302,7 @@
           $this->db->select ('date');
           $this->db->from('attendance');
           $this->db->join('offering','attendance.offer_code = offering.offer_code');
+          $this->db->join('subject','subject.offer_code = offering.offer_code');
           $this->db->where('faculty_id',$data['faculty_id']);
           $query = $this->db->get();
           $result = $query -> result_array();

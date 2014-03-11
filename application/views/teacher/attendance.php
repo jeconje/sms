@@ -87,9 +87,9 @@
                 </thead>
 
                 <tbody  align="center">                  
+
                   <?php foreach($viewLogs as $value) {?>
-                  <tr>
-                    <td><?php echo $value['subject_desc']; ?></td>
+                  <tr>                    
                     <?php $id = $value['date']; ?>
                     <td><?php echo $value['date']; ?></td>                    
                     <td><a href="<?php echo base_url(); ?>teacher/logs/<?php echo $id; ?>"><input class="btn btn-primary" type="submit" value="View logs"/><a/></td>

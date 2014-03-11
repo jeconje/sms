@@ -113,7 +113,8 @@
        <table style="width: 1070px; height: 632px" class="table table-bordered">
   <tr>
     <td>    	
-		<select name="1" style="width: 120px">		    		  
+		<select name="1" style="width: 120px">		    
+        <option>SELECT</option>		  
 		<?php foreach ($viewStudents as $value){ ?>	              
 				<option value ="<?php echo $value['student_number']; ?>"> <?php echo $value['last_name'].', '.$value['first_name']; ?> </option> 						  													
 			<?php }  ?>
@@ -122,8 +123,9 @@
     </td>
 
 <center>
-    <td>
+    <td>     
     <select name="12" style="width: 120px">		            
+      <option>SELECT</option> 
 		<?php foreach ($viewStudents as $value){ ?>	    
 				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
 			<?php }  ?>
@@ -144,6 +146,7 @@
     <td rowspan="6" style="width: 50px"></td> 
     <td>
 		<select name="29" style="width: 120px">	
+      <option>SELECT</option>
     <?php ?>	    		  
 		<?php foreach ($viewStudents as $value){ ?>	
 				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
@@ -152,7 +155,8 @@
    </td>
 
     <td>
-		<select name="40" style="width: 120px">		    		  
+		<select name="40" style="width: 120px">		
+    <option>SELECT</option>    		  
 		<?php foreach ($viewStudents as $value){ ?>	
 				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
 			<?php }  ?>
@@ -162,15 +166,18 @@
 
   <tr>
     <td>
-		<select name="2" style="width: 120px">		    		  
+         
+		<select name="2" style="width: 120px">		
+    <option>SELECT</option>    		  
 		<?php foreach ($viewStudents as $value){ ?>	
 				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
 			<?php }  ?>
 		</select>2
     </td>
 
-    <td>
+    <td>  
 		<select name="11" style="width: 120px">		    		  
+      <option>SELECT</option>     
 		<?php foreach ($viewStudents as $value){ ?>	
 				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
 			<?php }  ?>
@@ -179,6 +186,7 @@
 
     <td>
 		<select name="13" style="width: 120px">		    		  
+      <option>SELECT</option>
 		<?php foreach ($viewStudents as $value){ ?>	
 				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
 			<?php }  ?>
@@ -186,7 +194,8 @@
     </td>
 
     <td>
-		<select name="20" style="width: 120px">		    		  
+		<select name="20" style="width: 120px">	
+    <option>SELECT</option>	    		  
 		<?php foreach ($viewStudents as $value){ ?>	
 				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
 			<?php }  ?>
@@ -196,7 +205,8 @@
     <!-- LEGEND SPACE --> <td style="width: 2px">&nbsp;</td>
 
     <td>
-		<select name="21" style="width: 120px">		    		  
+		<select name="21" style="width: 120px">		 
+    <option>SELECT</option>   		  
 		<?php foreach ($viewStudents as $value){ ?>	
 				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
 			<?php }  ?>
@@ -205,7 +215,8 @@
 
 
     <td>
-		<select name="28" style="width: 120px">		    		  
+		<select name="28" style="width: 120px">	
+    <option>SELECT</option>     	    		  
 		<?php foreach ($viewStudents as $value){ ?>	
 				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
 			<?php }  ?>
@@ -213,7 +224,8 @@
     </td>
 
     <td>
-		<select name="30" style="width: 120px">		    		  
+		<select name="30" style="width: 120px">	
+    <option>SELECT</option>     	    		  
 		<?php foreach ($viewStudents as $value){ ?>	
 				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
 			<?php }  ?>
@@ -223,6 +235,7 @@
 
     <td>
 		<select name="39" style="width: 120px">
+      <option>SELECT</option>     
 		    <?php foreach ($viewStudents as $value){ ?>	
 				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
 			<?php }  ?>
@@ -233,6 +246,7 @@
   <tr>
     <td>
 		<select name="3" style="width: 120px">
+      <option>SELECT</option>     
 		    <?php foreach ($viewStudents as $value){ ?>	
 				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
 			<?php }  ?>
@@ -241,6 +255,7 @@
 
     <td>
 		<select name="10" style="width: 120px">
+      <option>SELECT</option>     
 		  <?php foreach ($viewStudents as $value){ ?>	
 				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
 			<?php }  ?>
@@ -249,6 +264,7 @@
 
     <td>
 		<select name="14" style="width: 120px">
+      <option>SELECT</option>     
 		   <?php foreach ($viewStudents as $value){ ?>	
 				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
 			<?php }  ?>
@@ -257,6 +273,7 @@
 
     <td>
 		<select name="19" style="width: 120px">
+      <option>SELECT</option>     
 		   <?php foreach ($viewStudents as $value){ ?>	
 				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
 			<?php }  ?>
@@ -267,6 +284,7 @@
 
     <td>
 		<select name="22" style="width: 120px">
+      <option>SELECT</option>     
 		   <?php foreach ($viewStudents as $value){ ?>	
 				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
 			<?php }  ?>
@@ -276,6 +294,7 @@
 
     <td>
 		<select name="27" style="width: 120px">
+      <option>SELECT</option>     
 	<?php foreach ($viewStudents as $value){ ?>	
 				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
 			<?php }  ?>
@@ -284,6 +303,7 @@
 
     <td>
 		<select name="31" style="width: 120px">
+      <option>SELECT</option>     
 		    <?php foreach ($viewStudents as $value){ ?>	
 				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
 			<?php }  ?>
@@ -292,6 +312,7 @@
     
     <td>
 		<select name="38" style="width: 120px">
+      <option>SELECT</option>     
 		   <?php foreach ($viewStudents as $value){ ?>	
 				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
 			<?php }  ?>
@@ -302,6 +323,7 @@
   <tr>
     <td>
 		<select name="4" style="width: 120px">
+      <option>SELECT</option>     
 		    <?php foreach ($viewStudents as $value){ ?>	
 				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
 			<?php }  ?>
@@ -311,6 +333,7 @@
 
     <td>
 		<select name="9" style="width: 120px">
+      <option>SELECT</option>     
 		    <?php foreach ($viewStudents as $value){ ?>	
 				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
 			<?php }  ?>
@@ -320,6 +343,7 @@
 
     <td>
 		<select name="15" style="width: 120px">
+      <option>SELECT</option>     
 		    <?php foreach ($viewStudents as $value){ ?>	
 				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
 			<?php }  ?>
@@ -329,6 +353,7 @@
 
     <td>
 		<select name="18" style="width: 120px">
+      <option>SELECT</option>     
 		    <?php foreach ($viewStudents as $value){ ?>	
 				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
 			<?php }  ?>
@@ -341,6 +366,7 @@
 
     <td>
 		<select name="23" style="width: 120px">
+      <option>SELECT</option>     
 		    <?php foreach ($viewStudents as $value){ ?>	
 				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
 			<?php }  ?>
@@ -350,6 +376,7 @@
 
     <td>
 		<select name="26" style="width: 120px">
+      <option>SELECT</option>     
 		    <?php foreach ($viewStudents as $value){ ?>	
 				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
 			<?php }  ?>
@@ -359,6 +386,7 @@
 
     <td>
 		<select name="32" style="width: 120px">
+      <option>SELECT</option>     
 		    <?php foreach ($viewStudents as $value){ ?>	
 				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
 			<?php }  ?>
@@ -367,6 +395,7 @@
 
     <td>
 		<select name="37" style="width: 120px">
+      <option>SELECT</option>     
 		    <?php foreach ($viewStudents as $value){ ?>	
 				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
 			<?php }  ?>
@@ -377,6 +406,7 @@
   <tr>
     <td>
 		<select name="5" style="width: 120px">
+      <option>SELECT</option>     
 		    <?php foreach ($viewStudents as $value){ ?>	
 				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
 			<?php }  ?>
@@ -386,6 +416,7 @@
 
     <td>
 		<select name="8" style="width: 120px">
+      <option>SELECT</option>     
 		    <?php foreach ($viewStudents as $value){ ?>	
 				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
 			<?php }  ?>
@@ -395,6 +426,7 @@
 
     <td>
 		<select name="16" style="width: 120px">
+      <option>SELECT</option>     
 		    <?php foreach ($viewStudents as $value){ ?>	
 				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
 			<?php }  ?>
@@ -404,6 +436,7 @@
 
     <td>
 		<select name="17" style="width: 120px">
+      <option>SELECT</option>     
 		    <?php foreach ($viewStudents as $value){ ?>	
 				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
 			<?php }  ?>
@@ -414,6 +447,7 @@
     <!-- SEPARATOR --> <td style="width: 2px">&nbsp;</td>
     <td>
 		<select name="24" style="width: 120px">
+        <option>SELECT</option>     
 		    <?php foreach ($viewStudents as $value){ ?>	
 				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
 			<?php }  ?>
@@ -422,6 +456,7 @@
 
     <td>
 		<select name="25" style="width: 120px">
+        <option>SELECT</option>     
 		    <?php foreach ($viewStudents as $value){ ?>	
 				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
 			<?php }  ?>
@@ -430,6 +465,7 @@
 
     <td>
 		<select name="33" style="width: 120px">
+        <option>SELECT</option>     
 		    <?php foreach ($viewStudents as $value){ ?>	
 				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
 			<?php }  ?>
@@ -439,6 +475,7 @@
 
     <td>
 		<select name="36" style="width: 120px">
+        <option>SELECT</option>     
 		   <?php foreach ($viewStudents as $value){ ?>	
 				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
 			<?php }  ?>
@@ -450,6 +487,7 @@
   <tr>
     <td>
 		<select name="6" style="width: 120px">
+        <option>SELECT</option>     
 		    <?php foreach ($viewStudents as $value){ ?>	
 				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
 			<?php }  ?>
@@ -459,6 +497,7 @@
 
     <td>
 		<select name="7" style="width: 120px">
+        <option>SELECT</option>     
 		    <?php foreach ($viewStudents as $value){ ?>	
 				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
 			<?php }  ?>
@@ -473,6 +512,7 @@
 	</center>
     <td>
 		<select name="34" style="width: 120px">
+        <option>SELECT</option>     
 		    <?php foreach ($viewStudents as $value){ ?>	
 				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
 			<?php }  ?>
@@ -481,6 +521,7 @@
 
     <td>
 		<select name="35" style="width: 120px">
+        <option>SELECT</option>     
 		    <?php foreach ($viewStudents as $value){ ?>	
 				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
 			<?php }  ?>
