@@ -323,5 +323,14 @@
           $result = $query -> result_array();
           return $result;
         }
+
+        public function updateAttendance($data)
+        {
+          $update = array (
+                        'attendance' => 'X'
+                    );
+          $this->db->where('attendance_id',$data['attendance_id']);
+          $this->db->update('attendance',$update);
+        }
   }
 ?>

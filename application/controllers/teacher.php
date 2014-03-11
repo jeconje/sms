@@ -113,8 +113,7 @@
 				$data['faculty_id'] = $data['info']['faculty_id'];
 				$data['first_name'] = $data['info']['first_name'];
 				$data['last_name'] = $data['info']['last_name'];
-
-				$data['viewLogs'] = $this->teacher_model->viewDistinctLogs($data);
+				$data['viewDistinctLogs'] = $this->teacher_model->viewDistinctLogs($data);
 				
 				$this->load->view('teacher/attendance',$data);
 			} else
@@ -126,12 +125,18 @@
 		{
 			$data['info'] = $this->session->userdata('logged_in');
 			if($data['info'] == TRUE){
+
 				$data['date'] = $id;
 				$data['faculty_id'] = $data['info']['faculty_id'];
 				$data['first_name'] = $data['info']['first_name'];
-				$data['last_name'] = $data['info']['last_name'];
-
+				$data['last_name'] = $data['info']['last_name'];				
 				$data['viewLogs'] = $this->teacher_model->viewLogs($data);
+				$data['attendance_id'] = $this->input->post('attendance_id');
+
+		
+					$this->teacher_model->updateSeat($data);
+
+
 
 				$this->load->view('teacher/logs',$data);
 			} else

@@ -88,11 +88,12 @@
 
                 <tbody  align="center">                  
 
-                  <?php foreach($viewLogs as $value) {?>
+                  <?php foreach($viewDistinctLogs as $value) {                            
+                    ?>
                   <tr>                    
                     <?php $id = $value['date']; ?>
                     <td><?php echo $value['date']; ?></td>                    
-                    <td><a href="<?php echo base_url(); ?>teacher/logs/<?php echo $id; ?>"><input class="btn btn-primary" type="submit" value="View logs"/><a/></td>
+                    <td><a href="<?php echo base_url(); ?>teacher/logs/<?php echo $id; ?>"><input class="btn btn-primary" type="submit" value="View logs"/><a/></td>                    
                   </tr>
                   <?php } ?>
                 </tbody>
