@@ -78,7 +78,7 @@
         //Checks if student number exists on database
         public function check_student_numbers($student_number) 
         {
-          $query = mysql_query("select * from attendance where student_number='$student_number' &&");
+          $query = mysql_query("select * from attendance where student_number='$student_number'");
           $result = mysql_num_rows($query);
 
           return $result;
