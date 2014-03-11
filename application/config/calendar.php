@@ -11,5 +11,7 @@ $config['template'] = '
 	{cal_cell_no_content_today}<div class="today"><span class="day_listing">{day}</span></div>{/cal_cell_no_content_today}
 ';
 
+
+
 /* End of file calendar.php */
 /* Location: ./application/config/calendar.php */

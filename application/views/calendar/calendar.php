@@ -14,7 +14,8 @@
     <link rel="stylesheet" href="/resources/demos/style.css">
     <script>
       $(function() {
-    $( "#datepicker" ).datepicker({ dateFormat: 'yy-mm-dd' });
+
+        $("#datepicker").datepicker({ minDate: 0, dateFormat: 'yy-mm-dd'});
       });
     </script>
   </head>

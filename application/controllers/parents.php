@@ -382,7 +382,7 @@
 				$data['event'] = $this->input->post('event');
 				$data['atays'] = $this->parent_model->getEvents();
 				if(isset($_POST['event']))
-				{	
+				{	 
 					$data['result'] = $this->parent_model->addEvents($data);
 				}
 				$data['atay'] = $this->parent_model->showCalendar($year,$month,$events);			
