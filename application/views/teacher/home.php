@@ -205,7 +205,7 @@
                             $check = "assign_classroom";
                         }
                     ?>
-                    <td></td>
+                    
                     <td><a href='http://localhost/sms/teacher/<?php echo $check ?>/<?php echo $value['offer_code']; ?>'><input class="btn btn-primary" type="submit" value="Assign Seats"/></a></td>
                     <td><a href='http://localhost/sms/teacher/<?php echo $room ?>/<?php echo $value['offer_code']; ?>'><input class="btn btn-primary" type="submit" value="Check Attendance"/></a></td>                                     
                   </tr>
