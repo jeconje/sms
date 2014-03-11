@@ -11,14 +11,6 @@
     <?php include ('/application/views/templates/nav.php'); ?>
   </head>
 
-<style>
-.upload
-{
-  width: 10px;
-  height: 180px;
-}
-</style>
-
 <body>
     <div id="wrapper">
       <!-- Sidebar -->
@@ -105,38 +97,34 @@
       </ul><!-- /.nav navbar-nav navbar-right navbar-user -->
     </div><!-- /.navbar-collapse -->
   </nav> <!--/.navbar navbar-inverse navbar-fixed-top -->
-     <div class="table-responsive">
-              <table class="table table-hover tablesorter">
-                <thead>
-                  <tr>
-                    <th class="warning"><center>Date</th>
-                    <th class="warning"><center>Name</th>
-                    <th class="warning">Time In/Out</th>                    
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php foreach($logs as $in){     ?>                  
-                  <tr>
-                      <?php if($in['time_in'] != '00:00:00'){?>
-                        <td><?php echo$in['date']; ?></td>
-                        <td><?php echo "Time-in: ".$in['time_in'] ?></td>                                              
-                        <td><?php echo $in['last_name'].' '.$in['first_name']; ?></td>
-                        <?php } ?>
-                  </tr>                                                                   
-                  <tr>
-                    <?php if($in['time_out'] != '00:00:00'){?>
-                      <td><?php echo$in['date']; ?></td>
-                      <td><?php echo "Time-out: ".$in['time_out'] ?></td>                                              
-                      <td><?php echo $in['last_name'].' '.$in['first_name']; ?></td>
-                    <?php }
-                     ?>
-                  </tr>
-                                                                                                                          
-                  <?php  }?>
-                </tbody>
-              </table>
-              </div>
-
-
+<div class="table-responsive">
+  <table class="table table-hover tablesorter">
+    <thead>
+      <tr>
+        <th class="warning"><center>Date</th>
+        <th class="warning"><center>Name</th>
+        <th class="warning">Time In/Out</th>                    
+      </tr>
+    </thead>
+    <tbody>
+      <?php foreach($logs as $in){ ?>                  
+      <tr>
+        <?php if($in['time_in'] != '00:00:00'){?>
+          <td><?php echo$in['date']; ?></td>
+          <td><?php echo "Time-in: ".$in['time_in'] ?></td>                                              
+          <td><?php echo $in['last_name'].' '.$in['first_name']; ?></td>
+        <?php } ?>
+      </tr>                                                                   
+      <tr>
+        <?php if($in['time_out'] != '00:00:00'){?>
+          <td><?php echo$in['date']; ?></td>
+          <td><?php echo "Time-out: ".$in['time_out'] ?></td>                                              
+          <td><?php echo $in['last_name'].' '.$in['first_name']; ?></td>
+        <?php } ?>
+      </tr>                                                                                                     
+      <?php  } ?>
+    </tbody>
+  </table>
+</div>
   </body>
 </html>

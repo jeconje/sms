@@ -30,7 +30,7 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
-          <!-- <ul class="nav navbar-nav side-nav">
+          <ul class="nav navbar-nav side-nav">
             <li  class="active"><a href="<?php echo base_url(); ?>parents/profile"><i class="icon32 icon-color icon-home"></i> Dashboard</a></li>      
             <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon32 icon-color icon-document"></i><b class="caret"></b>Grades</a>
@@ -59,7 +59,7 @@
             </li>
           <li><a href="<?php echo base_url(); ?>parents/viewaddchild"><i class="icon32 icon-color icon-users"></i> Add Child</a></li>
           <li><a href="<?php echo base_url(); ?>parents/calendarforparents"><i class="icon32 icon-color icon-calendar"></i> Calendar</a></li>
-        </ul> -->
+        </ul>
 
             <ul class="nav navbar-nav navbar-right navbar-user">
         <li class="dropdown messages-dropdown">
@@ -219,18 +219,18 @@
           </div>
     </div>
 -
-<script>
-  var es = new EventSource("<?php echo base_url(); ?>sdpc/notification_of_parent");
-  var listener = function (event) {
-    var div = document.createElement("div");
-    var type = event.type;
-    div.appendChild(document.createTextNode(type + ": " + (type === "message" ? event.data : es.url)));
-    document.body.appendChild(div);
-  };
-  es.addEventListener("open", listener);
-  es.addEventListener("message", listener);
-  es.addEventListener("error", listener);
-</script>
+// <script>
+//   var es = new EventSource("<?php echo base_url(); ?>sdpc/notification_of_parent");
+//   var listener = function (event) {
+//     var div = document.createElement("div");
+//     var type = event.type;
+//     div.appendChild(document.createTextNode(type + ": " + (type === "message" ? event.data : es.url)));
+//     document.body.appendChild(div);
+//   };
+//   es.addEventListener("open", listener);
+//   es.addEventListener("message", listener);
+//   es.addEventListener("error", listener);
+// </script>
 
   </body>
 </html>
