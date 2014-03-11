@@ -148,7 +148,7 @@
   <div class="col-lg-4" style="right: 13px; top: -10px; width: 1100px;">
             <div class="panel panel-primary">
               <div class="panel-heading">
-                <h3 class="panel-title"><i class="fa fa-money"></i> Class Schedule </h3>
+                <h3 class="panel-title"><i class="fa fa-money"></i> Class Schedule</h3>
               </div>
               <div class="panel-body">
                 <div class="table-responsive">
@@ -160,19 +160,28 @@
                         <th> Time </th>
                         <th> Day </th>
                         <th> Room </th>
+                        <th> Enrollees </th>
                         <th>  </th>
                         <th>  </th>
                       </tr>
                     </thead>
                     <tbody>                                       
-                   <?php                  
-                    foreach($classes as $value) {?>
+                   <?php                                  
+                    foreach($classes as $value) {
+                      $count = 0;
+                          foreach($students_load as $load)
+                          {
+                              if($load['offer_code'] == $value['offer_code'])                             
+                                $count++;
+                          };       
+                    ?>
                   <tr>
                     <td><?php echo $value['offer_code']; ?></td>  
                     <td><?php echo $value['subject_description']; ?></td>
                     <td><?php echo $value['time']; ?></td>
                     <td><?php echo $value['days']; ?></td>   
                     <td><?php echo $value['room']; ?></td>  
+                    <td><?php echo $count; ?></td>
 
                   <?php if($value['room'] == 'BCL 1' || $value['room'] == 'BCL 2' || $value['room'] == 'BCL 3' || $value['room'] == 'BCL 4' || $value['room'] == 'BCL 5' || $value['room'] == 'BCL 6' || $value['room'] == 'BCL 7' || $value['room'] == 'BCL 8' || $value['room'] == 'BCL 9') 
                         {
@@ -196,6 +205,7 @@
                             $check = "assign_classroom";
                         }
                     ?>
+                    
                     <td><a href='http://localhost/sms/teacher/<?php echo $check ?>/<?php echo $value['offer_code']; ?>'><input class="btn btn-primary" type="submit" value="Assign Seats"/></a></td>
                     <td><a href='http://localhost/sms/teacher/<?php echo $room ?>/<?php echo $value['offer_code']; ?>'><input class="btn btn-primary" type="submit" value="Check Attendance"/></a></td>                                     
                   </tr>

@@ -92,7 +92,7 @@
                   <tr>
                     <td><?php echo $value['date']; ?></td>
                     <td><?php echo $value['first_name']. " ". $value['last_name']; ?></td>
-                    <td><?php echo $value['status']; ?></td>
+                    <td><?php echo $value['attendance']; ?></td>
                     <td><input class="btn btn-primary" type="submit" value="Excused"/></td>
                   </tr>
                   <?php } ?>

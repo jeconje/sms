@@ -101,7 +101,7 @@
 <center>
   <?php echo form_open('parents/calendarforparents'); ?>
 </div> 
-      <?php echo $atay;?>
+      <?php //echo $atay;?>
     </div><!-- /.page-wrapper -->
 <?php echo form_close(); ?>
 

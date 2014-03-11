@@ -274,20 +274,21 @@
 				$data['event'] = $this->input->post('event');
 				$data['date'] = $this->input->post('date');						
 
-				if(isset($_POST['event']))
+				if(isset($_POST['add']))
 				{	
 					$this->admin_model->addEvents($data);
 				}
 				else if(isset($_POST['update']))
 				{
 					$this->admin_model->updateEvents($data);
+					//$this->load->view('calendar/calendar',$data);
 				}
 				else if(isset($_POST['delete']))
 				{
-			
 					$this->admin_model->deleteEvents($data);
-					$this->load->view('calendar/calendar',$data);
+					//$this->load->view('calendar/calendar',$data);
 				}
+				
 				$data['viewCalendar'] = $this->admin_model->showCalendar($year,$month,$events);			
 				$this->load->view('calendar/calendar',$data);	
 			}

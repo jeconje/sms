@@ -1,5 +1,9 @@
 <!DOCTYPE html>
+<<<<<<< HEAD
 <?php //header("refresh: 3;") ?>
+=======
+<?php header("refresh: 10;") ?>
+>>>>>>> 3d9500ec36bf91b2c6b1b0d79029f71bd8a5efa3
 <?php error_reporting(0); ?>
 <html lang="en">
   <head>
