@@ -267,7 +267,7 @@
      
     <?php }} ?>
      
-    <td  style="width: 120px">
+    <td style="width: 120px">
     <?php foreach($viewStudents as $value){
       $late = 0;
         $absent = 0;

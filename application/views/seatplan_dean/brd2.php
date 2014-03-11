@@ -104,7 +104,7 @@
        <table style="width: 1070px; height: 632px" class="table table-bordered">
   <tr>
     <td colspan="2" style="height: 119px"></td>
-    <td>
+    <td style="width: 120px; height: 160px;">
        <?php foreach($viewStudents as $value){
         $late = 0;
         $absent = 0;
@@ -158,7 +158,7 @@
     <td colspan="2" style="height: 119px"></td>
     <!---SEPARATOR DESIGN END-->
     
-    <td>
+    <td style="width: 120px; height: 160px;">
        <?php foreach($viewStudents as $value){
         $late = 0;
         $absent = 0;
@@ -211,7 +211,7 @@
     <td colspan="2"></td>
     
 
-    <td>
+    <td style="width: 120px; height: 160px;">
        <?php foreach($viewStudents as $value){
         $late = 0;
         $absent = 0;
@@ -261,7 +261,7 @@
 
     <td colspan="2"></td>
     <td rowspan="7"></td>
-    <td></td>
+    <td style="width: 120px; height: 160px;"></td>
     <td colspan="2">
 
      <?php foreach($viewStudents as $value){
@@ -309,12 +309,12 @@
       <?php } ?>    
           <?php }} ?>
     </td>
-    <td></td>
+    <td style="width: 120px; height: 160px;"></td>
   </tr>
 
 
   <tr>
-    <td>
+    <td style="width: 120px; height: 160px;">
        <?php foreach($viewStudents as $value){
         $late = 0;
         $absent = 0;
@@ -362,7 +362,7 @@
 		
 		
     <td colspan="3"></td>
-    <td>
+    <td style="width: 120px; height: 160px;">
        <?php foreach($viewStudents as $value){
         $late = 0;
         $absent = 0;
@@ -409,7 +409,7 @@
     </td>
 
 
-    <td>
+    <td style="width: 120px; height: 160px;">
        <?php foreach($viewStudents as $value){
         $late = 0;
         $absent = 0;
@@ -457,7 +457,7 @@
 
 
     <td colspan="3"></td>
-    <td>
+    <td style="width: 120px; height: 160px;">
        <?php foreach($viewStudents as $value){                  
         $late = 0;
         $absent = 0;
@@ -504,7 +504,7 @@
     </td>
 
 
-    <td>
+    <td style="width: 120px; height: 160px;">
        <?php foreach($viewStudents as $value){    
         $late = 0;
         $absent = 0;
@@ -554,7 +554,7 @@
     </td>
 
     <td colspan="3"></td>
-    <td>
+    <td style="width: 120px; height: 160px;">
        <?php foreach($viewStudents as $value){
         $late = 0;
         $absent = 0;
@@ -601,7 +601,7 @@
     </td>
 
 
-    <td>
+    <td style="width: 120px; height: 160px;">
        <?php foreach($viewStudents as $value){
         $late = 0;
         $absent = 0;
@@ -649,7 +649,7 @@
 
     <td colspan="2"></td>
 
-    <td>
+    <td style="width: 120px; height: 160px;">
        <?php foreach($viewStudents as $value){
         $late = 0;
         $absent = 0;
@@ -699,7 +699,7 @@
 
   <tr>
     <td colspan="2"></td>
-    <td>
+    <td style="width: 120px; height: 160px;">
        <?php foreach($viewStudents as $value){
         $late = 0;
         $absent = 0;
@@ -747,7 +747,7 @@
 
     <td colspan="2"></td>
     <td colspan="2"></td>
-    <td>
+    <td style="width: 120px; height: 160px;">
        <?php foreach($viewStudents as $value){
         $late = 0;
         $absent = 0;
@@ -796,7 +796,7 @@
     <td colspan="2"></td>
     <td colspan="2"></td>
     
-    <td>
+    <td style="width: 120px; height: 160px;">
        <?php foreach($viewStudents as $value){
         $late = 0;
         $absent = 0;
@@ -844,7 +844,7 @@
 
 
     <td colspan="2"></td>
-    <td></td>
+    <td style="width: 120px; height: 160px;"></td>
     <td colspan="2">
  <?php foreach($viewStudents as $value){
         $late = 0;
@@ -890,7 +890,7 @@
       <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div> 
       <?php } ?>    <?php }} ?>
     </td>
-    <td></td>
+    <td style="width: 120px; height: 160px;"></td>
   </tr>
   
   <tr>
@@ -902,7 +902,7 @@
   
   <tr>
     <td colspan="2"></td>
-    <td>
+    <td style="width: 120px; height: 160px;">
        <?php foreach($viewStudents as $value){
         $late = 0;
         $absent = 0;
@@ -951,7 +951,7 @@
     <td colspan="2"></td>
     <td colspan="2"></td>
 
-    <td>
+    <td style="width: 120px; height: 160px;">
        <?php foreach($viewStudents as $value){
         $late = 0;
         $absent = 0;
@@ -998,7 +998,7 @@
     </td>
 
     <td colspan="2"></td>
-    <td></td>
+    <td style="width: 120px; height: 160px;"></td>
     <td colspan="3">
        <?php foreach($viewStudents as $value){
         $late = 0;
@@ -1045,10 +1045,10 @@
       <?php } ?>    <?php }} ?>
     </td>
 
-    <td></td>
-    <td></td>
+    <td style="width: 120px; height: 160px;"></td>
+    <td style="width: 120px; height: 160px;"></td>
     
-    <td>
+    <td style="width: 120px; height: 160px;">
        <?php foreach($viewStudents as $value){
         $late = 0;
         $absent = 0;
@@ -1097,7 +1097,7 @@
   </tr>
 
   <tr>
-    <td>
+    <td style="width: 120px; height: 160px;">
        <?php foreach($viewStudents as $value){
         $late = 0;
         $absent = 0;
@@ -1144,7 +1144,7 @@
     </td>
 
     <td colspan="3"></td>
-    <td>
+    <td style="width: 120px; height: 160px;">
        <?php foreach($viewStudents as $value){
         $late = 0;
         $absent = 0;
@@ -1190,7 +1190,7 @@
       <?php } ?>    <?php }} ?>
     </td>
 
-    <td>
+    <td style="width: 120px; height: 160px;">
        <?php foreach($viewStudents as $value){
         $late = 0;
         $absent = 0;
@@ -1237,7 +1237,7 @@
     </td>
 
     <td colspan="3"></td>
-    <td>
+    <td style="width: 120px; height: 160px;">
        <?php foreach($viewStudents as $value){
         $late = 0;
         $absent = 0;
@@ -1283,7 +1283,7 @@
       <?php } ?>    <?php }} ?>
     </td>
 
-    <td>
+    <td style="width: 120px; height: 160px;">
        <?php foreach($viewStudents as $value){
         $late = 0;
         $absent = 0;
@@ -1330,7 +1330,7 @@
     </td>
 
     <td colspan="3"></td>
-    <td>
+    <td style="width: 120px; height: 160px;">
        <?php foreach($viewStudents as $value){
         $late = 0;
         $absent = 0;
@@ -1376,7 +1376,7 @@
       <?php } ?>    <?php }} ?>
     </td>
 
-    <td>
+    <td style="width: 120px; height: 160px;">
        <?php foreach($viewStudents as $value){
         $late = 0;
         $absent = 0;
@@ -1423,7 +1423,7 @@
     </td>
 
     <td colspan="2"></td>
-    <td>
+    <td style="width: 120px; height: 160px;">
        <?php foreach($viewStudents as $value){
         $late = 0;
         $absent = 0;
@@ -1472,7 +1472,7 @@
 
   <tr>
     <td colspan="2"></td>
-    <td>
+    <td style="width: 120px; height: 160px;">
        <?php foreach($viewStudents as $value){
         $late = 0;
         $absent = 0;
@@ -1521,7 +1521,7 @@
     <td colspan="2"></td>
     <td colspan="2"></td>
 
-    <td>
+    <td style="width: 120px; height: 160px;">
        <?php foreach($viewStudents as $value){
         $late = 0;
         $absent = 0;
@@ -1568,7 +1568,7 @@
     </td>
 
     <td colspan="2"></td>
-    <td></td>
+    <td style="width: 120px; height: 160px;"></td>
     <td colspan="3">
        <?php foreach($viewStudents as $value){
         $late = 0;
@@ -1615,10 +1615,10 @@
       <?php } ?>    <?php }} ?> 
     </td>
 
-    <td></td>
-    <td></td>
+    <td style="width: 120px; height: 160px;"></td>
+    <td style="width: 120px; height: 160px;"></td>
     
-    <td>
+    <td style="width: 120px; height: 160px;">
        <?php foreach($viewStudents as $value){
         $late = 0;
         $absent = 0;
@@ -1668,9 +1668,9 @@
   </tr>
 </table>
 <center>
-<div class="platform" style="width: 1696px" align="center">
+<div class="platform" style="width: 500 px" align="center">
    
- <td rowspan="6" style="width: 50px">Platform</div><br>
+ <td rowspan="6" style="width: 10px">Platform</div><br>
         </div><!-- /.row -->
         <?php  echo form_close(); ?>
   </body>
