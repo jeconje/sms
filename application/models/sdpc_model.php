@@ -116,7 +116,6 @@ public function showCalendar($year,$month)
   }
   public function addEvents($data)
   {
-   
     $data = array(
                   'event' => $data['event']
                   //'date' => $date
@@ -124,22 +123,33 @@ public function showCalendar($year,$month)
     $result = $this->db->insert('calendar',$data);
   }
 
-  public function notification_parent() {
-    $this->db->select()->from('notifications')->where(array('parent_id' => $data['parent_info'], 'to' => 'Parent', 'seen' =>'no'));
+  public function notification_parent($data) {
+    $this->db->select()->from('notifications');/*->where(array('account_id' => $data['account_id'], 'seen' =>'no'));*/
     $query = $this->db->get();
 
     return $query->result_array();
   }
 
   public function notification_update_parent($data) {
-    for($x=0; $x < count($data['id_for_update']); $x++) {
+    for($x=0; $x < count($data['notification_id']); $x++) {
       $seen_update = array('seen'=>'yes');
       $this->db->where(array('parent_id' => $data['parent_id'], 'notification_id' => $data['id_for_update'][$x]));
     }
-    $this->db->select()->from('notification')->where(array('parent_id' => $data['parent_id'], 'to' => 'Parent'));
+    $this->db->select()->from('notification')->where(array('account_id' => $data['account_id']));
     $query = $this->db->get();
 
     return $query->result_array();
+  }
+
+  public function childrensAttendance($data) {
+    $this->db->select();
+    $this->db->from('attendance');
+    $this->db->where('student_number',$data['id']);
+
+    $query = $this->db->get();
+    $result = mysql_num_rows($query);
+
+    return $result;
   }
 }
 

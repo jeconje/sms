@@ -193,7 +193,6 @@
 		}
 
 		public function notify() {
-
 			header("Content-Type: text/event-stream");
 			header("Cache-Control: no-cache");
 			header("Access-Control-Allow-Origin: *");
@@ -209,10 +208,10 @@
 		
 		public function notification_of_parent() {
 			$this->notify();
-			$data['parent_id'] = $this->session->userdata('logged_in');
-			$data['parent_info'] = $this->sdpc_model->notificaiton_parent($data);
 
-			echo "data: ".json_encode($data['parent_info'])."\n\n";
+			$data['noti'] = $this->sdpc_model->notification_parent($data);
+		
+			echo "data: ".json_encode($data['noti'])."\n\n";
 			ob_flush(1);
 			flush();
 			sleep(1);
