@@ -314,6 +314,7 @@
           $this->db->select ();
           $this->db->from('attendance');
           $this->db->join('offering','attendance.offer_code = offering.offer_code');
+          $this->db->join('subject','subject.offer_code = offering.offer_code');
           $this->db->join('students','attendance.student_number = students.student_number');
           $this->db->where('attendance.date',$data['date']);
           $this->db->where('faculty_id',$data['faculty_id']);

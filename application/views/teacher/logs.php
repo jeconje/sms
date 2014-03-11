@@ -80,6 +80,7 @@
               <table class="table table-hover tablesorter"  style="width=20px;">
                 <thead>
                   <tr>
+                    <th><center>Subject</th>
                     <th><center>Date</th>
                     <th><center>Name</th>
                     <th><center>Status</th>
@@ -90,6 +91,7 @@
                 <tbody  align="center">                                           
                   <?php foreach($viewLogs as $value) { //ilisan pani dri?>
                   <tr>
+                    <td><?php echo $value['subject_description']; ?></td>
                     <td><?php echo $value['date']; ?></td>
                     <td><?php echo $value['first_name']. " ". $value['last_name']; ?></td>
                     <td><?php echo $value['attendance']; ?></td>
