@@ -75,22 +75,20 @@
           </ul>
         </nav>
 <br>  
-       <div>
-        <table align="center">
-                <tr>      
-                    <td></td><td></td>
-                    <td>
-                          <input type="text" class="form-control" name="student_number" id="student_number" placeholder="Enter Student Number"></p>
-                          <center><input class="btn btn-primary" type="submit" value="Search"/>
-                          <br>
-                    </td>
-                    <td>
-                        
-                    </td>
-                </tr>
-        </table>
-        </div> 
-
+ <?php echo form_open("sdpc/view_candidates"); ?>
+ <div>
+    <table align="center">
+            <tr>      
+                <td></td><td></td>
+                <td>
+                      <input type="text" class="form-control" name="student_number" id="student_number" placeholder="Enter Student Number"></p>
+                      <center><div id="divCheckPasswordMatch" style="color: rgb(255, 0, 0); font: normal 10px/12px Arial,Helvetica,sans-serif; opacity: 50;"></div></center><br>
+                      <center><input class="btn btn-primary" id="submitbtn" type="submit" value="Search"/></center><br>
+                </td>
+            </tr>
+    </table>
+  </div> 
+  <?php echo form_close(); ?>
 <br>
    <div class="table-responsive">
               <table class="table table-hover tablesorter">
@@ -105,18 +103,18 @@
 
                 <tbody  align="center">
                   <?php
-                    foreach ($subjects as $value) 
+                    foreach ($viewSubjects as $value) 
                     {
                          $late = 0;
                          $absences = 0;
                   ?>    
-                      <?php foreach($attendance as $viewAttendance)
+                      <?php foreach($viewCandidates as $viewAttendance)
                       {
                            
-                              if($viewAttendance['attendance'] == 'L' && $viewAttendance['offer_code'] == $value['offer_code'] && $viewAttendance['account_id'] == $value['account_id'] ){
+                              if($viewAttendance['attendance'] == 'L' && $viewAttendance['offer_code'] == $value['offer_code']){
                                 $late++;
                               }                              
-                              if($viewAttendance['attendance'] == 'A' && $viewAttendance['offer_code'] == $value['offer_code'] && $viewAttendance['account_id'] == $value['account_id'] ){
+                              if($viewAttendance['attendance'] == 'A' && $viewAttendance['offer_code'] == $value['offer_code']){
                                 $absences++;
                               }
                       }
@@ -125,7 +123,7 @@
 
                   <tr>
                       <td>
-                          <?php echo $value['last_name'].', '.$value['first_name'].' '.$value['middle_name']; ?>
+                          <?php echo $viewAttendance['last_name'].', '.$viewAttendance['first_name']; ?>
                       </td>
                       <td>
                           <?php echo $value['subject_description']; ?>
@@ -143,5 +141,37 @@
               </table>
             </div>
           </div>
+
+<script type="text/javascript">
+ $(document).ready(function(){
+    $("#student_number").keyup(function() {
+      var student_number = $('#student_number').val();
+        if(student_number=="") {
+          $("#divCheckPasswordMatch").empty();
+            .css('border-color','');
+            $('#submitbtn').attr("disabled",true);
+          } else {
+            $.ajax({
+              type: "POST",
+              url: "<?php echo base_url(); ?>sdpc/check_student_number",
+              data: "student_number=" + student_number,
+              success: function(result) {
+                  if($.trim(result) == 'Invalid') {
+                    $('#student_number').css('border-color','#FF0000');
+                    $("#divCheckPasswordMatch").html("Student number does not have any issues on tardiness.").css("color","red");
+                    $('#submitbtn').attr("disabled",true);
+                  } else {
+                    $('#student_number').css('border-color','#00CC00');
+                    $("#divCheckPasswordMatch").html("Submit to view student\s record.").css("color","green");
+                    $('#submitbtn').removeAttr("disabled");
+                  }
+              }
+            });
+            return false;
+          }
+    });
+  });
+</script>
+
   </body>
 </html>

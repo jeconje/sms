@@ -4,7 +4,7 @@
 	{
 		public function __construct()
 		{
-			error_reporting(1);
+			error_reporting(0);
 			parent::__construct();
 		}
 
@@ -39,22 +39,6 @@
 			} else
 				$this->index();
   		}
-
-		public function view_candidates() 
-		{
-			$data['info'] = $this->session->userdata('logged_in');	
-			if($data['info'] == TRUE){		
-				$data['first_name'] = $data['info']['first_name'];
-				$data['last_name'] = $data['info']['last_name'];
-
-				//$data['subjects'] = $this->sdpc_model->viewSubjects();
-				//$data['viewOfferCodes'] = $this->sdpc_model->viewAllOfferCodes();
-				//$data['viewSubjects'] = $this->sdpc_model->viewAllSubjects();
-				$data['attendance'] = $this->sdpc_model->viewAttendance();
-				$this->load->view('sdpc/viewsdpc',$data);
-			} else
-				$this->index();
-		}
 
 		public function message()
 		{
@@ -174,6 +158,34 @@
 	          echo "Invalid";
 	        }
 	      }
+
+		   //Checks student number if it exista in the 'student' table in DB
+		  public function check_student_number()
+		  {
+		    $student_number = $this->input->post('student_number');
+		    $student_numbers = $this->sdpc_model->check_student_numbers($student_number);
+		    if($student_numbers == 0 && strlen($student_numbers) < 10) { //Checks the inputted student number from database and checks the length
+		      echo "Invalid";
+		    } else {
+		      echo "Valid";
+		    }
+		  } 
+
+		public function view_candidates() 
+		{
+			$data['info'] = $this->session->userdata('logged_in');	
+			if($data['info'] == TRUE){		
+				$data['first_name'] = $data['info']['first_name'];
+				$data['last_name'] = $data['info']['last_name'];
+
+				$data['viewSubjects'] = $this->sdpc_model->viewClasses();
+				$data['student_number'] = $this->input->post('student_number');
+				$data['viewCandidates'] = $this->sdpc_model->viewCandidates($data);
+
+				$this->load->view('sdpc/viewsdpc',$data);
+			} else
+				$this->index();
+		}
 
 
 		//Show Calendar

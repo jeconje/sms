@@ -75,6 +75,37 @@
           return $query;
         }
 
+        //Checks if student number exists on database
+        public function check_student_numbers($student_number) 
+        {
+          $query = mysql_query("select * from attendance where student_number='$student_number'");
+          $result = mysql_num_rows($query);
+
+          return $result;
+        }
+
+        public function viewClasses()
+        {
+          $this->db->select();
+          $this->db->from('offering');          
+          $this->db->join('subject','offering.offer_code = subject.offer_code');  
+          $query = $this->db->get();
+          $result = $query -> result_array();
+
+          return $result;
+        }
+
+        public function viewCandidates($data)
+        {
+            $this->db->select();
+            $this->db->from('attendance');
+            $this->db->join('students', 'attendance.student_number = students.student_number');
+            $this->db->where('attendance.student_number', $data['student_number']);
+            $query = $this->db->get();
+            $result = $query -> result_array();
+
+            return $result;
+        }
 
         //Calendar
 public function showCalendar($year,$month)
