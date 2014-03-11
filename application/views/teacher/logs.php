@@ -88,14 +88,19 @@
                   </tr>
                 </thead>
 
-                <tbody  align="center">                                           
-                  <?php foreach($viewLogs as $value) { //ilisan pani dri?>
+                <tbody  align="center">   
+                  <?php print_r($viewLogs); ?>                                        
+                  <?php foreach($viewLogs as $value) { 
+                        $id = $value['attendance_id'];
+                  ?>
                   <tr>
                     <td><?php echo $value['subject_description']; ?></td>
                     <td><?php echo $value['date']; ?></td>
                     <td><?php echo $value['first_name']. " ". $value['last_name']; ?></td>
-                    <td><?php echo $value['attendance']; ?></td>
+                    <td><?php echo $value['attendance']; ?></td>  
+                    <?php echo form_open("teacher/logs/$id"); ?>                  
                     <td><input class="btn btn-primary" type="submit" value="Excused"/></td>
+                    <?php echo form_close(); ?>
                   </tr>
                   <?php } ?>
                 </tbody>
