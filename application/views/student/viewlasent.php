@@ -82,6 +82,7 @@
                     <th class="active">Subject Listing</th>
                     <th class="warning">Lates</th>
                     <th class="danger">Absences</th>
+                    <th class="active"></th>
                   </tr>
                 </thead>
                 <tbody align="center">
@@ -112,6 +113,7 @@
                       <td>
                           <?php echo $absences?>
                       </td>
+                      <td><button type="button" class="btn btn-primary">View Logs</button></td>
                     </tr>
                    <?php } ?>
                    

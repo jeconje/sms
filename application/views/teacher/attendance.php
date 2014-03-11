@@ -80,6 +80,7 @@
               <table class="table table-hover tablesorter"  style="width=20px;">
                 <thead>
                   <tr>
+                    <th><center>Subject</th>
                     <th><center>Dates</th>
                     <th><center></th>
                   </tr>
@@ -88,6 +89,7 @@
                 <tbody  align="center">                  
                   <?php foreach($viewLogs as $value) {?>
                   <tr>
+                    <td><?php echo $value['subject_desc']; ?></td>
                     <?php $id = $value['date']; ?>
                     <td><?php echo $value['date']; ?></td>                    
                     <td><a href="<?php echo base_url(); ?>teacher/logs/<?php echo $id; ?>"><input class="btn btn-primary" type="submit" value="View logs"/><a/></td>
