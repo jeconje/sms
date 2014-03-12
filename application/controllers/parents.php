@@ -129,17 +129,32 @@
 		public function viewLogs()
 		{
 			$data['parentInfo'] = $this->session->userdata('logged_in');
-			if($data['parentInfo'] == TRUE){
+			if($data['parentInfo'] == TRUE)
+			{
 				$data['account_id'] = $data['parentInfo']['account_id'];
 				$data['first_name'] = $data['parentInfo']['first_name'];
 				$data['last_name'] = $data['parentInfo']['last_name'];
+				$data['count'] =$this->parent_model->count($data);
+				
+				$this->load->library('pagination');				
+				$config['base_url'] = base_url() . "parents/viewLogs";
+				$config['total_rows'] = $data['count'];
+				$data['limit'] = $config['per_page'] = 10; 
+				$data['start'] = $this->uri->segment(3);
+						
+				$this->pagination->initialize($config); 
+				$data['logs'] = $this->parent_model->logs($data);	
+				
+				$data['pagination'] = $this->pagination->create_links();
 
 				$data['id']	= $_GET['id'];
 				$data['logs'] = $this->parent_model->logs($data);
 				$data['result'] = $this->parent_model->displayNames($data);	
 				
+				
 				$this->load->view('parent/viewlogs',$data);
-			} else
+			} 
+			else
 				$this->index();
 		}
 
