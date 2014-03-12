@@ -363,6 +363,23 @@
   }
     //END CALENDAR
 
+  public function viewAttendanceLogs($data)
+  {
+    $this->db->select();
+    $this->db->from('attendance');
+    $this->db->join('students','attendance.student_number = students.student_number');
+    $this->db->join('offering','offering.offer_code = attendance.offer_code');
+    $this->db->join('subject','offering.offer_code = subject.offer_code');
+    $this->db->where('attendance.offer_code',$data['offer_code_id']);
+
+    $query = $this->db->get();
+    $result = $query -> result_array();
+
+    return $result;
+
+
+  }
+
 	}
 ?>
 

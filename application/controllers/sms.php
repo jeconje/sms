@@ -339,7 +339,7 @@
 		}
 
 		//View log details (Date of Absences and lates per subject)
-		public function attendance_logs($data) 
+		public function attendance_logs() 
 		{
 			$data['studentinfo'] = $this->session->userdata('logged_in'); 
 			if($data['studentinfo'] == TRUE) 
@@ -347,7 +347,8 @@
 				$data['student_number'] = $data['studentinfo']['student_number'];
 				$data['first_name'] = $data['studentinfo']['first_name'];
 				$data['last_name'] = $data['studentinfo']['last_name'];
-
+				$data['offer_code_id'] = $_GET['id'];
+				$data['viewLogs'] = $this->sms_model->viewAttendanceLogs($data);
 				$this->load->view('student/attendance_logs',$data);
 			} 
 			else

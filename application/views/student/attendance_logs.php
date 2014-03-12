@@ -63,13 +63,14 @@
         </li><!-- /.dropdown user-dropdown -->
       </ul><!-- /.nav navbar-nav navbar-right navbar-user -->
 </div><!-- /.navbar-collapse -->
+
 </nav>
       <div id="page-wrapper">
         <div class="row">
           <div class="col-lg-12">
             <h1>Attendance Logs</h1>
         </div><!-- /.row -->
-
+  <?php print_r($awts); ?>  
 <br><br>
 <center>
       <div class="table-responsive">
@@ -81,21 +82,13 @@
                   </tr>
                 </thead>
                 <tbody>
-
-                  <?php foreach($viewLogs as $in){     ?>                  
+                
+                  <?php foreach($viewLogs as $view){     ?>                  
                   <tr>
-                      <?php if($in['time_in'] != '00:00:00'){?>
-                        <td><?php echo$in['date']; ?></td>
-                        <td><?php echo "Time-in: ".$in['time_in'] ?></td>                                              
-                        <?php } ?>
-                  </tr>                                                                   
-                            <tr>
-                              <?php if($in['time_out'] != '00:00:00'){?>
-                                <td><?php echo$in['date']; ?></td>
-                                <td><?php echo "Time-out: ".$in['time_out'] ?></td>                                              
-                              <?php } ?>
-
-                            </tr>                                                                                                                        
+                      <td><?php echo $view['subject_description']; ?></td>    
+                      <td><?php echo $view['date']; ?></td>    
+                      <td><?php echo $view['attendance']; ?></td>                            
+                  </tr>                                                                                                                        
                   <?php  }?>
                 </tbody>
               </table>

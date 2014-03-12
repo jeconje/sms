@@ -113,7 +113,7 @@
                       <td>
                           <?php echo $absences?>
                       </td>
-                      <td><a href='<?php echo base_url(); ?>sms/attendance_logs'><button type="button" class="btn btn-primary">View Logs</button></td>
+                      <td><a href='<?php echo base_url(); ?>sms/attendance_logs?id=<?php echo $value['offer_code']; ?>'><button type="button" class="btn btn-primary">View Logs</button></td>
                     </tr>
                    <?php } ?>
                    
