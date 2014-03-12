@@ -104,7 +104,7 @@
        <?php echo form_open("parents/view_changepassword"); ?>
       <div class="changepassword_form">   
         <p class="contact"><label for="password" id="passwordlbl">Current Pasword</label></p>
-          <input type="password" name="password" id="password">
+          <input type="password" name="password" id="password"?>">
        
        <p class="contact"><label for="newpassword" id="newpasswordlbl">New Password</label></p>
           <input type="password" name="new_password" id="new_password">

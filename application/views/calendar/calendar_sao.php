@@ -68,7 +68,7 @@
             <li class="dropdown user-dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon icon-color icon-gear"></i> <?php echo $first_name.' '.$last_name; ?> <b class="icon icon-color icon-triangle-s"></b></a>
               <ul class="dropdown-menu">
-                <li><a href="<?php echo base_url(); ?>sao/changepassword"><i class="icon icon-color icon-key"></i> Change Password</a></li>
+                <li><a href="<?php echo base_url(); ?>sao/view_changepassword"><i class="icon icon-color icon-key"></i> Change Password</a></li>
                 <li class="divider"></li>
                 <li><a href="<?php echo base_url(); ?>sao/logout"><i class="icon icon-color icon-cancel"></i> Logout</a></li>
               </ul>

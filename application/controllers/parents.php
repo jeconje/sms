@@ -7,7 +7,7 @@
 	{
 		public function __construct() 
 		{
-			error_reporting(0);
+			//error_reporting(0);
 			parent::__construct();
 		}
 		
@@ -246,8 +246,8 @@
 			if($data['parent_info'] == TRUE){
 				$data['first_name'] = $data['parent_info']['first_name'];
 				$data['last_name'] = $data['parent_info']['last_name'];
-
 				$data['username'] = $data['parent_info']['username'];
+
 				$data['info'] = $this->parent_model->editProfile($data);
 				
 				$this->load->view('parent/edit_profile',$data);
@@ -290,7 +290,7 @@
 	    public function change() 
 	    {
 	      $data['parent_info'] = $this->session->userdata('logged_in');
-	      if($data['logged_in'] == TRUE){
+	      if($data['parent_info'] == TRUE){
 	      $data['username'] = $data['parent_info']['username'];
 	      $data['first_name'] = $data['parent_info']['first_name'];
 	      $data['last_name'] = $data['parent_info']['last_name'];
@@ -379,7 +379,7 @@
 		public function calendarforparents($year = null,$month = null)
 		{			
 			$data['parentInfo'] = $this->session->userdata('logged_in');
-			if($data['logged_in'] == TRUE){
+			if($data['parentInfo'] == TRUE){
 				$data['first_name'] = $data['parentInfo']['first_name'];
 				$data['last_name'] = $data['parentInfo']['last_name'];
 				$data['event'] = $this->input->post('event');

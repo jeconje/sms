@@ -104,7 +104,7 @@
 <br>
           <tr>          
           <td>Username</td>
-          <td><input name="username" value="<?php echo $parent_info['username']; ?>"  class="form-control" disabled = "true"></td>
+          <td><input name="username" value="<?php echo $info['username']; ?>"  class="form-control" disabled = "true"></td>
         </tr>
         <tr>  
           <td>Name</td>
@@ -116,12 +116,12 @@
         <tr>
           <td>Address</td>
           <td>
-            <input name="address" value="<?php echo $parent_info['address']; ?>" class="form-control" placeholder="">
+            <input name="address" value="<?php echo $info['address']; ?>" class="form-control" placeholder="">
           </td>
         </tr>
         <tr>
           <td>Contact Number</td>
-          <td><input name="contact_number" value="<?php echo $parent_info['contact_number']; ?>" class="form-control" placeholder="<?php foreach($info as $row) { echo $row->contact_number;}?>"></td>
+          <td><input name="contact_number" value="<?php echo $info['contact_number']; ?>" class="form-control" placeholder=""></td>
         </tr>
         <tr>
       <td>Date of Birth</td>

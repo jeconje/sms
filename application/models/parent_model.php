@@ -245,13 +245,13 @@ class Parent_model extends CI_Model
   //Update details in databse
   public function updateProfile($data)
   {
-    $update = array(
-                     'address' => $data['address'],
-                     'contact_number' => $data['contact_number']
-                    );
-        
-    $this->db->where('username',$data['username']);
-    $this->db->update('account',$update);
+    $update_data = array(
+                               'address' => $data['address'],
+                               'contact_number' => $data['contact_number']
+                            );
+          
+          $this->db->where('username',$data['username']);
+          $this->db->update('account',$update_data);
   }
 
   //Upload

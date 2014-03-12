@@ -70,94 +70,112 @@
 		public function view_candidates() 
 		{
 			$data['info'] = $this->session->userdata('logged_in');
-			$data['faculty_id'] = $data['info']['faculty_id'];
-			$data['first_name'] = $data['info']['first_name'];
-			$data['last_name'] = $data['info']['last_name'];
+			if($data['info'] == TRUE){
+				$data['faculty_id'] = $data['info']['faculty_id'];
+				$data['first_name'] = $data['info']['first_name'];
+				$data['last_name'] = $data['info']['last_name'];
 
-			$data['viewSubjects'] = $this->dean_model->viewClasses($data);
-			$data['viewCandidates'] = $this->dean_model->viewCandidates($data);
+				$data['viewSubjects'] = $this->dean_model->viewClasses($data);
+				$data['viewCandidates'] = $this->dean_model->viewCandidates($data);
 
-			$this->load->view('dean/viewsdpc',$data);
+				$this->load->view('dean/viewsdpc',$data);
+			} else
+				$this->index();
 		}
 
 		//View Attendance
 		public function view_logs()
 		{
 			$data['info'] = $this->session->userdata('logged_in');
-			$data['faculty_id'] = $data['info']['faculty_id'];
-			$data['first_name'] = $data['info']['first_name'];
-			$data['last_name'] = $data['info']['last_name'];
+			if($data['info'] == TRUE){
+				$data['faculty_id'] = $data['info']['faculty_id'];
+				$data['first_name'] = $data['info']['first_name'];
+				$data['last_name'] = $data['info']['last_name'];
 
-			$data['classes'] = $this->dean_model->viewClasses($data);
+				$data['classes'] = $this->dean_model->viewClasses($data);
 
-			$this->load->view('dean/attendance',$data);
+				$this->load->view('dean/attendance',$data);
+			} else
+				$this->index();
 		}
 
 		//View Logs
 		public function logs()
 		{
 			$data['info'] = $this->session->userdata('logged_in');
-			$data['faculty_id'] = $data['info']['faculty_id'];
-			$data['first_name'] = $data['info']['first_name'];
-			$data['last_name'] = $data['info']['last_name'];
+			if($data['info'] == TRUE){
+				$data['faculty_id'] = $data['info']['faculty_id'];
+				$data['first_name'] = $data['info']['first_name'];
+				$data['last_name'] = $data['info']['last_name'];
 
-			$data['classes'] = $this->dean_model->viewClasses($data);
+				$data['classes'] = $this->dean_model->viewClasses($data);
 
-			$this->load->view('dean/logs',$data);
+				$this->load->view('dean/logs',$data);
+			} else
+				$this->index();
 		}
 
 		public function message()
 		{
 			$data['deanInfo'] = $this->session->userdata('logged_in');
-			$data['first_name'] = $data['deanInfo']['first_name'];
-			$data['last_name'] = $data['deanInfo']['last_name'];
+			if($data['deanInfo'] == TRUE){
+				$data['first_name'] = $data['deanInfo']['first_name'];
+				$data['last_name'] = $data['deanInfo']['last_name'];
 
-			$this->load->view('dean/message',$data);
+				$this->load->view('dean/message',$data);
+			} else
+				$this->index();
 		}
 
 		public function edit_profile() 
 		{
 			$data['dean_info'] = $this->session->userdata('logged_in');
-			$data['first_name'] = $data['dean_info']['first_name'];
-			$data['last_name'] = $data['dean_info']['last_name'];
+			if($data['dean_info'] == TRUE){
+				$data['first_name'] = $data['dean_info']['first_name'];
+				$data['last_name'] = $data['dean_info']['last_name'];
 
-			$data['username'] = $data['dean_info']['username'];
-			$data['info'] = $this->dean_model->editProfile($data);
-
-			//Get college
-			$data['college_id'] = $data['info']['college_id'];
-			$data['collegeinfo'] = $this->teacher_model->get_college($data);
-			
-			$this->load->view('dean/edit_profile',$data);
-
-			if(isset($_POST['submit'])) 
-			{
-				$newURL = "http://localhost/sms/dean/edit_profile";
-				header('Location: '.$newURL);		
 				$data['username'] = $data['dean_info']['username'];
-				$data['address'] = $this->input->post('address');
-				$data['contact_number'] = $this->input->post('contact_number');
+				$data['info'] = $this->dean_model->editProfile($data);
+
+				//Get college
+				$data['college_id'] = $data['info']['college_id'];
+				$data['collegeinfo'] = $this->teacher_model->get_college($data);
 				
-				$this->dean_model->edit_profile($data);
-			}
+				$this->load->view('dean/edit_profile',$data);
+
+				if(isset($_POST['submit'])) 
+				{
+					$newURL = "http://localhost/sms/dean/edit_profile";
+					header('Location: '.$newURL);		
+					$data['username'] = $data['dean_info']['username'];
+					$data['address'] = $this->input->post('address');
+					$data['contact_number'] = $this->input->post('contact_number');
+					
+					$this->dean_model->edit_profile($data);
+				}
+			} else
+				$this->index();
 		}
 		
 		//Change Password
 		public function view_changepassword() 
 	    {
 	      $data['dean_info'] = $this->session->userdata('logged_in');
-	      $data['username'] = $data['dean_info']['username'];
-	      $data['first_name'] = $data['dean_info']['first_name'];
-	      $data['last_name'] = $data['dean_info']['last_name'];
+	      if($data['dean_info'] == TRUE){
+		      $data['username'] = $data['dean_info']['username'];
+		      $data['first_name'] = $data['dean_info']['first_name'];
+		      $data['last_name'] = $data['dean_info']['last_name'];
 
-	      $this->form_validation->set_rules('password','Password','required|trim|callback_change');
-	      $this->form_validation->set_rules('new_password','New Password','required|trim|min_length[6]');
-	      $this->form_validation->set_rules('cnew_password','Confirm Password','required|trim|matches[new_password]');
+		      $this->form_validation->set_rules('password','Password','required|trim|callback_change');
+		      $this->form_validation->set_rules('new_password','New Password','required|trim|min_length[6]');
+		      $this->form_validation->set_rules('cnew_password','Confirm Password','required|trim|matches[new_password]');
 
-	      if($this->form_validation->run() == FALSE) 
-	      {
-	        $this->load->view('dean/change_password', $data);
-	      }   
+		      if($this->form_validation->run() == FALSE) 
+		      {
+		        $this->load->view('dean/change_password', $data);
+		      }   
+		  } else
+		  	$this->index();
 	    }
 
 	    public function change() 
@@ -250,37 +268,49 @@
 		public function classroom()
 		{
 			$data['deanInfo'] = $this->session->userdata('logged_in');
-			$data['first_name'] = $data['deanInfo']['first_name'];
-			$data['last_name'] = $data['deanInfo']['last_name'];
+			if($data['deanInfo'] == TRUE){
+				$data['first_name'] = $data['deanInfo']['first_name'];
+				$data['last_name'] = $data['deanInfo']['last_name'];
 
-			$this->load->view('seatplan/classroom',$data);	
+				$this->load->view('seatplan/classroom',$data);	
+			} else
+				$this->index();
 		}
 
 		public function laboratory()
 		{
 			$data['deanInfo'] = $this->session->userdata('logged_in');
-			$data['first_name'] = $data['deanInfo']['first_name'];
-			$data['last_name'] = $data['deanInfo']['last_name'];
+			if($data['deanInfo'] == TRUE){
+				$data['first_name'] = $data['deanInfo']['first_name'];
+				$data['last_name'] = $data['deanInfo']['last_name'];
 
-			$this->load->view('seatplan/laboratory',$data);	
+				$this->load->view('seatplan/laboratory',$data);	
+			} else
+				$this->index();
 		}
 
 		public function brd1()
 		{
 			$data['deanInfo'] = $this->session->userdata('logged_in');
-			$data['first_name'] = $data['deanInfo']['first_name'];
-			$data['last_name'] = $data['deanInfo']['last_name'];
+			if($data['deanInfo'] == TRUE){
+				$data['first_name'] = $data['deanInfo']['first_name'];
+				$data['last_name'] = $data['deanInfo']['last_name'];
 
-			$this->load->view('seatplan/brd1',$data);	
+				$this->load->view('seatplan/brd1',$data);	
+			} else 
+				$this->index();
 		}
 
 		public function brd2()
 		{
 			$data['deanInfo'] = $this->session->userdata('logged_in');
-			$data['first_name'] = $data['deanInfo']['first_name'];
-			$data['last_name'] = $data['deanInfo']['last_name'];
+			if($data['deanInfo'] == TRUE){
+				$data['first_name'] = $data['deanInfo']['first_name'];
+				$data['last_name'] = $data['deanInfo']['last_name'];
 
-			$this->load->view('seatplan/brd2',$data);	
+				$this->load->view('seatplan/brd2',$data);	
+			} else
+				$this->index();
 		}
 
 
@@ -288,17 +318,20 @@
 		public function calendar_dean($year=null,$month=null) 
 		{
 		  $data['deanInfo'] = $this->session->userdata('logged_in');
-	      $data['first_name'] = $data['deanInfo']['first_name'];
-	      $data['last_name'] = $data['deanInfo']['last_name'];
-	      $data['event'] = $this->input->post('event');
-	      $data['atays'] = $this->dean_model->getEvents();
-	      if(isset($_POST['event']))
-	      { 
-	        $data['result'] = $this->dean_model->addEvents($data);
-	      }
-	      
-	      $data['atay'] = $this->dean_model->showCalendar($year,$month,$events);     
-	      $this->load->view('calendar/calendar_dean',$data);
+		  if($data['deanInfo'] == TRUE){
+		      $data['first_name'] = $data['deanInfo']['first_name'];
+		      $data['last_name'] = $data['deanInfo']['last_name'];
+		      $data['event'] = $this->input->post('event');
+		      $data['atays'] = $this->dean_model->getEvents();
+		      if(isset($_POST['event']))
+		      { 
+		        $data['result'] = $this->dean_model->addEvents($data);
+		      }
+		      
+		      $data['atay'] = $this->dean_model->showCalendar($year,$month,$events);     
+		      $this->load->view('calendar/calendar_dean',$data);
+		  } else
+		  	$this->index();
 		}
 
 		public function logout() 
