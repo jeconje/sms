@@ -118,7 +118,8 @@
                     <th><center>Name of Student</th>
                     <th><center>Subject</center></i></th>
                     <th><center>Number of Lates</i></th>
-                    <th><center>Number of Absences</th>
+                    <th><center>Number of Unexcused Absences</th>
+                    <th><center>Number of Excused Absences</th>
                   </tr>
                 </thead>
                 <?php
@@ -126,6 +127,7 @@
                     {
                          $late = 0;
                          $absences = 0;
+                         $excused= 0;
                 ?>    
                   <?php foreach($viewCandidates as $viewAttendance){
                        
@@ -134,6 +136,9 @@
                           }                              
                           if($viewAttendance['attendance'] == 'A' && $viewAttendance['offer_code'] == $value['offer_code']){
                             $absences++;
+                          }
+                          if($viewAttendance['attendance'] == 'X' && $viewAttendance['offer_code'] == $value['offer_code']){
+                            $excused++;
                           }
                   } ?>
                   <?php if(($absences >= '5' && $value['days'] == 'MWF') || ($absences >= '3' && $value['days'] == 'TTH') ){ ?>
@@ -149,6 +154,9 @@
                         </td>   
                         <td>
                             <?php echo $absences ?>
+                        </td>
+                        <td>
+                            <?php echo $excused ?>
                         </td>
                     </tr>
                   <?php }
