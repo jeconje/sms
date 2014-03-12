@@ -106,7 +106,7 @@
         <th class="warning">Time In/Out</th>                    
       </tr>
     </thead>
-    <tbody>
+    <tbody>      
       <?php foreach($logs as $in){ ?>                  
       <tr>
         <?php if($in['time_in'] != '00:00:00'){?>

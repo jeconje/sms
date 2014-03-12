@@ -214,9 +214,14 @@ class Parent_model extends CI_Model
     public function count($data)
     {
       $this->db->select();
-      $this->db->from('campus_login');     
-      $this->db->where('campus_login.student_number',$data['student_number']);
-
+      $this->db->from('campus_login'); 
+      $this->db->join('students','students.student_number = campus_login.student_number');
+      $this->db->join('account','account.account_id = students.account_id');
+      $this->db->join('tracker','tracker.account_id = account.account_id');
+      $this->db->join('parent','parent.parent_id = tracker.parent_id');
+      $this->db->where('parent.account_id',$data['account_id']);
+  
+      
       $query = $this->db->get();
       $result = $query -> num_rows();
 

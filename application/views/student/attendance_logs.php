@@ -77,8 +77,9 @@
               <table class="table table-hover tablesorter">
                 <thead>
                   <tr>
+                    <th class="warning">Subject</th>    
                     <th class="warning"><center>Date</th>
-                    <th class="warning">Status</th>                    
+                    <th class="warning">Status</th>                                     
                   </tr>
                 </thead>
                 <tbody>
