@@ -152,7 +152,7 @@
       var student_number = $('#student_number').val();
         if(student_number=="") {
           $("#divCheckPasswordMatch").empty();
-            .css('border-color','');
+            $('#student_number').css('border-color','');
             $('#submitbtn').attr("disabled",true);
           } else {
             $.ajax({
@@ -166,7 +166,7 @@
                     $('#submitbtn').attr("disabled",true);
                   } else {
                     $('#student_number').css('border-color','#00CC00');
-                    $("#divCheckPasswordMatch").html("Submit to view student\s record.").css("color","green");
+                    $("#divCheckPasswordMatch").html("Search to view student\s record.").css("color","green");
                     $('#submitbtn').removeAttr("disabled");
                   }
               }
