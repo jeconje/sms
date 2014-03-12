@@ -210,10 +210,24 @@ class Parent_model extends CI_Model
       return $result;
     }
 
+    //Count for pagination
+    public function count($data)
+    {
+      $this->db->select();
+      $this->db->from('campus_login');     
+      $this->db->where('campus_login.student_number',$data['student_number']);
+
+      $query = $this->db->get();
+      $result = $query -> num_rows();
+
+      return $result;
+    }
+
     //View Logs
     public function logs($data)
     {
-     $this->db->select();
+      $this->db->limit($data['limit'], $data['start']);
+      $this->db->select();
       $this->db->from('students');
       $this->db->join('campus_login', 'students.student_number = campus_login.student_number');      
       $this->db->join('account','students.account_id = account.account_id');

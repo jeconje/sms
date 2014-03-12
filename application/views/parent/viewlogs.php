@@ -125,6 +125,9 @@
       <?php  } ?>
     </tbody>
   </table>
+          <center>
+                  <?php echo $pagination; ?>
+
 </div>
   </body>
 </html>

@@ -260,7 +260,6 @@
     }
 
     //sa home ni
-    
     public function logs($data)
     {
       $this->db->select();
