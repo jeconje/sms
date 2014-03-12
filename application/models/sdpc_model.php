@@ -83,12 +83,24 @@
 
           return $result;
         }
+/*
+        public function viewAllCandidates() {
+          $this->db->select();
+            $this->db->from('attendance');          
+            $this->db->order_by('attendance_id');
+            $this->db->join('students','students.student_number = attendance.student_number');
+
+            $query = $this->db->get();
+          
+            return $query->result_array();
+        }*/
 
         public function viewClasses()
         {
           $this->db->select();
           $this->db->from('offering');          
           $this->db->join('subject','offering.offer_code = subject.offer_code');  
+          
           $query = $this->db->get();
           $result = $query -> result_array();
 
@@ -101,6 +113,7 @@
             $this->db->from('attendance');
             $this->db->join('students', 'attendance.student_number = students.student_number');
             $this->db->where('attendance.student_number', $data['student_number']);
+
             $query = $this->db->get();
             $result = $query -> result_array();
 

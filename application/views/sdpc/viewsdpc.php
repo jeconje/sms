@@ -95,8 +95,9 @@
                 <thead>                
                   <tr>
                     <th><center>Name of Student</th>
-                    <th><center>Subject</center></i></th>
-                    <th><center>Number of Lates</i></th>
+                    <th><center>Subject</th>
+                    <th><center>Days</th>
+                    <th><center>Number of Lates</th>
                     <th><center>Number of Absences</th>
                   </tr>                  
                 </thead>
@@ -123,10 +124,13 @@
 
                   <tr>
                       <td>
-                          <?php echo $viewAttendance['last_name'].', '.$viewAttendance['first_name']; ?>
+                        <?php echo $viewAttendance['last_name'].', '.$viewAttendance['first_name']; ?>
                       </td>
                       <td>
-                          <?php echo $value['subject_description']; ?>
+                        <?php echo $value['subject_description']; ?>
+                      </td>
+                      <td>
+                        <?php echo $value['days']; ?>
                       </td>  
                       <td>                        
                           <?php  echo $late; ?>

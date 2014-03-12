@@ -172,7 +172,7 @@
 		  } 
 
 		public function view_candidates() 
-		{
+		{	
 			$data['info'] = $this->session->userdata('logged_in');	
 			if($data['info'] == TRUE){		
 				$data['first_name'] = $data['info']['first_name'];
@@ -186,7 +186,6 @@
 			} else
 				$this->index();
 		}
-
 
 		//Show Calendar
 		public function calendar_sdpc($year=null,$month=null) 
