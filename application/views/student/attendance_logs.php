@@ -67,62 +67,40 @@
       <div id="page-wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h1>Attendance</h1>
-              <ol class="breadcrumb">
-              <li class="active"><i class="fa fa-desktop"></i>  Stop being so tardy! Think about your parents money and effort! :( </li>
-            </ol>
+            <h1>Attendance Logs</h1>
         </div><!-- /.row -->
 
 <br><br>
 <center>
-            <div class="table-responsive" style="width:1000px;">
-              <table class="table table-bordered table-hover tablesorter">
+      <div class="table-responsive">
+              <table class="table table-hover tablesorter">
                 <thead>
                   <tr>
-                    <th class="active">Subject Listing</th>
-                    <th class="warning">Lates</th>
-                    <th class="danger">Absences</th>
-                    <th class="active"></th>
+                    <th class="warning"><center>Date</th>
+                    <th class="warning">Status</th>                    
                   </tr>
                 </thead>
-                <tbody align="center">
-                  <?php
-                    foreach ($info as $value) 
-                    {
-                      $late = 0;
-                      $absences = 0;
-                  ?>    
-                      <?php foreach($lates as $viewLates){
-                            
-                              if($viewLates['attendance'] == 'L' && $viewLates['offer_code'] == $value['offer_code'] ){
-                                $late++;
-                              }                              
-                              if($viewLates['attendance'] == 'A' && $viewLates['offer_code'] == $value['offer_code'] ){
-                                $absences++;
-                              }
-                      }
-                       ?>
-                    <tr>
-                      <td>
-                          <?php echo $value['subject_description']; ?>
-                      </td>  
-                      <td>                        
-                          <?php  echo $late; ?>
-                      </td>     
+                <tbody>
 
-                      <td>
-                          <?php echo $absences?>
-                      </td>
-                      <td><a href='<?php echo base_url(); ?>sms/attendance_logs'><button type="button" class="btn btn-primary">View Logs</button></td>
-                    </tr>
-                   <?php } ?>
-                   
-                  
+                  <?php foreach($viewLogs as $in){     ?>                  
+                  <tr>
+                      <?php if($in['time_in'] != '00:00:00'){?>
+                        <td><?php echo$in['date']; ?></td>
+                        <td><?php echo "Time-in: ".$in['time_in'] ?></td>                                              
+                        <?php } ?>
+                  </tr>                                                                   
+                            <tr>
+                              <?php if($in['time_out'] != '00:00:00'){?>
+                                <td><?php echo$in['date']; ?></td>
+                                <td><?php echo "Time-out: ".$in['time_out'] ?></td>                                              
+                              <?php } ?>
+
+                            </tr>                                                                                                                        
+                  <?php  }?>
                 </tbody>
               </table>
-            </div>
-          </div>
-          </div>
-          </div>
+                               <center>
+                  <?php echo $pagination; ?>
+              </div>
   </body>
 </html>

@@ -321,7 +321,7 @@
 				$this->load->library('pagination');				
 				$config['base_url'] = base_url() . "sms/viewLogs";
 				$config['total_rows'] = $data['count'];
-				$data['limit'] = $config['per_page'] = 5; 
+				$data['limit'] = $config['per_page'] = 10; 
 				$data['start'] = $this->uri->segment(3);		
 				$this->pagination->initialize($config); 
 				$data['viewLogs'] = $this->sms_model->viewLogs($data);	
@@ -336,6 +336,22 @@
 			else
 				$this->index();
 
+		}
+
+		//View log details (Date of Absences and lates per subject)
+		public function attendance_logs($data) 
+		{
+			$data['studentinfo'] = $this->session->userdata('logged_in'); 
+			if($data['studentinfo'] == TRUE) 
+			{	
+				$data['student_number'] = $data['studentinfo']['student_number'];
+				$data['first_name'] = $data['studentinfo']['first_name'];
+				$data['last_name'] = $data['studentinfo']['last_name'];
+
+				$this->load->view('student/attendance_logs',$data);
+			} 
+			else
+				$this->index();
 		}
 
 		//View Messages

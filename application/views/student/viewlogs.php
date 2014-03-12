@@ -100,11 +100,10 @@
 
                             </tr>                                                                                                                        
                   <?php  }?>
-                  <?php echo $pagination; ?>
                 </tbody>
               </table>
+                               <center>
+                  <?php echo $pagination; ?>
               </div>
-
-
   </body>
 </html>
