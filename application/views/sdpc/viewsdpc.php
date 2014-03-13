@@ -103,7 +103,7 @@
                 </thead>
 
                 <tbody  align="center">
-                  <?php
+                  <?php                    
                     foreach ($viewSubjects as $value) 
                     {
                          $late = 0;
@@ -119,12 +119,12 @@
                                 $absences++;
                               }
                       }
-                       ?>
+                      ?>
                   <?php if(($absences >= '5' && $value['days'] == 'MWF') || ($absences >= '3' && $value['days'] == 'TTH') ){ ?>
 
-                  <tr>
+                  <tr>                 
                       <td>
-                        <?php echo $viewAttendance['last_name'].', '.$viewAttendance['first_name']; ?>
+                        <?php echo $value['last_name'].', '.$value['first_name']; ?>
                       </td>
                       <td>
                         <?php echo $value['subject_description']; ?>
