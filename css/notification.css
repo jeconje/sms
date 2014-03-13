@@ -1,0 +1,20 @@
+#noti {
+    position:absolute;
+   /* top: 5px;
+    right:15px;*/
+    background: radial-gradient( 1px -11px, circle, white 8%, red 26px );
+    background: -moz-radial-gradient( 1px -11px, circle, white 8%, red 26px );
+    background: -ms-radial-gradient( 1px -11px, circle, white 8%, red 26px );
+    background: -o-radial-gradient( 1px -11px, circle, white 8%, red 26px );
+    background: -webkit-radial-gradient( 1px -11px, circle, white 8%, red 26px );
+    background-color: red;
+    border: 2px solid white;
+    border-radius: 12px;
+    box-shadow: 1px 1px 1px black;
+    color: white;
+    font: normal 12px/9px Helvetica, Verdana, Tahoma;
+    height: 18px;
+    min-width: auto;
+    padding: 2px 3px 0 3px;
+    text-align: center;   
+}

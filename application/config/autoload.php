@@ -52,7 +52,7 @@ $autoload['packages'] = array();
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array('database','form_validation','session');
+$autoload['libraries'] = array('database','form_validation','session','pagination');
 
 
 /*
@@ -109,7 +109,7 @@ $autoload['language'] = array();
 |
 */
 
-$autoload['model'] = array('ezscanner_model','sms_model','parent_model','teacher_model','admin_model','dean_model','sdpc_model','sao_model','chairperson_model');
+$autoload['model'] = array('ezscanner_model','sms_model','parent_model','teacher_model','admin_model','dean_model','sdpc_model','sao_model','chairperson_model','notification_model');
 
 
 /* End of file autoload.php */
