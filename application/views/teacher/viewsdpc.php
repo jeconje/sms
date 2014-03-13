@@ -135,13 +135,13 @@
                 ?>    
                   <?php foreach($viewCandidates as $viewAttendance){
                        
-                          if($viewAttendance['attendance'] == 'L' && $viewAttendance['offer_code'] == $value['offer_code'] ){
+                          if($viewAttendance['attendance'] == 'L' && $viewAttendance['student_number'] == $value['student_number'] ){
                             $late++;
                           }                              
-                          if($viewAttendance['attendance'] == 'A' && $viewAttendance['offer_code'] == $value['offer_code']){
+                          if($viewAttendance['attendance'] == 'A' && $viewAttendance['student_number'] == $value['student_number']){
                             $absences++;
                           }
-                          if($viewAttendance['attendance'] == 'X' && $viewAttendance['offer_code'] == $value['offer_code']){
+                          if($viewAttendance['attendance'] == 'X' && $viewAttendance['student_number'] == $value['student_number']){
                             $excused++;
                           }
                   } ?>

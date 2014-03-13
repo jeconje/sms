@@ -83,8 +83,8 @@
 
           return $result;
         }
-/*
-        public function viewAllCandidates() {
+
+       /* public function viewAllCandidates() {
           $this->db->select();
             $this->db->from('attendance');          
             $this->db->order_by('attendance_id');
@@ -95,13 +95,10 @@
             return $query->result_array();
         }*/
 
-        public function viewClasses()
-        {
+        public function viewClasses() {
           $this->db->select();
-          $this->db->from('offering');          
-          $this->db->join('study_load','offering.offer_code = study_load.offer_code');          
-          $this->db->join('students','students.student_number = study_load.student_number');
-          $this->db->join('subject','offering.offer_code = subject.offer_code');  
+          $this->db->from('offering');
+          $this->db->join('subject','offering.offer_code = subject.offer_code');                             
           
           $query = $this->db->get();
           $result = $query -> result_array();
@@ -109,18 +106,16 @@
           return $result;
         }
 
-        public function viewCandidates($data)
-        {
-            $this->db->select();
-            $this->db->from('attendance');
-            $this->db->join('students', 'attendance.student_number = students.student_number');
-            $this->db->join('account', 'account.account_id = students.account_id');
-            //$this->db->where('attendance.student_number', $data['student_number']);
+        public function viewCandidates($data) {
+          $this->db->select();
+          $this->db->from('attendance');
+          $this->db->join('students', 'attendance.student_number = students.student_number');
+          $this->db->where('attendance.student_number', $data['student_number']);
 
-            $query = $this->db->get();
-            $result = $query -> result_array();
+          $query = $this->db->get();
+          $result = $query -> result_array();
 
-            return $result;
+          return $result;
         }
 
         //Calendar

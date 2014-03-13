@@ -44,7 +44,7 @@
       return $result;
     }
 
-    public function student_parent($data)
+    public function studentParent($data)
     {
         $this->db->select();
         $this->db->from('attendance');
@@ -60,14 +60,13 @@
         return $result;
     }
 
-    public function student_teacher($data)
+    public function studentTeacher($data)
     {
       $this->db->select();
       $this->db->from('attendance');
       $this->db->join('offering', 'offering.offer_code = attendance.offer_code');
       $this->db->join('faculty', 'faculty.faculty_id =  offering.faculty_id');
       $this->db->join('account', 'account.account_id = faculty.account_id');
-
       $this->db->join('students','students.student_number = attendance.student_number');
       $this->db->join('account', 'account.account_id = students.account_id');
       

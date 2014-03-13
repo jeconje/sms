@@ -3,21 +3,9 @@
 	class Notification extends CI_Controller {
 	
 		public function __construct() {
-			//error_reporting(0);
+			error_reporting(0);
 			parent::__construct();
 		}
-
-		/*public function getStudentInfo() {
-			$data['studentInfo'] = $this->notification_model->studentInfo();
-			$data['parentInfo'] = $this->notification_model->parentInfo();
-			$data['teacherInfo'] = $this->notification_model->teacherInfo();
-			$data['subjectInfo'] = $this->notification_model->subjectInfo();
-			
-			$data['account_id'] = $data['studentInfo']['account_id'];
-			$data['parent_id'] = $data['parentInfo']['parent_id'];
-			$data['faculty_id'] = $data['teacherInfo']['faculty_id'];
-			$data['offer_code'] = $data['subjectInfo']['offer_code'];
-		}*/
 
 		public function notify() {
 			header("Content-Type: text/event-stream");
@@ -102,8 +90,8 @@
 
 			echo "data: ".json_encode($data['notify'])."\n\n";
 			ob_flush();
-		    flush();
-		    sleep(1);
+	    flush();
+	    sleep(1);
 		}
 
 /* UPDATE NOTIFICATION OF TEACHER */
