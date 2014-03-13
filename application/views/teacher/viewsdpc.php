@@ -117,6 +117,10 @@
                   <tr>
                     <th><center>Name of Student</th>
                     <th><center>Subject</center></i></th>
+                    <th><center>Day</center></i></th>
+                    <th><center>Number of Lates</i></th>
+                    <th><center>Number of Unexcused Absences</th>
+                    <th><center>Number of Excused Absences</th>
                     <th><center>Lates</i></th>
                     <th><center>Unexcused Absences</th>
                     <th><center>Excused Absences</th>
@@ -148,6 +152,9 @@
                         </td>
                         <td>
                             <?php echo $value['subject_description']; ?>
+                        </td>   
+                        <td>                        
+                            <?php  echo $value  ['days']; ?>
                         </td>
                         <td>                        
                             <?php  echo $late; ?>
