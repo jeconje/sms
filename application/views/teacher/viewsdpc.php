@@ -117,9 +117,9 @@
                   <tr>
                     <th><center>Name of Student</th>
                     <th><center>Subject</center></i></th>
-                    <th><center>Number of Lates</i></th>
-                    <th><center>Number of Unexcused Absences</th>
-                    <th><center>Number of Excused Absences</th>
+                    <th><center>Lates</i></th>
+                    <th><center>Unexcused Absences</th>
+                    <th><center>Excused Absences</th>
                   </tr>
                 </thead>
                 <?php
