@@ -176,6 +176,7 @@ public function showCalendar($year,$month)
     '; 
 
     $events = $this->getEvents($year,$month);
+    $day = $this->getEvents($year,$month);
     $this->load->library('calendar',$config);
     
     return $this->calendar->generate($year,$month,$events);
@@ -191,6 +192,17 @@ public function showCalendar($year,$month)
 
             return $query->result_array();
         } 
+
+//Add Events
+  public function addEvents($data)
+  {
+    $data['events'] = array(
+                              'event' => $data['event'],
+                              'date' => $data['date']
+                            );
+    
+    $result = $this->db->insert('calendar',$data['events']);
+  }
 
 //Update Details
         public function calendar_update($data)
@@ -210,7 +222,7 @@ public function showCalendar($year,$month)
       }
 
 
-  //Get events on calendar table from database
+//Get events on calendar table from database
   public function getEvents($year , $month)
   {
     $query = $this->db->select('date,event')->from('calendar')->like('date', "$year-$month")->get();
@@ -218,15 +230,36 @@ public function showCalendar($year,$month)
     return $result;
   }
 
-  public function addEvents($data)
-  {
-    $data['events'] = array(
-                              'event' => $data['event'],
-                              'date' => $data['date']
-                            );
-    
-    $result = $this->db->insert('calendar',$data['events']);
-  }
+  // public function getEvents($year , $month)
+  // {
+  //       $query = $this->db->query("SELECT DISTINCT DATE_FORMAT(date, '%Y-%m-%e') AS date
+  //                                           FROM calendar
+  //                                           WHERE date LIKE '$year-$month%' "); //date format eliminates zeros make
+  //                                                                          //days look 05 to 5
+  
+  //               $cal_data = array();
+               
+  //               foreach ($query->result() as $row) { //for every date fetch data
+  //                   $a = array();
+  //                   $i = 0;
+  //                   $query2 = $this->db->query("SELECT date
+  //                                               FROM calendar
+  //                                               WHERE date LIKE DATE_FORMAT('$row->date', '%Y-%m-%d') ");
+  //                                                           //date format change back the date format
+  //                                                           //that fetched earlier
+  //                    foreach ($query2->result() as $r) 
+  //                    {
+  //                        $a[$i] = $r->data;     //make data array to put to specific date
+  //                        $i++;                         
+  //                    }
+  //                       $cal_data[substr($row->date,8,2)] = $a;
+                    
+  //               }
+
+  //               return $cal_data;
+                
+  // }
+
 
 }
 

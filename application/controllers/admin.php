@@ -141,18 +141,6 @@
     			}
     	}
 
-    	/*//Get course with specified college
-		public function get_courses() {
-			$college = $this->input->post('college');
-			$i = 0;
-			$courses = $this->admin_model->get_course($college);
-			foreach ($courses as $course) {
-				$value[$i]['id'] = $course->course_id;
-				$value[$i]['c_name'] = $course->course_name;
-				$i++;
-			}
-			echo json_encode($value);
-    	}*/
 		
 		//Change Password
   		public function view_changepassword() 
@@ -275,28 +263,38 @@
 				$data['date'] = $this->input->post('date');	
 				$data['result'] = $this->admin_model->getEvents();
 
-			 	$day = (int)substr($row->date,8,2);
-			 	$mo = (int)substr($row->date,5,2);
-
+				$day = (int)substr($row->date,8,2);
 			    $events[(int)$day] = $row->event;
 			    $events = array();
 
-	                  //$month = (int)substr($row['date'],5,2);
-	                  //if($month == $currentmonth)
-			    foreach($data['result'] as $row)
-			    {	
-				      $day = (int)substr($row['date'],8,2);
-				      if(!array_key_exists($day,$events)) 
-				      {                      
-						$events[$day] = $row['event'];
-					  }
-					  else 
-					  {
-						$temp = $row['event'];
-						$events[$day] = $events[$day]."<br>".$temp;
-					  }
-				} 
+			    $current_time = time();
+                $current_date = date('Y-m-d',$current_time); 
 
+			    $currentmonth = (int)substr($current_date,5,2);
+
+			    foreach($data['result'] as $row)
+			    {
+			    	$day = (int)substr($row['date'],8,2);
+			    	$mon = (int)substr($row['date'],5,2);
+
+			    	if($month == $currentmonth)
+			    	{
+					    if(!array_key_exists($day,$events)) 
+					    { 
+							$events[$day] = $row['event'];
+						}
+					}
+
+						else 
+						{
+							$temp = $row['event'];
+							$events[$day] = $events[$day]."<br>".$temp;
+						}
+				} 
+				// $data['viewCalendar'] = $this->admin_model->showCalendar($year,$month,$events);			
+				// $this->load->view('calendar/calendar',$data);
+
+				$data['result'] = $this->admin_model->getEvents($year,$month);
 				if(isset($_POST['add']))
 				{	
 					$this->admin_model->addEvents($data);
@@ -327,6 +325,7 @@
 				
 				//$data['viewCalendar'] = $this->admin_model->showCalendar($year,$month,$events);			
 				$this->load->view('calendar/calendar',$data);	
+
 			}
 			else
 				$this->index();
