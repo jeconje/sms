@@ -1,4 +1,3 @@
-<?php header("refresh: 10;"); ?>
 <?php error_reporting(0); ?>
 <html lang="en">
   <head>

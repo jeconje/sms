@@ -1,3 +1,4 @@
+<?php header("refresh: 10;"); ?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
