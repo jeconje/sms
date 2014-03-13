@@ -114,7 +114,7 @@
 
         <tr>
           <td>Contact Number</td>
-          <td><input name="contact_number" value="<?php echo $info['contact_number']; ?>" class="form-control" placeholder="<?php foreach($info as $row) { echo $row->contact_number;}?>"></td>
+          <td><input name="contact_number" value="<?php echo $info['contact_number']; ?>" class="form-control" placeholder=""></td>
         </tr>
         
         <tr>

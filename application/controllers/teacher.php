@@ -182,7 +182,7 @@
 					$data['address'] = $this->input->post('address');
 					$data['contact_number'] = $this->input->post('contact_number');
 					
-					$this->teacher_model->edit_profile($data);
+					 $this->teacher_model->edit_profile($data);
 				}
 			} else 
 				$this->index();

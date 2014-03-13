@@ -178,29 +178,48 @@ public function showCalendar($year,$month)
     $events = $this->getEvents($year,$month);
     $this->load->library('calendar',$config);
     
-    
-
     return $this->calendar->generate($year,$month,$events);
   }
+
+//View details
+        public function calendar_details($data) 
+        { 
+            $this->db->select();
+            $this->db->from('calendar');
+
+            $query = $this->db->get();  
+
+            return $query->result_array();
+        } 
+
+//Update Details
+        public function calendar_update($data)
+        {
+          $update = array(
+                          'date' => $data['date'],
+                          'event' => $data['event']
+                          );
+          
+          $this->db->where('calendar_id',$data['id']);
+          $this->db->update('calendar',$update);
+        }  
+//Delete Details
+      public function calendar_delete($id)
+      {
+        $this->db->delete('calendar', array('calendar_id' => $id)); 
+      }
+
 
   //Get events on calendar table from database
   public function getEvents($year , $month)
   {
-    $query = $this->db->select('date,event')->from('calendar')->like('date',"$year-$month")->get();
-    $this->db->DISTINCT('date');
-    $eventvents = array();
-
-    $result = $query->result();
-    foreach($result as $row)
-    {
-        $day = (int)substr($row->date,8,2);
-        $events[(int)$day] = $row->event;
-    } 
-    return $events;
+    $query = $this->db->select('date,event')->from('calendar')->like('date', "$year-$month")->get();
+    $result = $query->result_array();
+    return $result;
   }
 
   public function addEvents($data)
- {
+  {
     $data['events'] = array(
                               'event' => $data['event'],
                               'date' => $data['date']
@@ -209,24 +228,6 @@ public function showCalendar($year,$month)
     $result = $this->db->insert('calendar',$data['events']);
   }
 
-   public function updateEvents($data)
-  {
-   
-    $data = array(
-                  'event' => $data['event'],
-                 );
-    
-    $this->db->where('calendar_id', $calendar_id);
-    $this->db->update('calendar',$data);
-  
-
-  }
-
-  public function deleteEvents($data)
-  {
-    $this->db->delete('calendar',array('date' => $data['date']));
-
-  }
 }
 
 ?>
