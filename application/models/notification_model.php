@@ -130,7 +130,7 @@
       $this->db->join('students','students.student_number = attendance.student_number');
       $this->db->join('account', 'account.account_id = students.account_id');
       
-      $this->db->where('account_id',$data['account_id']);  
+      $this->db->where('account_id',$data['account_id']);
       // $this->db->where('parent_id',$data['parent_id']);  
 
       $query = $this->db->get();

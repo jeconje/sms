@@ -75,7 +75,7 @@
 				$data['first_name'] = $data['info']['first_name'];
 				$data['last_name'] = $data['info']['last_name'];
 
-				$data['viewSubjects'] = $this->dean_model->viewClasses($data);
+				$data['viewSubjects'] = $this->dean_model->viewSDPC($data);
 				$data['viewCandidates'] = $this->dean_model->viewCandidates($data);
 
 				$this->load->view('dean/viewsdpc',$data);
