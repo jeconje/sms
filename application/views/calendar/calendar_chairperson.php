@@ -91,18 +91,21 @@
       </nav>
 
 <center>
-  <?php echo form_open('chairperson/calendar_chairperson'); ?>
+  <?php echo form_open('chairperson/calendar'); ?>
   <table>
     <tr>
-      <td><input type="text" id="datepicker" placeholder="Pick Date" class="form-control" value=""></td>
-      <td><input type="text" id="event" name="event" placeholder="Enter Event" class="form-control" value=""></td>
+      <td><input name ="date" type="text" id="datepicker" placeholder="Pick Date" class="form-control"></td>
+    </tr>
+    <tr>
+      <td><textarea id="event" name="event" placeholder="Enter Event" class="form-control" value="" resizable="false"></textarea></td>
+    </tr>
   </table>
     <br>
     <button type="submit" id="add" name="add" class="btn btn-default">Add Event</button>
-    <button type="submit" id="update" name="update" class="btn btn-default">Update Event</button>
-    <button type="submit" id="delete" name="delete" class="btn btn-default">Delete Event</button>
+    <a href='<?php echo base_url(); ?>chairperson/edit_calendar'><button type="button" class="btn btn-primary">Edit Calendar</button></a>
+    <!---<button type="submit" id="delete" name="delete" class="btn btn-default">Delete Event</button>-->
 </div>
-      <?php echo $atay;?>
+      <?php echo $viewCalendar;?>
       <?php echo form_close(); ?>
 
 
