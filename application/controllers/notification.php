@@ -89,6 +89,34 @@
 
 			echo json_encode($data['new_notification']);
 		}
+
+/* TEACHER NOTIFICATION */
+		public function notification_to_teacher() {
+			
+			$this->notify();
+
+			$data['teacherInfo'] = $this->session->userdata['logged_in'];
+			$data['faculty_id'] = $data['teacherInfo']['faculty_id'];
+
+			$data['notify'] = $this->notification_model->notification_teacher($data);
+
+			echo "data: ".json_encode($data['notify'])."\n\n";
+			ob_flush();
+		    flush();
+		    sleep(1);
+		}
+
+/* UPDATE NOTIFICATION OF TEACHER */
+		public function notification_update_teacher() {
+			
+			$data['teacherInfo'] = $this->session->userdata['logged_in'];
+			$data['faculty_id'] = $data['teacherInfo']['faculty_id'];
+
+			$data['id_for_update'] = $_POST['id'];
+			$data['new_notification'] = $this->notification_model->notification_update_teacher($data);
+
+			echo json_encode($data['new_notification']);
+		}
 	}
 
 ?>

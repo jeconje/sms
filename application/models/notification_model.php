@@ -44,6 +44,42 @@
       return $result;
     }
 
+    public function student_parent($data)
+    {
+        $this->db->select();
+        $this->db->from('attendance');
+        $this->db->join('students','students.student_number = attendance.student_number');
+        $this->db->join('tracker','tracker.account_id = students.account_id');
+        //$this->db->join('parent','parent.parent_id = tracker.parent_id');
+        $this->db->where('account_id',$data['account_id']);  
+        $this->db->where('parent_id',$data['parent_id']);  
+
+        $query = $this->db->get();
+        $result = $query -> result_array();
+    
+        return $result;
+    }
+
+    public function student_teacher($data)
+    {
+      $this->db->select();
+      $this->db->from('attendance');
+      $this->db->join('offering', 'offering.offer_code = attendance.offer_code');
+      $this->db->join('faculty', 'faculty.faculty_id =  offering.faculty_id');
+      $this->db->join('account', 'account.account_id = faculty.account_id');
+
+      $this->db->join('students','students.student_number = attendance.student_number');
+      $this->db->join('account', 'account.account_id = students.account_id');
+      
+      $this->db->where('account_id',$data['account_id']);
+      // $this->db->where('parent_id',$data['parent_id']);  
+
+      $query = $this->db->get();
+      $result = $query -> result_array();
+    
+      return $result;      
+    }
+
     public function notification_parent($data) {
       $this->db->select();
       $this->db->from('notifications');
@@ -103,42 +139,34 @@
       return $query->result_array();
     }
 
-    public function student_parent($data)
-    {
-        $this->db->select();
-        $this->db->from('attendance');
-        $this->db->join('students','students.student_number = attendance.student_number');
-        $this->db->join('tracker','tracker.account_id = students.account_id');
-        //$this->db->join('parent','parent.parent_id = tracker.parent_id');
-        $this->db->where('account_id',$data['account_id']);  
-        $this->db->where('parent_id',$data['parent_id']);  
+    public function notification_teacher($data) {
+      $this->db->select();
+      $this->db->from('notifications');
+      $this->db->where(array(
+                              'faculty_id' => $data['faculty_id'],
+                              'seen' => 'no'
+                            ));
 
         $query = $this->db->get();
-        $result = $query -> result_array();
-    
-        return $result;
+
+        return $query->result_array();
     }
 
-    public function student_teacher($data)
-    {
-      $this->db->select();
-      $this->db->from('attendance');
-      $this->db->join('offering', 'offering.offer_code = attendance.offer_code');
-      $this->db->join('faculty', 'faculty.faculty_id =  offering.faculty_id');
-      $this->db->join('account', 'account.account_id = faculty.account_id');
+    public function notification_update_teacher($data) {
+      for($x=0; $x < count($data['notification_id']); $x++) {
+        $noti_update = array('seen'=>'yes');
+        $this->db->where(array(
+                                'faculty_id' => $data['faculty_id'], 
+                                'notification_id' => $data['id_for_update'][$x]
+                              ));
+        $this->db->update('notifications',$noti_update);
+      }
 
-      $this->db->join('students','students.student_number = attendance.student_number');
-      $this->db->join('account', 'account.account_id = students.account_id');
-      
-      $this->db->where('account_id',$data['account_id']);
-      // $this->db->where('parent_id',$data['parent_id']);  
-
+      $this->db->select()->from('notifications')->where(array('faculty_id' => $data['faculty_id']));
       $query = $this->db->get();
-      $result = $query -> result_array();
-    
-      return $result;      
-    }
 
+      return $query->result_array();
+    }
   }
 
 ?>

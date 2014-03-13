@@ -9,13 +9,7 @@
     <title>USJR - SMS</title>
     <?php include ('/application/views/templates/nav.php'); ?>
   </head>
-<style>
-.upload
-{
-  width: 10px;
-  height: 180px;
-}
-</style>
+
 <body>
 <div id="wrapper">
   <!-- Sidebar -->
@@ -204,6 +198,7 @@ $(document).ready(function() {
     if(num==num2) { 
       $.each(data, function(index, val) {  
         //if(index==data.length-1) { 
+          audioElement.play();
           $("#notification").prepend("<li>"+val.message+" ("+val.date+")</li>");
        // }
       });  
