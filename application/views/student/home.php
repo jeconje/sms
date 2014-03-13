@@ -1,4 +1,4 @@
-<?php //header("refresh: 10;"); ?>
+<?php header("refresh: 10;"); ?>
 <?php error_reporting(0); ?>
 <html lang="en">
   <head>
@@ -188,36 +188,41 @@
 </div><!-- /.page-wrapper -->
 
 <script type="text/javascript">
+  var num = 0;
 $(document).ready(function() {
   $('#noti').hide();
   var audioElement = document.createElement('audio');
   audioElement.setAttribute('src', '<?php echo base_url(); ?>notification/Notify_Sound.mp3');
   var es = new EventSource("<?php echo base_url(); ?>notification/notification_to_student");
   var listener = function (data) {
-    var data = $.parseJSON(data.data); 
-    var num = 0;
+  var data = $.parseJSON(data.data); 
+  
     var num2 = 0;
     var id_update = [];
+    var num3=0;
+
+    if(num==num2) { 
+      $.each(data, function(index, val) {  
+        //if(index==data.length-1) { 
+          $("#notification").prepend("<li>"+val.message+" ("+val.date+")</li>");
+       // }
+      });  
+    }
 
     $.each(data, function(index, val) {  
       id_update[num] = val.notification_id;
       num++;
-
+      num3++;
       $("#noti").fadeOut(); 
       $("#noti").fadeIn(); 
-      $("#noti").html(num);
+      $("#noti").html(num3);
     });  
 
-    if(num!=num2) { 
-      $.each(data, function(index, val) {  
-        if(index==data.length-1) { 
-        //audioElement.play();
-        $("#notification").prepend("<li>"+val.message+" ("+val.date+")</li>");
-        }
-      });  
-    }
+    
     num2=num;
-    num=0;
+    num=num2;
+    num3=0;
+
   }
   es.addEventListener("message", listener);
 

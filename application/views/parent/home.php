@@ -204,6 +204,7 @@
     </div>
 
 <script type="text/javascript">
+
 $(document).ready(function() {
   $('#noti').hide();
   var audioElement = document.createElement('audio');
@@ -227,7 +228,7 @@ $(document).ready(function() {
     if(num!=num2) { 
       $.each(data, function(index, val) {  
         if(index==data.length-1) { 
-        //audioElement.play();
+        audioElement.play();
         $("#notification").prepend("<li>"+val.message+" ("+val.date+")</li>");
         }
       });  

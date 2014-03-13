@@ -103,6 +103,42 @@
       return $query->result_array();
     }
 
+    public function student_parent($data)
+    {
+        $this->db->select();
+        $this->db->from('attendance');
+        $this->db->join('students','students.student_number = attendance.student_number');
+        $this->db->join('tracker','tracker.account_id = students.account_id');
+        //$this->db->join('parent','parent.parent_id = tracker.parent_id');
+        $this->db->where('account_id',$data['account_id']);  
+        $this->db->where('parent_id',$data['parent_id']);  
+
+        $query = $this->db->get();
+        $result = $query -> result_array();
+    
+        return $result;
+    }
+
+    public function student_teacher($data)
+    {
+      $this->db->select();
+      $this->db->from('attendance');
+      $this->db->join('offering', 'offering.offer_code = attendance.offer_code');
+      $this->db->join('faculty', 'faculty.faculty_id =  offering.faculty_id');
+      $this->db->join('account', 'account.account_id = faculty.account_id');
+
+      $this->db->join('students','students.student_number = attendance.student_number');
+      $this->db->join('account', 'account.account_id = students.account_id');
+      
+      $this->db->where('account_id',$data['account_id']);  
+      // $this->db->where('parent_id',$data['parent_id']);  
+
+      $query = $this->db->get();
+      $result = $query -> result_array();
+    
+      return $result;      
+    }
+
   }
 
 ?>
