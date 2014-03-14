@@ -138,8 +138,8 @@
 		           <div class="auto-style2" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
 		       <div class="bs-example" align="right">
 		                <input checked="true" name="attendance1" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-		          <input name="attendance1" type="radio" value="late" style="width: 25px"><span class="label label-warning">..</span><br>
-		                <input name="attendance1" type="radio" value="absent" style="width: 25px"><span class="label label-danger">..</span><br>
+		          <input name="attendance1" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+		                <input name="attendance1" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
 		           </div>
 		           <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
       <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
@@ -186,8 +186,8 @@
 		           <div class="auto-style2" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
 		       <div class="bs-example" align="right">
 		                <input checked="true" name="attendance2" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-		          <input name="attendance2" type="radio" value="late" style="width: 25px"><span class="label label-warning">..</span><br>
-		                <input name="attendance2" type="radio" value="absent" style="width: 25px"><span class="label label-danger">..</span><br>
+		          <input name="attendance2" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+		                <input name="attendance2" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
 		           </div>
 		           <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
       <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
@@ -239,8 +239,8 @@
                <div class="auto-style2" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
            <div class="bs-example" align="right">
                     <input checked="true" name="attendance3" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-              <input name="attendance3" type="radio" value="late" style="width: 25px"><span class="label label-warning">..</span><br>
-                    <input name="attendance3" type="radio" value="absent" style="width: 25px"><span class="label label-danger">..</span><br>
+              <input name="attendance3" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                    <input name="attendance3" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
                </div>
                <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
       <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
@@ -287,8 +287,8 @@
                <div class="auto-style2" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
            <div class="bs-example" align="right">
                     <input checked="true" name="attendance4" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-              <input name="attendance4" type="radio" value="late" style="width: 25px"><span class="label label-warning">..</span><br>
-                    <input name="attendance4" type="radio" value="absent" style="width: 25px"><span class="label label-danger">..</span><br>
+              <input name="attendance4" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                    <input name="attendance4" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
                </div>
                <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
       <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
@@ -337,8 +337,8 @@
 		           <div class="auto-style2" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
 		       <div class="bs-example" align="right">
 		                <input checked="true" name="attendance5" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-		          <input name="attendance5" type="radio" value="late" style="width: 25px"><span class="label label-warning">..</span><br>
-		                <input name="attendance5" type="radio" value="absent" style="width: 25px"><span class="label label-danger">..</span><br>
+		          <input name="attendance5" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+		                <input name="attendance5" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
 		           </div>
 		           <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
       <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
@@ -386,8 +386,8 @@
 		           <div class="auto-style2" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
 		       <div class="bs-example" align="right">
 		                <input checked="true" name="attendance6" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-		          <input name="attendance6" type="radio" value="late" style="width: 25px"><span class="label label-warning">..</span><br>
-		                <input name="attendance6" type="radio" value="absent" style="width: 25px"><span class="label label-danger">..</span><br>
+		          <input name="attendance6" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+		                <input name="attendance6" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
 		           </div>
 		           <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
       <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
@@ -431,8 +431,8 @@
 		           <div class="auto-style2" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
 		       <div class="bs-example" align="right">
 		                <input checked="true" name="attendance7" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-		          <input name="attendance7" type="radio" value="late" style="width: 25px"><span class="label label-warning">..</span><br>
-		                <input name="attendance7" type="radio" value="absent" style="width: 25px"><span class="label label-danger">..</span><br>
+		          <input name="attendance7" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+		                <input name="attendance7" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
 		           </div>
 		           <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
       <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
@@ -479,8 +479,8 @@
 		           <div class="auto-style2" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
 		       <div class="bs-example" align="right">
 		                <input checked="true" name="attendance8" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-		          <input name="attendance8" type="radio" value="late" style="width: 25px"><span class="label label-warning">..</span><br>
-		                <input name="attendance8" type="radio" value="absent" style="width: 25px"><span class="label label-danger">..</span><br>
+		          <input name="attendance8" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+		                <input name="attendance8" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
 		           </div>
 		           <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
       <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
@@ -528,8 +528,8 @@
 		           <div class="auto-style2" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
 		       <div class="bs-example" align="right">
 		                <input checked="true" name="attendance9" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-		          <input name="attendance9" type="radio" value="late" style="width: 25px"><span class="label label-warning">..</span><br>
-		                <input name="attendance9" type="radio" value="absent" style="width: 25px"><span class="label label-danger">..</span><br>
+		          <input name="attendance9" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+		                <input name="attendance9" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
 		           </div>
 		           <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
       <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
@@ -575,8 +575,8 @@
 		           <div class="auto-style2" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
 		       <div class="bs-example" align="right">
 		                <input checked="true" name="attendance10" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-		          <input name="attendance10" type="radio" value="late" style="width: 25px"><span class="label label-warning">..</span><br>
-		                <input name="attendance10" type="radio" value="absent" style="width: 25px"><span class="label label-danger">..</span><br>
+		          <input name="attendance10" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+		                <input name="attendance10" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
 		           </div>
 		           <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
       <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
@@ -622,8 +622,8 @@
 		           <div class="auto-style2" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
 		       <div class="bs-example" align="right">
 		                <input checked="true" name="attendance11" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-		          <input name="attendance11" type="radio" value="late" style="width: 25px"><span class="label label-warning">..</span><br>
-		                <input name="attendance11" type="radio" value="absent" style="width: 25px"><span class="label label-danger">..</span><br>
+		          <input name="attendance11" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+		                <input name="attendance11" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
 		           </div>
 		           <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
       <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
@@ -670,8 +670,8 @@
 		           <div class="auto-style2" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
 		       <div class="bs-example" align="right">
 		                <input checked="true" name="attendance12" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-		          <input name="attendance12" type="radio" value="late" style="width: 25px"><span class="label label-warning">..</span><br>
-		                <input name="attendance12" type="radio" value="absent" style="width: 25px"><span class="label label-danger">..</span><br>
+		          <input name="attendance12" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+		                <input name="attendance12" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
 		           </div>
 		           <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
       <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
@@ -725,8 +725,8 @@
                <div class="auto-style2" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
            <div class="bs-example" align="right">
                     <input checked="true" name="attendance13" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-              <input name="attendance13" type="radio" value="late" style="width: 25px"><span class="label label-warning">..</span><br>
-                    <input name="attendance13" type="radio" value="absent" style="width: 25px"><span class="label label-danger">..</span><br>
+              <input name="attendance13" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                    <input name="attendance13" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
                </div>
                <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
       <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
@@ -772,8 +772,8 @@
 		           <div class="auto-style2" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
 		       <div class="bs-example" align="right">
 		                <input checked="true" name="attendance14" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-		          <input name="attendance14" type="radio" value="late" style="width: 25px"><span class="label label-warning">..</span><br>
-		                <input name="attendance14" type="radio" value="absent" style="width: 25px"><span class="label label-danger">..</span><br>
+		          <input name="attendance14" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+		                <input name="attendance14" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
 		           </div>
 		           <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
       <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
@@ -819,8 +819,8 @@
 		           <div class="auto-style2" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
 		       <div class="bs-example" align="right">
 		                <input checked="true" name="attendance15" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-		          <input name="attendance15" type="radio" value="late" style="width: 25px"><span class="label label-warning">..</span><br>
-		                <input name="attendance15" type="radio" value="absent" style="width: 25px"><span class="label label-danger">..</span><br>
+		          <input name="attendance15" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+		                <input name="attendance15" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
 		           </div>
 		           <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
       <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
@@ -866,8 +866,8 @@
 		           <div class="auto-style2" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
 		       <div class="bs-example" align="right">
 		                <input checked="true" name="attendance16" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-		          <input name="attendance16" type="radio" value="late" style="width: 25px"><span class="label label-warning">..</span><br>
-		                <input name="attendance16" type="radio" value="absent" style="width: 25px"><span class="label label-danger">..</span><br>
+		          <input name="attendance16" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+		                <input name="attendance16" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
 		           </div>
 		           <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
       <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
@@ -915,8 +915,8 @@
                <div class="auto-style2" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
            <div class="bs-example" align="right">
                     <input checked="true" name="attendance17" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-              <input name="attendance17" type="radio" value="late" style="width: 25px"><span class="label label-warning">..</span><br>
-                    <input name="attendance17" type="radio" value="absent" style="width: 25px"><span class="label label-danger">..</span><br>
+              <input name="attendance17" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                    <input name="attendance17" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
                </div>
                <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
       <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
@@ -961,8 +961,8 @@
 		           <div class="auto-style2" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
 		       <div class="bs-example" align="right">
 		                <input checked="true" name="attendance18" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-		          <input name="attendance18" type="radio" value="late" style="width: 25px"><span class="label label-warning">..</span><br>
-		                <input name="attendance18" type="radio" value="absent" style="width: 25px"><span class="label label-danger">..</span><br>
+		          <input name="attendance18" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+		                <input name="attendance18" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
 		           </div>
 		           <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
       <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
@@ -1006,8 +1006,8 @@
 		           <div class="auto-style2" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
 		       <div class="bs-example" align="right">
 		                <input checked="true" name="attendance19" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-		          <input name="attendance19" type="radio" value="late" style="width: 25px"><span class="label label-warning">..</span><br>
-		                <input name="attendance19" type="radio" value="absent" style="width: 25px"><span class="label label-danger">..</span><br>
+		          <input name="attendance19" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+		                <input name="attendance19" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
 		           </div>
 		           <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
       <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
@@ -1052,8 +1052,8 @@
 		           <div class="auto-style2" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
 		       <div class="bs-example" align="right">
 		                <input checked="true" name="attendance20" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-		          <input name="attendance20" type="radio" value="late" style="width: 25px"><span class="label label-warning">..</span><br>
-		                <input name="attendance20" type="radio" value="absent" style="width: 25px"><span class="label label-danger">..</span><br>
+		          <input name="attendance20" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+		                <input name="attendance20" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
 		           </div>
 		           <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
       <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
@@ -1101,8 +1101,8 @@
                <div class="auto-style2" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
            <div class="bs-example" align="right">
                     <input checked="true" name="attendance21" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-              <input name="attendance21" type="radio" value="late" style="width: 25px"><span class="label label-warning">..</span><br>
-                    <input name="attendance21" type="radio" value="absent" style="width: 25px"><span class="label label-danger">..</span><br>
+              <input name="attendance21" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                    <input name="attendance21" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
                </div>
                <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
       <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
@@ -1148,8 +1148,8 @@
 		           <div class="auto-style2" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
 		       <div class="bs-example" align="right">
 		                <input checked="true" name="attendance22" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-		          <input name="attendance22" type="radio" value="late" style="width: 25px"><span class="label label-warning">..</span><br>
-		                <input name="attendance22" type="radio" value="absent" style="width: 25px"><span class="label label-danger">..</span><br>
+		          <input name="attendance22" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+		                <input name="attendance22" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
 		           </div>
 		           <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
       <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
@@ -1195,8 +1195,8 @@
 		           <div class="auto-style2" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
 		       <div class="bs-example" align="right">
 		                <input checked="true" name="attendance23" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-		          <input name="attendance23" type="radio" value="late" style="width: 25px"><span class="label label-warning">..</span><br>
-		                <input name="attendance23" type="radio" value="absent" style="width: 25px"><span class="label label-danger">..</span><br>
+		          <input name="attendance23" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+		                <input name="attendance23" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
 		           </div>
 		           <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
       <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
@@ -1242,8 +1242,8 @@
 		           <div class="auto-style2" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
 		       <div class="bs-example" align="right">
 		                <input checked="true" name="attendance24" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-		          <input name="attendance24" type="radio" value="late" style="width: 25px"><span class="label label-warning">..</span><br>
-		                <input name="attendance24" type="radio" value="absent" style="width: 25px"><span class="label label-danger">..</span><br>
+		          <input name="attendance24" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+		                <input name="attendance24" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
 		           </div>
 		           <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
       <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
@@ -1297,8 +1297,8 @@
                <div class="auto-style2" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
            <div class="bs-example" align="right">
                     <input checked="true" name="attendance25" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-              <input name="attendance25" type="radio" value="late" style="width: 25px"><span class="label label-warning">..</span><br>
-                    <input name="attendance25" type="radio" value="absent" style="width: 25px"><span class="label label-danger">..</span><br>
+              <input name="attendance25" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                    <input name="attendance25" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
                </div>
                <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
       <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
@@ -1345,8 +1345,8 @@
 		           <div class="auto-style2" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
 		       <div class="bs-example" align="right">
 		                <input checked="true" name="attendance26" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-		          <input name="attendance26" type="radio" value="late" style="width: 25px"><span class="label label-warning">..</span><br>
-		                <input name="attendance26" type="radio" value="absent" style="width: 25px"><span class="label label-danger">..</span><br>
+		          <input name="attendance26" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+		                <input name="attendance26" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
 		           </div>
 		           <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
       <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
@@ -1392,8 +1392,8 @@
 		           <div class="auto-style2" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
 		       <div class="bs-example" align="right">
 		                <input checked="true" name="attendance27" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-		          <input name="attendance27" type="radio" value="late" style="width: 25px"><span class="label label-warning">..</span><br>
-		                <input name="attendance27" type="radio" value="absent" style="width: 25px"><span class="label label-danger">..</span><br>
+		          <input name="attendance27" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+		                <input name="attendance27" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
 		           </div>
 		           <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
       <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
@@ -1441,8 +1441,8 @@
 		           <div class="auto-style2" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
 		       <div class="bs-example" align="right">
 		                <input checked="true" name="attendance28" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-		          <input name="attendance28" type="radio" value="late" style="width: 25px"><span class="label label-warning">..</span><br>
-		                <input name="attendance28" type="radio" value="absent" style="width: 25px"><span class="label label-danger">..</span><br>
+		          <input name="attendance28" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+		                <input name="attendance28" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
 		           </div>
 		           <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
       <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
@@ -1490,8 +1490,8 @@
                <div class="auto-style2" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
            <div class="bs-example" align="right">
                     <input checked="true" name="attendance29" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-              <input name="attendance29" type="radio" value="late" style="width: 25px"><span class="label label-warning">..</span><br>
-                    <input name="attendance29" type="radio" value="absent" style="width: 25px"><span class="label label-danger">..</span><br>
+              <input name="attendance29" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                    <input name="attendance29" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
                </div>
                <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
       <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
@@ -1537,8 +1537,8 @@
 		           <div class="auto-style2" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
 		       <div class="bs-example" align="right">
 		                <input checked="true" name="attendance30" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-		          <input name="attendance30" type="radio" value="late" style="width: 25px"><span class="label label-warning">..</span><br>
-		                <input name="attendance30" type="radio" value="absent" style="width: 25px"><span class="label label-danger">..</span><br>
+		          <input name="attendance30" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+		                <input name="attendance30" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
 		           </div>
 		           <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
       <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
@@ -1582,8 +1582,8 @@
 		           <div class="auto-style2" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
 		       <div class="bs-example" align="right">
 		                <input checked="true" name="attendance31" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-		          <input name="attendance31" type="radio" value="late" style="width: 25px"><span class="label label-warning">..</span><br>
-		                <input name="attendance31" type="radio" value="absent" style="width: 25px"><span class="label label-danger">..</span><br>
+		          <input name="attendance31" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+		                <input name="attendance31" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
 		           </div>
 		           <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
       <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
@@ -1629,8 +1629,8 @@
 		           <div class="auto-style2" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
 		       <div class="bs-example" align="right">
 		                <input checked="true" name="attendance32" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-		          <input name="attendance32" type="radio" value="late" style="width: 25px"><span class="label label-warning">..</span><br>
-		                <input name="attendance32" type="radio" value="absent" style="width: 25px"><span class="label label-danger">..</span><br>
+		          <input name="attendance32" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+		                <input name="attendance32" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
 		           </div>
 		           <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
       <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
@@ -1678,8 +1678,8 @@
                <div class="auto-style2" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
            <div class="bs-example" align="right">
                     <input checked="true" name="attendance33" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-              <input name="attendance33" type="radio" value="late" style="width: 25px"><span class="label label-warning">..</span><br>
-                    <input name="attendance33" type="radio" value="absent" style="width: 25px"><span class="label label-danger">..</span><br>
+              <input name="attendance33" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                    <input name="attendance33" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
                </div>
                <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
       <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
@@ -1725,8 +1725,8 @@
 		           <div class="auto-style2" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
 		       <div class="bs-example" align="right">
 		                <input checked="true" name="attendance34" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-		          <input name="attendance34" type="radio" value="late" style="width: 25px"><span class="label label-warning">..</span><br>
-		                <input name="attendance34" type="radio" value="absent" style="width: 25px"><span class="label label-danger">..</span><br>
+		          <input name="attendance34" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+		                <input name="attendance34" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
 		           </div>
 		           <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
       <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
@@ -1772,8 +1772,8 @@
 		           <div class="auto-style2" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
 		       <div class="bs-example" align="right">
 		                <input checked="true" name="attendance35" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-		          <input name="attendance35" type="radio" value="late" style="width: 25px"><span class="label label-warning">..</span><br>
-		                <input name="attendance35" type="radio" value="absent" style="width: 25px"><span class="label label-danger">..</span><br>
+		          <input name="attendance35" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+		                <input name="attendance35" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
 		           </div>
 		           <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
       <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
@@ -1819,8 +1819,8 @@
 		           <div class="auto-style2" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
 		       <div class="bs-example" align="right">
 		                <input checked="true" name="attendance36" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-		          <input name="attendance36" type="radio" value="late" style="width: 25px"><span class="label label-warning">..</span><br>
-		                <input name="attendance36" type="radio" value="absent" style="width: 25px"><span class="label label-danger">..</span><br>
+		          <input name="attendance36" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+		                <input name="attendance36" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
 		           </div>
 		           <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
       <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
@@ -1876,8 +1876,8 @@
                <div class="auto-style2" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
            <div class="bs-example" align="right">
                     <input checked="true" name="attendance37" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-              <input name="attendance37" type="radio" value="late" style="width: 25px"><span class="label label-warning">..</span><br>
-                    <input name="attendance37" type="radio" value="absent" style="width: 25px"><span class="label label-danger">..</span><br>
+              <input name="attendance37" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                    <input name="attendance37" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
                </div>
                <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
       <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
@@ -1923,8 +1923,8 @@
 		           <div class="auto-style2" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
 		       <div class="bs-example" align="right">
 		                <input checked="true" name="attendance38" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-		          <input name="attendance38" type="radio" value="late" style="width: 25px"><span class="label label-warning">..</span><br>
-		                <input name="attendance38" type="radio" value="absent" style="width: 25px"><span class="label label-danger">..</span><br>
+		          <input name="attendance38" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+		                <input name="attendance38" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
 		           </div>
 		           <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
       <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
@@ -1970,8 +1970,8 @@
 		           <div class="auto-style2" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
 		       <div class="bs-example" align="right">
 		                <input checked="true" name="attendance39" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-		          <input name="attendance39" type="radio" value="late" style="width: 25px"><span class="label label-warning">..</span><br>
-		                <input name="attendance39" type="radio" value="absent" style="width: 25px"><span class="label label-danger">..</span><br>
+		          <input name="attendance39" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+		                <input name="attendance39" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
 		           </div>
 		           <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
       <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
@@ -2017,8 +2017,8 @@
 		           <div class="auto-style2" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
 		       <div class="bs-example" align="right">
 		                <input checked="true" name="attendance40" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-		          <input name="attendance40" type="radio" value="late" style="width: 25px"><span class="label label-warning">..</span><br>
-		                <input name="attendance40" type="radio" value="absent" style="width: 25px"><span class="label label-danger">..</span><br>
+		          <input name="attendance40" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+		                <input name="attendance40" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
 		           </div>
 		           <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
       <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
@@ -2066,8 +2066,8 @@
                <div class="auto-style2" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
            <div class="bs-example" align="right">
                     <input checked="true" name="attendance41" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-              <input name="attendance41" type="radio" value="late" style="width: 25px"><span class="label label-warning">..</span><br>
-                    <input name="attendance41" type="radio" value="absent" style="width: 25px"><span class="label label-danger">..</span><br>
+              <input name="attendance41" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                    <input name="attendance41" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
                </div>
                <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
       <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
@@ -2113,8 +2113,8 @@
 		           <div class="auto-style2" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
 		       <div class="bs-example" align="right">
 		                <input checked="true" name="attendance42" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-		          <input name="attendance42" type="radio" value="late" style="width: 25px"><span class="label label-warning">..</span><br>
-		                <input name="attendance42" type="radio" value="absent" style="width: 25px"><span class="label label-danger">..</span><br>
+		          <input name="attendance42" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+		                <input name="attendance42" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
 		           </div>
 		           <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
       <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
@@ -2158,8 +2158,8 @@
 		           <div class="auto-style2" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
 		       <div class="bs-example" align="right">
 		                <input checked="true" name="attendance43" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-		          <input name="attendance43" type="radio" value="late" style="width: 25px"><span class="label label-warning">..</span><br>
-		                <input name="attendance43" type="radio" value="absent" style="width: 25px"><span class="label label-danger">..</span><br>
+		          <input name="attendance43" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+		                <input name="attendance43" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
 		           </div>
 		           <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
       <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
@@ -2204,8 +2204,8 @@
 		           <div class="auto-style2" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
 		       <div class="bs-example" align="right">
 		                <input checked="true" name="attendance44" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-		          <input name="attendance44" type="radio" value="late" style="width: 25px"><span class="label label-warning">..</span><br>
-		                <input name="attendance44" type="radio" value="absent" style="width: 25px"><span class="label label-danger">..</span><br>
+		          <input name="attendance44" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+		                <input name="attendance44" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
 		           </div>
 		           <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
       <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
@@ -2253,8 +2253,8 @@
                <div class="auto-style2" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
            <div class="bs-example" align="right">
                     <input checked="true" name="attendance45" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-              <input name="attendance45" type="radio" value="late" style="width: 25px"><span class="label label-warning">..</span><br>
-                    <input name="attendance45" type="radio" value="absent" style="width: 25px"><span class="label label-danger">..</span><br>
+              <input name="attendance45" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                    <input name="attendance45" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
                </div>
                <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
       <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
@@ -2300,8 +2300,8 @@
 		           <div class="auto-style2" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
 		       <div class="bs-example" align="right">
 		                <input checked="true" name="attendance46" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-		          <input name="attendance46" type="radio" value="late" style="width: 25px"><span class="label label-warning">..</span><br>
-		                <input name="attendance46" type="radio" value="absent" style="width: 25px"><span class="label label-danger">..</span><br>
+		          <input name="attendance46" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+		                <input name="attendance46" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
 		           </div>
 		           <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
       <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
@@ -2347,8 +2347,8 @@
 		           <div class="auto-style2" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
 		       <div class="bs-example" align="right">
 		                <input checked="true" name="attendance47" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-		          <input name="attendance47" type="radio" value="late" style="width: 25px"><span class="label label-warning">..</span><br>
-		                <input name="attendance47" type="radio" value="absent" style="width: 25px"><span class="label label-danger">..</span><br>
+		          <input name="attendance47" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+		                <input name="attendance47" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
 		           </div>
 		           <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
       <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
@@ -2394,8 +2394,8 @@
 		           <div class="auto-style2" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
 		       <div class="bs-example" align="right">
 		                <input checked="true" name="attendance48" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-		          <input name="attendance48" type="radio" value="late" style="width: 25px"><span class="label label-warning">..</span><br>
-		                <input name="attendance48" type="radio" value="absent" style="width: 25px"><span class="label label-danger">..</span><br>
+		          <input name="attendance48" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+		                <input name="attendance48" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
 		           </div>
 		           <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
       <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
@@ -2412,7 +2412,7 @@
   </tr>
 </table>
 <center>
-<button type="button" class="btn btn-primary">Submit Attendance</button>
+<button name = "submit "type="submit" class="btn btn-primary">Submit Attendance</button>
         </div><!-- /.row -->
       <?php echo form_close(); ?>
   </body>

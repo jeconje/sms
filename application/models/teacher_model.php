@@ -335,5 +335,17 @@
           $this->db->where('attendance_id',$data['attendance_id']);
           $this->db->update('attendance',$update);
         }
+
+        public function viewAssignedStudents($data)
+        {               
+              $this->db->select();
+              $this->db->from('study_load');
+              $this->db->join('students','students.student_number = study_load.student_number');
+              $this->db->where('offer_code',$data['id_code']);                      
+              $query = $this->db->get();
+              $result = $query -> result_array();
+
+              return $result;
+       }     
   }
 ?>

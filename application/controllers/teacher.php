@@ -334,17 +334,17 @@
 				$data['first_name'] = $data['info']['first_name'];
 				$data['last_name'] = $data['info']['last_name'];
 				$data['viewStudents'] = $this->teacher_model->viewStudents($data);
-
+				$data['assigned_seats'] = $this->teacher_model->viewAssignedStudents($data);
 				for ($i=1; $i < 41 ; $i++) { 
 				$data['a'.$i] = $this->input->post(''.$i);
 				}					
 				
+
 				if(isset($_POST['submit'])){			
 					$this->teacher_model->updateSeat($data);
 					$this->load->view('seatplan_teacher/assign_classroom',$data);
 				}
-				else
-					$data['viewStudents'] = $this->teacher_model->viewStudents($data);
+				else					
 					$this->load->view('seatplan_teacher/assign_classroom',$data);
 			} else
 				$this->index();
@@ -391,15 +391,18 @@
 				$data['first_name'] = $data['info']['first_name'];
 				$data['last_name'] = $data['info']['last_name'];				
 				$data['viewStudents'] = $this->teacher_model->viewStudents($data);
+				$data['assigned_seats'] = $this->teacher_model->viewAssignedStudents($data);				
 				
 				
 				for ($i=1; $i < 41 ; $i++) { 
 				$data['a'.$i] = $this->input->post($i);
 				}					
 				
-				if(isset($_POST['submit'])){			
-				$this->teacher_model->updateSeat($data);
+				if(isset($_POST['submit'])){		
+				
+				$this->teacher_model->updateSeat($data);																		
 				$this->load->view('seatplan_teacher/assign_laboratory',$data);
+
 				}
 				else
 
@@ -498,6 +501,7 @@
 				$data['first_name'] = $data['info']['first_name'];
 				$data['last_name'] = $data['info']['last_name'];			
 				$data['viewStudents'] = $this->teacher_model->viewStudents($data);
+				$data['assigned_seats'] = $this->teacher_model->viewAssignedStudents($data);
 
 
 				for ($i=1; $i < 41 ; $i++) { 
