@@ -230,37 +230,6 @@ public function showCalendar($year,$month)
     return $result;
   }
 
-  // public function getEvents($year , $month)
-  // {
-  //       $query = $this->db->query("SELECT DISTINCT DATE_FORMAT(date, '%Y-%m-%e') AS date
-  //                                           FROM calendar
-  //                                           WHERE date LIKE '$year-$month%' "); //date format eliminates zeros make
-  //                                                                          //days look 05 to 5
-  
-  //               $cal_data = array();
-               
-  //               foreach ($query->result() as $row) { //for every date fetch data
-  //                   $a = array();
-  //                   $i = 0;
-  //                   $query2 = $this->db->query("SELECT date
-  //                                               FROM calendar
-  //                                               WHERE date LIKE DATE_FORMAT('$row->date', '%Y-%m-%d') ");
-  //                                                           //date format change back the date format
-  //                                                           //that fetched earlier
-  //                    foreach ($query2->result() as $r) 
-  //                    {
-  //                        $a[$i] = $r->data;     //make data array to put to specific date
-  //                        $i++;                         
-  //                    }
-  //                       $cal_data[substr($row->date,8,2)] = $a;
-                    
-  //               }
-
-  //               return $cal_data;
-                
-  // }
-
-
 }
 
 ?>
