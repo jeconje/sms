@@ -107,8 +107,6 @@
 		}
 
 		public function viewCandidates() {	
-			
-			$data['absences'] = $_POST['absences'];
 
 				$data['viewSubjects'] = $this->notification_model->viewSubjects();
 				$data['viewStudentAttendance'] = $this->notification_model->viewCandidates();
