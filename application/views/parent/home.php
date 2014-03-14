@@ -1,4 +1,4 @@
-<?php header("refresh: 10;"); ?>
+<?php //header("refresh: 10;"); ?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -36,7 +36,6 @@
             <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon32 icon-color icon-document"></i><b class="caret"></b>Grades</a>
                       <ul class="dropdown-menu">
-
                            <?php foreach($result as $value){ ?>
                           <li><a href="<?php echo base_url(); ?>parents/viewgrades?id=<?php echo $value['account_id']; ?>"> <?php echo $value['last_name'].', '.$value['first_name']; ?></a></li>          
                           <?php } ?>
@@ -63,8 +62,8 @@
         </ul>
 
 <ul class="nav navbar-nav navbar-right navbar-user">
-        <li class="dropdown messages-dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="noti-box"><div id="noti"></div><i class="icon icon-color icon-messages"></i> Notification <b class="icon icon-color icon-triangle-s"></b></a> 
+        <li class="dropdown messages-dropdown" id="notify">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><div id="noti"></div><i class="icon icon-color icon-messages"></i> Notification <b class="icon icon-color icon-triangle-s"></b></a> 
           <ul class="dropdown-menu">
              <li class="dropdown-header"><div id="notification"></div></li>
             <li class="divider"></li>
@@ -215,8 +214,8 @@ $(document).ready(function() {
   var data = $.parseJSON(data.data); 
   
     var num2 = 0;
-    var id_update = [];
     var num3=0;
+    var id_update = [];
 
     if(num==num2) { 
       $.each(data, function(index, val) {  
@@ -231,11 +230,10 @@ $(document).ready(function() {
       id_update[num] = val.notification_id;
       num++;
       num3++;
-      $("#noti").fadeOut(); 
-      $("#noti").fadeIn(); 
+      $("#noti").hide(); 
+      $("#noti").show(); 
       $("#noti").html(num3);
-    });  
-
+    });
     
     num2=num;
     num=num2;
@@ -244,24 +242,24 @@ $(document).ready(function() {
   }
   es.addEventListener("message", listener);
 
-  $("#noti-box").click(function() {
-  $("#noti").hide();
-  function update_print_noti() {
-    $.ajax({
-      type: 'POST',
-      url: "<?php echo base_url(); ?>notification/notification_update_parent",
-      data: {id : id_update},
-      dataType: 'json', 
-      success: function(update) {
-        $.each(update, function(index, val) {
-          $("#notification").prepend("<li>"+val.message+" ("+val.date+")</li>");
-        });
-      }
-    });
-    $("#notification").empty();
-  }
-  update_print_noti();
-  });
+  $("#notify").on(click(function() {
+    $("#noti").hide();
+    function update_print_noti() {
+      $.ajax({
+        type: 'POST',
+        url: "<?php echo base_url(); ?>notification/notification_update_parent",
+        data: {id : id_update},
+        dataType: 'json', 
+        success: function(update) {
+          $.each(update, function(index, val) {
+            $("#notification").prepend("<li>"+val.message+" ("+val.date+")</li>");
+          });
+        }
+      });
+      $("#notification").empty();
+    }
+    update_print_noti();
+  });)
 
 });
 
