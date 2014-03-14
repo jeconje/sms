@@ -34,10 +34,10 @@
           <a class="navbar-brand" href="<?php echo $home ?>">University Of San Jose Recoletos - Student Monitoring System</a></div>
         <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse navbar-ex1-collapse">
-          <ul class="nav navbar-nav side-nav">
+        <ul class="nav navbar-nav side-nav">
             <li><a href="<?php echo $home ?>"><i class="icon32 icon-color icon-home"></i> Dashboard</a></li>
             <li><a href="<?php echo base_url(); ?>admin/add_account"><i class="icon32 icon-color icon-book-empty"></i> Add Account</a></li>
-            <li  class="active"><a href="<?php echo base_url(); ?>admin/calendar"><i class="icon32 icon-color icon-calendar"></i> Calendar</a></li>    
+            <li  class="active"><a href="<?php echo base_url(); ?>admin/calendar/2014/03"><i class="icon32 icon-color icon-calendar"></i> Calendar</a></li>    
           </ul>
 
 
@@ -54,7 +54,7 @@
         </div><!-- /.navbar-collapse -->
       </nav>      
 <center>
-  <?php echo form_open('admin/calendar'); ?>
+  <?php echo form_open('admin/calendar/2014/03'); ?>
   <table>
     <tr>
       <td><input name ="date" type="text" id="datepicker" placeholder="Pick Date" class="form-control"></td>

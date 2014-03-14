@@ -256,49 +256,53 @@
 		public function calendar($year=null,$month=null) 
 		{
 			$data['adminInfo'] = $this->session->userdata('logged_in');
-			if($data['adminInfo'] == TRUE){
+			if($data['adminInfo'] == TRUE)
+			{
 				$data['first_name'] = $data['adminInfo']['first_name'];
 				$data['last_name'] = $data['adminInfo']['last_name'];
 				$data['event'] = $this->input->post('event');
 				$data['date'] = $this->input->post('date');	
+				
 				$data['result'] = $this->admin_model->getEvents();
 
 				$day = (int)substr($row->date,8,2);
+				$currentmonth = (int)substr($row->date,6,2);
+
 			    $events[(int)$day] = $row->event;
 			    $events = array();
 
-			    $current_time = time();
-                $current_date = date('Y-m-d',$current_time); 
+			    // $current_time = time();
+       			//$current_date = date('Y-m-d',$current_time); 
 
-			    $currentmonth = (int)substr($current_date,5,2);
+			    // $currentmonth = (int)substr($current_date,5,2);
 
-			    foreach($data['result'] as $row)
-			    {
+			    foreach($data['result'] as $row) {
+
 			    	$day = (int)substr($row['date'],8,2);
 			    	$mon = (int)substr($row['date'],5,2);
 
-			    	if($month == $currentmonth)
-			    	{
-					    if(!array_key_exists($day,$events)) 
-					    { 
-							$events[$day] = $row['event'];
-						}
+				    if(!array_key_exists($day,$events)) { 
+						$events[$day] = $row['event'];
 					}
 
-						else 
-						{
-							$temp = $row['event'];
-							$events[$day] = $events[$day]."<br>".$temp;
-						}
-				} 
-				// $data['viewCalendar'] = $this->admin_model->showCalendar($year,$month,$events);			
-				// $this->load->view('calendar/calendar',$data);
+					else {
+						$temp = $row['event'];
+						$events[$day] = $events[$day]."<br>".$temp;
+					}
 
-				$data['result'] = $this->admin_model->getEvents($year,$month);
+					$events_month[$mon][$day] = $events; 
+					
+				} 
+
+
+				// $data['viewCalendar'] = $this->admin_model->showCalendar($year,$month,$events);			
+				//$this->load->view('calendar/calendar',$data);
+
+				//$data['result'] = $this->admin_model->getEvents($year,$month);
 				if(isset($_POST['add']))
 				{	
 					$this->admin_model->addEvents($data);
-					header('Location: http://localhost/sms/admin/calendar');
+					header('Location: http://localhost/sms/admin/calendar/2014/03');
 				}
 
 				$config['show_next_prev'] = 'TRUE';
@@ -321,9 +325,10 @@
 
 			    //$events = $this->getEvents($year,$month);
 			    $this->load->library('calendar',$config);
-    			$data['viewCalendar']= $this->calendar->generate($year,$month,$events);
-				
-				//$data['viewCalendar'] = $this->admin_model->showCalendar($year,$month,$events);			
+			    $y = intval($this->uri->segment(3));
+			    $m = intval($this->uri->segment(4));
+    			$data['viewCalendar']= $this->calendar->generate($y,$m,$events_month[$m]);
+					
 				$this->load->view('calendar/calendar',$data);	
 
 			}
