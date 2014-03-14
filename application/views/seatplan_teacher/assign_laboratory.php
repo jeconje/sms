@@ -105,19 +105,25 @@
               </ul>
             </li>
           </ul>
-        </nav>
-
-<center>
+        </nav>        
+<center>  
       <div class="table-responsive">
          <?php echo form_open("teacher/assign_laboratory/$id_code"); ?>
        <table style="width: 1070px; height: 632px" class="table table-bordered">
   <tr>
-    <td>    	
-		<select name="1" style="width: 120px">		    
-        <option>SELECT</option>		  
-		<?php foreach ($viewStudents as $value){ ?>	              
-				<option value ="<?php echo $value['student_number']; ?>"> <?php echo $value['last_name'].', '.$value['first_name']; ?> </option> 						  													
-			<?php }  ?>
+    <td>    	        
+		<select name="1" style="width: 120px">		   
+      <?php         
+        foreach($assigned_seats as $row){
+        if($row['seat_number'] == '1'){
+      ?>    
+            <option><?php echo $row['last_name'].', '.$row['first_name']; ?></option>     
+      <?php }} ?>
+      <option>SELECT</option>
+      <?php foreach ($viewStudents as $value){ ?>     
+        <option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option>                                        
+      <?php }  ?>
+
 		</select>
 		1
     </td>
@@ -125,10 +131,16 @@
 <center>
     <td>     
     <select name="12" style="width: 120px">		            
-      <option>SELECT</option> 
-		<?php foreach ($viewStudents as $value){ ?>	    
-				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
-			<?php }  ?>
+      <?php         
+        foreach($assigned_seats as $row){
+        if($row['seat_number'] == '12'){
+      ?>    
+            <option><?php echo $row['last_name'].', '.$row['first_name']; ?></option>     
+      <?php }} ?>
+        <option>SELECT</option>
+      <?php foreach ($viewStudents as $value){ ?>     
+        <option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option>                                        
+      <?php }  ?>
 		</select>12
     </td>
 
@@ -146,59 +158,99 @@
     <td rowspan="6" style="width: 50px"></td> 
     <td>
 		<select name="29" style="width: 120px">	
-      <option>SELECT</option>
-    <?php ?>	    		  
-		<?php foreach ($viewStudents as $value){ ?>	
-				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
-			<?php }  ?>
+       <?php         
+        foreach($assigned_seats as $row){
+        if($row['seat_number'] == '29'){
+      ?>    
+            <option><?php echo $row['last_name'].', '.$row['first_name']; ?></option>     
+      <?php }} ?>
+        <option>SELECT</option>
+      <?php foreach ($viewStudents as $value){ ?>     
+        <option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option>                                        
+      <?php }  ?>
+
 		</select>29
    </td>
 
     <td>
 		<select name="40" style="width: 120px">		
-    <option>SELECT</option>    		  
-		<?php foreach ($viewStudents as $value){ ?>	
-				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
-			<?php }  ?>
+     <?php         
+        foreach($assigned_seats as $row){
+        if($row['seat_number'] == '40'){
+      ?>    
+            <option><?php echo $row['last_name'].', '.$row['first_name']; ?></option>     
+      <?php }} ?>
+        <option>SELECT</option>
+      <?php foreach ($viewStudents as $value){ ?>     
+        <option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option>                                        
+      <?php }  ?>
+
 		</select>40
     </td>
   </tr>
 
   <tr>
-    <td>
-         
+    <td>         
 		<select name="2" style="width: 120px">		
-    <option>SELECT</option>    		  
-		<?php foreach ($viewStudents as $value){ ?>	
-				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
-			<?php }  ?>
+     <?php         
+        foreach($assigned_seats as $row){
+        if($row['seat_number'] == '2'){
+      ?>    
+            <option><?php echo $row['last_name'].', '.$row['first_name']; ?></option>     
+      <?php }} ?>
+        <option>SELECT</option>
+      <?php foreach ($viewStudents as $value){ ?>     
+        <option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option>                                        
+      <?php }  ?>
+
 		</select>2
     </td>
 
     <td>  
 		<select name="11" style="width: 120px">		    		  
-      <option>SELECT</option>     
-		<?php foreach ($viewStudents as $value){ ?>	
-				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
-			<?php }  ?>
+       <?php         
+        foreach($assigned_seats as $row){
+        if($row['seat_number'] == '11'){
+      ?>    
+            <option><?php echo $row['last_name'].', '.$row['first_name']; ?></option>     
+      <?php }} ?>
+        <option>SELECT</option>
+      <?php foreach ($viewStudents as $value){ ?>     
+        <option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option>                                        
+      <?php }  ?>
+
 		</select>11
     </td>
 
     <td>
 		<select name="13" style="width: 120px">		    		  
-      <option>SELECT</option>
-		<?php foreach ($viewStudents as $value){ ?>	
-				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
-			<?php }  ?>
+       <?php         
+        foreach($assigned_seats as $row){
+        if($row['seat_number'] == '13'){
+      ?>    
+            <option><?php echo $row['last_name'].', '.$row['first_name']; ?></option>     
+      <?php }} ?>
+        <option>SELECT</option>
+      <?php foreach ($viewStudents as $value){ ?>     
+        <option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option>                                        
+      <?php }  ?>
+
 		</select>13
     </td>
 
     <td>
 		<select name="20" style="width: 120px">	
-    <option>SELECT</option>	    		  
-		<?php foreach ($viewStudents as $value){ ?>	
-				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
-			<?php }  ?>
+     <?php         
+        foreach($assigned_seats as $row){
+        if($row['seat_number'] == '20'){
+      ?>    
+            <option><?php echo $row['last_name'].', '.$row['first_name']; ?></option>     
+      <?php }} ?>
+        <option>SELECT</option>
+      <?php foreach ($viewStudents as $value){ ?>     
+        <option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option>                                        
+      <?php }  ?>
+
 		</select>20
     </td>
 
@@ -206,39 +258,67 @@
 
     <td>
 		<select name="21" style="width: 120px">		 
-    <option>SELECT</option>   		  
-		<?php foreach ($viewStudents as $value){ ?>	
-				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
-			<?php }  ?>
+     <?php         
+        foreach($assigned_seats as $row){
+        if($row['seat_number'] == '21'){
+      ?>    
+            <option><?php echo $row['last_name'].', '.$row['first_name']; ?></option>     
+      <?php }} ?>
+        <option>SELECT</option>
+      <?php foreach ($viewStudents as $value){ ?>     
+        <option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option>                                        
+      <?php }  ?>
+
 		</select>21
     </td>
 
 
     <td>
 		<select name="28" style="width: 120px">	
-    <option>SELECT</option>     	    		  
-		<?php foreach ($viewStudents as $value){ ?>	
-				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
-			<?php }  ?>
+     <?php         
+        foreach($assigned_seats as $row){
+        if($row['seat_number'] == '28'){
+      ?>    
+            <option><?php echo $row['last_name'].', '.$row['first_name']; ?></option>     
+      <?php }} ?>
+        <option>SELECT</option>
+      <?php foreach ($viewStudents as $value){ ?>     
+        <option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option>                                        
+      <?php }  ?>
+
 		</select>28
     </td>
 
     <td>
 		<select name="30" style="width: 120px">	
-    <option>SELECT</option>     	    		  
-		<?php foreach ($viewStudents as $value){ ?>	
-				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
-			<?php }  ?>
+    <?php         
+        foreach($assigned_seats as $row){
+        if($row['seat_number'] == '30'){
+      ?>    
+            <option><?php echo $row['last_name'].', '.$row['first_name']; ?></option>     
+      <?php }} ?>
+        <option>SELECT</option>
+      <?php foreach ($viewStudents as $value){ ?>     
+        <option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option>                                        
+      <?php }  ?>
+
 		</select>30
     </td>
 
 
     <td>
 		<select name="39" style="width: 120px">
-      <option>SELECT</option>     
-		    <?php foreach ($viewStudents as $value){ ?>	
-				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
-			<?php }  ?>
+       <?php         
+        foreach($assigned_seats as $row){
+        if($row['seat_number'] == '39'){
+      ?>    
+            <option><?php echo $row['last_name'].', '.$row['first_name']; ?></option>     
+      <?php }} ?>
+        <option>SELECT</option>
+      <?php foreach ($viewStudents as $value){ ?>     
+        <option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option>                                        
+      <?php }  ?>
+
 		</select>39
     </td>
   </tr>
@@ -246,37 +326,65 @@
   <tr>
     <td>
 		<select name="3" style="width: 120px">
-      <option>SELECT</option>     
-		    <?php foreach ($viewStudents as $value){ ?>	
-				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
-			<?php }  ?>
+       <?php         
+        foreach($assigned_seats as $row){
+        if($row['seat_number'] == '3'){
+      ?>    
+            <option><?php echo $row['last_name'].', '.$row['first_name']; ?></option>     
+      <?php }} ?>
+        <option>SELECT</option>
+      <?php foreach ($viewStudents as $value){ ?>     
+        <option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option>                                        
+      <?php }  ?>
+
 		</select>3
     </td>
 
     <td>
 		<select name="10" style="width: 120px">
-      <option>SELECT</option>     
-		  <?php foreach ($viewStudents as $value){ ?>	
-				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
-			<?php }  ?>
+      <?php         
+        foreach($assigned_seats as $row){
+        if($row['seat_number'] == '10'){
+      ?>    
+            <option><?php echo $row['last_name'].', '.$row['first_name']; ?></option>     
+      <?php }} ?>
+        <option>SELECT</option>
+      <?php foreach ($viewStudents as $value){ ?>     
+        <option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option>                                        
+      <?php }  ?>
+
 		</select>10
     </td>
 
     <td>
 		<select name="14" style="width: 120px">
-      <option>SELECT</option>     
-		   <?php foreach ($viewStudents as $value){ ?>	
-				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
-			<?php }  ?>
+       <?php         
+        foreach($assigned_seats as $row){
+        if($row['seat_number'] == '14'){
+      ?>    
+            <option><?php echo $row['last_name'].', '.$row['first_name']; ?></option>     
+      <?php }} ?>
+        <option>SELECT</option>
+      <?php foreach ($viewStudents as $value){ ?>     
+        <option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option>                                        
+      <?php }  ?>
+
 		</select>14
     </td>
 
     <td>
 		<select name="19" style="width: 120px">
-      <option>SELECT</option>     
-		   <?php foreach ($viewStudents as $value){ ?>	
-				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
-			<?php }  ?>
+       <?php         
+        foreach($assigned_seats as $row){
+        if($row['seat_number'] == '19'){
+      ?>    
+            <option><?php echo $row['last_name'].', '.$row['first_name']; ?></option>     
+      <?php }} ?>
+        <option>SELECT</option>
+      <?php foreach ($viewStudents as $value){ ?>     
+        <option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option>                                        
+      <?php }  ?>
+
 		</select>19
     </td>
 
@@ -284,38 +392,66 @@
 
     <td>
 		<select name="22" style="width: 120px">
-      <option>SELECT</option>     
-		   <?php foreach ($viewStudents as $value){ ?>	
-				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
-			<?php }  ?>
+       <?php         
+        foreach($assigned_seats as $row){
+        if($row['seat_number'] == '22'){
+      ?>    
+            <option><?php echo $row['last_name'].', '.$row['first_name']; ?></option>     
+      <?php }} ?>
+        <option>SELECT</option>
+      <?php foreach ($viewStudents as $value){ ?>     
+        <option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option>                                        
+      <?php }  ?>
+
 		</select>22
     </td>
 
 
     <td>
 		<select name="27" style="width: 120px">
-      <option>SELECT</option>     
-	<?php foreach ($viewStudents as $value){ ?>	
-				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
-			<?php }  ?>
+       <?php         
+        foreach($assigned_seats as $row){
+        if($row['seat_number'] == '27'){
+      ?>    
+            <option><?php echo $row['last_name'].', '.$row['first_name']; ?></option>     
+      <?php }} ?>
+        <option>SELECT</option>
+      <?php foreach ($viewStudents as $value){ ?>     
+        <option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option>                                        
+      <?php }  ?>
+
 		</select>27
     </td>
 
     <td>
 		<select name="31" style="width: 120px">
-      <option>SELECT</option>     
-		    <?php foreach ($viewStudents as $value){ ?>	
-				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
-			<?php }  ?>
+       <?php         
+        foreach($assigned_seats as $row){
+        if($row['seat_number'] == '31'){
+      ?>    
+            <option><?php echo $row['last_name'].', '.$row['first_name']; ?></option>     
+      <?php }} ?>
+        <option>SELECT</option>
+      <?php foreach ($viewStudents as $value){ ?>     
+        <option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option>                                        
+      <?php }  ?>
+
 		</select>31
     </td>
     
     <td>
 		<select name="38" style="width: 120px">
-      <option>SELECT</option>     
-		   <?php foreach ($viewStudents as $value){ ?>	
-				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
-			<?php }  ?>
+      <?php         
+        foreach($assigned_seats as $row){
+        if($row['seat_number'] == '38'){
+      ?>    
+            <option><?php echo $row['last_name'].', '.$row['first_name']; ?></option>     
+      <?php }} ?>
+        <option>SELECT</option>
+      <?php foreach ($viewStudents as $value){ ?>     
+        <option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option>                                        
+      <?php }  ?>
+
 		</select>38
     </td>
   </tr>
@@ -323,40 +459,68 @@
   <tr>
     <td>
 		<select name="4" style="width: 120px">
-      <option>SELECT</option>     
-		    <?php foreach ($viewStudents as $value){ ?>	
-				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
-			<?php }  ?>
+      <?php         
+        foreach($assigned_seats as $row){
+        if($row['seat_number'] == '4'){
+      ?>    
+            <option><?php echo $row['last_name'].', '.$row['first_name']; ?></option>     
+      <?php }} ?>
+        <option>SELECT</option>
+      <?php foreach ($viewStudents as $value){ ?>     
+        <option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option>                                        
+      <?php }  ?>
+
 		</select>4
     </td>
 
 
     <td>
 		<select name="9" style="width: 120px">
-      <option>SELECT</option>     
-		    <?php foreach ($viewStudents as $value){ ?>	
-				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
-			<?php }  ?>
+       <?php         
+        foreach($assigned_seats as $row){
+        if($row['seat_number'] == '9'){
+      ?>    
+            <option><?php echo $row['last_name'].', '.$row['first_name']; ?></option>     
+      <?php }} ?>
+        <option>SELECT</option>
+      <?php foreach ($viewStudents as $value){ ?>     
+        <option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option>                                        
+      <?php }  ?>
+
 		</select>9
     </td>
 
 
     <td>
 		<select name="15" style="width: 120px">
-      <option>SELECT</option>     
-		    <?php foreach ($viewStudents as $value){ ?>	
-				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
-			<?php }  ?>
+       <?php         
+        foreach($assigned_seats as $row){
+        if($row['seat_number'] == '15'){
+      ?>    
+            <option><?php echo $row['last_name'].', '.$row['first_name']; ?></option>     
+      <?php }} ?>
+        <option>SELECT</option>
+      <?php foreach ($viewStudents as $value){ ?>     
+        <option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option>                                        
+      <?php }  ?>
+
 		</select>15
     </td>
 
 
     <td>
 		<select name="18" style="width: 120px">
-      <option>SELECT</option>     
-		    <?php foreach ($viewStudents as $value){ ?>	
-				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
-			<?php }  ?>
+       <?php         
+        foreach($assigned_seats as $row){
+        if($row['seat_number'] == '18'){
+      ?>    
+            <option><?php echo $row['last_name'].', '.$row['first_name']; ?></option>     
+      <?php }} ?>
+        <option>SELECT</option>
+      <?php foreach ($viewStudents as $value){ ?>     
+        <option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option>                                        
+      <?php }  ?>
+
 		</select>18
     </td>
 
@@ -366,39 +530,67 @@
 
     <td>
 		<select name="23" style="width: 120px">
-      <option>SELECT</option>     
-		    <?php foreach ($viewStudents as $value){ ?>	
-				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
-			<?php }  ?>
+       <?php         
+        foreach($assigned_seats as $row){
+        if($row['seat_number'] == '23'){
+      ?>    
+            <option><?php echo $row['last_name'].', '.$row['first_name']; ?></option>     
+      <?php }} ?>
+        <option>SELECT</option>
+      <?php foreach ($viewStudents as $value){ ?>     
+        <option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option>                                        
+      <?php }  ?>
+
 		</select>23
     </td>
 
 
     <td>
 		<select name="26" style="width: 120px">
-      <option>SELECT</option>     
-		    <?php foreach ($viewStudents as $value){ ?>	
-				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
-			<?php }  ?>
+       <?php         
+        foreach($assigned_seats as $row){
+        if($row['seat_number'] == '26'){
+      ?>    
+            <option><?php echo $row['last_name'].', '.$row['first_name']; ?></option>     
+      <?php }} ?>
+        <option>SELECT</option>
+      <?php foreach ($viewStudents as $value){ ?>     
+        <option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option>                                        
+      <?php }  ?>
+
 		</select>26
     </td>
 
 
     <td>
 		<select name="32" style="width: 120px">
-      <option>SELECT</option>     
-		    <?php foreach ($viewStudents as $value){ ?>	
-				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
-			<?php }  ?>
+       <?php         
+        foreach($assigned_seats as $row){
+        if($row['seat_number'] == '32'){
+      ?>    
+            <option><?php echo $row['last_name'].', '.$row['first_name']; ?></option>     
+      <?php }} ?>
+        <option>SELECT</option>
+      <?php foreach ($viewStudents as $value){ ?>     
+        <option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option>                                        
+      <?php }  ?>
+
 		</select>32
     </td>
 
     <td>
 		<select name="37" style="width: 120px">
-      <option>SELECT</option>     
-		    <?php foreach ($viewStudents as $value){ ?>	
-				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
-			<?php }  ?>
+       <?php         
+        foreach($assigned_seats as $row){
+        if($row['seat_number'] == '37'){
+      ?>    
+            <option><?php echo $row['last_name'].', '.$row['first_name']; ?></option>     
+      <?php }} ?>
+        <option>SELECT</option>
+      <?php foreach ($viewStudents as $value){ ?>     
+        <option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option>                                        
+      <?php }  ?>
+
 		</select>37
     </td>
   </tr>
@@ -406,40 +598,68 @@
   <tr>
     <td>
 		<select name="5" style="width: 120px">
-      <option>SELECT</option>     
-		    <?php foreach ($viewStudents as $value){ ?>	
-				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
-			<?php }  ?>
+       <?php         
+        foreach($assigned_seats as $row){
+        if($row['seat_number'] == '5'){
+      ?>    
+            <option><?php echo $row['last_name'].', '.$row['first_name']; ?></option>     
+      <?php }} ?>
+        <option>SELECT</option>
+      <?php foreach ($viewStudents as $value){ ?>     
+        <option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option>                                        
+      <?php }  ?>
+
 		</select>5
     </td>
 
 
     <td>
 		<select name="8" style="width: 120px">
-      <option>SELECT</option>     
-		    <?php foreach ($viewStudents as $value){ ?>	
-				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
-			<?php }  ?>
+       <?php         
+        foreach($assigned_seats as $row){
+        if($row['seat_number'] == '8'){
+      ?>    
+            <option><?php echo $row['last_name'].', '.$row['first_name']; ?></option>     
+      <?php }} ?>
+        <option>SELECT</option>
+      <?php foreach ($viewStudents as $value){ ?>     
+        <option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option>                                        
+      <?php }  ?>
+
 		</select>8
     </td>
 
 
     <td>
 		<select name="16" style="width: 120px">
-      <option>SELECT</option>     
-		    <?php foreach ($viewStudents as $value){ ?>	
-				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
-			<?php }  ?>
+       <?php         
+        foreach($assigned_seats as $row){
+        if($row['seat_number'] == '16'){
+      ?>    
+            <option><?php echo $row['last_name'].', '.$row['first_name']; ?></option>     
+      <?php }} ?>
+        <option>SELECT</option>
+      <?php foreach ($viewStudents as $value){ ?>     
+        <option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option>                                        
+      <?php }  ?>
+
 		</select>16
     </td>
 
 
     <td>
 		<select name="17" style="width: 120px">
-      <option>SELECT</option>     
-		    <?php foreach ($viewStudents as $value){ ?>	
-				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
-			<?php }  ?>
+       <?php         
+        foreach($assigned_seats as $row){
+        if($row['seat_number'] == '17'){
+      ?>    
+            <option><?php echo $row['last_name'].', '.$row['first_name']; ?></option>     
+      <?php }} ?>
+        <option>SELECT</option>
+      <?php foreach ($viewStudents as $value){ ?>     
+        <option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option>                                        
+      <?php }  ?>
+
 		</select>17
     </td>
 
@@ -447,38 +667,65 @@
     <!-- SEPARATOR --> <td style="width: 2px">&nbsp;</td>
     <td>
 		<select name="24" style="width: 120px">
-        <option>SELECT</option>     
-		    <?php foreach ($viewStudents as $value){ ?>	
-				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
-			<?php }  ?>
+         <?php         
+        foreach($assigned_seats as $row){
+        if($row['seat_number'] == '24'){
+      ?>    
+            <option><?php echo $row['last_name'].', '.$row['first_name']; ?></option>     
+      <?php }} ?>
+        <option>SELECT</option>
+      <?php foreach ($viewStudents as $value){ ?>     
+        <option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option>                                        
+      <?php }  ?>
+
 		</select>24
     </td>
 
     <td>
 		<select name="25" style="width: 120px">
-        <option>SELECT</option>     
-		    <?php foreach ($viewStudents as $value){ ?>	
-				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
-			<?php }  ?>
+         <?php         
+        foreach($assigned_seats as $row){
+        if($row['seat_number'] == '25'){
+      ?>    
+            <option><?php echo $row['last_name'].', '.$row['first_name']; ?></option>     
+      <?php }} ?>
+        <option>SELECT</option>
+      <?php foreach ($viewStudents as $value){ ?>     
+        <option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option>                                        
+      <?php }  ?>
+
 		</select>25
     </td>
 
-    <td>
-		<select name="33" style="width: 120px">
-        <option>SELECT</option>     
-		    <?php foreach ($viewStudents as $value){ ?>	
-				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
-			<?php }  ?>
-		</select>33
-    </td>
+		<td>
+    <select name="33" style="width: 120px">
+         <?php         
+        foreach($assigned_seats as $row){
+        if($row['seat_number'] == '6'){
+      ?>    
+            <option><?php echo $row['last_name'].', '.$row['first_name']; ?></option>     
+      <?php }} ?>
+        <option>SELECT</option>
+      <?php foreach ($viewStudents as $value){ ?>     
+        <option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option>                                        
+      <?php }  ?>
 
+    </select>33
+    </td>
 
     <td>
 		<select name="36" style="width: 120px">
-        <option>SELECT</option>     
-		   <?php foreach ($viewStudents as $value){ ?>	
-				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
-			<?php }  ?>
+         <?php         
+        foreach($assigned_seats as $row){
+        if($row['seat_number'] == '36'){
+      ?>    
+            <option><?php echo $row['last_name'].', '.$row['first_name']; ?></option>     
+      <?php }} ?>
+        <option>SELECT</option>
+      <?php foreach ($viewStudents as $value){ ?>     
+        <option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option>                                        
+      <?php }  ?>
+
 		</select>36
     </td>
   </tr>
@@ -487,20 +734,34 @@
   <tr>
     <td>
 		<select name="6" style="width: 120px">
-        <option>SELECT</option>     
-		    <?php foreach ($viewStudents as $value){ ?>	
-				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
-			<?php }  ?>
+         <?php         
+        foreach($assigned_seats as $row){
+        if($row['seat_number'] == '6'){
+      ?>    
+            <option><?php echo $row['last_name'].', '.$row['first_name']; ?></option>     
+      <?php }} ?>
+        <option>SELECT</option>
+      <?php foreach ($viewStudents as $value){ ?>     
+        <option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option>                                        
+      <?php }  ?>
+
 		</select>6
     </td>
 
 
     <td>
 		<select name="7" style="width: 120px">
-        <option>SELECT</option>     
-		    <?php foreach ($viewStudents as $value){ ?>	
-				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
-			<?php }  ?>
+         <?php         
+        foreach($assigned_seats as $row){
+        if($row['seat_number'] == '7'){
+      ?>    
+            <option><?php echo $row['last_name'].', '.$row['first_name']; ?></option>     
+      <?php }} ?>
+        <option>SELECT</option>
+      <?php foreach ($viewStudents as $value){ ?>     
+        <option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option>                                        
+      <?php }  ?>
+
 		</select>7
     </td>
 
@@ -521,10 +782,17 @@
 
     <td>
 		<select name="35" style="width: 120px">
-        <option>SELECT</option>     
-		    <?php foreach ($viewStudents as $value){ ?>	
-				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
-			<?php }  ?>
+         <?php         
+        foreach($assigned_seats as $row){
+        if($row['seat_number'] == '35'){
+      ?>    
+            <option><?php echo $row['last_name'].', '.$row['first_name']; ?></option>     
+      <?php }} ?>
+        <option>SELECT</option>
+      <?php foreach ($viewStudents as $value){ ?>     
+        <option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option>                                        
+      <?php }  ?>
+
 		</select>35
     </td>
   
