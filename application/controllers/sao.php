@@ -81,7 +81,7 @@
 
     	}
 
-  		public function add_violation() {			
+  		public function add_violation() {
 			$this->sao_model->add_violation();
 
 			redirect('sao/add_violation_view','refresh');

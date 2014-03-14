@@ -172,7 +172,10 @@
                     <td><?php echo $value['violation']; ?></td>
                     <td><?php echo $value['date']; ?></td>
                     <td><?php echo $value['status']; ?></td>
-                    <td><?php echo anchor('sao/removeviolators?id='.$value['student_number'], 'Remove', 'id="$value->student_number" class="btn btn-danger"'); ?></td>
+                      <?php if($value['status'] == "In campus with violation") { ?> 
+                        <td><?php echo anchor('sao/removeviolators?id='.$value['student_number'], 'Update', 'id="$value->student_number" class="btn btn-primary"'); ?></td>
+                      <?php } else ?>
+                        <td></td>
                   </tr>
                   <?php } ?>
                 </tbody>
