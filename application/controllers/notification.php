@@ -107,8 +107,9 @@
 		}
 
 		public function viewCandidates() {	
+			$this->method_call =& get_instance(); 
 				$data['viewSubjects'] = $this->notification_model->viewSubjects();
-				$data['viewStudents'] = $this->notification_model->viewCandidates();
+				$data['viewStudentAttendance'] = $this->notification_model->viewCandidates();
 
 				echo "<pre>";
 				print_r($data);
