@@ -188,11 +188,11 @@
                   <?php foreach($viewLogs as $value) {   ?>
 
                     <?php if($value['time_in'] != '00:00:00') { ?>
-                      <a class="list-group-item"> <?php echo $value['first_name'];?> / Login Time: <?php echo $value['time_in']; ?></a>
+                      <a class="list-group-item"> <?php echo $value['first_name'];?> / Login Time: <b><?php echo $value['time_in']; ?></b></a>
                     <?php } ?>   
 
                     <?php if($value['time_out'] != '00:00:00'){?>
-                      <a class="list-group-item"> <?php echo $value['first_name'];?> / Logout Time: <?php echo $value['time_out']; ?></a>
+                      <a class="list-group-item"> <?php echo $value['first_name'];?> / Logout Time: <b><?php echo $value['time_out']; ?></b></a>
                     <?php } ?>
                    <?php } ?>
                 </div>
@@ -214,13 +214,13 @@
   var data = $.parseJSON(data.data); 
   
     var num2 = 0;
-    var num3=0;
+    var num3 = 0;
     var id_update = [];
 
     if(num==num2) { 
       $.each(data, function(index, val) {  
         //if(index==data.length-1) { 
-          audioElement.play();
+          //audioElement.play();
           $("#notification").prepend("<li>"+val.message+" ("+val.date+")</li>");
        // }
       });  

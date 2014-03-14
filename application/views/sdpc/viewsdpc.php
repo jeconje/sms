@@ -133,7 +133,7 @@
                           <?php  echo $late; ?>
                       </td>     
                       <td>
-                          <?php echo $absences?>
+                          <div id="absences" value="<?php echo $absences; ?>"><?php echo $absences; ?>
                       </td>
                     </tr>
               <?php }
@@ -171,6 +171,20 @@
             return false;
           }
     });
+  });
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    var absences = $('#absences').val();
+
+    if(absences >= "5") {
+      $.ajax({
+        type: "POST",
+        url: "<?php echo base_url(); ?>notification/viewCandidates",
+        data: "absences=" + absences,
+      });
+    }
   });
 </script>
 
