@@ -121,7 +121,7 @@
                   <?php if(($absences >= '5' && $value['days'] == 'MWF') || ($absences >= '3' && $value['days'] == 'TTH') ){ ?>
                   <tr>                 
                       <td>
-                        <?php echo $viewAttnedance['last_name'].', '.$viewAttendance['first_name']; ?>
+                        <?php echo $viewAttendance['last_name'].', '.$viewAttendance['first_name']; ?>
                       </td>
                       <td>
                         <?php echo $value['subject_description']; ?>
