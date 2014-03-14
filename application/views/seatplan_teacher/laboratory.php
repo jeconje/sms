@@ -199,9 +199,9 @@
       <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
       <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
       <?php } ?>
-      <?php if($temp != $value['student_number']){?>
+      <!---<?php if($temp != $value['student_number']){?>
       <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div> 
-      <?php } ?>
+      <?php } ?>-->
       <?php if($temp == $value['student_number'] && $timein == '00:00:00'){?>
       <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
       <?php } ?>                 
@@ -336,7 +336,11 @@
                 }
                 if($value['seat_number'] == 2){
        ?>     
+<<<<<<< HEAD
     <input type = "hidden" name = "student_number2" value = "<?php echo $value['student_number'];  ?>" />       
+=======
+       <input type = "hidden" name = "student_number2" value = "<?php echo $value['student_number'];  ?>" />
+>>>>>>> 2835ef0f0be7a73fb529ea8edc0db316196e0d74
     <input name="2" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
     <p align="right">2</p>
         <div class="auto-style1" style="width: 49px; height: 10px">Lates: <?php echo $late; ?></div>

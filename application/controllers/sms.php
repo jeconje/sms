@@ -9,7 +9,6 @@
 		{
 			error_reporting(0);
 			parent::__construct();
-			$this->load->library("pagination");
 		}
 
 		public function index() {

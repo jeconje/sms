@@ -80,10 +80,9 @@
               <table class="table table-hover tablesorter"  style="width=20px;">
                 <thead>
                   <tr>
-                    <th><center>Subject</th>
                     <th><center>Dates</th>
                     <th><center></th>
-                  </tr>
+                   </tr>
                 </thead>
 
                 <tbody  align="center">                  

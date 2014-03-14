@@ -75,7 +75,7 @@
 				$data['first_name'] = $data['info']['first_name'];
 				$data['last_name'] = $data['info']['last_name'];
 
-				$data['viewSubjects'] = $this->dean_model->viewClasses($data);
+				$data['viewSubjects'] = $this->dean_model->viewSDPC($data);
 				$data['viewCandidates'] = $this->dean_model->viewCandidates($data);
 
 				$this->load->view('dean/viewsdpc',$data);
@@ -315,24 +315,123 @@
 
 
 		//Show Calendar
+		//Calendar
 		public function calendar_dean($year=null,$month=null) 
 		{
-		  $data['deanInfo'] = $this->session->userdata('logged_in');
-		  if($data['deanInfo'] == TRUE){
-		      $data['first_name'] = $data['deanInfo']['first_name'];
-		      $data['last_name'] = $data['deanInfo']['last_name'];
-		      $data['event'] = $this->input->post('event');
-		      $data['atays'] = $this->dean_model->getEvents();
-		      if(isset($_POST['event']))
-		      { 
-		        $data['result'] = $this->dean_model->addEvents($data);
-		      }
-		      
-		      $data['atay'] = $this->dean_model->showCalendar($year,$month,$events);     
-		      $this->load->view('calendar/calendar_dean',$data);
-		  } else
-		  	$this->index();
+			$data['deanInfo'] = $this->session->userdata('logged_in');
+			if($data['deanInfo'] == TRUE){
+				$data['first_name'] = $data['deanInfo']['first_name'];
+				$data['last_name'] = $data['deanInfo']['last_name'];
+				$data['event'] = $this->input->post('event');
+				$data['date'] = $this->input->post('date');	
+				$data['result'] = $this->dean_model->getEvents();
+
+				$day = (int)substr($row->date,8,2);
+			    $events[(int)$day] = $row->event;
+			    $events = array();
+
+			    $current_time = time();
+                $current_date = date('Y-m-d',$current_time); 
+
+			    $currentmonth = (int)substr($current_date,5,2);
+
+			    foreach($data['result'] as $row)
+			    {
+			    	$day = (int)substr($row['date'],8,2);
+			    	$mon = (int)substr($row['date'],5,2);
+
+			    	if($month == $currentmonth)
+			    	{
+					    if(!array_key_exists($day,$events)) 
+					    { 
+							$events[$day] = $row['event'];
+						}
+					}
+
+						else 
+						{
+							$temp = $row['event'];
+							$events[$day] = $events[$day]."<br>".$temp;
+						}
+				} 
+				// $data['viewCalendar'] = $this->dean_model->showCalendar($year,$month,$events);			
+				// $this->load->view('calendar/calendar',$data);
+
+				$data['result'] = $this->dean_model->getEvents($year,$month);
+				if(isset($_POST['add']))
+				{	
+					$this->dean_model->addEvents($data);
+					header('Location: http://localhost/sms/dean/calendar_dean');
+				}
+
+				$config['show_next_prev'] = 'TRUE';
+			    $config['day_type'] = 'long';
+			    $config['next_prev_url'] = base_url().'dean/calendar_dean';
+			    $config['template'] = '
+			    {cal_cell_content}<span class="day_listing">{day}</span>&nbsp;&bull; {content}&nbsp;{/cal_cell_content}
+			    {cal_cell_content_today}<div class="today"><span class="day_listing">{day}</span>&bull; {content}</div>{/cal_cell_content_today}
+			    {cal_cell_no_content}<span class="day_listing">{day}</span>&nbsp;{/cal_cell_no_content}
+			    {cal_cell_no_content_today}<div class="today"><span class="day_listing">{day}</span></div>{/cal_cell_no_content_today}
+			    '; 
+			    $config['template'] = '
+			    {table_open}<table class="calendar">{/table_open}
+			    {week_day_cell}<th class="day_header">{week_day}</th>{/week_day_cell}
+			    {cal_cell_content}<span class="day_listing">{day}</span>&nbsp;&bull; {content}&nbsp;{/cal_cell_content}
+			    {cal_cell_content_today}<div class="today"><span class="day_listing">{day}</span>&bull; {content}</div>{/cal_cell_content_today}
+			    {cal_cell_no_content}<span class="day_listing">{day}</span>&nbsp;{/cal_cell_no_content}
+			    {cal_cell_no_content_today}<div class="today"><span class="day_listing">{day}</span></div>{/cal_cell_no_content_today}
+			    '; 
+
+			    //$events = $this->getEvents($year,$month);
+			    $this->load->library('calendar',$config);
+    			$data['viewCalendar']= $this->calendar->generate($year,$month,$events);
+				
+				//$data['viewCalendar'] = $this->dean_model->showCalendar($year,$month,$events);			
+				$this->load->view('calendar/calendar_dean',$data);	
+
+			}
+			else
+				$this->index();
 		}
+
+		//Edit Calendar
+  		public function edit_calendar() 
+	    {
+	      $data['dean_info'] = $this->session->userdata('logged_in');
+	      if($data['dean_info'] == TRUE)
+	      {		
+	      	$data['first_name'] = $data['dean_info']['first_name'];
+			$data['last_name'] = $data['dean_info']['last_name'];
+
+				$data['info'] = $this->dean_model->calendar_details($data);
+
+				$this->load->view('dean/edit_calendar', $data);
+		    }
+		    else{
+		      		$this->index();
+		    }
+		}
+
+		public function updateEvent($id) {
+
+			$count = count($data['info'] = $this->dean_model->calendar_details());
+
+			for($i=0; $i < $count; $i++) {
+				 $data['id'] = $_POST['id'.$i];
+				 $data['date'] = $_POST['date'.$i];
+				 $data['event'] = $_POST['event'.$i];
+
+				 $this->dean_model->calendar_update($data);
+			}	
+			 redirect($_SERVER['HTTP_REFERER']);
+		}
+
+		public function deleteEvent($id) {
+			$id = $_GET['id'];
+			$this->dean_model->calendar_delete($id);
+			redirect($_SERVER['HTTP_REFERER']);
+		}
+
 
 		public function logout() 
 		{

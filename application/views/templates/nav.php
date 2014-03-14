@@ -11,6 +11,9 @@
     <!-- Upload Button CSS -->
     <link rel="stylesheet" href="<?php echo base_url(); ?>css/student/login.css"> 
 
+    <!-- Notification CSS -->
+    <link rel="stylesheet" href="<?php echo base_url(); ?>css/notification.css"> 
+
     <!-- Student Login CSS-->
     <link rel="stylesheet" href="<?php echo base_url(); ?>css/upload.css">
 

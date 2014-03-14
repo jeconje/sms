@@ -8,20 +8,18 @@
     <title>USJR - SMS</title>
     <?php include ('/application/views/templates/nav.php'); ?>
     <!-- Date Picker -->
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
-    <script src="//code.jquery.com/jquery-1.9.1.js"></script>
-    <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-    <link rel="stylesheet" href="/resources/demos/style.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>css/calendar/jquery-ui.css">
+    <script src="<?php echo base_url(); ?>css/calendar/jquery-1.9.1.js"></script>
+    <script src="<?php echo base_url(); ?>css/calendar/jquery-ui.js"></script>
     <script>
-      $(function() {
-
-        $("#datepicker").datepicker({ minDate: 0, dateFormat: 'yy-mm-dd'});
-      });
-    </script>
+    $(function() {
+                   $("#datepicker").datepicker({ minDate: 0, dateFormat: 'yy-mm-dd'});
+                 });
+    </script> 
   </head>
 
 <body>
-    <div id="wrapper">
+     <div id="wrapper">
        <?php $home = 'profile'; ?>
       <!-- Sidebar -->
       <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -35,12 +33,13 @@
           </button>
           <a class="navbar-brand" href="<?php echo $home ?>">University Of San Jose Recoletos - Student Monitoring System</a></div>
         <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
           <ul class="nav navbar-nav side-nav">
             <li><a href="<?php echo $home ?>"><i class="icon32 icon-color icon-home"></i> Dashboard</a></li>
             <li><a href="<?php echo base_url(); ?>admin/add_account"><i class="icon32 icon-color icon-book-empty"></i> Add Account</a></li>
             <li  class="active"><a href="<?php echo base_url(); ?>admin/calendar"><i class="icon32 icon-color icon-calendar"></i> Calendar</a></li>    
           </ul>
+
 
           <ul class="nav navbar-nav navbar-right navbar-user">            
             <li class="dropdown user-dropdown">
@@ -53,13 +52,12 @@
             </li>
           </ul>
         </div><!-- /.navbar-collapse -->
-      </nav>
-      
+      </nav>      
 <center>
   <?php echo form_open('admin/calendar'); ?>
   <table>
     <tr>
-      <td><input name ="date" type="text" id="datepicker" placeholder="Pick Date" class="form-control" value=""></td>
+      <td><input name ="date" type="text" id="datepicker" placeholder="Pick Date" class="form-control"></td>
     </tr>
     <tr>
       <td><textarea id="event" name="event" placeholder="Enter Event" class="form-control" value="" resizable="false"></textarea></td>
@@ -67,8 +65,8 @@
   </table>
     <br>
     <button type="submit" id="add" name="add" class="btn btn-default">Add Event</button>
-    <button type="submit" id="update" name="update" class="btn btn-default">Update Event</button>
-    <button type="submit" id="delete" name="delete" class="btn btn-default">Delete Event</button>
+    <a href='<?php echo base_url(); ?>admin/edit_calendar'><button type="button" class="btn btn-primary">Edit Calendar</button></a>
+    <!---<button type="submit" id="delete" name="delete" class="btn btn-default">Delete Event</button>-->
 </div>
       <?php echo $viewCalendar;?>
       <?php echo form_close(); ?>

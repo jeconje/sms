@@ -77,7 +77,8 @@
               <table class="table table-hover tablesorter">
                 <thead>
                   <tr>
-                    <th class="warning">Subject</th>    
+                    <th class="warning">Subject</th>
+                    <th class="warning"><center>Day</th>    
                     <th class="warning"><center>Date</th>
                     <th class="warning">Status</th>                                     
                   </tr>
@@ -86,7 +87,8 @@
                 
                   <?php foreach($viewLogs as $view){     ?>                  
                   <tr>
-                      <td><?php echo $view['subject_description']; ?></td>    
+                      <td><?php echo $view['subject_description']; ?></td> 
+                      <td><?php echo $view['days']; ?></td>      
                       <td><?php echo $view['date']; ?></td>    
                       <td><?php echo $view['attendance']; ?></td>                            
                   </tr>                                                                                                                        

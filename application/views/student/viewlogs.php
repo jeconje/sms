@@ -84,7 +84,6 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <?php print_r($viewLogs); ?>
                   <?php foreach($viewLogs as $in){     ?>                  
                   <tr>
                       <?php if($in['time_in'] != '00:00:00'){?>

@@ -83,8 +83,8 @@
 
           return $result;
         }
-/*
-        public function viewAllCandidates() {
+
+       /* public function viewAllCandidates() {
           $this->db->select();
             $this->db->from('attendance');          
             $this->db->order_by('attendance_id');
@@ -95,11 +95,10 @@
             return $query->result_array();
         }*/
 
-        public function viewClasses()
-        {
+        public function viewClasses() {
           $this->db->select();
-          $this->db->from('offering');          
-          $this->db->join('subject','offering.offer_code = subject.offer_code');  
+          $this->db->from('offering');
+          $this->db->join('subject','offering.offer_code = subject.offer_code');                             
           
           $query = $this->db->get();
           $result = $query -> result_array();
@@ -107,17 +106,16 @@
           return $result;
         }
 
-        public function viewCandidates($data)
-        {
-            $this->db->select();
-            $this->db->from('attendance');
-            $this->db->join('students', 'attendance.student_number = students.student_number');
-            $this->db->where('attendance.student_number', $data['student_number']);
+        public function viewCandidates($data) {
+          $this->db->select();
+          $this->db->from('attendance');
+          $this->db->join('students', 'attendance.student_number = students.student_number');
+          $this->db->where('attendance.student_number', $data['student_number']);
 
-            $query = $this->db->get();
-            $result = $query -> result_array();
+          $query = $this->db->get();
+          $result = $query -> result_array();
 
-            return $result;
+          return $result;
         }
 
         //Calendar
@@ -167,22 +165,16 @@ public function showCalendar($year,$month)
     $result = $this->db->insert('calendar',$data);
   }
 
-  public function notification_parent($data) {
-    $this->db->select()->from('notification');/*->where(array('account_id' => $data['account_id'], 'seen' =>'no'));*/
-    $query = $this->db->get();
+  //View Parent's Info
+  public function parentInfo($data)
+  {
+    $this-> db -> select();
+    $this-> db -> from('parent');
+    $this-> db -> where('parent_id',$data['account_id']);
+    $query = $this -> db -> get();
+    $result = $query -> first_row('array');
 
-    return $query->result_array();
-  }
-
-  public function notification_update_parent($data) {
-    for($x=0; $x < count($data['notification_id']); $x++) {
-      $seen_update = array('seen'=>'yes');
-      $this->db->where(array('parent_id' => $data['parent_id'], 'notification_id' => $data['id_for_update'][$x]));
-    }
-    $this->db->select()->from('notification')->where(array('account_id' => $data['account_id']));
-    $query = $this->db->get();
-
-    return $query->result_array();
+    return $result;
   }
 
   public function childrensAttendance($data) {

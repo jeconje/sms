@@ -41,7 +41,6 @@
 				//Get college
 				$data['college_id'] = $data['info']['college_id'];
 				$data['collegeinfo'] = $this->teacher_model->get_college($data);
-
 				$data['teacherinfo'] = $this->teacher_model->teacherInfo($data);	
 				//$this->load->view('teacher/home',$data);
 
@@ -104,7 +103,7 @@
 				$data['offer_code'] = $this->input->post('offer_code');
 				$data['subjects'] = $this->teacher_model->get_subject($data);
 				
-				$data['viewSubjects'] = $this->teacher_model->viewClasses($data);
+				$data['viewSubjects'] = $this->teacher_model->viewSDPC($data);
 				$data['viewCandidates'] = $this->teacher_model->viewCandidates($data);
 
 				$this->load->view('teacher/viewsdpc',$data);
@@ -183,7 +182,7 @@
 					$data['address'] = $this->input->post('address');
 					$data['contact_number'] = $this->input->post('contact_number');
 					
-					$this->teacher_model->edit_profile($data);
+					 $this->teacher_model->edit_profile($data);
 				}
 			} else 
 				$this->index();

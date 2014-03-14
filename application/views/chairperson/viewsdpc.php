@@ -81,41 +81,36 @@
         </div><!-- /.navbar-collapse -->
       </nav>
 
-     <div>
+        <div id="page-wrapper">
         <center>
-        <table>
-        <br>
-        <tr>
-          <td></td><td></td><td></td>
-          <td></td><td></td><td></td>
-          <td></td><td></td><td></td>
-          <td></td>
-        <td>
-                <select name="subject">
-                  <option selected="Yes">Subject</option>                  
-                  <?php foreach($viewSubjects as $subjects){ ?>
-                  <option><?php echo $subjects['subject_description']; ?></option>                 
-                  <?php } ?> 
-                </select>
-        </td>
-        <td>
-                <select name="time">
-                  <option selected="Yes">Offer Code</option>
-                  <?php foreach($viewSubjects as $offer_code){ ?>
-                  <option><?php echo $offer_code['offer_code']; ?></option>                 
-                  <?php } ?> 
-                </select>
-        </td>
-        <td></td><td></td><td></td><td></td><td></td>
+          <?php echo form_open("teacher/view_candidates"); ?>
+          <table>
+            <tr>
+              <td></td><td></td><td></td>
+              <td></td><td></td><td></td>
+              <td></td><td></td><td></td>
+              <td></td>
+              <td>
+                <select class="select-style select" id="subject" name="subject">
+                <option value="" selected="selected" id="subject">- select subject -</option>
+                <?php foreach ($subjects as $subject => $value){ ?>
+                  <option value="<?php echo $value->subject_code; ?>"><?php echo $value->subject_description; ?></option>
+                <?php } ?>
+            </select>
+            <select class="select-style select" id="offer_code" name="offer_code"> 
+                <option value="">------</option>
+            </select><br><br>
+              </td>
+              <td></td><td></td><td></td><td></td><td></td>
 
-        <td>
-            <input class="btn btn-primary" type="submit" value="Search"/>
-        </td>
-    </tr>
-  </table>
-        <br><br>
+              <td>
+                  <input class="btn btn-primary" type="submit" value="Search"/>
+              </td>
+            </tr>
+          </table>
+          <?php echo form_close(); ?>
       </center>
-        </div>
+        </div>          
 
 <br><BR>
         <div class="table-responsive">
@@ -124,8 +119,10 @@
                   <tr>
                     <th><center>Name of Student</th>
                     <th><center>Subject</center></i></th>
+                    <th><center>Day</center></i></th>
                     <th><center>Number of Lates</i></th>
-                    <th><center>Number of Absences</th>
+                    <th><center>Number of Unexcused Absences</th>
+                    <th><center>Number of Excused Absences</th>
                   </tr>
                 </thead>
                 <?php
@@ -133,37 +130,76 @@
                     {
                          $late = 0;
                          $absences = 0;
-                  ?>    
-                      <?php foreach($viewCandidates as $viewAttendance){
-                           
-                              if($viewAttendance['attendance'] == 'L' && $viewAttendance['offer_code'] == $value['offer_code'] ){
-                                $late++;
-                              }                              
-                              if($viewAttendance['attendance'] == 'A' && $viewAttendance['offer_code'] == $value['offer_code']){
-                                $absences++;
-                              }
-                      }
-                       ?>
-                  <?php if(($absences >= '5' && $value['days'] == 'MWF') || ($absences >= '3' && $value['days'] == 'TTH') ){ ?>
-                  <tr>
-                      <td>
-                          <?php echo $value['last_name'].', '.$value['first_name'].' '.$value['middle_name']; ?>
-                      </td>
-                      <td>
-                          <?php echo $value['subject_description']; ?>
-                      </td>  
-                      <td>                        
-                          <?php  echo $late; ?>
-                      </td>     
-
-                      <td>
-                          <?php echo $absences?>
-                      </td>
+                         $excused= 0;
+                ?>    
+                  <?php foreach($viewCandidates as $viewAttendance){
+                       
+                          if($viewAttendance['attendance'] == 'L' && $viewAttendance['offer_code'] == $value['offer_code'] ){
+                            $late++;
+                          }                              
+                          if($viewAttendance['attendance'] == 'A' && $viewAttendance['offer_code'] == $value['offer_code']){
+                            $absences++;
+                          }
+                          if($viewAttendance['attendance'] == 'X' && $viewAttendance['offer_code'] == $value['offer_code']){
+                            $excused++;
+                          }
+                  } ?>
+                  <?php if(($absences >= '5' && $viewAttendance['days'] == 'MWF') || ($absences >= '3' && $value['days'] == 'TTH') ){ ?>
+                    <tr>
+                        <td>
+                            <?php echo $value['last_name'].', '.$value['first_name']; ?>
+                        </td>
+                        <td>
+                            <?php echo $value['subject_description']; ?>
+                        </td>   
+                        <td>                        
+                            <?php  echo $value  ['days']; ?>
+                        </td>
+                        <td>                        
+                            <?php  echo $late; ?>
+                        </td>   
+                        <td>
+                            <?php echo $absences; ?>
+                        </td>
+                        <td>
+                            <?php echo $excused ?>
+                        </td>
                     </tr>
-                  <?php }} ?>
+                  <?php }
+                    } ?>
                 </tbody>
               </table>
             </div>
           </div>
+
+<!-- course dropdown will depende on what college is chosen -->
+<script type="text/javascript">
+$(document).ready(function(){
+  $('#subject').on('change', function () {
+      var subject = $('#subject').val();
+      $('#offer_code').empty();
+      if (subject != "") {
+        $.ajax({
+            type: "POST",
+            url: "<?php echo base_url(); ?>teacher/get_offer_codes",
+            data: "subject=" + subject,
+            dataType: "json",
+            success: function (data) {
+                $.each (data, function(index, val) {
+                    var opt = $('<option />'); // here we're creating a new select option for each group
+                    opt.val(val.o_code);
+                    opt.text(val.o_code);
+                    $('#offer_code').append(opt);
+                });
+            }
+        });
+      } else {
+        $('#offer_code').empty();
+        $('#offer_code').hide();
+      }
+  });
+});
+</script>
+
   </body>
 </html>
