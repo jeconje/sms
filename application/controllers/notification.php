@@ -42,7 +42,7 @@
 			
 			$data['parentInfo'] = $this->session->userdata['logged_in'];
 			$data['parent_id'] = $data['parentInfo']['parent_id'];
-
+			
 			$data['id_for_update'] = $_POST['id'];
 			$data['new_notification'] = $this->notification_model->notification_update_parent($data);
 

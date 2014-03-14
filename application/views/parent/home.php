@@ -36,6 +36,7 @@
             <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon32 icon-color icon-document"></i><b class="caret"></b>Grades</a>
                       <ul class="dropdown-menu">
+
                            <?php foreach($result as $value){ ?>
                           <li><a href="<?php echo base_url(); ?>parents/viewgrades?id=<?php echo $value['account_id']; ?>"> <?php echo $value['last_name'].', '.$value['first_name']; ?></a></li>          
                           <?php } ?>
@@ -205,7 +206,6 @@
 
 <script type="text/javascript">
   var num = 0;
-$(document).ready(function() {
   $('#noti').hide();
   var audioElement = document.createElement('audio');
   audioElement.setAttribute('src', '<?php echo base_url(); ?>notification/Notify_Sound.mp3');
@@ -242,25 +242,27 @@ $(document).ready(function() {
   }
   es.addEventListener("message", listener);
 
-  $("#notify").on(click(function() {
+  $("#notify").on('click',(function() {
     $("#noti").hide();
+   // $("#notification").toggle("show");
     function update_print_noti() {
       $.ajax({
+        alert('haha');
         type: 'POST',
         url: "<?php echo base_url(); ?>notification/notification_update_parent",
         data: {id : id_update},
         dataType: 'json', 
         success: function(update) {
-          $.each(update, function(index, val) {
-            $("#notification").prepend("<li>"+val.message+" ("+val.date+")</li>");
-          });
+        $.each(update, function(index, val) {
+          alert('haha');
+          //$("#notification").prepend("<li>"+val.message+" ("+val.date+")</li>");
+        });
         }
       });
-      $("#notification").empty();
+    $("#notification").empty();
     }
     update_print_noti();
-  });)
-
+      }));
 });
 
 </script>
