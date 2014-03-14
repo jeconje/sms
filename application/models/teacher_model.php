@@ -366,5 +366,14 @@
 
               return $result;
        }     
+       public function viewViolation($data)
+       {
+            $this->db->select();
+            $this->db->from('violation');
+            $this->db->join('students','violation.student_number = students.student_number ');                                
+            $query = $this->db->get();
+            $result = $query -> result_array();
+            return $result;
+       }
   }
 ?>
