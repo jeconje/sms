@@ -242,28 +242,24 @@
   }
   es.addEventListener("message", listener);
 
-  $("#notify").on('click',(function() {
-    $("#noti").hide();
-   // $("#notification").toggle("show");
-    function update_print_noti() {
-      $.ajax({
-        alert('haha');
-        type: 'POST',
-        url: "<?php echo base_url(); ?>notification/notification_update_parent",
-        data: {id : id_update},
-        dataType: 'json', 
-        success: function(update) {
+$("#noti").click(function() {
+  $("#noti").hide();
+  function update_print_noti() {
+    $.ajax({
+      type: 'POST',
+      url: "<?php echo base_url(); ?>notification/notification_update_parent",
+      data: {id : id_update},
+      dataType: 'json', 
+      success: function(update) {
         $.each(update, function(index, val) {
-          alert('haha');
-          //$("#notification").prepend("<li>"+val.message+" ("+val.date+")</li>");
+          $("#notification").prepend("<li>"+val.message+" ("+val.date+")</li>");
         });
-        }
-      });
+      }
+    });
     $("#notification").empty();
-    }
-    update_print_noti();
-      }));
-});
+  }
+  update_print_noti();
+  });
 
 </script>
 

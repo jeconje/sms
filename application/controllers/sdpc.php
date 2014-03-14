@@ -182,7 +182,6 @@
 				$data['student_number'] = $this->input->post('student_number');
 				$data['viewCandidates'] = $this->sdpc_model->viewCandidates($data);
 				
-			
 				$this->load->view('sdpc/viewsdpc',$data);
 			} else
 				$this->index();

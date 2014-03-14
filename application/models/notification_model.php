@@ -166,6 +166,31 @@
 
       return $query->result_array();
     }
+
+    public function viewSubjects() {
+      $this->db->select();
+      $this->db->from('offering');
+      $this->db->join('study_load','offering.offer_code = study_load.offer_code');
+      $this->db->join('students','study_load.student_number = students.student_number');
+      $this->db->join('tracker','students.account_id = tracker.account_id');
+      $this->db->join('parent','tracker.parent_id = parent.parent_id');
+      $this->db->join('subject','offering.offer_code = subject.offer_code');                          
+      
+      $query = $this->db->get();
+      $result = $query -> result_array();
+
+      return $result;
+    }
+
+    public function viewCandidates() {
+      $this->db->select();
+      $this->db->from('attendance');
+      $this->db->join('students', 'attendance.student_number = students.student_number');
+      $query = $this->db->get();
+      $result = $query -> result_array();
+
+      return $result;
+    }
   }
 
 ?>

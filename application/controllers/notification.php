@@ -3,7 +3,7 @@
 	class Notification extends CI_Controller {
 	
 		public function __construct() {
-			error_reporting(0);
+			//error_reporting(0);
 			parent::__construct();
 		}
 
@@ -105,6 +105,16 @@
 
 			echo json_encode($data['new_notification']);
 		}
+
+		public function viewCandidates() {	
+				$data['viewSubjects'] = $this->notification_model->viewSubjects();
+				$data['viewStudents'] = $this->notification_model->viewCandidates();
+
+				echo "<pre>";
+				print_r($data);
+				echo "</pre>";
+		}
+
 	}
 
 ?>

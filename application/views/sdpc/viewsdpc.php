@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -111,13 +110,12 @@
                   ?>    
                       <?php foreach($viewCandidates as $viewAttendance) 
                       {
-                           
-                              if($viewAttendance['attendance'] == 'L' && $viewAttendance['offer_code'] == $value['offer_code']){
-                                $late++;
-                              }                              
-                              if($viewAttendance['attendance'] == 'A' && $viewAttendance['offer_code'] == $value['offer_code']){
-                                $absences++;
-                              }
+                        if($viewAttendance['attendance'] == 'L' && $viewAttendance['offer_code'] == $value['offer_code']) {
+                          $late++;
+                        }                              
+                        if($viewAttendance['attendance'] == 'A' && $viewAttendance['offer_code'] == $value['offer_code']) {
+                          $absences++;
+                        }
                       }
                       ?>
                   <?php if(($absences >= '5' && $value['days'] == 'MWF') || ($absences >= '3' && $value['days'] == 'TTH') ){ ?>
@@ -138,7 +136,8 @@
                           <?php echo $absences?>
                       </td>
                     </tr>
-                  <?php }} ?>
+              <?php }
+                    } ?>
                 </tbody>
               </table>
             </div>
