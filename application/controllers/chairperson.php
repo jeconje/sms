@@ -324,49 +324,43 @@
 		public function calendar_chairperson($year=null,$month=null) 
 		{
 			$data['chairpersonInfo'] = $this->session->userdata('logged_in');
-			if($data['chairpersonInfo'] == TRUE){
+			if($data['chairpersonInfo'] == TRUE)
+			{
 				$data['first_name'] = $data['chairpersonInfo']['first_name'];
 				$data['last_name'] = $data['chairpersonInfo']['last_name'];
 				$data['event'] = $this->input->post('event');
 				$data['date'] = $this->input->post('date');	
+				
 				$data['result'] = $this->chairperson_model->getEvents();
 
 				$day = (int)substr($row->date,8,2);
+				$mon = (int)substr($row->date,6,2);
+
 			    $events[(int)$day] = $row->event;
 			    $events = array();
 
-			    $current_time = time();
-                $current_date = date('Y-m-d',$current_time); 
+			    foreach($data['result'] as $row) {
 
-			    $currentmonth = (int)substr($current_date,5,2);
-
-			    foreach($data['result'] as $row)
-			    {
 			    	$day = (int)substr($row['date'],8,2);
 			    	$mon = (int)substr($row['date'],5,2);
 
-			    	if($month == $currentmonth)
-			    	{
-					    if(!array_key_exists($day,$events)) 
-					    { 
-							$events[$day] = $row['event'];
-						}
+				    if(!array_key_exists($day,$events)) { 
+						$events[$day] = $row['event'];
 					}
 
-						else 
-						{
-							$temp = $row['event'];
-							$events[$day] = $events[$day]."<br>".$temp;
-						}
-				} 
-				// $data['viewCalendar'] = $this->chairperson_model->showCalendar($year,$month,$events);			
-				// $this->load->view('calendar/calendar',$data);
+					else {
+						$temp = $row['event'];
+						$events[$day] = $events[$day]."<br> <li>".$temp;
+					}
 
-				$data['result'] = $this->chairperson_model->getEvents($year,$month);
+					$events_month[$mon][$day] = $events; 
+					
+				} 
+
 				if(isset($_POST['add']))
 				{	
 					$this->chairperson_model->addEvents($data);
-					header('Location: http://localhost/sms/chairperson/calendar_chairperson');
+					header('Location: http://localhost/sms/chairperson/calendar_chairperson/2014/03');
 				}
 
 				$config['show_next_prev'] = 'TRUE';
@@ -387,12 +381,12 @@
 			    {cal_cell_no_content_today}<div class="today"><span class="day_listing">{day}</span></div>{/cal_cell_no_content_today}
 			    '; 
 
-			    //$events = $this->getEvents($year,$month);
 			    $this->load->library('calendar',$config);
-    			$data['viewCalendar']= $this->calendar->generate($year,$month,$events);
-				
-				//$data['viewCalendar'] = $this->chairperson_model->showCalendar($year,$month,$events);			
-				$this->load->view('calendar/calendar_chairperson',$data);	
+			    $y = intval($this->uri->segment(3));
+			    $m = intval($this->uri->segment(4));
+    			$data['viewCalendar']= $this->calendar->generate($y,$m,$events_month[$m]);
+					
+				$this->load->view('calendar/calendar_chairperson',$data);
 
 			}
 			else
@@ -405,30 +399,35 @@
 	      $data['chairperson_info'] = $this->session->userdata('logged_in');
 	      if($data['chairperson_info'] == TRUE)
 	      {		
-	      	$data['first_name'] = $data['chairperson_info']['first_name'];
-			$data['last_name'] = $data['chairperson_info']['last_name'];
-
+		      	$data['first_name'] = $data['chairperson_info']['first_name'];
+				$data['last_name'] = $data['chairperson_info']['last_name'];
 				$data['info'] = $this->chairperson_model->calendar_details($data);
+				$data['months'] = $this->input->post('months');
+				$count = count($data['info'] = $this->chairperson_model->calendar_details());	
 
-				$this->load->view('chairperson/edit_calendar', $data);
-		    }
+				if(isset($_POST['submit']))
+				{
+					$data['info'] = $this->chairperson_model->calendar_details($data);
+					$this->load->view('chairperson/edit_calendar', $data);									 				 
+				}
+				else if(isset($_POST['update']))
+				{
+					for($i=0; $i <= $count; $i++) 
+					{
+						 $data['id'] = $_POST['id'.$i];
+						 $data['date'] = $_POST['date'.$i];
+						 $data['event'] = $_POST['event'.$i];
+
+						 $this->chairperson_model->calendar_update($data);
+						 header('Location: http://localhost/sms/chairperson/edit_calendar');
+					}	
+				}
+				else { $this->load->view('chairperson/edit_calendar', $data); }
+		   }
+
 		    else{
 		      		$this->index();
 		    }
-		}
-
-		public function updateEvent($id) {
-
-			$count = count($data['info'] = $this->chairperson_model->calendar_details());
-
-			for($i=0; $i < $count; $i++) {
-				 $data['id'] = $_POST['id'.$i];
-				 $data['date'] = $_POST['date'.$i];
-				 $data['event'] = $_POST['event'.$i];
-
-				 $this->chairperson_model->calendar_update($data);
-			}	
-			 redirect($_SERVER['HTTP_REFERER']);
 		}
 
 		public function deleteEvent($id) {

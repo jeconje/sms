@@ -397,17 +397,67 @@
 		public function calendarforparents($year = null,$month = null)
 		{			
 			$data['parentInfo'] = $this->session->userdata('logged_in');
-			if($data['parentInfo'] == TRUE){
+			if($data['parentInfo'] == TRUE)
+			{
 				$data['first_name'] = $data['parentInfo']['first_name'];
 				$data['last_name'] = $data['parentInfo']['last_name'];
+				$data['account_id'] = $data['parentInfo']['account_id'];
+				$data['id']	= $_GET['id'];
+
 				$data['event'] = $this->input->post('event');
-				$data['atays'] = $this->parent_model->getEvents();
-				if(isset($_POST['event']))
-				{	 
-					$data['result'] = $this->parent_model->addEvents($data);
-				}
-				$data['atay'] = $this->parent_model->showCalendar($year,$month,$events);			
+				$data['date'] = $this->input->post('date');	
+				
+				$data['result'] = $this->parent_model->getEvents();
+
+				$day = (int)substr($row->date,8,2);
+				$mon = (int)substr($row->date,6,2);
+
+			    $events[(int)$day] = $row->event;
+			    $events = array();
+
+			    foreach($data['result'] as $row) {
+
+			    	$day = (int)substr($row['date'],8,2);
+			    	$mon = (int)substr($row['date'],5,2);
+
+				    if(!array_key_exists($day,$events)) { 
+						$events[$day] = $row['event'];
+					}
+
+					else {
+						$temp = $row['event'];
+						$events[$day] = $events[$day]."<br> <li>".$temp;
+					}
+
+					$events_month[$mon][$day] = $events; 
+					
+				} 
+
+				$config['show_next_prev'] = 'TRUE';
+			    $config['day_type'] = 'long';
+			    $config['next_prev_url'] = base_url().'parents/calendarforparents';
+			    $config['template'] = '
+			    {cal_cell_content}<span class="day_listing">{day}</span>&nbsp;&bull; {content}&nbsp;{/cal_cell_content}
+			    {cal_cell_content_today}<div class="today"><span class="day_listing">{day}</span>&bull; {content}</div>{/cal_cell_content_today}
+			    {cal_cell_no_content}<span class="day_listing">{day}</span>&nbsp;{/cal_cell_no_content}
+			    {cal_cell_no_content_today}<div class="today"><span class="day_listing">{day}</span></div>{/cal_cell_no_content_today}
+			    '; 
+			    $config['template'] = '
+			    {table_open}<table class="calendar">{/table_open}
+			    {week_day_cell}<th class="day_header">{week_day}</th>{/week_day_cell}
+			    {cal_cell_content}<span class="day_listing">{day}</span>&nbsp;&bull; {content}&nbsp;{/cal_cell_content}
+			    {cal_cell_content_today}<div class="today"><span class="day_listing">{day}</span>&bull; {content}</div>{/cal_cell_content_today}
+			    {cal_cell_no_content}<span class="day_listing">{day}</span>&nbsp;{/cal_cell_no_content}
+			    {cal_cell_no_content_today}<div class="today"><span class="day_listing">{day}</span></div>{/cal_cell_no_content_today}
+			    '; 
+
+			    $this->load->library('calendar',$config);
+			    $y = intval($this->uri->segment(3));
+			    $m = intval($this->uri->segment(4));
+    			$data['viewCalendar']= $this->calendar->generate($y,$m,$events_month[$m]);
+					
 				$this->load->view('calendar/calendarforparents',$data);		
+			
 			} else
 				$this->index();
 			

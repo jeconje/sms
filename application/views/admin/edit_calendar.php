@@ -13,7 +13,7 @@
     <script src="<?php echo base_url(); ?>css/calendar/jquery-ui.js"></script>
     <script>
     $(function() {
-                   $("#datepicker").datepicker({ dateFormat: 'yy-mm-dd'});
+                   $(".datepicker").datepicker({ dateFormat: 'yy-mm-dd'}).val(new Date().asString()).trigger('change');
                  });
     </script> 
   </head>
@@ -56,7 +56,7 @@
           </ul>
         </div><!-- /.navbar-collapse -->
       </nav>
-    <?php echo form_open("admin/updateEvent"); ?>
+    <?php echo form_open("admin/edit_calendar"); ?>
 
          <div class="table-responsive" align="center">
             <select class="select-style select" id="months" name="months">
@@ -89,13 +89,13 @@
 
                   <tbody> 
                                   
-                  <?php foreach ($info as $value) { $i++; 
+                  <?php foreach ($info as $value) { $i++;
                     ?>        
                     <tr><input type="hidden" name='id<?php echo $i; ?>' value="<?php echo $value['calendar_id']; ?>" >
-                      <td><input name="date<?php echo $i; ?>" id="datepicker" value="<?php echo $value['date']; ?>" class="form-control"></td>
+                      <td><input name="date<?php echo $i; ?>" class="datepicker" value="<?php echo $value['date']; ?>" id="datepicker<?php echo $i; ?>"></td>
                       <td><input name="event<?php echo $i; ?>" value="<?php echo $value['event']; ?>" class="form-control"></td>
                       <td><input type="submit" name="update" value="Update" class="btn btn-primary"></td>
-                      <td><?php echo anchor('admin/deleteEvent?id='.$value['calendar_id'], 'Delete', 'id="$value->calendar_id" class="btn btn-danger"'); ?></td>
+                      <td><?php echo anchor('admin/deleteEvent?id='.$value['calendar_id'], 'Delete', 'name="delete" id="$value->calendar_id" class="btn btn-danger"'); ?></td>
                     </tr>
                   <?php } ?>                               
                   </tbody>

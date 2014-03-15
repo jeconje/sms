@@ -43,6 +43,7 @@
       $this->db->update('faculty',$faculty_data);
   }
 
+
     //View Admin Profile Info
 	  public function adminInfo($data)
 	  {
@@ -129,7 +130,7 @@
     }
 
     //Calendar
-  public function showCalendar($year,$month)
+public function showCalendar($year,$month)
   {    
     $config['show_next_prev'] = 'TRUE';
     $config['day_type'] = 'long';
@@ -210,7 +211,8 @@
           $this->db->select();
           $this->db->from('calendar');
           $this->db->like('date',$data['filter']);
-
+          $this->db->order_by('date');
+          
           $query = $this->db->get();
           $result = $query -> result_array();
 

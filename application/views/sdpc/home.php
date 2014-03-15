@@ -36,7 +36,7 @@
           <ul class="nav navbar-nav side-nav">
             <li  class="active"><a href="<?php echo base_url(); ?>sdpc/profile"><i class="icon32 icon-color icon-home"></i> Dashboard</a></li>
             <li><a href="<?php echo base_url(); ?>sdpc/view_candidates"><i class="icon32 icon-color icon-contacts"></i> SDPC Candidates </a></li>
-            <li ><a href="<?php echo base_url(); ?>sdpc/calendar_sdpc"><i class="icon32 icon-color icon-calendar"></i> Calendar</a></li>    
+            <li ><a href="<?php echo base_url(); ?>sdpc/calendar_sdpc/2014/03"><i class="icon32 icon-color icon-calendar"></i> Calendar</a></li>    
           </ul>
 
           <ul class="nav navbar-nav navbar-right navbar-user">

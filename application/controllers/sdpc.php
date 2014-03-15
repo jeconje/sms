@@ -188,23 +188,121 @@
 		}
 
 		//Show Calendar
+		//Calendar
 		public function calendar_sdpc($year=null,$month=null) 
 		{
 			$data['sdpcInfo'] = $this->session->userdata('logged_in');
-			if($data['sdpcInfo'] == TRUE){
+			if($data['sdpcInfo'] == TRUE)
+			{
 				$data['first_name'] = $data['sdpcInfo']['first_name'];
 				$data['last_name'] = $data['sdpcInfo']['last_name'];
 				$data['event'] = $this->input->post('event');
-				$data['atays'] = $this->sdpc_model->getEvents();
-				if(isset($_POST['event']))
-				{ 
-				$data['result'] = $this->sdpc_model->addEvents($data);
+				$data['date'] = $this->input->post('date');	
+				
+				$data['result'] = $this->sdpc_model->getEvents();
+
+				$day = (int)substr($row->date,8,2);
+				$mon = (int)substr($row->date,6,2);
+
+			    $events[(int)$day] = $row->event;
+			    $events = array();
+
+			    foreach($data['result'] as $row) {
+
+			    	$day = (int)substr($row['date'],8,2);
+			    	$mon = (int)substr($row['date'],5,2);
+
+				    if(!array_key_exists($day,$events)) { 
+						$events[$day] = $row['event'];
+					}
+
+					else {
+						$temp = $row['event'];
+						$events[$day] = $events[$day]."<br> <li>".$temp;
+					}
+
+					$events_month[$mon][$day] = $events; 
+					
+				} 
+
+				if(isset($_POST['add']))
+				{	
+					$this->sdpc_model->addEvents($data);
+					header('Location: http://localhost/sms/sdpc/calendar_sdpc/2014/03');
 				}
-				$data['atay'] = $this->sdpc_model->showCalendar($year,$month,$events);     
-				$this->load->view('calendar/calendar_sdpc',$data);
-			} else
+
+				$config['show_next_prev'] = 'TRUE';
+			    $config['day_type'] = 'long';
+			    $config['next_prev_url'] = base_url().'sdpc/calendar_sdpc';
+			    $config['template'] = '
+			    {cal_cell_content}<span class="day_listing">{day}</span>&nbsp;&bull; {content}&nbsp;{/cal_cell_content}
+			    {cal_cell_content_today}<div class="today"><span class="day_listing">{day}</span>&bull; {content}</div>{/cal_cell_content_today}
+			    {cal_cell_no_content}<span class="day_listing">{day}</span>&nbsp;{/cal_cell_no_content}
+			    {cal_cell_no_content_today}<div class="today"><span class="day_listing">{day}</span></div>{/cal_cell_no_content_today}
+			    '; 
+			    $config['template'] = '
+			    {table_open}<table class="calendar">{/table_open}
+			    {week_day_cell}<th class="day_header">{week_day}</th>{/week_day_cell}
+			    {cal_cell_content}<span class="day_listing">{day}</span>&nbsp;&bull; {content}&nbsp;{/cal_cell_content}
+			    {cal_cell_content_today}<div class="today"><span class="day_listing">{day}</span>&bull; {content}</div>{/cal_cell_content_today}
+			    {cal_cell_no_content}<span class="day_listing">{day}</span>&nbsp;{/cal_cell_no_content}
+			    {cal_cell_no_content_today}<div class="today"><span class="day_listing">{day}</span></div>{/cal_cell_no_content_today}
+			    '; 
+
+			    $this->load->library('calendar',$config);
+			    $y = intval($this->uri->segment(3));
+			    $m = intval($this->uri->segment(4));
+    			$data['viewCalendar']= $this->calendar->generate($y,$m,$events_month[$m]);
+					
+				$this->load->view('calendar/calendar_sdpc',$data);	
+
+			}
+			else
 				$this->index();
 		}
+
+		//Edit Calendar
+  		public function edit_calendar() 
+	    {
+	      $data['sdpc_info'] = $this->session->userdata('logged_in');
+	      if($data['sdpc_info'] == TRUE)
+	      {		
+		      	$data['first_name'] = $data['sdpc_info']['first_name'];
+				$data['last_name'] = $data['sdpc_info']['last_name'];
+				$data['info'] = $this->sdpc_model->calendar_details($data);
+				$data['months'] = $this->input->post('months');
+				$count = count($data['info'] = $this->sdpc_model->calendar_details());	
+
+				if(isset($_POST['submit']))
+				{
+					$data['info'] = $this->sdpc_model->calendar_details($data);
+					$this->load->view('sdpc/edit_calendar', $data);									 				 
+				}
+				else if(isset($_POST['update']))
+				{
+					for($i=0; $i <= $count; $i++) 
+					{
+						 $data['id'] = $_POST['id'.$i];
+						 $data['date'] = $_POST['date'.$i];
+						 $data['event'] = $_POST['event'.$i];
+
+						 $this->sdpc_model->calendar_update($data);
+						 header('Location: http://localhost/sms/sdpc/edit_calendar');
+					}	
+				}
+				else { $this->load->view('sdpc/edit_calendar', $data); }
+		   }
+
+			else { $this->index(); }
+		}
+
+		public function deleteEvent($id) 
+		{
+			$id = $_GET['id'];
+			$this->sdpc_model->calendar_delete($id);
+			redirect($_SERVER['HTTP_REFERER']);
+		}
+
 
 		public function logout() 
 		{

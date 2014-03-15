@@ -319,7 +319,7 @@
     {    
       $config['show_next_prev'] = 'TRUE';
       $config['day_type'] = 'long';
-      $config['next_prev_url'] = base_url().'sms/calendarforstudent';
+      $config['next_prev_url'] = base_url().'admin/calendar';
       $config['template'] = '
       {cal_cell_content}<span class="day_listing">{day}</span>&nbsp;&bull; {content}&nbsp;{/cal_cell_content}
       {cal_cell_content_today}<div class="today"><span class="day_listing">{day}</span>&bull; {content}</div>{/cal_cell_content_today}
@@ -334,34 +334,23 @@
       {cal_cell_no_content}<span class="day_listing">{day}</span>&nbsp;{/cal_cell_no_content}
       {cal_cell_no_content_today}<div class="today"><span class="day_listing">{day}</span></div>{/cal_cell_no_content_today}
       '; 
+
       $events = $this->getEvents($year,$month);
+      $day = $this->getEvents($year,$month);
       $this->load->library('calendar',$config);
-     
+      
       return $this->calendar->generate($year,$month,$events);
     }
-  //Get events on calendar table from database
+
+//Get events on calendar table from database
   public function getEvents($year , $month)
   {
-    $events = array();
-    $query = $this->db->select('date,event')->from('calendar')->like('date',"$year-$month")->get();
-    $result = $query->result();
-    foreach($result as $row)
-    {
-        $day = (int)substr($row->date,8,2);
-        $events[(int)$day] = $row->event;
-    }
-    return $events;
+    $query = $this->db->select('date,event')->from('calendar')->like('date', "$year-$month")->get();
+    $result = $query->result_array();
+    return $result;
   }
-  public function addEvents($data)
-  {
-   
-    $data = array(
-                  'event' => $data['input_events']
-                  //'date' => $date
-                  );
-    $result = $this->db->insert('calendar',$data);
-  }
-    //END CALENDAR
+
+//END CALENDAR
 
   public function viewAttendanceLogs($data)
   {

@@ -15,17 +15,17 @@
     <link rel="stylesheet" href="/resources/demos/style.css">
 
     <script>
-      $(function() {
-    $( "#datepicker" ).datepicker({ dateFormat: 'yy-mm-dd' });
-    });
-    </script>
+    $(function() {
+                   $("#datepicker").datepicker({ minDate: 0, dateFormat: 'yy-mm-dd'});
+                 });
+    </script> 
   </head>
 
 <body>
     <div id="wrapper">
       <!-- Sidebar -->
       <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <?php $home = 'chairperson/profile'; ?>
+          <?php $home = 'chairperson/profile'; ?>
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -41,7 +41,7 @@
             <li><a href="<?php echo base_url(); ?>chairperson/profile"><i class="icon32 icon-color icon-home"></i> Dashboard</a></li>
           <li><a href="<?php echo base_url(); ?>chairperson/view_logs"><i class="icon32 icon-color icon-book-empty"></i> Attendance Logs</a></li>
            <li><a href="<?php echo base_url(); ?>chairperson/view_candidates"><i class="icon32 icon-color icon-contacts"></i> SDPC Candidates </a></li>
-            <li  class="active"><a href="<?php echo base_url(); ?>chairperson/calendar_chairperson"><i class="icon32 icon-color icon-calendar"></i> Calendar</a></li>    
+            <li  class="active"><a href="<?php echo base_url(); ?>chairperson/calendar_chairperson/2014/03"><i class="icon32 icon-color icon-calendar"></i> Calendar</a></li>    
           </ul>
 
           <ul class="nav navbar-nav navbar-right navbar-user">
@@ -91,7 +91,7 @@
       </nav>
 
 <center>
-  <?php echo form_open('chairperson/calendar'); ?>
+  <?php echo form_open('chairperson/calendar_chairperson'); ?>
   <table>
     <tr>
       <td><input name ="date" type="text" id="datepicker" placeholder="Pick Date" class="form-control"></td>

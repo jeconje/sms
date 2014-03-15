@@ -138,32 +138,110 @@ public function showCalendar($year,$month)
     {cal_cell_no_content}<span class="day_listing">{day}</span>&nbsp;{/cal_cell_no_content}
     {cal_cell_no_content_today}<div class="today"><span class="day_listing">{day}</span></div>{/cal_cell_no_content_today}
     '; 
+
     $events = $this->getEvents($year,$month);
+    $day = $this->getEvents($year,$month);
     $this->load->library('calendar',$config);
-   
+    
     return $this->calendar->generate($year,$month,$events);
+  }
+
+  //View details
+        public function calendar_details($data) 
+        { 
+          if($data['months'] == "1")
+          {
+            $data['filter'] = '-01-';
+          }
+          else if($data['months'] == "2")
+          {
+            $data['filter'] = '-02-';
+          }
+          else if($data['months'] == "3")
+          {
+            $data['filter'] = '-03-';
+          }
+          else if($data['months'] == "4")
+          {
+            $data['filter'] = '-04-';
+          }
+          else if($data['months'] == "5")
+          {
+            $data['filter'] = '-05-';
+          }
+          else if($data['months'] == "6")
+          {
+            $data['filter'] = '-06-';
+          }
+          else if($data['months'] == "7")
+          {
+            $data['filter'] = '-07-';
+          }
+          if($data['months'] == "8")
+          {
+            $data['filter'] = '-08-';
+          }
+          if($data['months'] == "9")
+          {
+            $data['filter'] = '-09-';
+          }
+          if($data['months'] == "10")
+          {
+            $data['filter'] = '-10-';
+          }
+          if($data['months'] == "11")
+          {
+            $data['filter'] = '-11-';
+          }
+          if($data['months'] == "12")
+          {
+            $data['filter'] = '-12-';
+          }
+          $this->db->select();
+          $this->db->from('calendar');
+          $this->db->like('date',$data['filter']);
+          $this->db->order_by('date');
+          
+          $query = $this->db->get();
+          $result = $query -> result_array();
+
+          return $result;
   }
   //Get events on calendar table from database
   public function getEvents($year , $month)
   {
-    $events = array();
-    $query = $this->db->select('date,event')->from('calendar')->like('date',"$year-$month")->get();
-    $result = $query->result();
-    foreach($result as $row)
-    {
-        $day = (int)substr($row->date,8,2);
-        $events[(int)$day] = $row->event;
-    }
-    return $events;
+    $query = $this->db->select('date,event')->from('calendar')->like('date', "$year-$month")->get();
+    $result = $query->result_array();
+    return $result;
   }
+  
+//Add Events
   public function addEvents($data)
   {
-    $data = array(
-                  'event' => $data['event']
-                  //'date' => $date
-                  );
-    $result = $this->db->insert('calendar',$data);
+    $data['events'] = array(
+                              'event' => $data['event'],
+                              'date' => $data['date']
+                            );
+    
+    $result = $this->db->insert('calendar',$data['events']);
   }
+
+//Update Details
+        public function calendar_update($data)
+        {
+          $update = array(
+                          'date' => $data['date'],
+                          'event' => $data['event']
+                          );
+          
+          $this->db->where('calendar_id',$data['id']);
+          $this->db->update('calendar',$update);
+        }  
+//Delete Details
+      public function calendar_delete($id)
+      {
+        $this->db->delete('calendar', array('calendar_id' => $id)); 
+      }
 
   //View Parent's Info
   public function parentInfo($data)
