@@ -102,6 +102,12 @@
           <?php echo "<b>Gender: </b>".$gender; ?><br>
           <?php echo "<b>Date of Birth: </b>".$date_of_birth; ?>
       </div><!-- /.panel-heading -->
+      <div class="col-xs-6">
+        <center>
+         <i class="fa fa-comments fa-5x"></i><br>
+         <?php echo "<b>Your referral key: <center>".$referral_key.'</center></b>'; ?>
+        </center>
+      </div>
     </div><!-- /.panel panel-warning -->
   </div><!-- /.col-lg-3 -->
 

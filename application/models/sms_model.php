@@ -254,6 +254,7 @@
       $this->db->from('campus_login');
       $this->db->join('students', 'students.student_number = campus_login.student_number');      
       $this->db->where('campus_login.student_number',$data['student_number']);
+      $this->db->order_by('date','desc');
       $query = $this->db->get();
       $result = $query -> result_array();
       return $result;

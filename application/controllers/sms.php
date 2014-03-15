@@ -143,15 +143,20 @@
 								Good day,
 								<br>
 								<br>
-								This is just to verify if '.$data['first_name'].' '. ' '.$data['middle_name'].' '. ' '.$data['last_name'].' is your child.
+								This is to verify if '.$data['first_name'].' '. ' '.$data['middle_name'].' '. ' '.$data['last_name'].' is your child.
 								<br>
 								<br>
 								To continue your registration. Please copy the referral code below. <br>
-								  Your referral code: '.$data['referral_key']['referral_key']. ' '. '<br>
+								  Your referral code: <b>'.$data['referral_key']['referral_key']. ' '. '</b><br>
 								  <br>
 								  <br>
 
-								  Click this link to redirect you to your registration http://localhost/sms/parents/parent_registration';
+								Click this link to redirect you to your registration http://localhost/sms/parents/parent_registration
+								<br>
+								<br>
+
+								Thank you,
+								SMS Team :)';
 					
 					$this->email->set_newLine("\r\n");
 					$this->email->from('usjrsms@gmail.com', 'SMS Management Team'); 
@@ -185,7 +190,8 @@
 				$data['contact_number'] = $data['info']['contact_number'];
 				$data['date_of_birth'] = $data['info']['date_of_birth'];
 				$data['address'] = $data['info']['address'];		
-				$data['email_address'] = $data['info']['email_address'];	     	
+				$data['email_address'] = $data['info']['email_address'];	
+				$data['referral_key'] = $data['info']['referral_key'];     	
 				
 				//Study Load 
 				$data['studentinfo'] = $this->sms_model->studentInfo($data);	
@@ -306,7 +312,7 @@
 				$this->index();
 		}
 
-		//View Logs
+		//View All Logs
 		public function viewlogs()
 		{
 			$data['studentinfo'] = $this->session->userdata('logged_in');
