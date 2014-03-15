@@ -114,12 +114,13 @@
               <table class="table table-hover tablesorter">
                 <thead>
                   <tr>
-                    <th>Course No.</th>
+                    <th>Subject Code</th>
+                    <th>Offer Code</th>
+                    <th>Description</th>
                     <th>Units</th>
                     <th>Day</th>
                     <th>Time</th>
                     <th>Room</th>
-                    <th>Offer Code</th>
                     <th>Teacher</th>
                   </tr>
                 </thead>
@@ -131,7 +132,13 @@
                   <tr>
                     <td>
                       <?php echo $value['subject_code']; ?>
-                    </td>        
+                    </td>  
+                    <td>
+                      <?php echo $value['offer_code']; ?>
+                    </td>  
+                    <td>
+                      <?php echo $value['subject_description']; ?>
+                    </td>      
                     <td>
                       <?php echo $value['units']; ?>
                     </td>    
@@ -143,9 +150,6 @@
                     </td>    
                     <td>
                       <?php echo $value['room']; ?>
-                    </td>    
-                    <td>
-                      <?php echo $value['offer_code']; ?>
                     </td>    
                     <td>
                       <?php echo $value['teacher']; ?>

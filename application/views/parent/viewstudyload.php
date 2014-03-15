@@ -133,32 +133,50 @@
 <br><br>
             <div class="table-responsive">
               <table class="table table-hover tablesorter">
-                <thead>
-                  <tr>                    
-                    <th><center>Course No.</th>
-                    <th><center>Subject.</th>
-                    <th><center>Units</center></i></th>
-                    <th><center>Day</i></th>
-                    <th><center>Time</i></th>
-                    <th><center>Room</th>
-                    <th><center>Offer Code</th>
-                    <th><center>Teacher</th>
+                 <thead>
+                  <tr>
+                    <th>Subject Code</th>
+                    <th>Offer Code</th>
+                    <th>Description</th>
+                    <th>Units</th>
+                    <th>Day</th>
+                    <th>Time</th>
+                    <th>Room</th>
+                    <th>Teacher</th>
                   </tr>
                 </thead>
 
-                <tbody  align="center">
-                  <?php foreach($result2 as $value){ ?>
+                <tbody align="center">
+                  <?php 
+                      foreach($result2 as $value) {
+                  ?>
                   <tr>
-                      <td> <?php echo $value['subject_code']; ?> </td>
-                      <td> <?php echo $value['subject_description']; ?> </td>
-                      <td> <?php echo $value['units']; ?> </td>
-                      <td> <?php echo $value['days']; ?> </td>
-                      <td> <?php echo $value['time']; ?> </td>
-                      <td> <?php echo $value['room']; ?> </td>
-                      <td> <?php echo $value['offer_code']; ?> </td>                      
-                      <td> <?php echo $value['teacher']; ?> </td>                      
+                    <td>
+                      <?php echo $value['subject_code']; ?>
+                    </td>  
+                    <td>
+                      <?php echo $value['offer_code']; ?>
+                    </td>  
+                    <td>
+                      <?php echo $value['subject_description']; ?>
+                    </td>      
+                    <td>
+                      <?php echo $value['units']; ?>
+                    </td>    
+                    <td>
+                      <?php echo $value['days']; ?>
+                    </td>    
+                    <td>
+                      <?php echo $value['time']; ?>
+                    </td>    
+                    <td>
+                      <?php echo $value['room']; ?>
+                    </td>    
+                    <td>
+                      <?php echo $value['teacher']; ?>
+                    </td>              
                   </tr>
-                  <?php } ?>
+                  <?php }?>
                 </tbody>
               </table>
             </div>

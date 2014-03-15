@@ -399,10 +399,13 @@
 			$data['parentInfo'] = $this->session->userdata('logged_in');
 			if($data['parentInfo'] == TRUE)
 			{
+				$data['account_id'] = $data['parentInfo']['account_id'];
 				$data['first_name'] = $data['parentInfo']['first_name'];
 				$data['last_name'] = $data['parentInfo']['last_name'];
 				$data['account_id'] = $data['parentInfo']['account_id'];
-				$data['id']	= $_GET['id'];
+				$data['id']	= $_GET['id'];				
+				$data['result2'] = $this->parent_model->viewStudyLoad($data);
+				$data['results'] = $this->parent_model->displayNames($data);
 
 				$data['event'] = $this->input->post('event');
 				$data['date'] = $this->input->post('date');	

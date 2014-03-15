@@ -26,14 +26,14 @@ class Parent_model extends CI_Model
       
     //Inserts at account table
     $this->db->where('referral_key',$referral_key);
-      $this->db->insert('account',$parentaccount_data);
+    $this->db->insert('account',$parentaccount_data);
 
     //Gets the account id of the latest inserted row
     $account_id = $this->db->insert_id();
 
     //Inserts account id for parents table
     $parent_data = array('account_id'=>$account_id);     
-      $this->db->insert('parent',$parent_data);
+    $this->db->insert('parent',$parent_data);
 
     //Gets the account id of the latest inserted parent
     $parent_account_id = $this->db->insert_id();
@@ -145,7 +145,7 @@ class Parent_model extends CI_Model
     $this->db->join('study_load','students.student_number = study_load.student_number');
     $this->db->join('account','students.account_id = account.account_id');        
     $this->db->join('subject','subject.offer_code = study_load.offer_code');     
-    $this->db->where('account.account_id',$data['id']);
+    $this->db->where('students.account_id',$data['id']);
 
     $query = $this->db->get();
     $result = $query->result_array(); 
@@ -175,7 +175,7 @@ class Parent_model extends CI_Model
     $this->db->join('subject','study_load.offer_code = subject.offer_code');
     $this->db->join('offering','study_load.offer_code = offering.offer_code');
     $this->db->join('students','students.student_number = study_load.student_number');
-    $this->db->where('students.account_id',$data['id']);
+    $this->db->where('students.account_id',$data['id']);    
     $query = $this->db->get();
     $result = $query -> result_array();
 

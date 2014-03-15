@@ -130,7 +130,7 @@
 					        		'smtp_host' => 'ssl://smtp.googlemail.com',
 					        		'smtp_port' => 465,
 					        		'smtp_user' => 'usjrsms@gmail.com', // sa hostinger nga add, pero okay ra dri sa localhost
-					        		'smtp_pass' => 'studentteam@3', // sa hostinger pud ni
+					        		'smtp_pass' => 'adminteam@3', // sa hostinger pud ni
 					        		'mailtype' => 'html',
 									);
 
@@ -156,6 +156,7 @@
 								<br>
 
 								Thank you,
+								<br>
 								SMS Team :)';
 					
 					$this->email->set_newLine("\r\n");
@@ -469,7 +470,6 @@
 				$data['last_name'] = $data['studentInfo']['last_name'];
 				$data['event'] = $this->input->post('event');
 				$data['date'] = $this->input->post('date');	
-				$data['id'] = $_GET['id'];
 				
 				$data['result'] = $this->sms_model->getEvents();
 
