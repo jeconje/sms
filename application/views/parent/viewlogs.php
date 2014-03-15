@@ -111,15 +111,15 @@
       <tr>
         <?php if($in['time_in'] != '00:00:00'){?>
           <td><?php echo$in['date']; ?></td>
-          <td><?php echo "Time-in: ".$in['time_in'] ?></td>                                              
           <td><?php echo $in['last_name'].' '.$in['first_name']; ?></td>
+          <td><?php echo "Time-in: ".$in['time_in'] ?></td>                                              
         <?php } ?>
       </tr>                                                                   
       <tr>
         <?php if($in['time_out'] != '00:00:00'){?>
           <td><?php echo$in['date']; ?></td>
-          <td><?php echo "Time-out: ".$in['time_out'] ?></td>                                              
           <td><?php echo $in['last_name'].' '.$in['first_name']; ?></td>
+          <td><?php echo "Time-out: ".$in['time_out'] ?></td>                                              
         <?php } ?>
       </tr>                                                                                                     
       <?php  } ?>

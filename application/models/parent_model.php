@@ -256,8 +256,8 @@ class Parent_model extends CI_Model
     $this->db->from('attendance');
     $this->db->join('students','attendance.student_number = students.student_number');
     $this->db->join('offering','offering.offer_code = attendance.offer_code');
-    $this->db->join('subject','offering.offer_code = subject.offer_code');    
-    //$this->db->where('attendance.student_number',$data['student_number']);
+    $this->db->join('subject','offering.offer_code = subject.offer_code');       
+    $this->db->where('students.student_number',$data['number']);
     //$this->db->where('offering.offer_code',$data['id_code']);
 
     $query = $this->db->get();

@@ -75,6 +75,7 @@
 
 <br><br>
 <center>
+
             <div class="table-responsive" style="width:1000px;">
               <table class="table table-bordered table-hover tablesorter">
                 <thead>

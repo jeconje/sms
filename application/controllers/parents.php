@@ -170,7 +170,11 @@
 				$data['account_id'] = $data['parentInfo']['account_id'];
 				$data['first_name'] = $data['parentInfo']['first_name'];
 				$data['last_name'] = $data['parentInfo']['last_name'];
-				$data['student_number'] = $_GET['student_number'];
+				$data['number'] = $_GET['student_number'];
+
+				$data['id']	= $_GET['id'];
+				$data['result'] = $this->parent_model->displayNames($data);	
+				$data['result2'] = $this->parent_model->viewChildrensGrades($data);
 				$data['viewLogs'] = $this->parent_model->viewAttendanceLogs($data);
 				$this->load->view('parent/attendance_logs',$data);
 			} 

@@ -356,6 +356,8 @@
 				$data['first_name'] = $data['studentinfo']['first_name'];
 				$data['last_name'] = $data['studentinfo']['last_name'];
 				$data['offer_code_id'] = $_GET['id'];
+
+				//$data['offer_code'] = hash('sha256',$_GET['id']);
 				$data['viewLogs'] = $this->sms_model->viewAttendanceLogs($data);
 				$this->load->view('student/attendance_logs',$data);
 			} 
