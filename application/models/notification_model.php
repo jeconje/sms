@@ -191,7 +191,6 @@
 
     //   return $result;
     // }
-  }
 
   public function notifyCandidate($id) {
     $this->db->select();
@@ -204,5 +203,5 @@
 
     return $result;
   }
-
+}
 ?>
