@@ -85,7 +85,7 @@
             <ol class="breadcrumb">
               <li class="active"><i class="fa fa-dashboard"></i> Who's following me? </li>
             </ol>
-          </div>
+          </div>          
         </div><!-- /.row -->
 
          <br><br>

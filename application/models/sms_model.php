@@ -170,9 +170,9 @@
     public function viewParents($data)
     {
       $this->db->select();
-      $this->db->from('parent');
-      $this->db->join('account','parent.account_id = account.account_id');      
-      $this->db->join('tracker','parent.parent_id = tracker.parent_id');
+      $this->db->from('parent');      
+      $this->db->join('tracker','parent.account_id = tracker.parent_id');
+      $this->db->join('account','account.account_id = parent.account_id');
       $this->db->where('tracker.account_id',$data['account_id']);
       $query = $this->db->get();
 

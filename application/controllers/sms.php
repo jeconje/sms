@@ -7,7 +7,7 @@
 	{
 		public function __construct() 
 		{
-			error_reporting(0);
+			error_reporting();
 			parent::__construct();
 		}
 
@@ -283,6 +283,7 @@
 		{
 			$data['studentinfo'] = $this->session->userdata('logged_in'); 
 			if($data['studentinfo'] == TRUE) {	
+				
 				$data['student_number'] = $data['studentinfo']['student_number'];
 				$data['account_id'] = $data['studentinfo']['account_id'];			
 				$data['first_name'] = $data['studentinfo']['first_name'];

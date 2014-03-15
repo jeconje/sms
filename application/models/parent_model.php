@@ -128,7 +128,7 @@ class Parent_model extends CI_Model
     $this->db->select();
     $this->db->from('students');
     $this->db->join('tracker','tracker.account_id = students.account_id');    
-    $this->db->join('parent','parent.parent_id = tracker.parent_id');
+    $this->db->join('parent','parent.account_id = tracker.parent_id');
     $this->db->join('account','students.account_id = account.account_id');   
     $this->db->where('parent.account_id',$data['account_id']);     
     $query = $this->db->get();  

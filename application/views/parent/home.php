@@ -139,8 +139,7 @@
               </div>
             </div>
           </div>
-        </div><!-- /.row -->
-
+        </div><!-- /.row -->        
         <div class="col-lg-4" style="right: 10px; top: -10px; width: 700px;">
             <div class="panel panel-primary">
               <div class="panel-heading">
