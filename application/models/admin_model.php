@@ -186,7 +186,6 @@ public function showCalendar($year,$month)
         public function calendar_details($data) 
         { 
             $this->db->select();
-            $this->db->order_by('date');
             $this->db->from('calendar');
 
             $query = $this->db->get();  
