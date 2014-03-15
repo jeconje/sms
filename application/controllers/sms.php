@@ -7,7 +7,7 @@
 	{
 		public function __construct() 
 		{
-			error_reporting();
+			error_reporting(0);
 			parent::__construct();
 		}
 
@@ -344,6 +344,7 @@
 				$this->index();
 
 		}
+
 
 		//View log details (Date of Absences and lates per subject)
 		public function attendance_logs() 

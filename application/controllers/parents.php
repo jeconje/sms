@@ -161,6 +161,23 @@
 				$this->index();
 		}
 
+		public function attendance_logs($id) 
+		{
+			$data['parentInfo'] = $this->session->userdata('logged_in'); 
+			if($data['parentInfo'] == TRUE) 
+			{	
+				$data['id_code'] = $id;
+				$data['account_id'] = $data['parentInfo']['account_id'];
+				$data['first_name'] = $data['parentInfo']['first_name'];
+				$data['last_name'] = $data['parentInfo']['last_name'];
+				$data['student_number'] = $_GET['student_number'];
+				$data['viewLogs'] = $this->parent_model->viewAttendanceLogs($data);
+				$this->load->view('parent/attendance_logs',$data);
+			} 
+			else
+				$this->index();
+		}
+
 		public function viewGrades()
 		{
 			$data['parentInfo'] = $this->session->userdata('logged_in');

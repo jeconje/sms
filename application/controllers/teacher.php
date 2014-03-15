@@ -343,7 +343,7 @@
 
 				if(isset($_POST['submit'])){			
 					$this->teacher_model->updateSeat($data);
-					$this->load->view('seatplan_teacher/assign_classroom',$data);
+					header('Location:http://localhost/sms/teacher/assign_classroom/'.$data['id_code']);
 				}
 				else					
 					$this->load->view('seatplan_teacher/assign_classroom',$data);
@@ -404,7 +404,8 @@
 
 					if(!in_array($data['a'.$i], $data['assigned_seats'])) {
 						$this->teacher_model->updateSeat($data);
-						$this->load->view('seatplan_teacher/assign_laboratory',$data);
+						header('Location:http://localhost/sms/teacher/assign_laboratory/'.$data['id_code']);
+						
 					} else {
 						echo "Not allowed.";
 					}
@@ -439,7 +440,8 @@
 				}						
 				if(isset($_POST['submit']))
 				{								
-					$this->teacher_model->insertAttendance($data);							
+					$this->teacher_model->insertAttendance($data);		
+
 				}
 				$data['viewStudents'] = $this->teacher_model->viewStudents($data);
 				$this->load->view('seatplan_teacher/brd1',$data);	
@@ -464,7 +466,7 @@
 				
 				if(isset($_POST['submit'])){			
 				$this->teacher_model->updateSeat($data);				
-				$this->load->view('seatplan_teacher/assign_brd1',$data);
+				header('Location:http://localhost/sms/teacher/assign_brd1/'.$data['id_code']);
 				} 
 				else				
 				$this->load->view('seatplan_teacher/assign_brd1',$data);
@@ -521,7 +523,7 @@
 				
 				if(isset($_POST['submit'])){			
 				$this->teacher_model->updateSeat($data);
-				$this->load->view('seatplan_teacher/assign_brd2',$data);
+				header('Location:http://localhost/sms/teacher/assign_brd2/'.$data['id_code']);
 				}
 				else
 
