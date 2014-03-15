@@ -110,45 +110,56 @@
           </div>
         </div><!-- /.row -->
 
-          <?php echo form_open("parents/viewAddChild"); ?>
           <br><br>
+          <?php echo form_open("parents/viewAddChild"); ?>
             <table align="center">
               <tr>
-                <td></td>  
-                <td><input class="form-control" type="text" size="20" name="referral_key" id="referral_key" placeholder="Enter referral code"/></td>
-                <td></td>
+                <td><input class="form-control" type="text" size="20" name="student_number" id="student_number" placeholder="student number"/></td>              
               </tr>
               <tr>
-                <td></td>
+                <td align="center"><input class="form-control" type="text" size="20" name="referral_key" id="referral_key" placeholder="Enter referral code"/></td>              
+              </tr>
+              <tr>
                 <td><?php echo validation_errors(); ?></td>
               </tr>
               <tr>
-                <td>                    
-                </td>
+                <td align="center"><div id="divCheckReferralKey" style="color: rgb(255, 0, 0); font: normal 10px/12px Arial,Helvetica,sans-serif; opacity: 50;"></div></td>
+              </tr>
+              <tr>
                 <td align="center"><br><input class="btn btn-primary" name="submit" id="submitbtn" type="submit" value="Submit"/></td>
               </tr>
             </table>    
             <?php echo form_close(); ?>
 
-<!-- Verifies the inputted referral_key if it exist in the database -->
+<script type="text/javascript">
+  $(document).ready(function() {
+     $('#submitbtn').attr("disabled",true);
+  });
+</script>
+
+<!-- Verifies the inputted referral_key if it exist in the database and matches with the student number -->
 <script type="text/javascript">
   $(document).ready(function(){
     $("#referral_key").keyup(function() {
       var referral_key = $('#referral_key').val();
+      var student_number = $('#student_number').val();
+
         if(referral_key == "") {
               $('#submitbtn').attr("disabled",true);
         } else {
             $.ajax({
               type: "POST",
               url: "<?php echo base_url(); ?>parents/check_referral_key",
-              data: "referral_key=" + referral_key,
-              success: function(result) {
-                  if($.trim(result) == 'Invalid') {
-                    $('#referral_key').css('border-color','#FF0000')
+              data: {referral_key: referral_key, student_number: student_number},
+              success: function(data) {
+                  if($.trim(data) == 'Invalid') {
+                    $('#referral_key').css('border-color','#FF0000');
                     $('#submitbtn').attr("disabled",true); 
+                    $("#divCheckReferralKey").html("Referral key & Student number does not match.").css("color","red");
                   } else {
-                    $('#referral_key').css('border-color','#00CC00')
+                    $('#referral_key').css('border-color','#00CC00');
                     $('#submitbtn').removeAttr("disabled");
+                    $("#divCheckReferralKey").html("Referral key & Student number matched.").css("color","green");
                   }
               }
             });
@@ -158,10 +169,5 @@
   });
 </script>
 
-<script type="text/javascript">
-  $(document).ready(function() {
-     $('#submitbtn').attr("disabled",true);
-  });
-</script>
   </body>
 </html>

@@ -67,15 +67,18 @@
 				$this->index();
   		}
 
-  		//Checks referral key if it exista in the 'student' table in DB
+  		//Checks referral key if it exista in the 'students' table in DB
     	public function check_referral_key() {
-    		$referral_key = $this->input->post('referral_key');
-			$referral_keys = $this->parent_model->check_referral_key($referral_key);
-				if($referral_keys == 0) { //Checks the inputted referral key from database
-					echo "Invalid";
-				} else {
-					echo "Valid";
-				}
+    		$data['referral_key'] = $this->input->post('referral_key');
+    		$data['student_number'] = $this->input->post('student_number');
+    		
+			$referral_keys = $this->parent_model->check_referral_key($data);
+
+			if($referral_keys == 0) { //Checks the inputted referral key from database
+				echo "Invalid";
+			} else {
+				echo "Valid";
+			}
     	} 
 
   		public function parent_registration()

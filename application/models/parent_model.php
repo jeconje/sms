@@ -47,12 +47,15 @@ class Parent_model extends CI_Model
   }
 
   //Checks referral key from student database if it exists
-  public function check_referral_key($referral_key) 
+  public function check_referral_key($data) 
   {
-      $query = mysql_query("select * from students where referral_key='$referral_key'");
-      $result = mysql_num_rows($query);
+    $student_number = $data['student_number'];
+    $referral_key = $data['referral_key'];
+    
+    $query = mysql_query("select * from students where student_number='$student_number' AND referral_key='$referral_key'");
+    $result = mysql_num_rows($query);
 
-      return $result;
+    return $result;
   }
 
   //loginParent
