@@ -36,11 +36,11 @@
           <a class="navbar-brand" href="<?php echo $home ?>">University Of San Jose Recoletos - Student Monitoring System</a></div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
-          <ul class="nav navbar-nav side-nav">
+<!--           <ul class="nav navbar-nav side-nav">
             <li><a href="<?php echo $home ?>"><i class="icon32 icon-color icon-home"></i> Dashboard</a></li>
             <li><a href="<?php echo base_url(); ?>admin/add_account"><i class="icon32 icon-color icon-book-empty"></i> Add Account</a></li>
-            <li class="active"><a href="<?php echo base_url(); ?>admin/calendar"><i class="icon32 icon-color icon-calendar"></i> Calendar</a></li>    
-          </ul>
+            <li class="active"><a href="<?php echo base_url(); ?>admin/calendar/2014/03"><i class="icon32 icon-color icon-calendar"></i> Calendar</a></li>    
+          </ul> -->
 
           <ul class="nav navbar-nav navbar-right navbar-user">
 
@@ -56,7 +56,7 @@
           </ul>
         </div><!-- /.navbar-collapse -->
       </nav>
-    <?php echo form_open("admin/updateEvent"); ?>
+    <?php echo form_open("admin/edit_calendar"); ?>
 
          <div class="table-responsive" align="center">
             <select class="select-style select" id="months" name="months">
@@ -74,7 +74,7 @@
                 <option value="11">November</option>
                 <option value="12">December</option>
             </select>
-            <input class="btn btn-primary" type="submit" value="Filter Month"/>
+            <input class="btn btn-primary" name ="submit" type="submit" value="Filter Month"/>
             <br><br><br><br>
               
               <table class="table table-hover tablesorter">
@@ -89,14 +89,22 @@
 
                   <tbody> 
                                   
-                  <?php foreach ($info as $value) { $i++; ?>        
-                    <tr><input type="hidden" name='id<?php echo $i; ?>' value="<?php echo $value['calendar_id']; ?>" >
+                  <?php //foreach ($info as $value) { $i++; ?>        
+                    <!-- <tr><input type="hidden" name='id<?php echo $i; ?>' value="<?php echo $value['calendar_id']; ?>" >
                       <td><input name="date<?php echo $i; ?>" id="datepicker" value="<?php echo $value['date']; ?>" class="form-control"></td>
                       <td><input name="event<?php echo $i; ?>" value="<?php echo $value['event']; ?>" class="form-control"></td>
                       <td><input type="submit" name="update" value="Update" class="btn btn-primary"></td>
                       <td><?php echo anchor('admin/deleteEvent?id='.$value['calendar_id'], 'Delete', 'id="$value->calendar_id" class="btn btn-danger"'); ?></td>
-                    </tr>
-                  <?php } ?>                                                             
+                    </tr> -->
+                  <?php// } ?>                               
+                  <?php foreach ($viewByMonth as $value) { $i++; ?>                          
+                    <tr>                        
+                           <td><input name="date<?php echo $i; ?>" id="datepicker" value="<?php echo $value['date']; ?>" class="form-control"></td>
+                      <td><input name="event<?php echo $i; ?>" value="<?php echo $value['event']; ?>" class="form-control"></td>
+                      <td><input type="submit" name="update" value="Update" class="btn btn-primary"></td>
+                      <td><?php echo anchor('admin/deleteEvent?id='.$value['calendar_id'], 'Delete', 'id="$value->calendar_id" class="btn btn-danger"'); ?></td>
+                    </tr>                     
+                  <?php } ?>  
                   </tbody>
               </table>
           <?php echo form_close(); ?>

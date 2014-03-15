@@ -333,10 +333,21 @@
 	      {		
 	      	$data['first_name'] = $data['admin_info']['first_name'];
 			$data['last_name'] = $data['admin_info']['last_name'];
+			$data['info'] = $this->admin_model->calendar_details($data);
+			
 
-				$data['info'] = $this->admin_model->calendar_details($data);
+			$data['months'] = $this->input->post('months');
+			
+			if(isset($_POST['submit'])){
 
+					$data['viewByMonth'] = $this->admin_model->viewByMonth($data);	
+					$this->load->view('admin/edit_calendar', $data);																		 				 
+			}else
+			{
 				$this->load->view('admin/edit_calendar', $data);
+			}
+
+			
 		    }
 		    else{
 		      		$this->index();

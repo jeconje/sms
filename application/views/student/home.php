@@ -100,14 +100,9 @@
           <?php echo "<b>Email Address: </b>".$email_address; ?><br>
           <?php echo "<b>Contact Number: </b>".$contact_number; ?><br>
           <?php echo "<b>Gender: </b>".$gender; ?><br>
-          <?php echo "<b>Date of Birth: </b>".$date_of_birth; ?>
+          <?php echo "<b>Date of Birth: </b>".$date_of_birth; ?><br>
+          <?php echo "<b>Your referral key: </b>".$referral_key; ?>
       </div><!-- /.panel-heading -->
-      <div class="col-xs-6">
-        <center>
-         <i class="fa fa-comments fa-5x"></i><br>
-         <?php echo "<b>Your referral key: <center>".$referral_key.'</center></b>'; ?>
-        </center>
-      </div>
     </div><!-- /.panel panel-warning -->
   </div><!-- /.col-lg-3 -->
 

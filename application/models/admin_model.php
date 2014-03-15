@@ -230,6 +230,67 @@ public function showCalendar($year,$month)
     return $result;
   }
 
+  public function viewByMonth($data)
+  {
+
+    if($data['months'] == "1")
+    {
+      $data['filter'] = '-01-';
+    }
+    else if($data['months'] == "2")
+    {
+      $data['filter'] = '-02-';
+    }
+    else if($data['months'] == "3")
+    {
+      $data['filter'] = '-03-';
+    }
+    else if($data['months'] == "4")
+    {
+      $data['filter'] = '-04-';
+    }
+    else if($data['months'] == "5")
+    {
+      $data['filter'] = '-05-';
+    }
+    else if($data['months'] == "6")
+    {
+      $data['filter'] = '-06-';
+    }
+    else if($data['months'] == "7")
+    {
+      $data['filter'] = '-07-';
+    }
+    if($data['months'] == "8")
+    {
+      $data['filter'] = '-08-';
+    }
+    if($data['months'] == "9")
+    {
+      $data['filter'] = '-09-';
+    }
+    if($data['months'] == "10")
+    {
+      $data['filter'] = '-10-';
+    }
+    if($data['months'] == "11")
+    {
+      $data['filter'] = '-11-';
+    }
+    if($data['months'] == "12")
+    {
+      $data['filter'] = '-12-';
+    }
+
+    $this->db->select();
+    $this->db->from('calendar');
+    $this->db->like('date',$data['filter']);
+    $query = $this->db->get();
+    $result = $query -> result_array();
+
+    return $result;
+  }
+
 }
 
 ?>
