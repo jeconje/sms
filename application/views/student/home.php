@@ -35,7 +35,7 @@
         <li><a href="<?php echo base_url(); ?>sms/viewstudyload"><i class="icon32 icon-color icon-compose"></i> Study Load</a></li>
         <li><a href="<?php echo base_url(); ?>sms/viewlasent"><i class="icon32 icon-red icon-clock"></i> Lates and Absences</a></li>
         <li><a href="<?php echo base_url(); ?>sms/viewParents"><i class="icon32 icon-color icon-users"></i> Trackers</a></li>
-        <li><a href="<?php echo base_url(); ?>sms/calendarforstudent"><i class="icon32 icon-color icon-calendar"></i> Calendar</a></li>
+        <li><a href="<?php echo base_url(); ?>sms/calendarforstudent/2014/03"><i class="icon32 icon-color icon-calendar"></i> Calendar</a></li>
       </ul>
 
       <ul class="nav navbar-nav navbar-right navbar-user">
@@ -100,14 +100,9 @@
           <?php echo "<b>Email Address: </b>".$email_address; ?><br>
           <?php echo "<b>Contact Number: </b>".$contact_number; ?><br>
           <?php echo "<b>Gender: </b>".$gender; ?><br>
-          <?php echo "<b>Date of Birth: </b>".$date_of_birth; ?>
+          <?php echo "<b>Date of Birth: </b>".$date_of_birth; ?><br>
+          <?php echo "<b>Your referral key: </b>".$referral_key; ?>
       </div><!-- /.panel-heading -->
-      <div class="col-xs-6">
-        <center>
-         <i class="fa fa-comments fa-5x"></i><br>
-         <?php echo "<b>Your referral key: <center>".$referral_key.'</center></b>'; ?>
-        </center>
-      </div>
     </div><!-- /.panel panel-warning -->
   </div><!-- /.col-lg-3 -->
 

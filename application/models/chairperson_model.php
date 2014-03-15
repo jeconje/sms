@@ -178,7 +178,7 @@ public function showCalendar($year,$month)
   {    
     $config['show_next_prev'] = 'TRUE';
     $config['day_type'] = 'long';
-    $config['next_prev_url'] = base_url().'admin/calendar';
+    $config['next_prev_url'] = base_url().'chairperson/calendar_chairperson';
     $config['template'] = '
     {cal_cell_content}<span class="day_listing">{day}</span>&nbsp;&bull; {content}&nbsp;{/cal_cell_content}
     {cal_cell_content_today}<div class="today"><span class="day_listing">{day}</span>&bull; {content}</div>{/cal_cell_content_today}
@@ -204,12 +204,63 @@ public function showCalendar($year,$month)
 //View details
         public function calendar_details($data) 
         { 
-            $this->db->select();
-            $this->db->from('calendar');
+if($data['months'] == "1")
+          {
+            $data['filter'] = '-01-';
+          }
+          else if($data['months'] == "2")
+          {
+            $data['filter'] = '-02-';
+          }
+          else if($data['months'] == "3")
+          {
+            $data['filter'] = '-03-';
+          }
+          else if($data['months'] == "4")
+          {
+            $data['filter'] = '-04-';
+          }
+          else if($data['months'] == "5")
+          {
+            $data['filter'] = '-05-';
+          }
+          else if($data['months'] == "6")
+          {
+            $data['filter'] = '-06-';
+          }
+          else if($data['months'] == "7")
+          {
+            $data['filter'] = '-07-';
+          }
+          if($data['months'] == "8")
+          {
+            $data['filter'] = '-08-';
+          }
+          if($data['months'] == "9")
+          {
+            $data['filter'] = '-09-';
+          }
+          if($data['months'] == "10")
+          {
+            $data['filter'] = '-10-';
+          }
+          if($data['months'] == "11")
+          {
+            $data['filter'] = '-11-';
+          }
+          if($data['months'] == "12")
+          {
+            $data['filter'] = '-12-';
+          }
+          $this->db->select();
+          $this->db->from('calendar');
+          $this->db->like('date',$data['filter']);
+          $this->db->order_by('date');
+          
+          $query = $this->db->get();
+          $result = $query -> result_array();
 
-            $query = $this->db->get();  
-
-            return $query->result_array();
+          return $result;
         } 
 
 //Add Events
@@ -248,6 +299,7 @@ public function showCalendar($year,$month)
     $result = $query->result_array();
     return $result;
   }
+  
 
 }
 

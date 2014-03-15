@@ -13,7 +13,7 @@
 <body>
     <div id="wrapper">
       <!-- Sidebar -->
-     <?php $home = 'teacher/profile'; ?>
+     <?php $home = 'dean/profile'; ?>
      <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -27,10 +27,10 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
           <ul class="nav navbar-nav side-nav">
-            <li><a href="<?php echo base_url(); ?>teacher/profile"><i class="icon32 icon-color icon-home"></i> Dashboard</a></li>
+            <li><a href="<?php echo base_url(); ?>dean/profile"><i class="icon32 icon-color icon-home"></i> Dashboard</a></li>
             <li class="active"><a href="<?php echo base_url(); ?>dean/view_logs"><i class="icon32 icon-color icon-book-empty"></i> Attendance Logs</a></li>
-            <li><a href="<?php echo base_url(); ?>teacher/view_candidates"><i class="icon32 icon-color icon-contacts"></i> SDPC Candidates </a></li>
-            <li><a href="<?php echo base_url(); ?>teacher/calendar_teacher"><i class="icon32 icon-color icon-calendar"></i> Calendar</a></li>    
+            <li><a href="<?php echo base_url(); ?>dean/view_candidates"><i class="icon32 icon-color icon-contacts"></i> SDPC Candidates </a></li>
+            <li><a href="<?php echo base_url(); ?>dean/calendar_dean"><i class="icon32 icon-color icon-calendar"></i> Calendar</a></li>    
           </ul>&nbsp;<ul class="nav navbar-nav navbar-right navbar-user">
             <li class="dropdown messages-dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon icon-color icon-messages"></i> Notification <b class="icon icon-color icon-triangle-s"></b></a>
@@ -60,17 +60,17 @@
                   </a>
                 </li>
                 <li class="divider"></li>
-            <li><a href="<?php echo base_url(); ?>teacher/message">View Inbox <span class="icon icon-color icon-envelope-closed"></span></a></li>
+            <li><a href="<?php echo base_url(); ?>dean/message">View Inbox <span class="icon icon-color icon-envelope-closed"></span></a></li>
               </ul>
             </li>
             
             <li class="dropdown user-dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon icon-color icon-gear"></i> <?php echo $first_name.' '.$last_name ?> <b class="icon icon-color icon-triangle-s"></b></a>
               <ul class="dropdown-menu">
-                <li><a href="<?php echo base_url(); ?>teacher/edit_profile"><i class="icon icon-color icon-user"></i> Edit Profile</a></li>
-                <li><a href="<?php echo base_url(); ?>teacher/view_changepassword"><i class="icon icon-color icon-key"></i> Change Password</a></li>
+                <li><a href="<?php echo base_url(); ?>dean/edit_profile"><i class="icon icon-color icon-user"></i> Edit Profile</a></li>
+                <li><a href="<?php echo base_url(); ?>dean/view_changepassword"><i class="icon icon-color icon-key"></i> Change Password</a></li>
                 <li class="divider"></li>
-                <li><a href="<?php echo base_url(); ?>teacher/logout"><i class="icon icon-color icon-cancel"></i> Logout</a></li>
+                <li><a href="<?php echo base_url(); ?>dean/logout"><i class="icon icon-color icon-cancel"></i> Logout</a></li>
               </ul>
             </li>
           </ul>
@@ -80,22 +80,33 @@
               <table class="table table-hover tablesorter"  style="width=20px;">
                 <thead>
                   <tr>
-                    <th><center>Student Number</th>
+                    <th><center>Subject</th>
+                    <th><center>Date</th>
                     <th><center>Name</th>
                     <th><center>Status</th>
                     <th><center></th>
                   </tr>
-                </thead>
-
-                <tbody  align="center">                  
-                  <?php foreach($classes as $value) { //ilisan pani dri?>
+                </thead>                
+                <tbody  align="center">       
+                                                                    
+                  <?php foreach($viewLogs as $value) {                         
+                     
+                  ?>
                   <tr>
-                    <td><?php //echo $value['student_number']; ?></td>
-                    <td><?php //echo $value['first_name']; ?></td>
-                    <td><?php //echo $value['first_name']; ?></td>
-                    <td><input class="btn btn-primary" type="submit" value="Excused"/></td>
+                    <?php $date = $value['date']; $attendance_id = $value['attendance_id'] ?>                    
+                    <td><?php echo $value['subject_description']; ?></td>
+                    <td><?php echo $date; ?></td>
+                    <td><?php echo $value['first_name']. " ". $value['last_name']; ?></td>
+                    <td><?php echo $value['attendance']; ?></td>                                                                                
+                    <input type = "hidden" name = "attendance_id" value="<?php echo $value['attendance_id']; ?>" />                    
+                    <td><a href="<?php echo base_url(); ?>dean/logs/<?php echo $date;?>?id=<?php echo $value['attendance_id']; ?>"><input class="btn btn-primary" name="submit" type="submit" value="Excused"/><a/></td>                    
+
+                    
                   </tr>
-                  <?php } ?>
+                  <?php }
+                      echo form_close();
+                   ?>
+
                 </tbody>
               </table>
             </div>

@@ -14,10 +14,10 @@
     <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
     <link rel="stylesheet" href="/resources/demos/style.css">
     <script>
-      $(function() {
-    $( "#datepicker" ).datepicker({ dateFormat: 'yy-mm-dd' });
-      });
-    </script>
+    $(function() {
+                   $("#datepicker").datepicker({ minDate: 0, dateFormat: 'yy-mm-dd'});
+                 });
+    </script> 
   </head>
 
 <body>
@@ -41,7 +41,7 @@
             <li><a href="<?php echo base_url(); ?>dean/profile"><i class="icon32 icon-color icon-home"></i> Dashboard</a></li>
             <li><a href="<?php echo base_url(); ?>dean/view_logs"><i class="icon32 icon-color icon-book-empty"></i> Attendance Logs</a></li>
             <li><a href="<?php echo base_url(); ?>dean/view_candidates"><i class="icon32 icon-color icon-contacts"></i> SDPC Candidates </a></li>
-            <li  class="active"><a href="<?php echo base_url(); ?>dean/calendar_dean"><i class="icon32 icon-color icon-calendar"></i> Calendar</a></li>    
+            <li  class="active"><a href="<?php echo base_url(); ?>dean/calendar_dean/2014/03"><i class="icon32 icon-color icon-calendar"></i> Calendar</a></li>    
           </ul>
 
           <ul class="nav navbar-nav navbar-right navbar-user">
@@ -90,7 +90,7 @@
         </div><!-- /.navbar-collapse -->
       </nav>
 <center>
-  <?php echo form_open('dean/calendar'); ?>
+  <?php echo form_open('dean/calendar_dean'); ?>
   <table>
     <tr>
       <td><input name ="date" type="text" id="datepicker" placeholder="Pick Date" class="form-control"></td>

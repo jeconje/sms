@@ -282,7 +282,7 @@
 
 					else {
 						$temp = $row['event'];
-						$events[$day] = $events[$day]."<br>".$temp;
+						$events[$day] = $events[$day]."<br> <li>".$temp;
 					}
 
 					$events_month[$mon][$day] = $events; 
@@ -331,33 +331,38 @@
 	      $data['admin_info'] = $this->session->userdata('logged_in');
 	      if($data['admin_info'] == TRUE)
 	      {		
-	      	$data['first_name'] = $data['admin_info']['first_name'];
-			$data['last_name'] = $data['admin_info']['last_name'];
-
+		      	$data['first_name'] = $data['admin_info']['first_name'];
+				$data['last_name'] = $data['admin_info']['last_name'];
 				$data['info'] = $this->admin_model->calendar_details($data);
+				$data['months'] = $this->input->post('months');
+				$count = count($data['info'] = $this->admin_model->calendar_details());
+				//$this->load->view('admin/edit_calendar', $data);	
 
-				$this->load->view('admin/edit_calendar', $data);
-		    }
-		    else{
-		      		$this->index();
-		    }
+				if(isset($_POST['submit']))
+				{
+					$data['info'] = $this->admin_model->calendar_details($data);
+					$this->load->view('admin/edit_calendar', $data);									 				 
+				}
+				else if(isset($_POST['update']))
+				{
+					for($i=0; $i <= $count; $i++) 
+					{
+						 $data['id'] = $_POST['id'.$i];
+						 $data['date'] = $_POST['date'.$i];
+						 $data['event'] = $_POST['event'.$i];
+
+						 $this->admin_model->calendar_update($data);
+						 header('Location: http://localhost/sms/admin/edit_calendar');
+					}	
+				}
+				else { $this->load->view('admin/edit_calendar', $data); }
+		   }
+
+			else { $this->index(); }
 		}
 
-		public function updateEvent($id) {
-
-			$count = count($data['info'] = $this->admin_model->calendar_details());
-
-			for($i=0; $i < $count; $i++) {
-				 $data['id'] = $_POST['id'.$i];
-				 $data['date'] = $_POST['date'.$i];
-				 $data['event'] = $_POST['event'.$i];
-
-				 $this->admin_model->calendar_update($data);
-			}	
-			 redirect($_SERVER['HTTP_REFERER']);
-		}
-
-		public function deleteEvent($id) {
+		public function deleteEvent($id) 
+		{
 			$id = $_GET['id'];
 			$this->admin_model->calendar_delete($id);
 			redirect($_SERVER['HTTP_REFERER']);

@@ -32,7 +32,7 @@
             <li><a href="<?php echo base_url(); ?>chairperson/profile"><i class="icon32 icon-color icon-home"></i> Dashboard</a></li>
             <li  class="active"><a href="<?php echo base_url(); ?>chairperson/view_logs"><i class="icon32 icon-color icon-book-empty"></i> Attendance Logs</a></li>
             <li><a href="<?php echo base_url(); ?>chairperson/view_candidates"><i class="icon32 icon-color icon-contacts"></i> SDPC Candidates </a></li>
-            <li><a href="<?php echo base_url(); ?>chairperson/calendar_chairperson"><i class="icon32 icon-color icon-calendar"></i> Calendar</a></li>    
+            <li><a href="<?php echo base_url(); ?>chairperson/calendar_chairperson/2014/03"><i class="icon32 icon-color icon-calendar"></i> Calendar</a></li>    
           </ul>
 
           <ul class="nav navbar-nav navbar-right navbar-user">
@@ -81,23 +81,23 @@
         </div><!-- /.navbar-collapse -->
       </nav>
 <br>
-       <div class="table-responsive">
+        <div class="table-responsive">
               <table class="table table-hover tablesorter"  style="width=20px;">
                 <thead>
                   <tr>
-                    <th><center>Subject</th>
                     <th><center>Dates</th>
                     <th><center></th>
-                  </tr>
+                   </tr>
                 </thead>
 
                 <tbody  align="center">                  
-                  <?php foreach($viewLogs as $value) {?>
-                  <tr>
-                    <td><?php echo $value['subject_desc']; ?></td>
+
+                  <?php foreach($viewDistinctLogs as $value) {                            
+                    ?>
+                  <tr>                    
                     <?php $id = $value['date']; ?>
                     <td><?php echo $value['date']; ?></td>                    
-                    <td><a href="<?php echo base_url(); ?>teacher/logs/<?php echo $id; ?>"><input class="btn btn-primary" type="submit" value="View logs"/><a/></td>
+                    <td><a href="<?php echo base_url(); ?>chairperson/logs/<?php echo $id; ?>"><input class="btn btn-primary" type="submit" value="View logs"/><a/></td>                    
                   </tr>
                   <?php } ?>
                 </tbody>

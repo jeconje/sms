@@ -13,7 +13,7 @@
     <script src="<?php echo base_url(); ?>css/calendar/jquery-ui.js"></script>
     <script>
     $(function() {
-                   $("#datepicker").datepicker({ dateFormat: 'yy-mm-dd'});
+                   $(".datepicker").datepicker({ dateFormat: 'yy-mm-dd'}).val(new Date().asString()).trigger('change');
                  });
     </script> 
   </head>
@@ -39,7 +39,7 @@
           <ul class="nav navbar-nav side-nav">
             <li><a href="<?php echo $home ?>"><i class="icon32 icon-color icon-home"></i> Dashboard</a></li>
             <li><a href="<?php echo base_url(); ?>admin/add_account"><i class="icon32 icon-color icon-book-empty"></i> Add Account</a></li>
-            <li class="active"><a href="<?php echo base_url(); ?>admin/calendar"><i class="icon32 icon-color icon-calendar"></i> Calendar</a></li>    
+            <li class="active"><a href="<?php echo base_url(); ?>admin/calendar/2014/03"><i class="icon32 icon-color icon-calendar"></i> Calendar</a></li>    
           </ul>
 
           <ul class="nav navbar-nav navbar-right navbar-user">
@@ -56,11 +56,11 @@
           </ul>
         </div><!-- /.navbar-collapse -->
       </nav>
-    <?php echo form_open("admin/updateEvent"); ?>
+    <?php echo form_open("admin/edit_calendar"); ?>
 
          <div class="table-responsive" align="center">
             <select class="select-style select" id="months" name="months">
-                <option value="" selected="selected">--- Select ---</option>
+                <option value="" selected="selected">--- ALL ---</option>
                 <option value="1">January</option>
                 <option value="2">February</option>
                 <option value="3">March</option>
@@ -74,7 +74,7 @@
                 <option value="11">November</option>
                 <option value="12">December</option>
             </select>
-            <input class="btn btn-primary" type="submit" value="Filter Month"/>
+            <input class="btn btn-primary" name ="submit" type="submit" value="Filter Month"/>
             <br><br><br><br>
               
               <table class="table table-hover tablesorter">
@@ -89,14 +89,15 @@
 
                   <tbody> 
                                   
-                  <?php foreach ($info as $value) { $i++; ?>        
+                  <?php foreach ($info as $value) { $i++;
+                    ?>        
                     <tr><input type="hidden" name='id<?php echo $i; ?>' value="<?php echo $value['calendar_id']; ?>" >
-                      <td><input name="date<?php echo $i; ?>" id="datepicker" value="<?php echo $value['date']; ?>" class="form-control"></td>
+                      <td><input name="date<?php echo $i; ?>" class="datepicker" value="<?php echo $value['date']; ?>" id="datepicker<?php echo $i; ?>"></td>
                       <td><input name="event<?php echo $i; ?>" value="<?php echo $value['event']; ?>" class="form-control"></td>
                       <td><input type="submit" name="update" value="Update" class="btn btn-primary"></td>
-                      <td><?php echo anchor('admin/deleteEvent?id='.$value['calendar_id'], 'Delete', 'id="$value->calendar_id" class="btn btn-danger"'); ?></td>
+                      <td><?php echo anchor('admin/deleteEvent?id='.$value['calendar_id'], 'Delete', 'name="delete" id="$value->calendar_id" class="btn btn-danger"'); ?></td>
                     </tr>
-                  <?php } ?>                                                             
+                  <?php } ?>                               
                   </tbody>
               </table>
           <?php echo form_close(); ?>

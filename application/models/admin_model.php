@@ -43,31 +43,6 @@
       $this->db->update('faculty',$faculty_data);
   }
 
-  /*//Get specfic college
-      public function get_college() {
-        $this->db->select('college_id , college_name')->from('college');
-        $query = $this->db->get();
-        return $query->result();
-      }*/
-
-/*      //Get course based on college
-      public function get_course($college)  {
-        $this->db->select()->from('college')->where(array('college_name' => $college ));
-        $query = $this->db->get();
-        $college = $query->result_array();
-
-        $id = array(0=>0);
-        foreach ($college as $value) 
-        {
-          $id[$value['college_id']] = $value['college_id'];
-        }
-    
-        $this->db->select()->from('course');
-        $this->db->where_in('college_id',$id);
-        $query = $this->db->get();
-
-        return $query->result();
-      }*/
 
     //View Admin Profile Info
 	  public function adminInfo($data)
@@ -185,12 +160,63 @@ public function showCalendar($year,$month)
 //View details
         public function calendar_details($data) 
         { 
-            $this->db->select();
-            $this->db->from('calendar');
+          if($data['months'] == "1")
+          {
+            $data['filter'] = '-01-';
+          }
+          else if($data['months'] == "2")
+          {
+            $data['filter'] = '-02-';
+          }
+          else if($data['months'] == "3")
+          {
+            $data['filter'] = '-03-';
+          }
+          else if($data['months'] == "4")
+          {
+            $data['filter'] = '-04-';
+          }
+          else if($data['months'] == "5")
+          {
+            $data['filter'] = '-05-';
+          }
+          else if($data['months'] == "6")
+          {
+            $data['filter'] = '-06-';
+          }
+          else if($data['months'] == "7")
+          {
+            $data['filter'] = '-07-';
+          }
+          if($data['months'] == "8")
+          {
+            $data['filter'] = '-08-';
+          }
+          if($data['months'] == "9")
+          {
+            $data['filter'] = '-09-';
+          }
+          if($data['months'] == "10")
+          {
+            $data['filter'] = '-10-';
+          }
+          if($data['months'] == "11")
+          {
+            $data['filter'] = '-11-';
+          }
+          if($data['months'] == "12")
+          {
+            $data['filter'] = '-12-';
+          }
+          $this->db->select();
+          $this->db->from('calendar');
+          $this->db->like('date',$data['filter']);
+          $this->db->order_by('date');
+          
+          $query = $this->db->get();
+          $result = $query -> result_array();
 
-            $query = $this->db->get();  
-
-            return $query->result_array();
+          return $result;
         } 
 
 //Add Events
