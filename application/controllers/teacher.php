@@ -395,37 +395,29 @@
 				$data['last_name'] = $data['info']['last_name'];				
 				$data['viewStudents'] = $this->teacher_model->viewStudents($data);
 				$data['assigned_seats'] = $this->teacher_model->viewAssignedStudents($data);		
-
-				
 				
 				for ($i=1; $i < 41 ; $i++) { 
-				$data['a'.$i] = $this->input->post($i);
-				}					
-				
-				if(isset($_POST['submit'])){		
-
-				for ($i=1; $i < 41 ; $i++) 
-				{ 
 					$data['a'.$i] = $this->input->post($i);
-						for($x=1+1; $x < 41 ; $x++){
-							$data['a'.$i] = $this->input->post($x);
-						if($data['a'.$i] == $data['a'.$x] ){
-							echo "PAG SURE OI!";
-						}
-						else
-						$data['assigned_seats'] = $this->teacher_model->viewAssignedStudents($data);
-					}
 				}					
 				
-				$this->teacher_model->updateSeat($data);																		
-				$this->load->view('seatplan_teacher/assign_laboratory',$data);
+				if(isset($_POST['submit'])) {		
 
+					if(!in_array($data['a'.$i], $data['assigned_seats'])) {
+						$this->teacher_model->updateSeat($data);
+						$this->load->view('seatplan_teacher/assign_laboratory',$data);
+					} else {
+						echo "Not allowed.";
+					}
+					
 				}
-				else
-
-				$this->load->view('seatplan_teacher/assign_laboratory',$data);
-			} else
+				else {
+					$this->load->view('seatplan_teacher/assign_laboratory',$data);
+				}
+					
+			} else {
 				$this->index();
+			}
+				
 		}
 
 		public function brd1($id)

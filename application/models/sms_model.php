@@ -264,7 +264,7 @@
     {
       $this->db->select();
       $this->db->from('campus_login');
-      $this->db->join('students', 'students.student_number = campus_login.student_number');
+      $this->db->join('students', 'students.student_number = campus_login.student_number');      
       $this->db->where('campus_login.student_number',$data['student_number']);
       $this->db->limit('5');
       $this->db->order_by('log_id','desc');
@@ -370,6 +370,7 @@
     $this->db->join('offering','offering.offer_code = attendance.offer_code');
     $this->db->join('subject','offering.offer_code = subject.offer_code');
     $this->db->where('attendance.offer_code',$data['offer_code_id']);
+    $this->db->where('students.student_number',$data['student_number']);
 
     $query = $this->db->get();
     $result = $query -> result_array();
