@@ -343,7 +343,7 @@
 		    }
 		}
 
-		public function updateEvent($id) {
+		public function updateEvent() {
 
 			$count = count($data['info'] = $this->admin_model->calendar_details());
 
