@@ -98,6 +98,7 @@
                     <th><center>Days</th>
                     <th><center>Number of Lates</th>
                     <th><center>Number of Absences</th>
+                    <th><center></th>
                   </tr>                  
                 </thead>
 
@@ -134,6 +135,9 @@
                       </td>     
                       <td>
                           <?php echo $absences; ?>
+                      </td>
+                      <td>
+                          <?php echo anchor('notification/notifyCandidate?id='.$viewAttendance['account_id'], 'Notify', 'id="$viewAttendance->account_id" class="btn btn-danger"'); ?>
                       </td>
                     </tr>
               <?php }
