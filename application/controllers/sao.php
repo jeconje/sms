@@ -137,6 +137,8 @@
 			$data['info'] = $this->session->userdata('logged_in');
 			if($data['info'] == TRUE)
 			{
+				$data['first_name'] = $data['info']['first_name'];
+				$data['last_name'] = $data['info']['last_name'];
 				$data['id'] = $data['info']['id'];
 				// $this->input->get('id');
 
