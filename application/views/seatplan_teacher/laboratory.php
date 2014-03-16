@@ -408,9 +408,7 @@
                 if($value['seat_number'] == 2){
        ?>     
 
-    <input type = "hidden" name = "student_number2" value = "<?php echo $value['student_number'];  ?>" />       
-
-       <input type = "hidden" name = "student_number2" value = "<?php echo $value['student_number'];  ?>" />
+    <input type = "hidden" name = "student_number2" value = "<?php echo $value['student_number'];  ?>" />              
 
     <input name="2" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
     <p align="right">2</p>
