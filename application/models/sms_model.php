@@ -288,6 +288,14 @@
           
           $this->db->where('username',$data['username']);
           $this->db->update('account',$update_data);
+
+        // $this->db->select();
+        // $this->db->from('account');
+        // $this->db->where('username',$data['username']);
+        // $this->db->join('students','account.account_id = students.account_id');
+        // $query = $this->db->get();
+
+        // return $query->first_row('array');
     }
         
 

@@ -391,16 +391,16 @@
 
 				if(isset($_POST['submit'])) 
 				{
-					$newURL = "http://localhost/sms/sms/viewprofile";
+					$newURL = "http://localhost/sms/sms/viewProfile";
 					header('Location: '.$newURL);		
 					$data['username'] = $data['student_info']['username'];
 					$data['address'] = $this->input->post('address');
 					$data['contact_number'] = $this->input->post('contact_number');
-					$this->sms_model->editProfile($data);
+					$data['updated'] = $this->sms_model->editProfile($data);	
+					}
 				}
-			}
-			else
-				$this->index();
+				else
+					$this->index();
 		}
 
 
