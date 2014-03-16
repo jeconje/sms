@@ -424,7 +424,7 @@
 				$data['first_name'] = $data['parentInfo']['first_name'];
 				$data['last_name'] = $data['parentInfo']['last_name'];
 				$data['account_id'] = $data['parentInfo']['account_id'];
-				$data['id']	= $_GET['id'];				
+				$data['id']	= base64_decode($_GET['id']);				
 				$data['result2'] = $this->parent_model->viewStudyLoad($data);
 				$data['results'] = $this->parent_model->displayNames($data);
 

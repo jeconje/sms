@@ -139,7 +139,9 @@
 				$data['attendance_id'] = $_GET['id'];
 				
 				//if(isset($_POST['submit'])){
-				$aw = $this->teacher_model->updateAttendance($data);				
+				$this->teacher_model->updateAttendance($data);	
+				//header('Location:http://localhost/sms/teacher/logs/'.$data['date'].$data['attendance_id']);			
+
 
 				$this->load->view('teacher/logs',$data);
 			} else
@@ -317,7 +319,8 @@
 
 				if(isset($_POST['submit']))
 				{								
-					$this->teacher_model->insertAttendance($data);							
+					$this->teacher_model->insertAttendance($data);	
+					header('Location:http://localhost/sms/teacher/classroom/'.$data['id_code']);						
 
 				}
 				$data['viewStudents'] = $this->teacher_model->viewStudents($data);
@@ -374,7 +377,8 @@
 							
 				if(isset($_POST['submit']))
 				{								
-					$this->teacher_model->insertAttendance($data);							
+					$this->teacher_model->insertAttendance($data);
+					header('Location:http://localhost/sms/teacher/laboratory/'.$data['id_code']);							
 				}
 
 				$data['viewStudents'] = $this->teacher_model->viewStudents($data);
@@ -440,7 +444,8 @@
 				}						
 				if(isset($_POST['submit']))
 				{								
-					$this->teacher_model->insertAttendance($data);		
+					$this->teacher_model->insertAttendance($data);	
+					header('Location:http://localhost/sms/teacher/brd1/'.$data['id_code']);	
 
 				}
 				$data['viewStudents'] = $this->teacher_model->viewStudents($data);
@@ -498,7 +503,8 @@
 											
 				if(isset($_POST['submit']))
 				{								
-					$this->teacher_model->insertAttendance($data);							
+					$this->teacher_model->insertAttendance($data);		
+					header('Location:http://localhost/sms/teacher/brd2/'.$data['id_code']);					
 				}				
 				$this->load->view('seatplan_teacher/brd2',$data);		
 			} else 
