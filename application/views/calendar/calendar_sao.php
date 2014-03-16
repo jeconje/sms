@@ -27,6 +27,7 @@
         <div class="collapse navbar-collapse navbar-ex1-collapse">
           <ul class="nav navbar-nav side-nav">
             <li><a href="<?php echo base_url(); ?>sao/profile"><i class="icon32 icon-color icon-home"></i> Dashboard</a></li>
+            <li><a href="<?php echo base_url(); ?>sao/suspendviolators"><i class="icon32 icon-color icon-pin"></i> Suspend Student</a></li>
             <li><a href="<?php echo base_url(); ?>sao/add_violation"><i class="icon32 icon-color icon-add"></i> Add Violation</a></li>
             <li><a href="<?php echo base_url(); ?>sao/violators"><i class="icon32 icon-color icon-alert"></i> Violators</a></li>
             <li class="active"><a href="<?php echo base_url(); ?>sao/calendar_sao/2014/03"><i class="icon32 icon-color icon-calendar"></i> Calendar</a></li>    

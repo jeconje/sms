@@ -29,7 +29,7 @@
                                       'date_of_birth' => $date,
                                       'email_address' => $data['email_address'],
                                       'username' => $data['username'],
-                                      'password' => $data['password'],
+                                      'password' => sha1(rand())
                                       );
 
       $this->db->insert('account',$data['account_info']);

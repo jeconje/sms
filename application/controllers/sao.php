@@ -69,6 +69,21 @@
 				$this->index();
     	}
 
+    	public function get_student_info1() 
+    	{
+    		$data['info'] = $this->session->userdata('logged_in');
+    		if($data['info'] == TRUE){
+				$data['first_name'] = $data['info']['first_name'];
+				$data['last_name'] = $data['info']['last_name'];
+
+				$student_number = $this->input->post('student_number');
+				$data['student_info'] = $this->sao_model->get_student_info($student_number);
+
+				$this->load->view('sao/suspended', $data);
+			} else
+				$this->index();
+    	}
+
     	public function add_violation_view() {
     		$data['info'] = $this->session->userdata('logged_in');
     		if($data['info'] == TRUE){
@@ -115,6 +130,21 @@
 
     		$this->sao_model->remove_violators($id);
 		    redirect($_SERVER['HTTP_REFERER']);
+		}
+
+		public function suspendviolators() 
+		{
+			$data['info'] = $this->session->userdata('logged_in');
+			if($data['info'] == TRUE)
+			{
+				$data['id'] = $data['info']['id'];
+				// $this->input->get('id');
+
+	    		$this->sao_model->suspend_violators($id);
+			    $this->load->view('sao/suspended');
+			}
+			 else
+				$this->index();
 		}
 
 		public function message()

@@ -114,6 +114,22 @@
       		$this->db->update('violation', $status);  
 		}
 
+		public function suspend_violators() 
+		{
+			date_default_timezone_set('Asia/Manila');
+      		$date = date('Y-m-d');
+
+			$suspend = array(                          
+								'student_number' => $this->input->post('student_number'),
+	                            'start_date' => $date,
+	                            'end_date' => $this->input->post('end_date'),
+	                            'status' => "Suspended"
+        					);
+
+      		$this->db->insert('suspend',$suspend);
+		}
+
+
 		//Change Password   
 		public function changepassword($data)
 		{

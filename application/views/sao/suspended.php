@@ -1,4 +1,4 @@
-<?php header("refresh: 5;"); ?>
+<?php error_reporting(0); ?>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -7,58 +7,19 @@
     <meta name="author" content="">
     <title>USJR - SMS</title>
     <?php include ('/application/views/templates/nav.php'); ?>
-  </head>
-
-    <script src="<?php echo base_url(); ?>js/jquery.bpopup-x.x.x.min.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/x.x.x/jquery.min.js"></script>
+    <!-- Date Picker -->
+    <link rel="stylesheet" href="<?php echo base_url(); ?>css/calendar/jquery-ui.css">
+    <script src="<?php echo base_url(); ?>css/calendar/jquery-1.9.1.js"></script>
+    <script src="<?php echo base_url(); ?>css/calendar/jquery-ui.js"></script>
     <script>
-    ;(function($) {
-        $(function() {
-            $('#my-button').bind('click', function(e) {
-                e.preventDefault();
-                $('#element_to_pop_up').bPopup({
-                    appendTo: 'form'
-                    , zIndex: 2
-                    , modalClose: false,
-                    opacity: 0.6,
-                    positionStyle: 'fixed',
-                    speed: 450,
-                    transition: 'slideDown'
-                });
-            });
-         });
-     })(jQuery);
+    $(function() {
+                   $("#datepicker").datepicker({ minDate: 0, dateFormat: 'yy-mm-dd'});
+                 });
     </script>
-
-    <style>
-    #element_to_pop_up 
-    { 
-      background-color:#E6E6E6;
-      border-radius:9px;
-      color:#fff;
-      display:none; 
-      padding:20px;
-      min-width:400px;
-      min-height: 180px;
-    }
-    .b-close
-    {
-      cursor:pointer;
-      position:absolute;
-      right:10px;
-      top:5px;
-    }
-
-    </style>
   </head>
 
 <body>
-  <div id="element_to_pop_up">
-    <a class="b-close"><b>x</b><a/>
-    HOY IMUNG ANAK SIGE NAG KA LATEEE!! DI JUD NA KA GRADUATE RON HAHAHA
-  </div>
-
-   <div id="wrapper">
+    <div id="wrapper">
       <div id="wrapper">
       <!-- Sidebar -->
       <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -76,8 +37,8 @@
         <div class="collapse navbar-collapse navbar-ex1-collapse">
           <ul class="nav navbar-nav side-nav">
             <li><a href="<?php echo base_url(); ?>sao/profile"><i class="icon32 icon-color icon-home"></i> Dashboard</a></li>
-            <li><a href="<?php echo base_url(); ?>sao/suspendviolators"><i class="icon32 icon-color icon-pin"></i> Suspend Student</a></li>
-            <li><a href="<?php echo base_url(); ?>sao/add_violation_view"><i class="icon32 icon-color icon-add"></i> Add Violation</a></li>
+            <li  class="active"><a href="<?php echo base_url(); ?>sao/suspendviolators"><i class="icon32 icon-color icon-pin"></i> Suspend Student</a></li>
+            <li><a href="<?php echo base_url(); ?>sao/add_violation"><i class="icon32 icon-color icon-add"></i> Add Violation</a></li>
             <li><a href="<?php echo base_url(); ?>sao/violators"><i class="icon32 icon-color icon-alert"></i> Violators</a></li>
             <li ><a href="<?php echo base_url(); ?>sao/calendar_sao/2014/03"><i class="icon32 icon-color icon-calendar"></i> Calendar</a></li>    
           </ul>
@@ -125,29 +86,75 @@
             </li>
           </ul>
         </nav>
-        </div><!-- /.navbar-collapse -->  
-     <div class="table-responsive">
-              <table class="table table-hover tablesorter">
-                <thead>
-                  <tr>
-                    <th class="warning"><center>Name of Sender</th>
-                    <th class="warning">Subject</th>
-                    <th class="warning">Date</th>
-                    <th class="warning"></th>
-                  </tr>
-                </thead>
+        </div><!-- /.navbar-collapse -->
 
-                <tbody>
-                  <tr>
-                    <td>Get</td>
-                    <td>Get WAAAAAT</td>
-                    <td>Get</td>
-                    <td><button type="button" id="my-button" class="btn btn-primary">Details</button></td>
-                    <td><button type="button" class="btn btn-primary">Delete</button></td>
-                  </tr>
+<div id="page-wrapper">
 
-                </tbody>
-              </table>
-              </div>
+  
+  <br><br>
+  <div id="content" align="center">
+    <?php
+      $student_number = $this->input->post('student_number');
+    ?>
+    <?php echo form_open('sao/get_student_info1'); ?>
+      <p><input type="text" name="student_number" id="student_number" required="" tabindex="1" placeholder="student number" value="<?php echo $student_number; ?>">&nbsp;&nbsp;&nbsp;<button class="btn btn-primary" name="search">Search Student</button></p>   
+    
+    <?php echo form_close(); ?>
+
+    <?php echo form_open("sao/suspendviolators"); ?>
+    <?php foreach($student_info as $value){ ?>
+      <p class="contact"><label>Name: </label>   
+        <input type="hidden" name="student_number" value="<?php echo $student_number; ?>" >
+        <input type="text" class="form-control" name="student_info" id="student_info" value="<?php echo $value['last_name'].', '.$value['first_name']; ?>" disabled="disabled"></p>
+      <?php } ?>
+      <br>
+     <br><br>
+      <p><input name ="end_date" type="text" id="datepicker" placeholder="End Date" class="form-control"></p></textarea></p>
+
+      <button class="btn btn-danger" name="suspend" id="suspend">Suspend Student</button>
+    <?php echo form_close(); ?>
+  </div>
+
+</div>
+
+<script type="text/javascript">
+ $(document).ready(function(){
+    $("#student_number").keyup(function() {
+      var student_number = $('#student_number').val();
+        if(student_number=="") {
+            $('#violation').attr("disabled",true).css({ "background": "#F0F0F0" });
+        } else {
+            $.ajax({
+              type: "POST",
+              url: "<?php echo base_url(); ?>sao/check_student_number",
+              data: "student_number=" + student_number,
+              success: function(result) {
+                  if($.trim(result) == 'Invalid') {
+                    $('#student_number').css('border-color','#FF0000')
+                    $('#violation').attr("disabled",true).css({ "background": "#F0F0F0" });
+                  } else {
+                    $('#student_number').css('border-color','#00CC00')
+                    $('#violation').removeAttr("disabled").css({ "background": "" });
+                  }
+              }
+            });
+            return false;
+          }
+    });
+  });
+</script>
+
+<script>
+$('#dp5').datepicker()
+  .on('changeDate', function(ev){
+    if (ev.date.valueOf() < startDate.valueOf()){
+      ....
+    }
+  });
+</script>
+
+<script type="text/javascript">
+  $('#violation').attr("disabled",true).css({ "background": "#F0F0F0" });
+</script>
   </body>
 </html>

@@ -82,7 +82,8 @@
                   <tr>
                     <th class="active">Subject Listing</th>
                     <th class="warning">Lates</th>
-                    <th class="danger">Absences</th>
+                    <th class="danger">Excused Absences</th>
+                    <th class="danger">Unexcused Absences</th>
                     <th class="active"></th>
                   </tr>
                 </thead>
@@ -92,6 +93,7 @@
                     {
                       $late = 0;
                       $absences = 0;
+                      $excused = 0;
                   ?>    
                       <?php foreach($lates as $viewLates){
                             
@@ -100,6 +102,9 @@
                               }                              
                               if($viewLates['attendance'] == 'A' && $viewLates['offer_code'] == $value['offer_code'] ){
                                 $absences++;
+                              }
+                              if($viewLates['attendance'] == 'X' && $viewLates['offer_code'] == $value['offer_code'] ){
+                                $excused++;
                               }
                       }
                        ?>
@@ -110,7 +115,9 @@
                       <td>                        
                           <?php  echo $late; ?>
                       </td>     
-
+                      <td>
+                          <?php echo $excused?>
+                      </td>
                       <td>
                           <?php echo $absences?>
                       </td>

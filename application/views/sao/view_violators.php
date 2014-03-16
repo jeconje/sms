@@ -29,6 +29,7 @@
         <div class="collapse navbar-collapse navbar-ex1-collapse">
           <ul class="nav navbar-nav side-nav">
             <li><a href="<?php echo base_url(); ?>sao/profile"><i class="icon32 icon-color icon-home"></i> Dashboard</a></li>
+            <li><a href="<?php echo base_url(); ?>sao/suspendviolators"><i class="icon32 icon-color icon-pin"></i> Suspend Student</a></li>
             <li><a href="<?php echo base_url(); ?>sao/add_violation_view"><i class="icon32 icon-color icon-add"></i> Add Violation</a></li>
             <li  class="active"><a href="<?php echo base_url(); ?>sao/violators"><i class="icon32 icon-color icon-alert"></i> Violators</a></li>
             <li ><a href="<?php echo base_url(); ?>sao/calendar_sao/2014/03"><i class="icon32 icon-color icon-calendar"></i> Calendar</a></li>    
@@ -173,7 +174,7 @@
                     <td><?php echo $value['date']; ?></td>
                     <td><?php echo $value['status']; ?></td>
                       <?php if($value['status'] == "In campus with violation") { ?> 
-                        <td><?php echo anchor('sao/removeviolators?id='.$value['student_number'], 'Update', 'id="$value->student_number" class="btn btn-primary"'); ?></td>
+                        <td><?php echo anchor('sao/removeviolators?id='.$value['student_number'], 'Claimed', 'id="$value->student_number" class="btn btn-primary"'); ?></td>
                       <?php } else ?>
                         <td></td>
                   </tr>

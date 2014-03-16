@@ -369,6 +369,7 @@
     $this->db->join('subject','offering.offer_code = subject.offer_code');
     $this->db->where('attendance.offer_code',$data['offer_code_id']);
     $this->db->where('students.student_number',$data['student_number']);
+    $this->db->order_by('date');
 
     $query = $this->db->get();
     $result = $query -> result_array();
