@@ -21,106 +21,106 @@
 			echo "retry: 2000\n";
 		}
 
-// /* PARENT NOTIFICATION */
-// 		public function notification_to_parent() {
+/* PARENT NOTIFICATION */
+		public function notification_to_parent() {
 			
-// 			$this->notify();
+			$this->notify();
 
-// 			$data['parentInfo'] = $this->session->userdata['logged_in'];
-// 			$data['parent_id'] = $data['parentInfo']['parent_id'];
+			$data['parentInfo'] = $this->session->userdata['logged_in'];
+			$data['parent_id'] = $data['parentInfo']['parent_id'];
 
-// 			$data['notify'] = $this->notification_model->notification_parent($data);
+			$data['notify'] = $this->notification_model->notification_parent($data);
 
-// 			echo "data: ".json_encode($data['notify'])."\n\n";
-// 			ob_flush();
-// 		    flush();
-// 		    sleep(1);
-// 		}
-
-// /* UPDATE NOTIFICATION OF PARENT */
-// 		public function notification_update_parent() {
-			
-// 			$data['parentInfo'] = $this->session->userdata['logged_in'];
-// 			$data['parent_id'] = $data['parentInfo']['parent_id'];
-			
-// 			$data['id_for_update'] = $_POST['id'];
-// 			$data['new_notification'] = $this->notification_model->notification_update_parent($data);
-
-// 			echo json_encode($data['new_notification']);
-// 		}
-
-// /* STUDENT NOTIFICATION */
-// 		public function notification_to_student() {
-
-// 			$this->notify();
-
-// 			$data['studentInfo'] = $this->session->userdata['logged_in'];
-// 			$data['account_id'] = $data['studentInfo']['account_id'];
-
-// 			$data['notify'] = $this->notification_model->notification_student($data);
-
-// 			echo "data: ".json_encode($data['notify'])."\n\n";
-// 			ob_flush();
-// 		    flush();
-// 		    sleep(1);
-// 		}
-
-// /* UPDATE NOTIFICATION OF STUDENT */
-// 		public function notfication_update_student() {
-
-// 			$data['studentInfo'] = $this->session->userdata['logged_in'];
-// 			$data['account_id'] = $data['studentInfo']['account_id'];
-
-// 			$data['id_for_update'] = $_POST['id'];
-
-// 			$data['new_notification'] = $this->sdpc_model->notification_update_student($data);
-
-// 			echo json_encode($data['new_notification']);
-// 		}
-
-// /* TEACHER NOTIFICATION */
-// 		public function notification_to_teacher() {
-			
-// 			$this->notify();
-
-// 			$data['teacherInfo'] = $this->session->userdata['logged_in'];
-// 			$data['faculty_id'] = $data['teacherInfo']['faculty_id'];
-
-// 			$data['notify'] = $this->notification_model->notification_teacher($data);
-
-// 			echo "data: ".json_encode($data['notify'])."\n\n";
-// 			ob_flush();
-// 	    flush();
-// 	    sleep(1);
-// 		}
-
-// /* UPDATE NOTIFICATION OF TEACHER */
-// 		public function notification_update_teacher() {
-			
-// 			$data['teacherInfo'] = $this->session->userdata['logged_in'];
-// 			$data['faculty_id'] = $data['teacherInfo']['faculty_id'];
-
-// 			$data['id_for_update'] = $_POST['id'];
-// 			$data['new_notification'] = $this->notification_model->notification_update_teacher($data);
-
-// 			echo json_encode($data['new_notification']);
-// 		}
-
-// 		public function viewCandidates() {	
-
-// 				$data['viewSubjects'] = $this->notification_model->viewSubjects();
-// 				$data['viewStudentAttendance'] = $this->notification_model->viewCandidates();
-
-// 				echo "<pre>";
-// 				print_r($data);
-// 				echo "</pre>";
-// 		}
-
-		public function notifyCandidate() {
-			$id = $_POST['id']
-
-			$data['notify'] = $this->notification_model->notifyCandidate($id);
+			echo "data: ".json_encode($data['notify'])."\n\n";
+			ob_flush();
+	    flush();
+	    sleep(1);
 		}
+
+/* UPDATE NOTIFICATION OF PARENT */
+		public function notification_update_parent() {
+			
+			$data['parentInfo'] = $this->session->userdata['logged_in'];
+			$data['parent_id'] = $data['parentInfo']['parent_id'];
+			
+			$data['id_for_update'] = $_POST['id'];
+			$data['new_notification'] = $this->notification_model->notification_update_parent($data);
+
+			echo json_encode($data['new_notification']);
+		}
+
+/* STUDENT NOTIFICATION */
+		public function notification_to_student() {
+
+			$this->notify();
+
+			$data['studentInfo'] = $this->session->userdata['logged_in'];
+			$data['account_id'] = $data['studentInfo']['account_id'];
+
+			$data['notify'] = $this->notification_model->notification_student($data);
+
+			echo "data: ".json_encode($data['notify'])."\n\n";
+			ob_flush();
+		    flush();
+		    sleep(1);
+		}
+
+/* UPDATE NOTIFICATION OF STUDENT */
+		public function notfication_update_student() {
+
+			$data['studentInfo'] = $this->session->userdata['logged_in'];
+			$data['account_id'] = $data['studentInfo']['account_id'];
+
+			$data['id_for_update'] = $_POST['id'];
+
+			$data['new_notification'] = $this->sdpc_model->notification_update_student($data);
+
+			echo json_encode($data['new_notification']);
+		}
+
+/* TEACHER NOTIFICATION */
+		public function notification_to_teacher() {
+			
+			$this->notify();
+
+			$data['teacherInfo'] = $this->session->userdata['logged_in'];
+			$data['faculty_id'] = $data['teacherInfo']['faculty_id'];
+
+			$data['notify'] = $this->notification_model->notification_teacher($data);
+
+			echo "data: ".json_encode($data['notify'])."\n\n";
+			ob_flush();
+	    flush();
+	    sleep(1);
+		}
+
+/* UPDATE NOTIFICATION OF TEACHER */
+		public function notification_update_teacher() {
+			
+			$data['teacherInfo'] = $this->session->userdata['logged_in'];
+			$data['faculty_id'] = $data['teacherInfo']['faculty_id'];
+
+			$data['id_for_update'] = $_POST['id'];
+			$data['new_notification'] = $this->notification_model->notification_update_teacher($data);
+
+			echo json_encode($data['new_notification']);
+		}
+
+		public function viewCandidates() {	
+
+				$data['viewSubjects'] = $this->notification_model->viewSubjects();
+				$data['viewStudentAttendance'] = $this->notification_model->viewCandidates();
+
+				echo "<pre>";
+				print_r($data);
+				echo "</pre>";
+		}
+
+		// public function notifyCandidate() {
+		// 	$id = $_POST['id']
+
+		// 	$data['notify'] = $this->notification_model->notifyCandidate($id);
+		// }
 
 	}
 

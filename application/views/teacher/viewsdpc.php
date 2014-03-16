@@ -130,31 +130,31 @@
                          $absences = 0;
                          $excused= 0;
                 ?>    
+
                   <?php foreach($viewCandidates as $viewAttendance){
-                       
-                          if($viewAttendance['attendance'] == 'L' && $viewAttendance['student_number'] == $value['student_number'] ){
-                            $late++;
-                          }                              
-                          if($viewAttendance['attendance'] == 'A' && $viewAttendance['student_number'] == $value['student_number']){
-                            $absences++;
-                          }
-                          if($viewAttendance['attendance'] == 'X' && $viewAttendance['student_number'] == $value['student_number']){
-                            $excused++;
-                          }
+                        if($viewAttendance['attendance'] == 'L' && $viewAttendance['offer_code'] == $value['offer_code']){
+                          $late++;
+                        }                              
+                        if($viewAttendance['attendance'] == 'A' && $viewAttendance['offer_code'] == $value['offer_code']){
+                          $absences++;
+                        }
+                        if($viewAttendance['attendance'] == 'X' && $viewAttendance['offer_code'] == $value['offer_code']){
+                          $excused++;
+                        }
                   } ?>
-                  <?php if(($absences >= '5' && $viewAttendance['days'] == 'MWF') || ($absences >= '3' && $value['days'] == 'TTH') ){ ?>
+                  <?php if(($absences >= '5' && $value['days'] == 'MWF') || ($absences >= '3' && $value['days'] == 'TTH')){ ?>
                     <tr>
                         <td>
-                            <?php echo $value['last_name'].', '.$value['first_name']; ?>
+                            <?php echo $viewAttendance['last_name'].', '.$viewAttendance['first_name']; ?>
                         </td>
                         <td>
                             <?php echo $value['subject_description']; ?>
                         </td>   
                         <td>                        
-                            <?php  echo $value  ['days']; ?>
+                            <?php  echo $value['days']; ?>
                         </td>
                         <td>                        
-                            <?php  echo $late; ?>
+                            <?php echo $late; ?>
                         </td>   
                         <td>
                             <?php echo $absences; ?>
@@ -164,7 +164,8 @@
                         </td>
                     </tr>
                   <?php }
-                    } ?>
+                    } 
+                  ?>
                 </tbody>
               </table>
             </div>

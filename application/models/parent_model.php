@@ -58,6 +58,16 @@ class Parent_model extends CI_Model
     return $result;
   }
 
+  public function check_referral_key_registration($data) 
+  {
+    $referral_key = $data['referral_key'];
+    
+    $query = mysql_query("select * from students where referral_key='$referral_key'");
+    $result = mysql_num_rows($query);
+
+    return $result;
+  }
+
   //loginParent
   public function loginParent($username, $password)
   { 

@@ -209,11 +209,10 @@ $(document).ready(function() {
       id_update[num] = val.notification_id;
       num++;
       num3++;
-      $("#noti").fadeOut(); 
-      $("#noti").fadeIn(); 
+      $("#noti").hide(); 
+      $("#noti").show(); 
       $("#noti").html(num3);
     });  
-
     
     num2=num;
     num=num2;

@@ -204,6 +204,7 @@
     </div>
 
 <script type="text/javascript">
+$(document).ready(function() {
   var num = 0;
   $('#noti').hide();
   var audioElement = document.createElement('audio');
@@ -218,8 +219,8 @@
 
     if(num==num2) { 
       $.each(data, function(index, val) {  
-        //if(index==data.length-1) { 
-          //audioElement.play();
+        //if(index==data.length-1) {
+          audioElement.play();
           $("#notification").prepend("<li>"+val.message+" ("+val.date+")</li>");
        // }
       });  
@@ -241,7 +242,7 @@
   }
   es.addEventListener("message", listener);
 
-$("#noti").click(function() {
+$("#notify").click(function() {
   $("#noti").hide();
   function update_print_noti() {
     $.ajax({
@@ -249,8 +250,8 @@ $("#noti").click(function() {
       url: "<?php echo base_url(); ?>notification/notification_update_parent",
       data: {id : id_update},
       dataType: 'json', 
-      success: function(update) {
-        $.each(update, function(index, val) {
+      success: function(data) {
+        $.each(data, function(index, val) {
           $("#notification").prepend("<li>"+val.message+" ("+val.date+")</li>");
         });
       }
@@ -259,6 +260,7 @@ $("#noti").click(function() {
   }
   update_print_noti();
   });
+});
 
 </script>
 

@@ -145,7 +145,7 @@
         } else {
             $.ajax({
               type: "POST",
-              url: "<?php echo base_url(); ?>parents/check_referral_key",
+              url: "<?php echo base_url(); ?>parents/check_referral_key_registration",
               data: "referral_key=" + referral_key,
               success: function(result) {
                   if($.trim(result) == 'Invalid') {

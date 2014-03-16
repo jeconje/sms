@@ -70,7 +70,6 @@
 				$this->index();
   		}
 
-  		//Get course with specified college
 		public function get_offer_codes()
 		{
 			$data['info'] = $this->session->userdata('logged_in');
@@ -81,8 +80,8 @@
 			$data['subject'] = $this->input->post('subject');
 			$data['offer_code'] = $this->input->post('offer_code');
 			$data['subjects'] = $this->teacher_model->get_subject($data);
-			
-			$i = 0;
+
+
 			$offer_codes = $this->teacher_model->get_offer_code($data);
 				foreach ($offer_codes as $offer_code) {
 					$value[$i]['id'] = $offer_code->offer_code_id;
@@ -92,18 +91,19 @@
 				echo json_encode($value);
 		}
 
+
 		public function view_candidates() 
 		{
 			$data['info'] = $this->session->userdata('logged_in');
-			if($data['info'] == TRUE){
+			if($data['info'] == TRUE) {
 				$data['faculty_id'] = $data['info']['faculty_id'];
 				$data['first_name'] = $data['info']['first_name'];
 				$data['last_name'] = $data['info']['last_name'];
 
-				$data['offer_code'] = $this->input->post('offer_code');
 				$data['subjects'] = $this->teacher_model->get_subject($data);
-				
-				$data['viewSubjects'] = $this->teacher_model->viewSDPC($data);
+				$data['offer_code'] = $this->input->post('offer_code');
+
+				$data['viewSubjects'] = $this->teacher_model->viewClasses($data);
 				$data['viewCandidates'] = $this->teacher_model->viewCandidates($data);
 
 				$this->load->view('teacher/viewsdpc',$data);

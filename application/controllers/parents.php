@@ -81,6 +81,18 @@
 			}
     	} 
 
+    	public function check_referral_key_registration() {
+    		$data['referral_key'] = $this->input->post('referral_key');
+    		
+			$referral_keys = $this->parent_model->check_referral_key_registration($data);
+
+			if($referral_keys == 0) { //Checks the inputted referral key from database
+				echo "Invalid";
+			} else {
+				echo "Valid";
+			}
+    	} 
+
   		public function parent_registration()
   		{
   			$this->load->view('parent/parent_registration',$data);
