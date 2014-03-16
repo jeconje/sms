@@ -136,6 +136,15 @@
 		 <div class="auto-style1" style="width: 40px; height: 10px">Lates: <?php echo $late; ?></div>
            <div class="auto-style1" style="width: 62px; height: 8px">Absences: <?php echo $absent; ?></div>
        <div class="bs-example" align="right">
+
+        <?php if($statuss == "Suspended" && $suspend_number == $value['student_number']){ ?>
+     <div class="bs-example" align="right">
+              <input name="attendance1" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+               <input name="attendance1" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+              <input checked="true" name="attendance1" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+              <div class="auto-style2">Status: <?php echo "Suspended"; ?></div>      
+      </div>  
+      <?php } else { ?>
       
                 <input checked="true" name="attendance1" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
           <input name="attendance1" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
@@ -149,7 +158,7 @@
       <?php } ?>
       <?php if($temp != $value['student_number']){?>
       <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div> 
-      <?php } ?>    
+      <?php }} ?>    
            <?php }} ?>
 		</td>		
 	   <!---SEPARATOR DESIGN -->	
@@ -181,6 +190,17 @@
 
                     }                                     
                 }
+                foreach($suspension as $suspend)
+                {
+
+                    if($suspend['student_number'] == $value['student_number'])
+                    {                                             
+                      $suspend_number = $suspend['student_number'];
+                      $statuss = $suspend['status'];                                 
+                    }                                     
+
+                }
+
                 if($value['seat_number'] == 9){
        ?>
  <input type = "hidden" name = "student_number9" value = "<?php echo $value['student_number'];  ?>" />      

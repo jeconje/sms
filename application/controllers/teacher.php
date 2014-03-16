@@ -137,11 +137,17 @@
 				$data['last_name'] = $data['info']['last_name'];				
 				$data['viewLogs'] = $this->teacher_model->viewLogs($data);
 				$data['attendance_id'] = $_GET['id'];
-
-				//if(isset($_POST['submit'])){
+				$data['subject'] = $this->input->post('subject')			;
 				$data['classes'] = $this->teacher_model->viewClasses($data);
-				$this->teacher_model->updateAttendance($data);	
-				//header('Location:http://localhost/sms/teacher/logs/'.$data['date'].$data['attendance_id']);			
+
+
+				/*if(isset($_POST['submit']))
+				{
+					$data['viewLogs'] = $this->teacher_model->viewSearchedLogs($data);
+					print_r($data['viewLogs']);
+				}*/
+				//$this->teacher_model->updateAttendance($data);	
+				
 
 
 				$this->load->view('teacher/logs',$data);
@@ -309,6 +315,7 @@
 				$data['viewAttendance'] = $this->teacher_model->viewAttendance($data);				
 				$data['logins'] = $this->teacher_model->viewCampusLogin($data);
 				$data['violation'] = $this->teacher_model->viewViolation($data);	
+				$data['suspension'] = $this->teacher_model->viewSuspension($data);
 
 				
 				for ($i=1; $i <41 ; $i++) { 
@@ -367,6 +374,7 @@
 				$data['viewAttendance'] = $this->teacher_model->viewAttendance($data);				
 				$data['logins'] = $this->teacher_model->viewCampusLogin($data);
 				$data['violation'] = $this->teacher_model->viewViolation($data);		
+				$data['suspension'] = $this->teacher_model->viewSuspension($data);
 
 
 				for ($i=1; $i <49 ; $i++) { 
@@ -495,7 +503,8 @@
 				$data['first_name'] = $data['info']['first_name'];
 				$data['last_name'] = $data['info']['last_name'];
 				$data['viewStudents'] = $this->teacher_model->viewStudents($data);
-				$data['viewAttendance'] = $this->teacher_model->viewAttendance($data);				
+				$data['viewAttendance'] = $this->teacher_model->viewAttendance($data);		
+				$data['suspension'] = $this->teacher_model->viewSuspension($data);		
 			
 				for ($i=1; $i < 32 ; $i++) { 
 					$data['a'.$i] = $this->input->post('attendance'.$i);		

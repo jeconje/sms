@@ -170,7 +170,7 @@
             $this->db->from('offering');          
             $this->db->join('faculty','offering.faculty_id = faculty.faculty_id');
             $this->db->join('subject','offering.offer_code = subject.offer_code');            
-            $this->db->where('offering.faculty_id',$data['faculty_id']);            
+            $this->db->where('offering.faculty_id',$data['faculty_id']);                        
             $query = $this->db->get();
             $result = $query -> result_array();
 
@@ -331,6 +331,23 @@
           $this->db->join('students','attendance.student_number = students.student_number');          
           $this->db->where('attendance.date',$data['date']);          
           $this->db->where('faculty_id',$data['faculty_id']);
+
+          $this->db->order_by('subject.subject_description');
+          $query = $this->db->get();
+          $result = $query -> result_array();
+          return $result;
+        }       
+
+        public function viewSearchedLogs($data)
+        {          
+          $this->db->select ();
+          $this->db->from('attendance');
+          $this->db->join('offering','attendance.offer_code = offering.offer_code');
+          $this->db->join('subject','subject.offer_code = offering.offer_code');
+          $this->db->join('students','attendance.student_number = students.student_number');     
+          $this->db->where('subject.subject_description',$data['subject'])     ;
+          $this->db->where('attendance.date',$data['date']);          
+          $this->db->where('faculty_id',$data['faculty_id']);          
           $this->db->order_by('subject.subject_description');
           $query = $this->db->get();
           $result = $query -> result_array();
@@ -368,5 +385,17 @@
 
             return $result;
        }      
+
+       public function viewSuspension($data)
+       {
+
+            $this->db->select();
+            $this->db->from('suspend');
+            $this->db->join('students','suspend.student_number = students.student_number ');                                
+            $query = $this->db->get();
+            $result = $query -> result_array();
+
+            return $result;
+        }
   }
 ?>

@@ -76,19 +76,19 @@
           </ul>
         </nav>
 <br>
-<?php echo form_open('teacher/logs'); ?>
+<?php echo form_open('teacher/logs/'.$date); ?>
         <div class="table-responsive">
         <center>
-            <select class="select-style select" id="months" name="months">
-                <option value="" selected="selected">--- ALL ---</option>
-                <?php print_r($classes); ?>
-                <?php foreach($classes as $value)  { ?>
-                   <option value=""><?php echo $value['subject_description']; ?></option>
+            <!-- <select class="select-style select" id="months" name="subject">
+                <option value="" selected="selected">--- ALL ---</option>                
+                <?php foreach($classes as $value)  { 
+                  ?>
+                   <option value="<?php echo $value['subject_description']; ?>"><?php echo $subject = $value['subject_description']; ?></option>
                 <?php } ?>
 
             </select>
 
-            <input class="btn btn-primary" name ="submit" type="submit" value="Filter Subject"/>
+            <input class="btn btn-primary" name ="submit" type="submit" value="Filter Subject"/> -->
         </center>
             <br><br><br><br>
               <table class="table table-hover tablesorter"  style="width=20px;">
@@ -101,8 +101,7 @@
                     <th><center></th>
                   </tr>
                 </thead>                
-                <tbody  align="center">       
-                                                                    
+                <tbody  align="center">                                     
                   <?php foreach($viewLogs as $value) {                         
                      
                   ?>
