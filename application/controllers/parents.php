@@ -191,7 +191,7 @@
 				$data['referral_key'] = $data['parentInfo']['referral_key'];
 				$data['account_id'] = $data['parentInfo']['account_id'];
 
-				$data['id']	= $_GET['id'];
+				$data['id']	= base64_decode($_GET['id']);
 				$data['result'] = $this->parent_model->displayNames($data);	
 				$data['result2'] = $this->parent_model->viewChildrensGrades($data);
 
@@ -208,7 +208,7 @@
 				$data['first_name'] = $data['parentInfo']['first_name'];
 				$data['last_name'] = $data['parentInfo']['last_name'];
 
-				$data['id']	= $_GET['id'];
+				$data['id']	= base64_decode($_GET['id']);
 				$data['result'] = $this->parent_model->displayNames($data);
 				$data['result2'] = $this->parent_model->viewStudyLoad($data);
 
@@ -229,7 +229,7 @@
 				$data['account_id'] = $data['parentInfo']['account_id'];
 				$data['first_name'] = $data['parentInfo']['first_name'];
 				$data['last_name'] = $data['parentInfo']['last_name'];
-				$data['id'] = $_GET['id'];
+				$data['id'] = base64_decode($_GET['id']);
 
 				$data['result'] = $this->parent_model->displayNames($data);
 				$data['displaySubjects'] = $this->parent_model->displaySubjects($data);

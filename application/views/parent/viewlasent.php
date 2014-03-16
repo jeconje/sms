@@ -35,7 +35,7 @@
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon32 icon-color icon-document"></i><b class="caret"></b>Grades</a>
                       <ul class="dropdown-menu">
                           <?php foreach($result as $value){ ?>
-                          <li><a href="<?php echo base_url(); ?>parents/viewgrades?id=<?php echo $value['account_id']; ?>"> <?php echo $value['last_name'].', '.$value['first_name']; ?></a></li>          
+                          <li><a href="<?php echo base_url(); ?>parents/viewgrades?id=<?php echo base64_encode($value['account_id']); ?>"> <?php echo $value['last_name'].', '.$value['first_name']; ?></a></li>          
                           <?php } ?>
                       </ul>
             </li>
@@ -43,7 +43,7 @@
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon32 icon-color icon-compose"></i><b class="caret"></b> Study Load</a>
                       <ul class="dropdown-menu">
                           <?php foreach($result as $value){ ?>
-                          <li><a href="<?php echo base_url(); ?>parents/viewstudyload?id=<?php echo $value['account_id']; ?>"> <?php echo $value['last_name'].', '.$value['first_name']; ?></a></li>          
+                          <li><a href="<?php echo base_url(); ?>parents/viewstudyload?id=<?php echo base64_encode($value['account_id']); ?>"> <?php echo $value['last_name'].', '.$value['first_name']; ?></a></li>          
                           <?php } ?>
                        </ul>
             </li>
@@ -51,7 +51,7 @@
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon32 icon-red icon-clock"></i><b class="caret"></b> Attendance</a>
                       <ul class="dropdown-menu">
                           <?php foreach($result as $value){ ?>
-                          <li><a href="<?php echo base_url(); ?>parents/viewLasent?id=<?php echo $value['student_number']; ?>"> <?php echo $value['last_name'].', '.$value['first_name']; ?></a></li>          
+                          <li><a href="<?php echo base_url(); ?>parents/viewLasent?id=<?php echo base64_encode($value['student_number']); ?>"> <?php echo $value['last_name'].', '.$value['first_name']; ?></a></li>          
                           <?php } ?>
                       </ul>
             </li>
@@ -149,7 +149,7 @@
                       <td>
                           <?php echo $absences?>
                       </td>
-                      <td><a href='<?php echo base_url(); ?>parents/attendance_logs?id=<?php echo $value['student_number']; ?>'><button type="button" class="btn btn-primary">View Logs</button></td>
+                      <td><a href='<?php echo base_url(); ?>parents/attendance_logs?id=<?php echo  base64_encode($value['student_number']); ?>'><button type="button" class="btn btn-primary">View Logs</button></td>
                     </tr>
                    <?php } ?>                </tbody>
               </table>
