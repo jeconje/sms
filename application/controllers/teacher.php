@@ -126,7 +126,7 @@
 				$this->index();
 		}
 
-		//View Logs
+		//View Attendance Logs
 		public function logs($id)
 		{
 			$data['info'] = $this->session->userdata('logged_in');
@@ -137,8 +137,9 @@
 				$data['last_name'] = $data['info']['last_name'];				
 				$data['viewLogs'] = $this->teacher_model->viewLogs($data);
 				$data['attendance_id'] = $_GET['id'];
-				
+
 				//if(isset($_POST['submit'])){
+				$data['classes'] = $this->teacher_model->viewClasses($data);
 				$this->teacher_model->updateAttendance($data);	
 				//header('Location:http://localhost/sms/teacher/logs/'.$data['date'].$data['attendance_id']);			
 

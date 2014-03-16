@@ -240,14 +240,65 @@
 		//ShowCalendar
 		public function calendar_sao($year=null,$month=null)
 		{
-	      $data['saoInfo'] = $this->session->userdata('logged_in');
-	      if($data['saoInfo'] == TRUE){
-		      $data['first_name'] = $data['saoInfo']['first_name'];
-		      $data['last_name'] = $data['saoInfo']['last_name'];
-		      $data['atays'] = $this->sao_model->getEvents();
+			$data['saoInfo'] = $this->session->userdata('logged_in');
+			if($data['saoInfo'] == TRUE)
+			{
+				$data['first_name'] = $data['saoInfo']['first_name'];
+				$data['last_name'] = $data['saoInfo']['last_name'];
+				$data['event'] = $this->input->post('event');
+				$data['date'] = $this->input->post('date');	
+				
+				$data['result'] = $this->sao_model->getEvents();
 
-		      $data['atay'] = $this->sao_model->showCalendar($year,$month,$events);     
-		      $this->load->view('calendar/calendar_sao',$data);
+				$day = (int)substr($row->date,8,2);
+				$mon = (int)substr($row->date,6,2);
+
+			    $events[(int)$day] = $row->event;
+			    $events = array();
+
+			    foreach($data['result'] as $row) {
+
+			    	$day = (int)substr($row['date'],8,2);
+			    	$mon = (int)substr($row['date'],5,2);
+
+				    if(!array_key_exists($day,$events)) { 
+						$events[$day] = $row['event'];
+					}
+
+					else {
+						$temp = $row['event'];
+						$events[$day] = $events[$day]."<br> <li>".$temp;
+					}
+
+					$events_month[$mon][$day] = $events; 
+					
+				} 
+
+				$config['show_next_prev'] = 'TRUE';
+			    $config['day_type'] = 'long';
+			    $config['next_prev_url'] = base_url().'sao/calendar_sao';
+			    $config['template'] = '
+			    {cal_cell_content}<span class="day_listing">{day}</span>&nbsp;&bull; {content}&nbsp;{/cal_cell_content}
+			    {cal_cell_content_today}<div class="today"><span class="day_listing">{day}</span>&bull; {content}</div>{/cal_cell_content_today}
+			    {cal_cell_no_content}<span class="day_listing">{day}</span>&nbsp;{/cal_cell_no_content}
+			    {cal_cell_no_content_today}<div class="today"><span class="day_listing">{day}</span></div>{/cal_cell_no_content_today}
+			    '; 
+			    $config['template'] = '
+			    {table_open}<table class="calendar">{/table_open}
+			    {week_day_cell}<th class="day_header">{week_day}</th>{/week_day_cell}
+			    {cal_cell_content}<span class="day_listing">{day}</span>&nbsp;&bull; {content}&nbsp;{/cal_cell_content}
+			    {cal_cell_content_today}<div class="today"><span class="day_listing">{day}</span>&bull; {content}</div>{/cal_cell_content_today}
+			    {cal_cell_no_content}<span class="day_listing">{day}</span>&nbsp;{/cal_cell_no_content}
+			    {cal_cell_no_content_today}<div class="today"><span class="day_listing">{day}</span></div>{/cal_cell_no_content_today}
+			    '; 
+
+			    $this->load->library('calendar',$config);
+			    $y = intval($this->uri->segment(3));
+			    $m = intval($this->uri->segment(4));
+    			$data['viewCalendar']= $this->calendar->generate($y,$m,$events_month[$m]);
+					
+				$this->load->view('calendar/calendar_sao',$data);	
+
 		  } else
 		  	$this->index();
 		}
