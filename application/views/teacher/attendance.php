@@ -33,32 +33,10 @@
             <li><a href="<?php echo base_url(); ?>teacher/calendar_teacher/2014/03"><i class="icon32 icon-color icon-calendar"></i> Calendar</a></li>    
           </ul>&nbsp;<ul class="nav navbar-nav navbar-right navbar-user">
             <li class="dropdown messages-dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon icon-color icon-messages"></i> Notification <b class="icon icon-color icon-triangle-s"></b></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"  id="noti-box"><div id="noti"></div><i class="icon icon-color icon-messages"></i> Notification <b class="icon icon-color icon-triangle-s"></b></a>
               <ul class="dropdown-menu">
-                <li class="dropdown-header">8 New Messages</li>
-                <li class="message-preview">
-                  <a href="#">
-                    <span class="name">John Smith:</span>
-                    <span class="message">Hey there, I wanted to ask you something... ASA NI DAPITA</span>
-                    <span class="time"><i class="fa fa-clock-o"></i> 4:34 PM</span>
-                  </a>
-                </li>
-                <li class="divider"></li>
-                <li class="message-preview">
-                  <a href="#">
-                    <span class="name">John Smith:</span>
-                    <span class="message">Hey there, I wanted to ask you something...</span>
-                    <span class="time"><i class="fa fa-clock-o"></i> 4:34 PM</span>
-                  </a>
-                </li>
-                <li class="divider"></li>
-                <li class="message-preview">
-                  <a href="#">
-                    <span class="name">John Smith:</span>
-                    <span class="message">Hey there, I wanted to ask you something...</span>
-                    <span class="time"><i class="fa fa-clock-o"></i> 4:34 PM</span>
-                  </a>
-                </li>
+                <li class="dropdown-header"><div id="notification"></div></li>
+              
                 <li class="divider"></li>
             <li><a href="<?php echo base_url(); ?>teacher/message">View Inbox <span class="icon icon-color icon-envelope-closed"></span></a></li>
               </ul>
@@ -99,6 +77,68 @@
               </table>
             </div>
           </div>
+
+          <script type="text/javascript">
+  var num = 0;
+$(document).ready(function() {
+  $('#noti').hide();
+  var audioElement = document.createElement('audio');
+  audioElement.setAttribute('src', '<?php echo base_url(); ?>notification/Notify_Sound.mp3');
+  var es = new EventSource("<?php echo base_url(); ?>notification/notification_to_teacher");
+  var listener = function (data) {
+  var data = $.parseJSON(data.data); 
+  
+    var num2 = 0;
+    var id_update = [];
+    var num3=0;
+
+    if(num==num2) { 
+      $.each(data, function(index, val) {  
+        //if(index==data.length-1) { 
+          //audioElement.play();
+          $("#notification").prepend("<li>"+val.message+" ("+val.date+")</li>");
+       // }
+      });  
+    }
+
+    $.each(data, function(index, val) {  
+      id_update[num] = val.notification_id;
+      num++;
+      num3++;
+      $("#noti").hide(); 
+      $("#noti").show(); 
+      $("#noti").html("!");
+    });  
+    
+    num2=num;
+    num=num2;
+    num3=0;
+
+  }
+  es.addEventListener("message", listener);
+
+  $("#noti-box").click(function() {
+  $("#noti").hide();
+  function update_print_noti() {
+    $.ajax({
+      type: 'POST',
+      url: "<?php echo base_url(); ?>notification/notification_update_teacher",
+      data: {id : id_update},
+      dataType: 'json', 
+      success: function(update) {
+        $.each(update, function(index, val) {
+          $("#notification").prepend("<li>"+val.message+" ("+val.date+")</li>");
+        });
+      }
+    });
+    $("#notification").empty();
+  }
+  update_print_noti();
+  });
+
+});
+
+</script>
   </body>
 </html>
   

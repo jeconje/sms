@@ -2,10 +2,11 @@
 
   class Notification_model extends CI_Model {
 
-    public function studentInfo() {
+    public function studentInfo($data) {
       $this->db->select();
       $this->db->from('students');
-      $this->db->join('account','students.account_id = account.account_id');
+      // $this->db->join('account','students.account_id = account.account_id');
+      $this->db->where('students.account_id', $data['id']);
       $query = $this->db->get();
       $result = $query->result_array();
 
@@ -49,9 +50,9 @@
       // $this->db->where('account.account_id',$data['id']);
 
       $this->db->from('attendance');
-      $this->db->join('offering','attendance.offer_code = offering.offer_code');
-      $this->db->join('subject','subject.offer_cod  e = offering.offer_code');
-      $this->db->join('students','attendance.student_number = students.student_number');
+        $this->db->join('offering','attendance.offer_code = offering.offer_code');
+        $this->db->join('subject','subject.offer_code = offering.offer_code');
+        $this->db->join('students','attendance.student_number = students.student_number');
 
       $query = $this->db->get();
       $result = $query->result_array();
@@ -167,8 +168,7 @@
       $this->db->join('students','study_load.student_number = students.student_number');
       $this->db->join('tracker','students.account_id = tracker.account_id');
       $this->db->join('parent','tracker.parent_id = parent.parent_id');
-      $this->db->join('subject','offering.offer_code = subject.offer_code');
-      //$this->db->join('attendance','attendance.student_number = ')                          
+      $this->db->join('subject','offering.offer_code = subject.offer_code');                          
       
       $query = $this->db->get();
       $result = $query -> result_array();
@@ -219,16 +219,16 @@
                               'parent_id' => '0',
                               'faculty_id' => $data['faculty_id'],
                               'date' => $date,
-                              'message' => "Your student ".$data['id']." has already ".$data['countAbsences']." in your subject ".$data['offer_code'],
+                              'message' => "Your student ".$data['name']." has already ".$data['countAbsences']." in your subject ".$data['subject_description'],
                               'seen' => 'no'
                               );
-
+      
       $data['parent'] = array(
                               'account_id' => '0',
                               'parent_id' => $data['parent_id'],
                               'faculty_id' => '0',
                               'date' => $date,
-                              'message' => "Your child ".$data['id']." has already ".$data['countAbsences']." in ".$data['offer_code'],
+                              'message' => "Your child ".$data['name']." has already ".$data['countAbsences']." in ".$data['subject_description'],
                               'seen' => 'no'                              
                               );
 
