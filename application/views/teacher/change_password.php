@@ -43,7 +43,7 @@
                 <li class="dropdown-header"><div id="notification"></div></li>
                
                 <li class="divider"></li>
-            <li><a href="<?php echo base_url(); ?>teacher/message">View Inbox <span class="icon icon-color icon-envelope-closed"></span></a></li>
+            <!-- <li><a href="<?php echo base_url(); ?>teacher/message">View Inbox <span class="icon icon-color icon-envelope-closed"></span></a></li> -->
               </ul>
             </li>
             

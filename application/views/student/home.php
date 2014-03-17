@@ -211,7 +211,7 @@ $(document).ready(function() {
       num3++;
       $("#noti").hide(); 
       $("#noti").show(); 
-      $("#noti").html(num3);
+      $("#noti").html("!");
     });  
     
     num2=num;

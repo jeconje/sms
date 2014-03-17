@@ -210,7 +210,7 @@
                               'parent_id' => '0',
                               'faculty_id' => '0',
                               'date' => $date,
-                              'message' => "You already have ".$data['countAbsences']." in ".$data['offer_code'],
+                              'message' => "You already have ".$data['countAbsences']." in ".$data['subject_description'],
                               'seen' => 'no'
                               );
 
@@ -223,19 +223,23 @@
                               'seen' => 'no'
                               );
       
-      $data['parent'] = array(
-                              'account_id' => '0',
-                              'parent_id' => $data['parent_id'],
-                              'faculty_id' => '0',
-                              'date' => $date,
-                              'message' => "Your child ".$data['name']." has already ".$data['countAbsences']." in ".$data['subject_description'],
-                              'seen' => 'no'                              
-                              );
+      foreach($data['parentInfo'] as $parent) {
+        $data['parent'] = array(
+                                'account_id' => '0',
+                                'parent_id' => $data['parent_id'],
+                                'faculty_id' => '0',
+                                'date' => $date,
+                                'message' => "Your child ".$data['name']." has already ".$data['countAbsences']." in ".$data['subject_description'],
+                                'seen' => 'no'                              
+                                );
+        $this->db->where('parent_id', $parent['parent_id']);
+        $this->db->insert('notifications', $data['parent']);
+      }
 
       $this->db->where('account_id',$data['id']);
       $this->db->insert('notifications',$data['student']);
       $this->db->insert('notifications', $data['teacher']);
-      $this->db->insert('notifications', $data['parent']);
+      
     }
 }
 ?>

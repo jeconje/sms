@@ -143,7 +143,9 @@
 			
 			$data['notify'] = $this->notification_model->notifyCandidate($data);
 
-			$this->load->view('sdpc/viewsdpc');
+			//print_r($data['parentInfo']);
+
+			redirect('sdpc/view_candidates');
 
 		}
 
