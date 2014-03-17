@@ -137,7 +137,7 @@
                           <?php echo $absences; ?>
                       </td>
                       <td>
-                          <?php echo anchor('notification/notifyCandidate?id='.$viewAttendance['account_id'], 'Notify', 'id="$viewAttendance->account_id" class="btn btn-danger"'); ?>
+                          <?php echo anchor('notification/notifyCandidate?id='.base64_encode($viewAttendance['student_number']), 'Notify', 'id="$viewAttendance->student_number" class="btn btn-danger"'); ?>
                       </td>
                     </tr>
               <?php }

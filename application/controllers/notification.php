@@ -23,7 +23,7 @@
 
 /* PARENT NOTIFICATION */
 		public function notification_to_parent() {
-			
+				
 			$this->notify();
 
 			$data['parentInfo'] = $this->session->userdata['logged_in'];
@@ -33,8 +33,8 @@
 
 			echo "data: ".json_encode($data['notify'])."\n\n";
 			ob_flush();
-	    flush();
-	    sleep(1);
+	    	flush();
+	    	sleep(1);
 		}
 
 /* UPDATE NOTIFICATION OF PARENT */
@@ -44,9 +44,9 @@
 			$data['parent_id'] = $data['parentInfo']['parent_id'];
 			
 			$data['id_for_update'] = $_POST['id'];
-			$data['new_notification'] = $this->notification_model->notification_update_parent($data);
+			//$data['new_notification'] = $this->notification_model->notification_update_parent($data);
 
-			echo json_encode($data['new_notification']);
+			echo json_encode($data['id_for_update']);
 		}
 
 /* STUDENT NOTIFICATION */
@@ -110,17 +110,30 @@
 
 				$data['viewSubjects'] = $this->notification_model->viewSubjects();
 				$data['viewStudentAttendance'] = $this->notification_model->viewCandidates();
-
-				echo "<pre>";
-				print_r($data);
-				echo "</pre>";
 		}
 
-		// public function notifyCandidate() {
-		// 	$id = $_POST['id']
+		public function notifyCandidate() {
 
-		// 	$data['notify'] = $this->notification_model->notifyCandidate($id);
-		// }
+			$data['id'] = base64_decode($_GET['student_number']);
+
+			$data['countAbsences'] = $this->notification_model->countAbsences($data); // Counts the number of absences of the specified student number in attendanace table
+
+			$data['studentInfo'] = $this->notification_model->studentInfo(); // Gets student data
+			$data['parentInfo'] = $this->notification_model->parentOfStudent($data); // Gets parent data
+			$data['teacherInfo'] = $this->notification_model->teacherOfStudent($data); // Gets teacher data
+			
+			// echo "<pre>";
+			// print_r($data['teacherInfo']);
+			// echo "</pre>";
+		 	$data['faculty_id'] = $data['teacherInfo']['faculty_id'];
+		 	$data['parent_id'] = $data['parentInfo']['parent_id'];
+		 	$data['offer_code'] = $data['teacherInfo']['offer_code'];
+			
+			$data['notify'] = $this->notification_model->notifyCandidate($data);
+
+			$this->load->view('sdpc/viewsdpc');
+
+		}
 
 	}
 

@@ -220,7 +220,7 @@ $(document).ready(function() {
     if(num==num2) { 
       $.each(data, function(index, val) {  
         //if(index==data.length-1) {
-          audioElement.play();
+          //audioElement.play();
           $("#notification").prepend("<li>"+val.message+" ("+val.date+")</li>");
        // }
       });  
@@ -238,12 +238,12 @@ $(document).ready(function() {
     num2=num;
     num=num2;
     num3=0;
-
   }
   es.addEventListener("message", listener);
-
+  
 $("#notify").click(function() {
   $("#noti").hide();
+
   function update_print_noti() {
     $.ajax({
       type: 'POST',
@@ -251,15 +251,16 @@ $("#notify").click(function() {
       data: {id : id_update},
       dataType: 'json', 
       success: function(data) {
-        $.each(data, function(index, val) {
+        $.each(data, function(index, val) {  
+          //audioElement.play();
           $("#notification").prepend("<li>"+val.message+" ("+val.date+")</li>");
-        });
+     }); 
       }
     });
-    $("#notification").empty();
   }
   update_print_noti();
   });
+
 });
 
 </script>

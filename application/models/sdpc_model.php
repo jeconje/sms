@@ -109,7 +109,7 @@
         public function viewCandidates($data) {
           $this->db->select();
           $this->db->from('attendance');
-          $this->db->join('students', 'attendance.student_number = students.student_number');
+          $this->db->join('students','students.student_number = attendance.student_number');
           $this->db->where('attendance.student_number', $data['student_number']);
 
           $query = $this->db->get();
