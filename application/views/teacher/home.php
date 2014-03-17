@@ -39,7 +39,7 @@
           <ul class="dropdown-menu">
             <li class="dropdown-header"><div id="notification"></div></li>
             <li class="divider"></li>
-            <li><a href="<?php echo base_url(); ?>sms/message">View Inbox <span class="icon icon-color icon-envelope-closed"></span></a></li>
+            <!-- <li><a href="<?php echo base_url(); ?>sms/message">View Inbox <span class="icon icon-color icon-envelope-closed"></span></a></li> -->
           </ul>
         </li><!-- /.dropdown messages-dropdown -->
             
@@ -195,7 +195,7 @@
         </div>
       </div>
 
-      <script type="text/javascript">
+<script type="text/javascript">
   var num = 0;
 $(document).ready(function() {
   $('#noti').hide();

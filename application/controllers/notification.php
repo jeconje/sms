@@ -113,10 +113,10 @@
 		}
 
 		public function notifyCandidate() {
-			$data['id'] = '38';
+
+			$data['id'] = $_GET['id'];
 
 			$data['studentInfo'] = $this->notification_model->studentInfo($data); // Gets student data
-
 			 
 			$data['parentInfo'] = $this->notification_model->parentOfStudent($data); // Gets parent data
 			$data['teacherInfo'] = $this->notification_model->teacherOfStudent($data); // Gets teacher data
