@@ -99,7 +99,7 @@
         </nav>
       
 <center>
-  <div class="platform" style="width: 1150px" align="center">
+    
     <?php  echo form_open("teacher/brd1/$id_code"); ?>
  <td rowspan="6" style="width: 50px">Platform</div><br>
       <div class="table-responsive">
