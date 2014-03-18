@@ -63,8 +63,7 @@
                    </tr>
                 </thead>
 
-                <tbody  align="center">                  
-                  <?php print_r($viewDistinctLogs); ?>
+                <tbody  align="center">                                    
                   <?php foreach($viewDistinctLogs as $value) {                            
                     ?>
                   <tr>                    
