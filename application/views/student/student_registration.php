@@ -58,23 +58,30 @@
       <p>Be updated on school events.</p>
     </div>
       <div class="form" id="registration">
-            <?php echo form_open("sms/view_registration_ajax"); ?>
+            <?php foreach($studentDetails as $value){ ?>
+
+           <?php } ?>
+            <?php echo form_open("sms/registration"); ?>
 
             <p class="contact"><label for="student_number" id="student_numberlbl">Student Number</label></p>
-              <input type="text" name="student_number" id="student_number" required="" tabindex="1" placeholder="student number" value="<?php echo set_value('student_number') ?>">         
+              <input type="text" name="student_number" id="student_number" required="" tabindex="1" placeholder="student number" value="<?php echo $value['student_number']; ?>">         
+              <input type="submit" class="button" name="submit" value="Search"> 
 
-            <p class="contact"><label for="name" id="namelbl">Name</label></p>
-              <input type="text" name="first_name" id="first_name" required="" tabindex="1" placeholder="first name" value="<?php echo set_value('first_name'); ?>">
-              <input type="text" name="middle_name" id="middle_name" required="" tabindex="1" placeholder="middle name" value="<?php echo set_value('middle_name'); ?>">
-              <input type="text" name="last_name" id="last_name" required="" tabindex="1" placeholder="last name" value="<?php echo set_value('last_name'); ?>">
+            <?php echo form_close(); ?>
+
+          <?php echo form_open("sms/view_registration_ajax"); ?>
+
+          
+            <br><br>
+            <p class="contact"><label>Name</label></p>
+              <input type="text" name="first_name" value="<?php echo $value['first_name']; ?>" disabled="disabled">
+              <input type="text" name="middle_name" value="<?php echo $value['middle_name']; ?>" disabled="disabled">
+              <input type="text" name="last_name" value="<?php echo $value['last_name']; ?>" disabled="disabled">
 
             <p class="contact"><label for="gender" id="genderlbl">Gender</label></p>
-            <select class="select-style select" name="gender" id="gender">
-              <option value="male" <?php set_radio('gender', 'Male'); ?>>Male</option>
-              <option value="female" <?php set_radio('gender', 'Female'); ?>>Female</option>
-            </select><br><br>
+              <input type="text" name="gender" disabled="disabled" value="<?php echo $value['gender']; ?>">
 
-       <!--      <p class="contact"><label for="year" id="yearlbl">Year / College / Course</label></p>
+           <!-- <p class="contact"><label for="year" id="yearlbl">Year / College / Course</label></p>
             <select class="select-style select" name="year" id="year">
               <option value="1">1</option>
               <option value="2">2</option>
@@ -92,54 +99,22 @@
             </select><br><br> -->
 
             <p class="contact"><label for="address" id="addresslbl">Address</label></p>
-              <input type="text" name="address" id="address" required="" tabindex="1" value="<?php echo set_value('address');?>" >
+              <input type="text" name="address" value="<?php echo $value['address']; ?>" disabled="disabled">
 
             <p class="contact"><label for="contact_number" id="contact_numberlbl">Contact Number</label></p>
-              <input type="text" name="contact_number" id="contact_number" required="" tabindex="1" value="<?php echo set_value('contact_number');?>" >
-
-            <?php 
-              //Setup months
-              $data['months'] = array('FALSE' => 'Month',
-                                   '1'  => 'January',
-                                   '2'  => 'February',
-                                   '3'  => 'March',
-                                   '4'  => 'April',
-                                   '5'  => 'May',
-                                   '6'  => 'June',
-                                   '7'  => 'July',
-                                   '8'  => 'August',
-                                   '9'  => 'September',
-                                   '10' => 'October',
-                                   '11' => 'November',
-                                   '12' => 'December'
-                                  );
-              //Setup days
-              $data['days']['FALSE'] = 'Day';         
-
-              for($i=1;$i<=31;$i++) {
-                $data['days'][$i] = $i;
-              }
-
-              //Setup years
-              $start_year = date("Y",mktime(0,0,0,date("m"),date("d"),date("Y")-80)); //Adjust 80 to however many year back you want
-              $data['byear']['FALSE'] = 'Year';
-
-              for ($i=date("Y");$i>=$start_year;--$i) {
-                $data['byear'][$i] = $i;
-              }
-            ?>
+              <input type="text" name="contact_number" value="<?php echo $value['contact_number']; ?>" disabled="disabled">
             
             <p class="contact"><label for="date_of_birth"  id="date_of_birthlbl">Date of Birth</label></p>
-              <?php echo form_dropdown('months',$data['months'],'id="month"'). " " . form_dropdown('days',$data['days'],'id="day"'). " " . form_dropdown('byear',$data['byear'],'id="byear"'); ?><br><br> 
-            
+              <input type="text" value="<?php echo $value['date_of_birth']; ?>" disabled="disabled">
+
             <p class="contact"><label for="email_address" id="email_addresslbl">Your current email address</label></p>
-              <input name="email_address" id="email_address" value="<?php echo set_value('email_address') ?>" required="" type="email">
+              <input name="email_address" id="email_address" value="<?php echo $value['email_address']; ?>" disabled="disabled">
 
             <p class="contact"><label for="parent_email" id="parent_emaillbl">Parent's Email Address</label></p>
-              <input name="parent_email"  id="parent_email" value="<?php echo set_value('parent_email') ?>" required="" type="email">
+              <input name="parent_email"  id="parent_email" required="" type="email">
 
             <p class="contact"><label for="username" id="usernamelbl">Choose your username</label></p>
-              <input type="text" name="username" id="username" value="<?php echo set_value('username') ?>" required="" tabindex="1"><span id="user"></span> 
+              <input type="text" name="username" id="username" required="" tabindex="1"><span id="user"></span> 
 
             <p class="contact"><label for="password" id="passwordlbl">Create a password</label></p>
               <input type="password" name="password" id="password" required="" tabindex="1">
@@ -151,8 +126,9 @@
               <div id="divCheckPasswordMatch" style="color: rgb(255, 0, 0); font: normal 10px/12px Arial,Helvetica,sans-serif; opacity: 50;"></div>
 
             <br><br><input class="button" name="submit" id="submitbtn" tabindex="1" value="Register" type="submit"> 
+           
+            <?php echo form_close(); ?>
 
-      </form>
     </div><!-- /.form -->
   </div><!-- /.page-wrapper -->
 </div><!-- /.wrapper -->
@@ -201,7 +177,28 @@
   }
 </script>
 
-<!-- Verifies the inputted student_number if it exist in the database -->
+ <script type="text/javascript">
+//   $(document).ready(function(){
+//     $("#student_number").keyup(function() { 
+//       $.ajax({
+//           type: "POST",
+//           url: "<?php echo base_url(); ?>sms/getStudentDetails",
+//           data: "student_number=" + student_number,
+//           success: function(result) {
+//               if($.trim(result) == 'Invalid') {
+//                 $('#student_number').css('border-color','#FF0000')
+//                  $('#submitbtn').attr("disabled",true);
+//               } else {
+//                 $('#student_number').css('border-color','#00CC00')
+//                 $('#submitbtn').removeAttr("disabled");
+//               }
+//           }
+//         });
+//     });
+//   });
+// </script>
+
+<!-- Verifies the inputted student_number if it exist in the database 
 <script type="text/javascript">
   $(document).ready(function(){
     $("#student_number").keyup(function() {
@@ -229,7 +226,7 @@
           }
     });
   });
-</script>
+</script> -->
 
 <!-- Checks the availability of the username -->
 <script type="text/javascript">
@@ -279,12 +276,12 @@
   });
 </script>
 
-<script type="text/javascript">
-  $(document).ready(function() {
-    $('#first_name, #middle_name, #last_name, #gender, #address, #contact_number, #email_address, #parent_email, #username, #password, #confirm_password').attr("disabled",true).css({ "background": "#F0F0F0" });
-  });
+ <script type="text/javascript">
+//   $(document).ready(function() {
+//     $('#first_name, #middle_name, #last_name, #gender, #address, #contact_number, #email_address, #parent_email, #username, #password, #confirm_password').attr("disabled",true).css({ "background": "#F0F0F0" });
+//   });
 
-</script>
+// </script>
 
 </body>
 </html>

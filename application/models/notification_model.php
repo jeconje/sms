@@ -219,7 +219,7 @@
                               'parent_id' => '0',
                               'faculty_id' => $data['faculty_id'],
                               'date' => $date,
-                              'message' => "Your student ".$data['name']." has already ".$data['countAbsences']." in your subject ".$data['subject_description'],
+                              'message' => "Your student ".$data['name']." has already ".$data['countAbsences']." absences in your subject ".$data['subject_description'],
                               'seen' => 'no'
                               );
       

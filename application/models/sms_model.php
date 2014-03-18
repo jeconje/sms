@@ -15,6 +15,16 @@
        return $result;
     }
 
+    //During student registration
+    public function viewStudentDetails($data) {
+      $this->db->select();
+      $this->db->from('students');          
+      $this->db->where('student_number', $data['student_number']);
+
+      $query = $this->db->get();
+      return $query->result_array();
+    }
+
     //Checks if student number exists on database
     public function check_student_numbers($student_number) 
     {
@@ -42,36 +52,26 @@
 		// Inserts student data to students table in database
 		public function add_student($data) 
     {
-			$combinedate = $this->input->post('byear').'-'.$this->input->post('months').'-'.$this->input->post('days');
-      $date = date("Y-m-d", strtotime($combinedate));
-
+			// $combinedate = $this->input->post('byear').'-'.$this->input->post('months').'-'.$this->input->post('days');
+   //    $date = date("Y-m-d", strtotime($combinedate));
 			$studentaccount_data = array(                                     
-                                    'account_type'=>'student',                                                             
-                          					'last_name'=>ucfirst($this->input->post('last_name')),                    
-                          					'first_name'=>ucfirst($this->input->post('first_name')),
-                          					'middle_name'=>ucfirst($this->input->post('middle_name')),
-                                    'gender'=>ucfirst($this->input->post('gender')),
-                          					'address'=>ucfirst($this->input->post('address')),
-                          					'contact_number'=>$this->input->post('contact_number'),
-                          					'date_of_birth'=>$date,
-                                    'email_address'=>$this->input->post('email_address'),
-                                    'parent_email'=>$this->input->post('parent_email'),
-                          					'username'=>$this->input->post('username'),
-                          					'password'=>$this->input->post('password')
+                                    'account_type'=>'student',       
+                                    'parent_email' => $this->input->post('parent_email'),          
+                          					'username' => $this->input->post('username'),
+                          					'password' => $this->input->post('password')
                 					         );
 
       //Gets the account_id of the last inserted row to be used as foreign key in students table  
-      $this->db->insert('account',$studentaccount_data);  
-      $account_id = $this->db->insert_id();
+      $this->db->insert('account',$studentaccount_data); 
       
-      $student_number = $this->input->post('student_number');
+      $data['student_number'] = $_POST['student_number'];
 
       $student_data = array(
-                            'account_id'=>$account_id,
-                            'referral_key'=>sha1(rand())                            
+                            'username' => $this->input->post('username'),
+                            'referral_key' => sha1(rand())                            
                           );
 
-      $this->db->where('student_number', $student_number);
+      $this->db->where('student_number', $data['student_number']);
       $this->db->update('students',$student_data);
 		}
 
@@ -91,7 +91,7 @@
         $path = array( 'image_path' => $data['file_path'].$data['file_name']);
 
         $this->db->update('account',$path);
-    } 
+    }
 
     //View photo in profile
     public function viewPhoto($data)

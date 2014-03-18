@@ -7,7 +7,7 @@
 	{
 		public function __construct() 
 		{
-			error_reporting(0);
+			//error_reporting(0);
 			parent::__construct();
 		}
 
@@ -83,45 +83,25 @@
     		}
     	}
 
-  		// Student Registration View
+  		// Student Registration View and getting all student details with the searched student number
 		public function registration() {
+			$data['student_number'] = $_POST['student_number'];
+    		$data['studentDetails'] = $this->sms_model->viewStudentDetails($data);
+
 			$this->load->view('student/student_registration',$data);
 		}
 
 		public function view_registration_ajax() {
-			$combinedate = $this->input->post('byear').'-'.$this->input->post('months').'-'.$this->input->post('days');
-        	$date = date("Y-m-d", strtotime($combinedate));
-
+			$data['student_number'] = $_POST['student_number'];
 			if ($_POST) {
-				// field name, error message, validation rules
-				$this->form_validation->set_rules('last_name','Last Name','trim|required');
-				$this->form_validation->set_rules('first_name','First Name','trim|required');
-				$this->form_validation->set_rules('middle_name','Middle Name','trim|required');
-				$this->form_validation->set_rules('gender', 'Gender', 'required');
-				$this->form_validation->set_rules('address','Address','trim|required');
-				$this->form_validation->set_rules('contact_number','Contact Number','trim|required|numeric');
-				$this->form_validation->set_rules('email_address', 'Email Address', 'trim|required|valid_email');
 				$this->form_validation->set_rules('parent_email', 'Parent Email Address', 'trim|required|valid_email');
 				$this->form_validation->set_rules('username','Username','trim|required|min_length[6]|is_unique[account.username]');
 				$this->form_validation->set_rules('password','Password','trim|required|min_length[6]');
 				$this->form_validation->set_rules('confirm_password','Confirm Password','trim|required|matches[password]');
 				
-				if($this->form_validation->run()) {
-					$month = $this->input->post('months');
-				    $day = $this->input->post('days');
-				    $year = $this->input->post('byear');
-		    
-		    		$birthday = date("m-d-Y H:i:s",mktime(0,0,0,$month,$day,$year));
-	 			} 
-
 				if($this->form_validation->run() == FALSE) {
 					$this->load->view('student/student_registration',$data);
 				} else {
-					$data['student_number'] = $this->input->post('student_number');
-					$data['first_name'] = strtoupper($this->input->post('first_name'));
-					$data['middle_name'] = strtoupper($this->input->post('middle_name'));
-					$data['last_name'] = strtoupper($this->input->post('last_name'));
-					$data['date_of_birth'] = $date;
 
 					$this->sms_model->add_student($data);
 
