@@ -6,7 +6,7 @@
 	  	{ 
 	       $this -> db -> select(); 
 	       $this -> db -> from('account');              
-	       $this -> db -> where('username', $username);
+	       $this -> db -> where('account_id', $username);
 	       $this -> db -> where('password', $password);
 	       $query = $this -> db -> get();
 	       $result = $query -> first_row('array');
@@ -47,21 +47,26 @@
 		  return $result;
 		}
 
- 		public function add_violation() {
+
+		//Add Violation
+ 		public function add_violation() 
+ 		{
 			date_default_timezone_set('Asia/Manila');
       		$date = date('Y-m-d');
 
 			$student_violation = array(                          
-									'student_number' => $this->input->post('student_number'),
-                                    'violation' => ucfirst(strtolower($this->input->post('violation'))),
-                                    'date' => $date,
-                                    'status' => "In campus with violation"
-        					         );
+										'student_number' => $this->input->post('student_number'),
+	                                    'violation' => ucfirst(strtolower($this->input->post('violation'))),
+	                                    'date' => $date,
+	                                    'status' => "In campus with violation"
+        					          );
 
       		$this->db->insert('violation',$student_violation);
 		}
 
-		public function get_student_info($student_number) {
+
+		public function get_student_info($student_number) 
+		{
 			$this->db->select();
             $this->db->from('students');          
       		$this->db->where('student_number', $student_number);
@@ -70,31 +75,36 @@
             return $query->result_array();
 		}
 
-		public function view_violators() {
+		//View Violators
+		public function view_violators() 
+		{
 			$this->db->select();
             $this->db->from('violation');          
             $this->db->order_by('violation_id');
             $this->db->join('students','students.student_number = violation.student_number');
-            //$this->db->join('violation','account.account_id = students.account_id');
 
-            $query = $this->db->get();
-          
+
+            $query = $this->db->get();          
             return $query->result_array();
 		}
 
-		public function viewViolatorsByStudentNumber($student_number) {
+		//View By SN
+		public function viewViolatorsByStudentNumber($student_number) 
+		{
 			$this->db->select();
             $this->db->from('violation');          
             $this->db->order_by('violation_id');
             $this->db->join('students','students.student_number = violation.student_number');
-            //$this->db->join('account','account.account_id = students.account_id');
+
       		$this->db->where('students.student_number', $student_number);
       		$query = $this->db->get();
 
 			return $query->result_array();
     	}
 
-    	public function viewViolatorsByDate($searched_date) {
+    	//View by Date
+    	public function viewViolatorsByDate($searched_date) 
+    	{
     		$this->db->select();
             $this->db->from('violation');          
             $this->db->order_by('violation_id');
@@ -107,13 +117,16 @@
 
     	}
 
-		public function remove_violators($id) {
+    	//Remove Violator
+		public function remove_violators($id) 
+		{
 			$status = array('status' => 'Claimed');
 
 	  		$this->db->where('student_number', $id);
       		$this->db->update('violation', $status);  
 		}
 
+		//Suspend Violator
 		public function suspend_violators() 
 		{
 			date_default_timezone_set('Asia/Manila');
@@ -126,7 +139,7 @@
 	                            'status' => "Suspended"
         					);
 
-      		$this->db->insert('suspend',$suspend);
+      		$this->db->insert('suspend', $suspend);
 		}
 
 
@@ -137,7 +150,7 @@
 			                       'password' => $data['new_password']
 		                         );
 
-		    $this->db->where('username',$data['username']);
+		    $this->db->where('account_id',$data['account_id']);
 		    $this->db->update('account',$new_password);
 		}
 
@@ -146,7 +159,7 @@
 	    {
 	      $this -> db -> select();
 	      $this -> db -> from('account');
-	      $this -> db -> where('username',$data['username']);
+	      $this -> db -> where('account_id',$data['account_id']);
 
 	      $query = $this -> db -> get();
 	      

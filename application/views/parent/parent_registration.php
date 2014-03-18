@@ -141,7 +141,8 @@
       var referral_key = $('#referral_key').val();
         if(referral_key == " ") {
             $('#first_name, #middle_name, #last_name, #gender, #address, #contact_number, #username, #password, #confirm_password').attr("disabled",true).css({ "background": "#F0F0F0" });
-              $('#submitbtn').attr("disabled",true);
+            $('#check_referral_key').html(" ").css("color"," ");
+            $('#submitbtn').attr("disabled",true);
         } else {
             $.ajax({
               type: "POST",
@@ -150,12 +151,12 @@
               success: function(result) {
                   if($.trim(result) == 'Invalid') {
                     $('#referral_key').css('border-color','#FF0000');
-                    $('#check_referral_key').html("Referral key doesn't exist.").css("color","red");
+                    $('#check_referral_key').html(" Referral key doesn't exist.").css("color","red");
                     $('#name, #first_name, #middle_name, #last_name, #gender, #address, #contact_number, #username, #password, #confirm_password').attr("disabled",true).css({ "background": "#F0F0F0" });
                     $('#submitbtn').attr("disabled",true); 
                   } else {
                     $('#referral_key').css('border-color','#00CC00');
-                    $('#check_referral_key').html("Referral key exist.").css("color","green");
+                    $('#check_referral_key').html(" Referral key exist.").css("color","green");
                     $('#name, #first_name, #middle_name, #last_name, #gender, #address, #contact_number, #username, #password, #submitbtn, #confirm_password').removeAttr("disabled").css({ "background": "" });
                   }
               }
@@ -173,10 +174,10 @@
     var confirm_password = $("#confirm_password").val();
 
     if(password != confirm_password) { 
-      $("#divCheckPasswordMatch").html("Passwords do not match!").css("color":"red");
+      $("#divCheckPasswordMatch").html("Passwords do not match!").css("color","red");
       $('#submitbtn').attr("disabled",true);
     } else {
-      $("#divCheckPasswordMatch").html("Passwords matched!").css("color":"green");
+      $("#divCheckPasswordMatch").html("Passwords matched!").css("color","green");
       $('#submitbtn').removeAttr("disabled");
     }
   }
@@ -188,10 +189,10 @@
     $("#username").keyup(function(){
       var username = $('#username').val();
 
-      if(username = " "){
-        $('#check_username').html("").css("color":"");
-        $('#password, #confirm_password, #submitbtn').attr("disabled",true).css({ "background": "#F0F0F0" });
-      }else {
+      // if(username = " "){
+      //   $('#check_username').html(" ").css("color":" ");
+      //   $('#password, #confirm_password, #submitbtn').attr("disabled",true).css({ "background": "#F0F0F0" });
+      // } else {
       $.ajax({
         type: "POST",
         url: "<?php echo base_url(); ?>parents/check_username",
@@ -199,16 +200,16 @@
         success:function(username){
           if($.trim(username) == "Valid") {
             $('#username').css('border-color','#00FF00');
-            $('#check_username').html("Username available.").css("color":"green");
+            $("#check_username").html(" Username available.").css("color":"green");
             $('#password, #confirm_password, #submitbtn').removeAttr("disabled").css({ "background": "" });
           } else {
             $('#username').css('border-color','#FF0000');
-            $('#check_username').html("Username already taken.").css("color":"red");
+            $("#check_username").html(" Username already taken.").css("color":"green");
             $('#password, #confirm_password, #submitbtn').attr("disabled",true).css({ "background": "#F0F0F0" });
           }
         }
       });
-    }
+    // }
     });
   });
 </script>

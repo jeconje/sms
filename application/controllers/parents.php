@@ -500,8 +500,7 @@
 		}
 
 		//LOGOUT
-		public function logout() 
-		{
+		public function logout() {
 		   $this->session->unset_userdata('logged_in');
 		   session_destroy();
 		   $this->index();
@@ -515,6 +514,5 @@
     			} else {
     				echo "Invalid";
     			}
-
     	}
   	}
