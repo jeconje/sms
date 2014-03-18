@@ -297,9 +297,7 @@
                           <input name="attendance2" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
                           <input checked="true" name="attendance2" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
                           <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
-                  </div>  <?php } ?>
-
-                                                           
+                  </div>  <?php } ?>                                                           
     <?php } 
   } ?>
     </td>
