@@ -58,21 +58,24 @@
       <p>Be updated on school events.</p>
     </div>
       <div class="form" id="registration">
-            <?php foreach($studentDetails as $value){ ?>
 
-           <?php } ?>
+            <?php foreach($studentDetails as $value){ } ?>
+            <?php
+              $student_number = $this->input->post('student_number');
+            ?>
+            
             <?php echo form_open("sms/registration"); ?>
 
             <p class="contact"><label for="student_number" id="student_numberlbl">Student Number</label></p>
-              <input type="text" name="student_number" id="student_number" required="" tabindex="1" placeholder="student number" value="<?php echo $value['student_number']; ?>">         
+              <input type="text" name="student_number" id="student_number" required="" tabindex="1" placeholder="student number" value="<?php echo $student_number; ?>">         
               <input type="submit" class="button" name="submit" value="Search"> 
 
             <?php echo form_close(); ?>
 
           <?php echo form_open("sms/view_registration_ajax"); ?>
 
-          
             <br><br>
+            <input type="hidden" name="student_number" value="<?php echo $student_number; ?>" >
             <p class="contact"><label>Name</label></p>
               <input type="text" name="first_name" value="<?php echo $value['first_name']; ?>" disabled="disabled">
               <input type="text" name="middle_name" value="<?php echo $value['middle_name']; ?>" disabled="disabled">
@@ -113,9 +116,6 @@
             <p class="contact"><label for="parent_email" id="parent_emaillbl">Parent's Email Address</label></p>
               <input name="parent_email"  id="parent_email" required="" type="email">
 
-            <p class="contact"><label for="username" id="usernamelbl">Choose your username</label></p>
-              <input type="text" name="username" id="username" required="" tabindex="1"><span id="user"></span> 
-
             <p class="contact"><label for="password" id="passwordlbl">Create a password</label></p>
               <input type="password" name="password" id="password" required="" tabindex="1">
 
@@ -133,33 +133,92 @@
   </div><!-- /.page-wrapper -->
 </div><!-- /.wrapper -->
 
-<!-- course dropdown will depende on what college is chosen
+
+
+
+<!-- ----------------------------------------------------------------------------------------------------------------------------- -->
+
 <script type="text/javascript">
-  $('#college').on('change', function () {
-    $('#course').empty();
-      var x = $(this).val();
-      if (x != "") {
-        $.ajax({
-            type: "POST",
-            url: "<?php echo base_url(); ?>sms/get_courses",
-            data: {college : x},
-            dataType: "json",
-            success: function (data) {
-                $.each (data, function(index, val) {
-                    var opt = $('<option />'); // here we're creating a new select option for each group
-                    opt.val(val.c_name);
-                    opt.text(val.c_name);
-                    $('#course').append(opt);
-                });
-            }
-        });
-      } else {
-        $('#course').empty();
-        $('#course, #lbl_course').hide();
-      }
+  $(document).ready(function() {
+    $('#parent_email, #password, #confirm_password').attr("disabled",true).css({ "background": "#F0F0F0" });
+    $('#submitbtn').attr("disabled",true);
   });
 </script>
--->
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#student_number").keyup(function() { 
+      $.ajax({
+          type: "POST",
+          url: "<?php echo base_url(); ?>sms/getStudentDetails",
+          data: "student_number=" + student_number,
+          success: function(result) {
+              if($.trim(result) == 'Invalid') {
+                $('#student_number').css('border-color','#FF0000')
+                 $('#submitbtn').attr("disabled",true);
+              } else {
+                $('#student_number').css('border-color','#00CC00')
+                $('#submitbtn').removeAttr("disabled");
+              }
+          }
+        });
+    });
+  });
+</script>
+
+<!-- Verifies the inputted student_number if it exist in the database -->
+<script type="text/javascript">
+$(document).ready(function(){
+  $("#student_number").focusout(function() {
+    var student_number = $('#student_number').val();
+      if(student_number == "") {
+          $('#parent_email, #username, #password, #confirm_password').attr("disabled",true).css({ "background": "#F0F0F0" });
+          $('submitbtn').attr("disabled",true);
+      } else {
+        $.ajax({
+          type: "POST",
+          url: "<?php echo base_url(); ?>sms/check_student_number",
+          data: "student_number=" + student_number,
+          success: function(result) {
+              if($.trim(result) == 'Invalid') {
+                $('#student_number').css('border-color','#FF0000')
+                $('#parent_email, #password, #confirm_password').attr("disabled",true).css({ "background": "#F0F0F0" });
+                $('#submitbtn').attr("disabled",true);
+              } else {
+                $('#student_number').css('border-color','#00CC00')
+                $('#parent_email, #password, #confirm_password').removeAttr("disabled").css({"background": ""});
+                $('#submitbtn').removeAttr("disabled");
+              }
+          }
+        });
+          return false;
+        }
+  });
+});
+</script>
+
+<!-- Checks the lenght of the password -->
+<script type="text/javascript">
+$(document).ready(function(){
+  $("#password").keyup(function(){
+    var password = $("#password").val();
+    $.ajax({
+      type:"POST",
+      url: "<?php echo base_url(); ?>sms/check_passwordlength",
+      data:"password=" + password,
+      success:function(password){
+        if($.trim(password) == "Valid") {
+          $('#password').css('border-color','#00FF00');
+          $('#submitbtn').removeAttr("disabled");
+        } else {
+          $('#password').css('border-color','#FF0000');
+          $('#submitbtn').attr("disabled",true);
+        }
+      }
+    });
+  });
+});
+</script>
 
 <!-- Checks if the password and confirm password matched -->
 <script>
@@ -177,111 +236,57 @@
   }
 </script>
 
- <script type="text/javascript">
-//   $(document).ready(function(){
-//     $("#student_number").keyup(function() { 
-//       $.ajax({
-//           type: "POST",
-//           url: "<?php echo base_url(); ?>sms/getStudentDetails",
-//           data: "student_number=" + student_number,
-//           success: function(result) {
-//               if($.trim(result) == 'Invalid') {
-//                 $('#student_number').css('border-color','#FF0000')
-//                  $('#submitbtn').attr("disabled",true);
-//               } else {
-//                 $('#student_number').css('border-color','#00CC00')
-//                 $('#submitbtn').removeAttr("disabled");
-//               }
-//           }
-//         });
-//     });
-//   });
-// </script>
-
-<!-- Verifies the inputted student_number if it exist in the database 
+<!-- Checks the availability of the username 
 <script type="text/javascript">
-  $(document).ready(function(){
-    $("#student_number").keyup(function() {
-      var student_number = $('#student_number').val();
-        if(student_number == "") {
-            $('#first_name, #middle_name, #last_name, #address, #contact_number, #email_address, #parent_email, #username, #password, #confirm_password').attr("disabled",true).css({ "background": "#F0F0F0" });
-            $('submitbtn').attr("disabled",true);
+$(document).ready(function(){
+  $("#username").keyup(function(){
+    var username = $('#username').val();
+    $.ajax({
+      type: "POST",
+      url: "<?php echo base_url(); ?>sms/check_username",
+      data: "username=" + username,
+      success:function(username){
+        if($.trim(username) == "Valid") {
+          $('#username').css('border-color','#00FF00');
+          $('#password, #confirm_password, #submitbtn').removeAttr("disabled").css({ "background": "" });
         } else {
-            $.ajax({
-              type: "POST",
-              url: "<?php echo base_url(); ?>sms/check_student_number",
-              data: "student_number=" + student_number,
-              success: function(result) {
-                  if($.trim(result) == 'Invalid') {
-                    $('#student_number').css('border-color','#FF0000')
-                    $('#first_name, #middle_name, #last_name, #gender, #address, #contact_number, #email_address, #parent_email, #username, #password, #confirm_password').attr("disabled",true).css({ "background": "#F0F0F0" });
-                     $('#submitbtn').attr("disabled",true);
-                  } else {
-                    $('#student_number').css('border-color','#00CC00')
-                    $('#first_name, #middle_name, #last_name, #gender, #address, #contact_number, #email_address, #parent_email, #username, #password, #confirm_password, #submitbtn').removeAttr("disabled").css({ "background": "" });
-                  }
-              }
-            });
-            return false;
-          }
+          $('#username').css('border-color','#FF0000');
+          $('#password,#confirm_password').attr("disabled",true).css({ "background": "#F0F0F0" });
+          $('submitbtn').attr("disabled",true);
+        }
+      }
     });
   });
+});
 </script> -->
 
-<!-- Checks the availability of the username -->
+<!-- course dropdown will depende on what college is chosen
 <script type="text/javascript">
-  $(document).ready(function(){
-    $("#username").keyup(function(){
-      var username = $('#username').val();
+$('#college').on('change', function () {
+  $('#course').empty();
+    var x = $(this).val();
+    if (x != "") {
       $.ajax({
-        type: "POST",
-        url: "<?php echo base_url(); ?>sms/check_username",
-        data: "username=" + username,
-        success:function(username){
-          if($.trim(username) == "Valid") {
-            $('#username').css('border-color','#00FF00');
-            $('#password, #confirm_password, #submitbtn').removeAttr("disabled").css({ "background": "" });
-          } else {
-            $('#username').css('border-color','#FF0000');
-            $('#password,#confirm_password').attr("disabled",true).css({ "background": "#F0F0F0" });
-            $('submitbtn').attr("disabled",true);
-
+          type: "POST",
+          url: "<?php echo base_url(); ?>sms/get_courses",
+          data: {college : x},
+          dataType: "json",
+          success: function (data) {
+              $.each (data, function(index, val) {
+                  var opt = $('<option />'); // here we're creating a new select option for each group
+                  opt.val(val.c_name);
+                  opt.text(val.c_name);
+                  $('#course').append(opt);
+              });
           }
-        }
       });
-    });
-  });
+    } else {
+      $('#course').empty();
+      $('#course, #lbl_course').hide();
+    }
+});
 </script>
-
-<!-- Checks the lenght of the password -->
-<script type="text/javascript">
-  $(document).ready(function(){
-    $("#password").keyup(function(){
-      var password = $("#password").val();
-      $.ajax({
-        type:"POST",
-        url: "<?php echo base_url(); ?>sms/check_passwordlength",
-        data:"password=" + password,
-        success:function(password){
-          if($.trim(password) == "Valid") {
-            $('#password').css('border-color','#00FF00');
-            $('#submitbtn').removeAttr("disabled");
-          } else {
-            $('#password').css('border-color','#FF0000');
-            $('#submitbtn').attr("disabled",true);
-          }
-        }
-      });
-    });
-  });
-</script>
-
- <script type="text/javascript">
-//   $(document).ready(function() {
-//     $('#first_name, #middle_name, #last_name, #gender, #address, #contact_number, #email_address, #parent_email, #username, #password, #confirm_password').attr("disabled",true).css({ "background": "#F0F0F0" });
-//   });
-
-// </script>
+-->
 
 </body>
 </html>

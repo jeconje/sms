@@ -3,56 +3,68 @@
 class Parent_model extends CI_Model 
 {
   //Parent Registration
-	public function add_parent($selected_student_account_id) 
-	{
-		$combinedate = $this->input->post('byear').'-'.$this->input->post('months').'-'.$this->input->post('days');
+  public function add_parent($data) 
+  {
+      $combinedate = $this->input->post('byear').'-'.$this->input->post('months').'-'.$this->input->post('days');
       $date = date("Y-m-d", strtotime($combinedate));
 
-		$parentaccount_data = array(                                     
-	                              'account_type'=>'parent',                                                             
-	                        		  'last_name'=>ucfirst($this->input->post('last_name')),                    
-	                        		  'first_name'=>ucfirst($this->input->post('first_name')),
-	                        		  'middle_name'=>ucfirst($this->input->post('middle_name')),
-	                              'gender'=>ucfirst($this->input->post('gender')),
-	                        		  'address'=>ucfirst($this->input->post('address')),
-	                        		  'contact_number'=>$this->input->post('contact_number'),
-	                        		  'date_of_birth'=>$date,
-	                        		  'username'=>$this->input->post('username'),
-	                        		  'password'=>$this->input->post('password')
-                					     );
+      $account = array(
+                        'account_id' => $this->input->post('username'),
+                        'account_type' =>'parent',
+                        'password' => $this->input->post('password'),
+                      );
 
-    //Gets the account_id of the last inserted row to be used as foreign key in student table    
-    $referral_key = $this->input->post('referral_key');
+      $this->db->where('referral_key', $referral_key);
+      $this->db->insert('account', $account);
+
+      //Tawgon ang public function exist() if ni exist ba ang key
+
+      $tracker = array( 
+                        'tracker_id'=>$this->input->post('username'), 
+                        'last_name'=>ucfirst($this->input->post('last_name')), 
+                        'first_name'=>ucfirst($this->input->post('first_name')),
+                        'middle_name'=>ucfirst($this->input->post('middle_name')), 
+                        'address'=>ucfirst($this->input->post('address')),
+                        'contact_number'=>$this->input->post('contact_number'),
+                        'date_of_birth'=>$date, 
+                        'account_id' => $data['student_number']
+                      );
       
-    //Inserts at account table
-    $this->db->where('referral_key',$referral_key);
-    $this->db->insert('account',$parentaccount_data);
+      $this->db->insert('tracker',$tracker);
+  }
 
-    //Gets the account id of the latest inserted row
-    $account_id = $this->db->insert_id();
+  public function selectStudentNumber($data)
+  {
+    $this->db->select();
+    $this->db->from('account');
+    $this->db->where('referral_key',$data['referral_key']);
+    $query = $this->db->get();
+    $result = $query -> first_row('array');
+    return $result;
+  }
 
-    //Inserts account id for parents table
-    $parent_data = array('account_id'=>$account_id);     
-    $this->db->insert('parent',$parent_data);
+  //Login
+  public function loginParent($username, $password)
+  { 
+    $this->db->select(); 
+    $this->db->from('account');              
+    $this->db->join ('parent','account.account_id = parent.account_id');
+    $this->db->where('account_id', $username);
+    $this->db->where('password', $password);
 
-    //Gets the account id of the latest inserted parent
-    $parent_account_id = $this->db->insert_id();
+    $query = $this->db->get();
+    $result = $query->first_row('array');
 
-    //Inserts parents and students to tracker table
-    $parent_student_data = array(
-                                'account_id' => $selected_student_account_id['account_id'],
-                                'parent_id' => $parent_account_id
-                                );
-    $this->db->insert('tracker',$parent_student_data);
+    return $result;
   }
 
   //Checks referral key from student database if it exists
   public function check_referral_key($data) 
   {
-    $student_number = $data['student_number'];
+    $student_number = $data['account_id'];
     $referral_key = $data['referral_key'];
     
-    $query = mysql_query("select * from students where student_number='$student_number' AND referral_key='$referral_key'");
+    $query = mysql_query("select * from account where account_id='$account_id' AND referral_key='$referral_key'");
     $result = mysql_num_rows($query);
 
     return $result;
@@ -62,22 +74,8 @@ class Parent_model extends CI_Model
   {
     $referral_key = $data['referral_key'];
     
-    $query = mysql_query("select * from students where referral_key='$referral_key'");
+    $query = mysql_query("select * from account where referral_key='$referral_key'");
     $result = mysql_num_rows($query);
-
-    return $result;
-  }
-
-  //loginParent
-  public function loginParent($username, $password)
-  { 
-    $this -> db -> select(); 
-    $this -> db -> from('account');              
-    $this -> db -> join ('parent','account.account_id = parent.account_id');
-    $this -> db -> where('username', $username);
-    $this -> db -> where('password', $password);
-    $query = $this -> db -> get();
-    $result = $query -> first_row('array');
 
     return $result;
   }
@@ -86,20 +84,23 @@ class Parent_model extends CI_Model
   public function parentInfo($data)
   {
     $this-> db -> select();
-    $this-> db -> from('parent');
-    $this-> db -> where('account_id',$data['account_id']);
+    $this-> db -> from('tracker');
+    $this-> db -> where('tracker_id',$data['tracker_id']);
     $query = $this -> db -> get();
+
     $result = $query -> first_row('array');
 
     return $result;
   }
 
+
   //View add child
   public function viewAddChild($data)
   {
     $this->db->select();
-    $this->db->from('students');
+    $this->db->from('account');
     $this->db->where('referral_key',$data['referral_key']);
+
     $query = $this->db->get();
     $result = $query -> first_row('array');
 
@@ -107,15 +108,15 @@ class Parent_model extends CI_Model
   }
   
   //Gets the account id of the inputted referral key
-  public function get_student_account_id($referral_key) {
+  public function get_student_account_id($referral_key) 
+  {
     $referral_key = $this->input->post('referral_key');
 
     $this -> db -> select('account_id');
-    $this -> db -> from('students');
+    $this -> db -> from('account');
     $this -> db -> where('referral_key', $referral_key);
 
     $query = $this->db->get();
-
     $result = $query -> first_row('array');
 
     return $result;
@@ -125,8 +126,8 @@ class Parent_model extends CI_Model
   public function addChild($data)
   {
     $data['info'] = array (
-                          'account_id' => $data['id'],                
-                           'parent_id' => $data['account_id']
+                            'tracker_id' => $data['tracker_id'],
+                            'account_id' => $data['account_id']
                           );  
     
     $this->db->insert('tracker',$data['info']);
@@ -136,11 +137,11 @@ class Parent_model extends CI_Model
   public function displayNames($data)
   {
     $this->db->select();
-    $this->db->from('students');
-    $this->db->join('tracker','tracker.account_id = students.account_id');    
-    $this->db->join('parent','parent.parent_id = tracker.parent_id');
-    $this->db->join('account','students.account_id = account.account_id');   
-    $this->db->where('parent.account_id',$data['account_id']);     
+    $this->db->from('account');
+    $this->db->join('tracker','tracker.account_id = account.account_id');    
+    $this->db->join('students', 'account.account_id = students.student_number');
+
+    $this->db->where('tracker.account_id',$data['account_id']);     
     $query = $this->db->get();  
     $result = $query -> result_array(); 
 
@@ -151,11 +152,11 @@ class Parent_model extends CI_Model
   public function viewChildrensGrades($data)
   {
     $this->db->select();
-    $this->db->from('students');
-    $this->db->join('study_load','students.student_number = study_load.student_number');
-    $this->db->join('account','students.account_id = account.account_id');        
-    $this->db->join('subject','subject.offer_code = study_load.offer_code');     
-    $this->db->where('students.account_id',$data['id']);
+    $this->db->from('account');
+    $this->db->join('study_load','account.account_id = study_load.student_number');       
+    $this->db->join('subject','subject.offer_code = study_load.offer_code');    
+
+    $this->db->where('account.account_id',$data['id']);
 
     $query = $this->db->get();
     $result = $query->result_array(); 
@@ -163,14 +164,15 @@ class Parent_model extends CI_Model
     return $result;
   }
 
-  //View child/ren
+  //View child/children
   public function viewDependents($data)
   {
     $this->db->select();
     $this->db->from('tracker');
-    $this->db->join('account','account.account_id = tracker.account_id');
-    $this->db->join('students','students.account_id = tracker.account_id');
-    $this->db->where('tracker.parent_id',$data['account_id']);
+    $this->db->join('students', 'students.student_number = tracker.account_id');
+
+    $this->db->where('tracker.tracker_id',$data['account_id']);
+
     $query = $this->db->get();
     $result = $query->result_array();
 
@@ -185,7 +187,8 @@ class Parent_model extends CI_Model
     $this->db->join('subject','study_load.offer_code = subject.offer_code');
     $this->db->join('offering','study_load.offer_code = offering.offer_code');
     $this->db->join('students','students.student_number = study_load.student_number');
-    $this->db->where('students.account_id',$data['id']);    
+
+    $this->db->where('students.student_number',$data['id']);    
     $query = $this->db->get();
     $result = $query -> result_array();
 
@@ -198,6 +201,7 @@ class Parent_model extends CI_Model
     $this->db->select();
     $this->db->from('students');
     $this->db->where('account_id',$data['id']);
+
     $query = $this->db->get();
     $result = $query -> first_row('array');
 
@@ -211,15 +215,14 @@ class Parent_model extends CI_Model
       $this->db->select();
       $this->db->from('students');
       $this->db->join('campus_login', 'students.student_number = campus_login.student_number');      
-      $this->db->join('account','students.account_id = account.account_id');
-      $this->db->join('tracker','tracker.account_id = account.account_id');
-      $this->db->where('tracker.parent_id',$data['account_id']);
+      $this->db->join('account', 'students.student_number = account.account_id');
+      $this->db->join('tracker', 'tracker.account_id = account.account_id');
+      $this->db->where('tracker.tracker_id',$data['account_id']);
       $this->db->limit('5');
       $this->db->order_by('log_id','desc');
 
       $query = $this->db->get();
       $result = $query -> result_array();
-
       return $result;
     }
 
@@ -229,28 +232,28 @@ class Parent_model extends CI_Model
       $this->db->select();
       $this->db->from('campus_login'); 
       $this->db->join('students','students.student_number = campus_login.student_number');
-      $this->db->join('account','account.account_id = students.account_id');
+      $this->db->join('account','account.account_id = students.student_number');
       $this->db->join('tracker','tracker.account_id = account.account_id');
-      $this->db->join('parent','parent.parent_id = tracker.parent_id');
-      $this->db->where('parent.account_id',$data['account_id']);
+      // $this->db->join('tracker','parent.parent_id = tracker.parent_id');
+      $this->db->where('tracker.tracker_id',$data['account_id']);
   
-      
       $query = $this->db->get();
       $result = $query -> num_rows();
 
       return $result;
     }
 
-    //View Logs
+    //View Logs (inig view all)
     public function logs($data)
     {
       $this->db->limit($data['limit'], $data['start']);
       $this->db->select();
       $this->db->from('students');
       $this->db->join('campus_login', 'students.student_number = campus_login.student_number');      
-      $this->db->join('account','students.account_id = account.account_id');
-      $this->db->join('tracker','tracker.account_id = account.account_id');
-      $this->db->where('tracker.parent_id',$data['account_id']);      
+      $this->db->join('account','students.student_number = account.account_id');
+      $this->db->join('tracker','tracker.tracker_id = account.account_id');
+
+      $this->db->where('tracker.tracker_id',$data['account_id']);      
       $this->db->order_by('log_id','desc');
 
       $query = $this->db->get();
@@ -261,33 +264,58 @@ class Parent_model extends CI_Model
     }
 
     public function viewAttendanceLogs($data)
+    {
+      $this->db->select();
+      $this->db->from('attendance');
+      $this->db->join('students','attendance.student_number = students.student_number');
+      $this->db->join('offering','offering.offer_code = attendance.offer_code');
+      $this->db->join('subject','offering.offer_code = subject.offer_code');       
+      $this->db->where('students.student_number',$data['number']);
+      //$this->db->where('offering.offer_code',$data['id_code']);
+
+      $query = $this->db->get();
+      $result = $query -> result_array();
+
+      return $result;
+    }
+
+  public function displaySubjects($data)
+  {
+    $this->db->select();
+    $this->db->from('study_load');
+    $this->db->join('offering','offering.offer_code = study_load.offer_code');
+    $this->db->join('subject','subject.offer_code = study_load.offer_code');
+    $this->db->join('students','students.student_number = study_load.student_number');
+    $this->db->join('tracker','tracker.account_id = students.student_number');
+
+    $this->db->where('study_load.student_number',$data['id']);
+    $this->db->where('tracker.tracker_id',$data['account_id']);   
+    
+    $query = $this->db->get();
+    $result = $query -> result_array();
+    return $result; 
+  }
+
+  public function childrensAttendance($data)
   {
     $this->db->select();
     $this->db->from('attendance');
-    $this->db->join('students','attendance.student_number = students.student_number');
-    $this->db->join('offering','offering.offer_code = attendance.offer_code');
-    $this->db->join('subject','offering.offer_code = subject.offer_code');       
-    $this->db->where('students.student_number',$data['number']);
-    //$this->db->where('offering.offer_code',$data['id_code']);
-
+    $this->db->where('student_number',$data['id']);
+   
     $query = $this->db->get();
     $result = $query -> result_array();
 
-    return $result;
-
-
+      return $result;
   }
 
-
-
-
-	//View Details in Edit Profile
-	public function editProfile($data) 
+  //View Details in Edit Profile
+  public function editProfile($data) 
   { 
     $this->db->select();
-    $this->db->from('account');
-    $this->db->where('username',$data['username']);
-    $this->db->join('parent','account.account_id = parent.account_id');
+    $this->db->from('tracker');
+    $this->db->where('tracker_id',$data['tracker_id']);
+
+    $this->db->join('account','account.account_id = tracker.tracker_id');
     $query = $this->db->get();  
 
     return $query->first_row('array');
@@ -297,12 +325,12 @@ class Parent_model extends CI_Model
   public function updateProfile($data)
   {
     $update_data = array(
-                               'address' => $data['address'],
-                               'contact_number' => $data['contact_number']
-                            );
+                          'address' => $data['address'],
+                          'contact_number' => $data['contact_number']
+                        );
           
-          $this->db->where('username',$data['username']);
-          $this->db->update('account',$update_data);
+    $this->db->where('tracker_id',$data['tracker_id']);
+    $this->db->update('account',$update_data);
   }
 
   //Upload
@@ -332,10 +360,10 @@ class Parent_model extends CI_Model
   public function changepassword($data)
   {
     $new_password = array(
-                         'password' => $data['new_password']
+                            'password' => $data['new_password']
                          );
 
-    $this->db->where('username',$data['username']);
+    $this->db->where('account_id',$data['account_id']);
     $this->db->update('account',$new_password);
   }
 
@@ -344,7 +372,7 @@ class Parent_model extends CI_Model
     {
       $this -> db -> select();
       $this -> db -> from('account');
-      $this -> db -> where('username',$data['username']);
+      $this -> db -> where('account_id',$data['account_id']);
 
       $query = $this -> db -> get();
       
@@ -389,33 +417,10 @@ class Parent_model extends CI_Model
 
       //END CALENDAR
 
+        public function check_usernames($username) {
+          $query = mysql_query("select * from account where account_id='$username'");
+          $result = mysql_num_rows($query);
 
-  public function displaySubjects($data)
-  {
-    $this->db->select();
-    $this->db->from('study_load');
-    $this->db->join('offering','offering.offer_code = study_load.offer_code');
-    $this->db->join('subject','subject.offer_code = study_load.offer_code');
-    $this->db->join('students','students.student_number = study_load.student_number');
-    $this->db->join('tracker','tracker.account_id = students.account_id ');
-    $this->db->where('study_load.student_number',$data['id']);
-    $this->db->where('tracker.parent_id',$data['account_id']);   
-    
-    $query = $this->db->get();
-    $result = $query -> result_array();
-    return $result; 
-
-  }
-
-  public function childrensAttendance($data)
-  {
-    $this->db->select();
-      $this->db->from('attendance');
-      $this->db->where('student_number',$data['id']);
-      $query = $this->db->get();
-      $result = $query -> result_array();
-
-      return $result;
-  }
-
+          return $result;
+        }
 }

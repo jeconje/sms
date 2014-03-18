@@ -93,8 +93,7 @@
 			}
     	} 
 
-  		public function parent_registration()
-  		{
+  		public function parent_registration() {
   			$this->load->view('parent/parent_registration',$data);
   		}
 
@@ -108,6 +107,7 @@
 			$this->form_validation->set_rules('contact_number','Contact Number','trim|required|numeric');
 			$this->form_validation->set_rules('username','Username','trim|required|min_length[6]|is_unique[account.username]');
 			$this->form_validation->set_rules('password','Password','trim|required|min_length[6]');
+			$this->form_validation->set_rules('password','Password','trim|required|min_length[6]|matches[password]');
 			
 			if($this->form_validation->run()) {
 				$month = $this->input->post('months');
@@ -506,4 +506,15 @@
 		   session_destroy();
 		   $this->index();
   		}
+
+  		public function check_username() {
+    		$username = $_POST['username'];
+    		$usernames = $this->parent_model->check_usernames($username);
+    			if($usernames == 0 && strlen($username) > 5) { //Checks the inputted number from database and checks the length
+    				echo "Valid";
+    			} else {
+    				echo "Invalid";
+    			}
+
+    	}
   	}
