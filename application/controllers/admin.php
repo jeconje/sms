@@ -52,7 +52,6 @@
 	        	$date = date("Y-m-d", strtotime($combinedate));
 
 	  			if ($_POST) {
-						$this->form_validation->set_rules('username','Username','trim|required|min_length[6]|is_unique[account.account_id]');
 						$this->form_validation->set_rules('password','Password','trim|required|min_length[6]');
 						$this->form_validation->set_rules('confirm_password','Confirm Password','trim|required|matches[password]');
 					
@@ -67,8 +66,9 @@
 					if($this->form_validation->run() == FALSE) {
 						$this->load->view('admin/add_account',$data);
 					} else {
-							$data['faculty_id'] = $_POST['faculty_id'];
-							$data['facultyDetails'] = $this->sms_model->viewStudentDetails($data);
+							$data['account_type'] = $this->input->post('account_type');
+							$data['account_id'] = $this->input->post('faculty_id');
+							$data['details'] = $this->sms_model->viewStudentDetails($data);
 	  			
 			  			$this->admin_model->addAccount($data);
 

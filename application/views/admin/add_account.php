@@ -112,7 +112,7 @@
       <?php echo form_close(); ?>
 
       <?php echo form_open("admin/add_account"); ?> 
-      <input type="hidden" name="faculty_id" value="<?php echo $student_number; ?>" >
+      <input type="hidden" name="faculty_id" value="<?php echo $faculty_id; ?>" >
 
       <p class="contact"><label for="name" id="namelbl">Name</label></p>
         <input type="text" name="first_name" id="first_name" value="<?php echo $value['first_name']; ?>" disabled="disabled">
@@ -140,9 +140,6 @@
 
       <p class="contact"><label for="date_of_birth" id="date_of_birth">Date Of Birth</label></p>
         <input type="text" name="date_of_birth" id="date_of_birth" value="<?php echo $value['date_of_birth'] ?>" class="form-control">
-
-      <p class="contact"><label for="username" id="usernamelbl">Choose your username</label></p>
-        <input type="text" name="username" id="username" value="<?php echo set_value('username') ?>" required="" tabindex="1"><span id="user" style="color: rgb(255, 0, 0); font: normal 10px/12px Arial,Helvetica,sans-serif; opacity: 50;"></span>  
 
       <p class="contact"><label for="password" id="passwordlbl">Create a password</label></p>
         <input type="password" name="password" id="password" required="" tabindex="1">

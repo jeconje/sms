@@ -16,8 +16,8 @@
 
     public function addAccount($data) {
       $data['account_info'] = array (                              
-                                    'account_type' => $this->input->post('account_type'),
-                                    'account_id' => $this->input->post('faculty_id'),
+                                    'account_type' => $data['account_type'],
+                                    'account_id' => $data['account_id'],
                                     'password' => sha1($this->input->post('password'))
                                     );
 
