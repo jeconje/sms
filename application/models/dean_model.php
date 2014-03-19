@@ -1,5 +1,4 @@
 <?php
-
 	class Dean_model extends CI_Model 
   {
         //Redirect Login
@@ -7,20 +6,20 @@
         {
            $this -> db -> select(); 
            $this -> db -> from('account');              
-           $this -> db -> join ('faculty','account.account_id = faculty.account_id');
-           $this -> db -> where('username', $username);
+           $this -> db -> where('account_id', $username);
            $this -> db -> where('password', $password);
+
            $query = $this -> db -> get();
            $result = $query -> first_row('array');
-
            return $result;
         }
+        
         //View dean's Info
         public function deanInfo($data)
         {
           $this-> db -> select();
           $this-> db -> from('faculty');
-          $this-> db -> where('account_id',$data['account_id']);
+          $this-> db -> where('faculty_id',$data['account_id']);
           $query = $this -> db -> get();
           $result = $query -> first_row('array');
 
