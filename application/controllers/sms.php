@@ -6,7 +6,7 @@
 	class Sms extends CI_Controller 
 	{
 		public function __construct() {
-			error_reporting(0);
+			error_reporting();
 			parent::__construct();
 		}
 

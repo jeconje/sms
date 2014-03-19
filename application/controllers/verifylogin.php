@@ -56,13 +56,13 @@ class VerifyLogin extends CI_Controller
         /*$student = $this->sms_model->loginStudent($username, $password);        
         $parent = $this->parent_model->loginParent($username, $password); */
         $teacher = $this->teacher_model->loginTeacher($username, $password);
-<<<<<<< HEAD
+
       /*  $chairperson = $this->chairperson_model->loginChairperson($username, $password);
         $dean = $this->dean_model->loginDean($username, $password);
-=======
+
         // $chairperson = $this->chairperson_model->loginChairperson($username, $password);
         // $dean = $this->dean_model->loginDean($username, $password);
->>>>>>> f462cf19253c920088117b16b9f861b5fe86d515
+
         $sao = $this->sao_model->loginSao($username, $password); 
         $sdpc = $this->sdpc_model->loginSdpc($username, $password);
         $admin = $this->admin_model->loginAdmin($username, $password);  */     

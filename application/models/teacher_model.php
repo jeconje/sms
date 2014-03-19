@@ -125,24 +125,6 @@
           return $result;
         }
 
-      //END CALENDAR
-
-/*         public function viewSDPC($data)
-        {
-            $this->db->select();
-            $this->db->from('offering');          
-            $this->db->join('study_load','study_load.offer_code = offering.offer_code');
-            $this->db->join('studentsStudyLoad','students.student_number = study_load.student_number');
-            $this->db->join('faculty','offering.faculty_id = faculty.faculty_id');
-            $this->db->join('subject','offering.offer_code = subject.offer_code');            
-            $this->db->where('offering.faculty_id',$data['faculty_id']);                        
-            $query = $this->db->get();
-            $result = $query -> result_array();
-
-            return $result;
-<<<<<<< HEAD
-        }*/
-
         public function viewClasses($data)
         {
             $this->db->select();
@@ -155,15 +137,11 @@
 
             return $result;
         }
+             
         
          public function viewCandidates($data)
         {
-=======
-        }
-        
-         public function viewCandidates($data)
-        {
->>>>>>> f462cf19253c920088117b16b9f861b5fe86d515
+
           $this->db->select();
           $this->db->from('attendance');
           $this->db->join('students', 'students.student_number = attendance.student_number');
