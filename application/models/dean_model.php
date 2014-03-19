@@ -76,14 +76,35 @@
             return $result;
         }
 
+        public function viewStudents($data)
+        {
+            $this->db->select();
+            $this->db->from('study_load');
+            $this->db->join('students','students.student_number = study_load.student_number');
+            $this->db->where('study_load.offer_code',$data['id_code']);
+            $this->db->order_by('last_name');
+            $query = $this->db->get();
+            $result = $query -> result_array();
+            return $result;
+        }
+
+        public function studentsStudyLoad()
+        {
+            $this->db->select();
+            $this->db->from('study_load');
+            $query = $this->db->get();
+            $result = $query -> result_array();
+
+            return $result;
+        }
+
         public function viewClasses($data)
         {
             $this->db->select();
             $this->db->from('offering');          
             $this->db->join('faculty','offering.faculty_id = faculty.faculty_id');
             $this->db->join('subject','offering.offer_code = subject.offer_code');            
-            $this->db->where('offering.faculty_id',$data['faculty_id']);   
-                  
+            $this->db->where('offering.faculty_id',$data['faculty_id']);                        
             $query = $this->db->get();
             $result = $query -> result_array();
 
@@ -108,24 +129,14 @@
 
         public function viewCandidates($data)
         {
-            $this->db->select();
-            $this->db->from('attendance');
-            $this->db->join('students', 'students.student_number = attendance.student_number');
-            $this->db->where('offer_code', $data['offer_code']);
-            $query = $this->db->get();
-            $result = $query -> result_array();
+          $this->db->select();
+          $this->db->from('attendance');
+          $this->db->join('students', 'students.student_number = attendance.student_number');
+          $this->db->where('offer_code', $data['offer_code']);
+          $query = $this->db->get();
+          $result = $query -> result_array();
 
-            return $result;
-        }
-
-         public function studentsStudyLoad()
-        {
-            $this->db->select();
-            $this->db->from('study_load');
-            $query = $this->db->get();
-            $result = $query -> result_array();
-
-            return $result;
+          return $result;
         }
 
        //Get values from database 

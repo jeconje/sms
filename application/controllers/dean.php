@@ -34,6 +34,8 @@
 				$data['department_id'] = $data['info']['department_id'];
 
 				$data['faculty_id'] = $data['info']['faculty_id'];
+				$data['classes'] = $this->dean_model->viewClasses($data);
+				$data['students_load'] = $this->dean_model->studentsStudyLoad();
 				$data['deaninfo'] = $this->dean_model->deanInfo($data);
 
 				//Get college
