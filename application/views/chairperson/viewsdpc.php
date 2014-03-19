@@ -6,7 +6,6 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>USJR - SMS</title>
-
    <?php include ('/application/views/templates/nav.php'); ?>
     
   </head>
@@ -39,22 +38,7 @@
             <li class="dropdown messages-dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon icon-color icon-messages"></i> Notification <b class="icon icon-color icon-triangle-s"></b></a>
               <ul class="dropdown-menu">
-                <li class="dropdown-header">8 New Messages</li>
-                <li class="message-preview">
-                  <a href="#">
-                    <span class="name">John Smith:</span>
-                    <span class="message">Hey there, I wanted to ask you something... ASA NI DAPITA</span>
-                    <span class="time"><i class="fa fa-clock-o"></i> 4:34 PM</span>
-                  </a>
-                </li>
-                <li class="divider"></li>
-                <li class="message-preview">
-                  <a href="#">
-                    <span class="name">John Smith:</span>
-                    <span class="message">Hey there, I wanted to ask you something...</span>
-                    <span class="time"><i class="fa fa-clock-o"></i> 4:34 PM</span>
-                  </a>
-                </li>
+
                 <li class="divider"></li>
                 <li class="message-preview">
                   <a href="#">
@@ -71,7 +55,6 @@
             <li class="dropdown user-dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon icon-color icon-gear"></i> <?php echo $first_name.' '.$last_name ?> <b class="icon icon-color icon-triangle-s"></b></a>
               <ul class="dropdown-menu">
-                <li><a href="<?php echo base_url(); ?>chairperson/edit_profile"><i class="icon icon-color icon-user"></i> Edit Profile</a></li>
                 <li><a href="<?php echo base_url(); ?>chairperson/view_changepassword"><i class="icon icon-color icon-key"></i> Change Password</a></li>
                 <li class="divider"></li>
                 <li><a href="<?php echo base_url(); ?>chairperson/logout"><i class="icon icon-color icon-cancel"></i> Logout</a></li>
