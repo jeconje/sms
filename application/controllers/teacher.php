@@ -21,7 +21,7 @@
 		{			
 	    	$data['info'] = $this->session->userdata('logged_in'); 
 	    	if($data['info'] == TRUE){
-		    	$data['account_id'] = $data['info']['account_id'];	    	
+		    	$data['account_id'] = $data['info']['faculty_id'];	    	
 				$data['account_type'] = $data['info']['account_type'];
 				$data['first_name'] = $data['info']['first_name'];
 				$data['last_name'] = $data['info']['last_name'];
@@ -119,12 +119,13 @@
 				$data['faculty_id'] = $data['info']['faculty_id'];
 				$data['first_name'] = $data['info']['first_name'];
 				$data['last_name'] = $data['info']['last_name'];
-				$data['viewDistinctLogs'] = $this->teacher_model->viewDistinctLogs($data);
+				$data['viewDistinctLogs'] = $this->teacher_model->viewDistinctLogs($data);				
 				
 				$this->load->view('teacher/attendance',$data);
 			} else
 				$this->index();
 		}
+
 
 		//View Attendance Logs
 		public function logs($id)
@@ -164,36 +165,6 @@
 
 				$this->load->view('teacher/message',$data);
 			} else
-				$this->index();
-		}
-
-		public function edit_profile() 
-		{
-			$data['teacher_info'] = $this->session->userdata('logged_in');
-			if($data['teacher_info'] == TRUE){
-				$data['first_name'] = $data['teacher_info']['first_name'];
-				$data['last_name'] = $data['teacher_info']['last_name'];
-
-				$data['username'] = $data['teacher_info']['username'];
-				$data['info'] = $this->teacher_model->editProfile($data);
-
-				//Get college
-				$data['college_id'] = $data['info']['college_id'];
-				$data['collegeinfo'] = $this->teacher_model->get_college($data);
-				
-				$this->load->view('teacher/edit_profile',$data);
-
-				if(isset($_POST['submit'])) 
-				{
-					$newURL = "http://localhost/sms/teacher/edit_profile";
-					header('Location: '.$newURL);		
-					$data['username'] = $data['teacher_info']['username'];
-					$data['address'] = $this->input->post('address');
-					$data['contact_number'] = $this->input->post('contact_number');
-					
-					 $this->teacher_model->edit_profile($data);
-				}
-			} else 
 				$this->index();
 		}
 		

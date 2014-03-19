@@ -23,23 +23,18 @@
 		 public function profile() 
 		 {
 	    	$data['info'] = $this->session->userdata('logged_in'); 
-	    	if($data['info'] == TRUE){
+	    	if($data['info'] == TRUE)
+	    	{
 		    	$data['account_id'] = $data['info']['account_id'];
 				$data['account_type'] = $data['info']['account_type'];
-				$data['first_name'] = $data['info']['first_name'];
-				$data['last_name'] = $data['info']['last_name'];
-				$data['middle_name'] = $data['info']['middle_name'];
-				$data['gender'] = $data['info']['gender'];
-				$data['contact_number'] = $data['info']['contact_number'];
-				$data['date_of_birth'] = $data['info']['date_of_birth'];
-				$data['address'] = $data['info']['address'];
 
 				$data['saoinfo'] = $this->sao_model->saoInfo($data);
 				$data['view'] = $this->sao_model->viewPhoto($data);
 				$data['image_path'] = $data['view']['image_path'];
 				$config['upload_path'] = "./images/others";	
 				$this->load->view('sao/home',$data);
-			} else
+			} 
+			else
 				$this->index();
   		 }
 
@@ -168,7 +163,7 @@
 	    {
 	      $data['sao_info'] = $this->session->userdata('logged_in');
 	      if($data['sao_info'] == TRUE){
-		      $data['username'] = $data['sao_info']['username'];
+		      $data['username'] = $data['sao_info']['account_id'];
 		      $data['first_name'] = $data['sao_info']['first_name'];
 		      $data['last_name'] = $data['sao_info']['last_name'];
 

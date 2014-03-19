@@ -159,7 +159,7 @@
 	    {
 	      $this -> db -> select();
 	      $this -> db -> from('account');
-	      $this -> db -> where('account_id',$data['account_id']);
+	      $this -> db -> where('account_id',$data['username']);
 
 	      $query = $this -> db -> get();
 	      

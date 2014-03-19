@@ -154,7 +154,7 @@
                   <tr>
                     <td><?php echo $value['offer_code']; ?></td>  
                     <td><?php echo $value['subject_description']; ?></td>
-                    <td><?php echo $value['time']; ?></td>
+                    <td><?php echo $value['start_time'].'-'.$value['end_time']; ?></td>
                     <td><?php echo $value['days']; ?></td>   
                     <td><?php echo $value['room']; ?></td>  
                     <td><?php echo $count; ?></td>

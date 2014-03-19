@@ -190,7 +190,7 @@
       var username = $('#username').val();
 
       // if(username = " "){
-      //   $('#check_username').html(" ").css("color":" ");
+      //   $('#check_username').html(" ").css("color"," ");
       //   $('#password, #confirm_password, #submitbtn').attr("disabled",true).css({ "background": "#F0F0F0" });
       // } else {
       $.ajax({
@@ -200,11 +200,11 @@
         success:function(username){
           if($.trim(username) == "Valid") {
             $('#username').css('border-color','#00FF00');
-            $("#check_username").html(" Username available.").css("color":"green");
+            $("#check_username").html(" Username available.").css("color","green");
             $('#password, #confirm_password, #submitbtn').removeAttr("disabled").css({ "background": "" });
           } else {
             $('#username').css('border-color','#FF0000');
-            $("#check_username").html(" Username already taken.").css("color":"green");
+            $("#check_username").html(" Username already taken.").css("color","red");
             $('#password, #confirm_password, #submitbtn').attr("disabled",true).css({ "background": "#F0F0F0" });
           }
         }
@@ -225,10 +225,10 @@
         data:"password=" + password,
         success:function(password){
           if($.trim(password) == "Valid") {
-            $('#password, confirm_password').css('border-color','#00FF00');
+            $('#password, #confirm_password').css('border-color','#00FF00');
             $('#submitbtn').removeAttr("disabled");
           } else {
-            $('#password, confirm_password').css('border-color','#FF0000');
+            $('#password, #confirm_password').css('border-color','#FF0000');
             $('#submitbtn').attr("disabled",true);
           }
         }

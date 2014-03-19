@@ -197,8 +197,8 @@
 			if($data['info'] == TRUE) {	
 				$data['account_id'] = $data['info']['account_id'];
 
-	    	$data['studentinfo'] = $this->sms_model->studentInfo($data);
-	    	$data['viewStudyLoad'] = $this->sms_model->viewStudyLoad($data);
+		    	$data['studentinfo'] = $this->sms_model->studentInfo($data);
+		    	$data['viewStudyLoad'] = $this->sms_model->viewStudyLoad($data);
 
 				$this->load->view('student/viewstudyload', $data);
 			} else 

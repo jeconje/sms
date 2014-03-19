@@ -64,7 +64,7 @@
                 </thead>
 
                 <tbody  align="center">                  
-
+                  <?php print_r($viewDistinctLogs); ?>
                   <?php foreach($viewDistinctLogs as $value) {                            
                     ?>
                   <tr>                    

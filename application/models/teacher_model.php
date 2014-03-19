@@ -8,8 +8,8 @@
            
            $this -> db -> select(); 
            $this -> db -> from('account');              
-           $this -> db -> join ('faculty','account.account_id = faculty.account_id');
-           $this -> db -> where('username', $username);
+           $this -> db -> join ('faculty','account.account_id = faculty.faculty_id');
+           $this -> db -> where('account.account_id', $username);
            $this -> db -> where('password', $password);
            $query = $this -> db -> get();
            $result = $query -> first_row('array');
@@ -21,7 +21,7 @@
         {
           $this-> db -> select();
           $this-> db -> from('faculty');
-          $this-> db -> where('account_id', $data['account_id']);
+          $this-> db -> where('faculty_id', $data['account_id']);
           $query = $this -> db -> get();
           $result = $query -> first_row('array');
 
@@ -63,29 +63,8 @@
             return $result;
           }
 
-       //Get values from database 
-        public function editProfile($data) 
-        { 
-            $this->db->select();
-            $this->db->from('account');
-            $this->db->where('username',$data['username']);
-            $this->db->join('faculty','account.account_id = faculty.account_id');
-            $query = $this->db->get();  
+    
 
-            return $query->first_row('array');
-        }
-
-        //Updates Info in the database
-        public function edit_profile($data)
-        {
-          $update = array(
-            'address' => $data['address'],
-            'contact_number' => $data['contact_number']
-          );
-          
-          $this->db->where('username',$data['username']);
-          $this->db->update('account',$update);
-        }
 
         //Change password
         public function changepassword($data)

@@ -19,7 +19,7 @@
 
         <!-- Brand and toggle get grouped for better mobile display -->
         <?php $home = 'parents/profile'; ?>
-
+        <?php foreach($trackerInfo as $tracker) { } ?>
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
             <span class="sr-only">Toggle navigation</span>
@@ -67,15 +67,12 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown"><div id="noti"></div><i class="icon icon-color icon-messages"></i> Notification <b class="icon icon-color icon-triangle-s"></b></a> 
           <ul class="dropdown-menu">
              <li class="dropdown-header"><div id="notification"></div></li>
-            <li class="divider"></li>
-            <li><a href="<?php echo base_url(); ?>parents/message">View Inbox <span class="icon icon-color icon-envelope-closed"></span></a></li>
           </ul>
         </li><!-- /.dropdown messages-dropdown -->
 
         <li class="dropdown user-dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon icon-color icon-gear"></i> <?php echo $first_name.' '.$last_name ?> <b class="icon icon-color icon-triangle-s"></b></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon icon-color icon-gear"></i> <?php echo $tracker['first_name'].' '.$tracker['last_name']; ?> <b class="icon icon-color icon-triangle-s"></b></a>
           <ul class="dropdown-menu">
-            <li><a href="<?php echo base_url(); ?>parents/edit_profile"><i class="icon icon-color icon-user"></i> Edit Profile</a></li>
             <li><a href="<?php echo base_url(); ?>parents/view_changepassword"><i class="icon icon-color icon-key"></i> Change Password</a></li>
             <li class="divider"></li>
             <li><a href="<?php echo base_url(); ?>parents/logout"><i class="icon icon-color icon-cancel"></i> Logout</a></li>
@@ -113,12 +110,11 @@
           <div class="col-lg-3">
             <div class="panel panel-warning" style="width:312px; height:200px;">
               <div class="panel-heading" style="width:310px; height:200px;">
-                <?php echo "<b>Name: </b>".$first_name." ".$middle_name." ".$last_name; ?><br>
-                <?php echo "<b>Address: </b>".$address; ?><br>
-                <?php echo "<b>Contact Number: </b>".$contact_number; ?><br>
-                <?php echo "<b>Email Address: </b>".$email_address; ?><br>
-                <?php echo "<b>Gender: </b>".$gender; ?><br>
-                <?php echo "<b>Date of Birth: </b>".$date_of_birth; ?>
+                <?php echo "<b>Name: </b>".$tracker['first_name']." ".$tracker['middle_name']." ".$tracker['last_name']; ?><br>
+                <?php echo "<b>Gender: </b>".$tracker['gender']; ?><br>
+                <?php echo "<b>Address: </b>".$tracker['address']; ?><br>
+                <?php echo "<b>Contact Number: </b>".$tracker['contact_number']; ?><br>
+                <?php echo "<b>Date of Birth: </b>".$tracker['date_of_birth']; ?>
               </div>
             </div>
           </div>
@@ -232,7 +228,7 @@ $(document).ready(function() {
       num3++;
       $("#noti").hide(); 
       $("#noti").show(); 
-      $("#noti").html(num3);
+      $("#noti").html("!");
     });
     
     num2=num;

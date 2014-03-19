@@ -21,27 +21,16 @@
 
         $data['account_info'] = array (                              
                                         'account_type' => $data['account_type'],
-                                        'last_name'=>ucfirst($data['last_name']),                    
-                                        'first_name'=>ucfirst($data['first_name']),
-                                        'middle_name'=>ucfirst($data['middle_name']),
-                                        'gender'=>ucfirst($data['gender']),
-                                        'contact_number' => $data['contact_number'],
-                                        'address' => $data['address'],
-                                        'date_of_birth' => $date,
-                                        'email_address' => $data['email_address'],
-                                        'username' => $data['username'],
+                                        'account_id' => $this->input->post('faculty_id'),
                                         'password' => sha1(rand())
                                       );
 
       $this->db->insert('account',$data['account_info']);
-      $account_id = $this->db->insert_id();
-
-      $faculty_id = $this->input->post('faculty_id');
-
-      $faculty_data = array('account_id'=>$account_id);                   
-       
-      $this->db->where('faculty_id', $faculty_id);                   
-      $this->db->update('faculty',$faculty_data);
+      // $account_id = $this->db->insert_id();
+      // $faculty_id = $this->input->post('faculty_id');
+      // $faculty_data = array('account_id' => $account_id);                   
+      // $this->db->where('faculty_id', $faculty_id);                   
+      // $this->db->update('faculty',$faculty_data);
   }
 
 
@@ -70,26 +59,14 @@
       return $result;
     }
 
-    //Updates Info in the database
-    public function updateProfile($data)
-    {
-       $update = array(
-                        'address' => $data['address'],
-                        'contact_number' => $data['contact_number']
-                      );
-          
-      $this->db->where('account_id',$data['username']);
-      $this->db->update('account',$update);
-    }
-
-    //Change Password
+     //Change Password
     public function changepassword($data)
     {
         $new_password = array(
                                 'password' => $data['new_password']
                               );
 
-        $this->db->where('username',$data['username']);
+        $this->db->where('account_id',$data['username']);
         $this->db->update('account',$new_password);
     }
 
@@ -114,21 +91,13 @@
     }
 
     public function verify_faculty_id($faculty_id) {
-      $this -> db -> select('account_id');
+      $this -> db -> select('faculty_id');
       $this -> db -> from('faculty');
       $this -> db -> where('faculty_id, account_id ==', $faculty_id, NULL);
       $query = $this -> db -> get();
 
       return $query;
     }
-
-    // //Checks if student number exists on database
-    // public function check_usernames($username) {
-    //   $query = mysql_query("select * from account where username='$username'");
-    //   $result = mysql_num_rows($query);
-
-    //   return $result;
-    // }
 
     //Calendar
   public function showCalendar($year,$month)

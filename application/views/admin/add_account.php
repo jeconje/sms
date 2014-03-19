@@ -13,7 +13,7 @@
 
 <body>
     <div id="wrapper">
-       <?php $home = 'profile'; ?>
+       <?php $home = 'admin/profile'; ?>
       <!-- Sidebar -->
       <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -28,14 +28,14 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
           <ul class="nav navbar-nav side-nav">
-            <li><a href="<?php echo $home ?>"><i class="icon32 icon-color icon-home"></i> Dashboard</a></li>
+            <li><a href="<?php echo base_url(); ?><?php echo $home ?>"><i class="icon32 icon-color icon-home"></i> Dashboard</a></li>
             <li  class="active"><a href="<?php echo base_url(); ?>admin/add_account"><i class="icon32 icon-color icon-book-empty"></i> Add Account</a></li>
             <li><a href="<?php echo base_url(); ?>admin/calendar/2014/03"><i class="icon32 icon-color icon-calendar"></i> Calendar</a></li>    
           </ul>
 
           <ul class="nav navbar-nav navbar-right navbar-user">
             <li class="dropdown user-dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon icon-color icon-gear"></i> <?php echo $info['first_name'].' '.$info['last_name']; ?> <b class="icon icon-color icon-triangle-s"></b></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon icon-color icon-gear"></i> Admin Ko <b class="icon icon-color icon-triangle-s"></b></a>
               <ul class="dropdown-menu">
                 <li><a href="<?php echo base_url(); ?>admin/view_changepassword"><i class="icon icon-color icon-key"></i> Change Password</a></li>
                 <li class="divider"></li>
@@ -138,7 +138,7 @@
       <p class="contact"><label for="password" id="passwordlbl">Create a password</label></p>
         <input type="password" name="password" id="password" required="" tabindex="1">
 
-      <p class="contact"><label for="confirm_password" id="confirm_passwordlbl">Create a password</label></p>
+      <p class="contact"><label for="confirm_password" id="confirm_passwordlbl">Confirm Password</label></p>
         <input type="password" name="confirm_password" id="confirm_password" required="" tabindex="1" onkeyup="checkPasswordMatch()">
       
       <div id="divCheckPasswordMatch" style="color: rgb(255, 0, 0); font: normal 10px/12px Arial,Helvetica,sans-serif; opacity: 50;"></div>

@@ -23,13 +23,6 @@
 	    	if($data['info'] == TRUE){	    	
 		    	$data['account_id'] = $data['info']['account_id'];	    	
 				$data['account_type'] = $data['info']['account_type'];
-				$data['first_name'] = $data['info']['first_name'];
-				$data['last_name'] = $data['info']['last_name'];
-				$data['middle_name'] = $data['info']['middle_name'];			
-				$data['gender'] = $data['info']['gender'];
-				$data['contact_number'] = $data['info']['contact_number'];
-				$data['date_of_birth'] = $data['info']['date_of_birth'];
-				$data['address'] = $data['info']['address'];		
 					
 				$data['sdpcinfo'] = $this->sdpc_model->sdpcInfo($data);	
 				$data['view'] = $this->sdpc_model->viewPhoto($data);
@@ -40,24 +33,12 @@
 				$this->index();
   		}
 
-		public function message()
-		{
-			$data['info'] = $this->session->userdata('logged_in');
-			if($data['info'] == TRUE){
-				$data['first_name'] = $data['info']['first_name'];
-				$data['last_name'] = $data['info']['last_name'];
-
-				$this->load->view('sdpc/message',$data);
-			} else
-				$this->index();
-		}
-
 		//Change Password
 		public function view_changepassword() 
 	    {
 	      $data['sdpc_info'] = $this->session->userdata('logged_in');
 	      if($data['sdpc_info'] == TRUE){
-		      $data['username'] = $data['sdpc_info']['username'];
+		      $data['username'] = $data['sdpc_info']['account_id'];
 		      $data['first_name'] = $data['sdpc_info']['first_name'];
 		      $data['last_name'] = $data['sdpc_info']['last_name'];
 

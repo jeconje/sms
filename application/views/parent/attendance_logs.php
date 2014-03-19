@@ -63,8 +63,6 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown"><div id="noti"></div><i class="icon icon-color icon-messages"></i> Notification <b class="icon icon-color icon-triangle-s"></b></a> 
           <ul class="dropdown-menu">
              <li class="dropdown-header"><div id="notification"></div></li>
-            <li class="divider"></li>
-            <li><a href="<?php echo base_url(); ?>parents/message">View Inbox <span class="icon icon-color icon-envelope-closed"></span></a></li>
           </ul>
         </li><!-- /.dropdown messages-dropdown -->
 
@@ -117,5 +115,67 @@
                                <center>
                   <?php echo $pagination; ?>
               </div>
+
+              <script type="text/javascript">
+$(document).ready(function() {
+  var num = 0;
+  $('#noti').hide();
+  var audioElement = document.createElement('audio');
+  audioElement.setAttribute('src', '<?php echo base_url(); ?>notification/Notify_Sound.mp3');
+  var es = new EventSource("<?php echo base_url(); ?>notification/notification_to_parent");
+  var listener = function (data) {
+  var data = $.parseJSON(data.data); 
+  
+    var num2 = 0;
+    var num3 = 0;
+    var id_update = [];
+
+    if(num==num2) { 
+      $.each(data, function(index, val) {  
+        //if(index==data.length-1) {
+          //audioElement.play();
+          $("#notification").prepend("<li>"+val.message+" ("+val.date+")</li>");
+       // }
+      });  
+    }
+
+    $.each(data, function(index, val) {  
+      id_update[num] = val.notification_id;
+      num++;
+      num3++;
+      $("#noti").hide(); 
+      $("#noti").show(); 
+      $("#noti").html("!");
+    });
+    
+    num2=num;
+    num=num2;
+    num3=0;
+  }
+  es.addEventListener("message", listener);
+  
+$("#notify").click(function() {
+  $("#noti").hide();
+
+  function update_print_noti() {
+    $.ajax({
+      type: 'POST',
+      url: "<?php echo base_url(); ?>notification/notification_update_parent",
+      data: {id : id_update},
+      dataType: 'json', 
+      success: function(data) {
+        $.each(data, function(index, val) {  
+          //audioElement.play();
+          $("#notification").prepend("<li>"+val.message+" ("+val.date+")</li>");
+     }); 
+      }
+    });
+  }
+  update_print_noti();
+  });
+
+});
+
+</script>
   </body>
 </html>

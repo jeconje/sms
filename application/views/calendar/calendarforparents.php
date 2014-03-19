@@ -17,7 +17,7 @@
       <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <!-- Brand and toggle get grouped for better mobile display -->
         <?php $home = 'parents/profile'; ?>
-
+        <?php foreach($trackerInfo as $tracker) { } ?>
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
             <span class="sr-only">Toggle navigation</span>
@@ -64,29 +64,12 @@
         <li class="dropdown messages-dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon icon-color icon-messages"></i> Notification <b class="icon icon-color icon-triangle-s"></b></a>
           <ul class="dropdown-menu">
-            <li class="dropdown-header">8 New Messages</li>
-            <li class="message-preview">
-              <a href="#">
-                <span class="name">John Smith:</span>
-                <span class="message">Hey there, I wanted to ask you something... ASA NI DAPITA</span>
-                <span class="time"><i class="fa fa-clock-o"></i> 4:34 PM</span>
-              </a>
-            </li>
-            <li class="divider"></li>
-            <li class="message-preview">
-              <a href="#">
-                <span class="name">John Smith:</span>
-                <span class="message">Hey there, I wanted to ask you something...</span>
-                <span class="time"><i class="fa fa-clock-o"></i> 4:34 PM</span>
-              </a>
-            </li>
-            <li class="divider"></li>
-            <li><a href="<?php echo base_url(); ?>parents/message">View Inbox <span class="icon icon-color icon-envelope-closed"></span></a></li>
+            <li class="dropdown-header"></li>
           </ul>
         </li><!-- /.dropdown messages-dropdown -->
 
         <li class="dropdown user-dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon icon-color icon-gear"></i> <?php echo $first_name.' '.$last_name ?> <b class="icon icon-color icon-triangle-s"></b></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon icon-color icon-gear"></i> <?php echo $tracker['first_name'].' '.$tracker['last_name']; ?> <b class="icon icon-color icon-triangle-s"></b></a>
           <ul class="dropdown-menu">
             <li><a href="<?php echo base_url(); ?>parents/edit_profile"><i class="icon icon-color icon-user"></i> Edit Profile</a></li>
             <li><a href="<?php echo base_url(); ?>parents/view_changepassword"><i class="icon icon-color icon-key"></i> Change Password</a></li>

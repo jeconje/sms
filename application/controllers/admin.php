@@ -26,13 +26,7 @@
 	    	if($data['info'] == TRUE){   	
 		    	$data['account_id'] = $data['info']['account_id'];	    	
 				$data['account_type'] = $data['info']['account_type'];
-				$data['first_name'] = $data['info']['first_name'];
-				$data['last_name'] = $data['info']['last_name'];
-				$data['middle_name'] = $data['info']['middle_name'];			
-				$data['gender'] = $data['info']['gender'];
-				$data['contact_number'] = $data['info']['contact_number'];
-				$data['date_of_birth'] = $data['info']['date_of_birth'];
-				$data['address'] = $data['info']['address'];		
+	
 
 				$data['admininfo'] = $this->admin_model->adminInfo($data);
 				$data['view'] = $this->admin_model->viewPhoto($data);

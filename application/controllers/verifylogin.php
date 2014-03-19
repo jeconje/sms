@@ -25,7 +25,7 @@ class VerifyLogin extends CI_Controller
         {   
                 $data['info'] = $this->session->userdata('logged_in');                    
                 
-                if($data['info']['account_type'] == 'parent')
+                if($data['info']['account_type'] == 'tracker')
                     redirect('parents/profile', 'refresh');
                 else if($data['info']['account_type'] == 'teacher')
                     redirect('teacher/profile', 'refresh');
