@@ -165,58 +165,58 @@
 
 <?php if($value['room'] == 'BCL 1' || $value['room'] == 'BCL 2' || $value['room'] == 'BCL 3' || $value['room'] == 'BCL 4' || $value['room'] == 'BCL 5' || $value['room'] == 'BCL 6' || $value['room'] == 'BCL 7' || $value['room'] == 'BCL 8' || $value['room'] == 'BCL 9') 
   {
-      $room = "laboratory";
-      $check = "assign_laboratory";
+    $room = "laboratory";
+    $check = "assign_laboratory";
   }
   else if($value['room'] == 'BRD 1')
   { 
-      $room = "brd1";
-      $check = "assign_brd1";
-
+    $room = "brd1";
+    $check = "assign_brd1";
   }
   else if ($value['room'] == 'BRD 2')
   {
-      $room = "brd2";
-      $check = "assign_brd2";
+    $room = "brd2";
+    $check = "assign_brd2";
   }
   else
   {
-      $room = "classroom";
-      $check = "assign_classroom";
+    $room = "classroom";
+    $check = "assign_classroom";
   }
 ?>
                     
 <td><a href='<?php echo base_url(); ?>teacher/<?php echo $check ?>/<?php echo $value['offer_code']; ?>'><input class="btn btn-primary" type="submit" value="Assign Seats"/></a></td>
 <td><a href='<?php echo base_url(); ?>teacher/<?php echo $room ?>/<?php echo $value['offer_code']; ?>'>
-<input  
+<input class="btn btn-primary" type="submit" value="Check Attendance"
     <?php foreach($suspendClass as $suspend){ 
       if($noClass != "") {
         echo "disabled";
-     }  
-     else if($suspend['start_time'] >= $value['start_time'] && $suspend['end_time'] <= $value['end_time']) {
+      }  
+      else if($suspend['start_time'] >= $value['start_time'] && $suspend['end_time'] <= $value['end_time']) {
         echo "disabled";
       }  
-    if ( strtotime(date('h:i A')) >= strtotime($value['start_time']) && strtotime(date('h:i A')) <= strtotime($value['end_time']))   {                                                         
-      
-     } else 
-     echo "disabled";?>
- class="btn btn-primary" type="submit" value="Check Attendance"
+      if (strtotime(date('h:i A')) >= strtotime($value['start_time']) && strtotime(date('h:i A')) <= strtotime($value['end_time'])) {                                                         
+        echo "disabled";
+      } else 
+        
+     ?>
+ 
     <?php } ?>
 
 /></a></td>                                        
 
                             
-                  </tr>
-                  <?php } ?>
-                    
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
+          </tr>
+          <?php } ?>
+            
+            </tbody>
+          </table>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+</div>
 
 <script type="text/javascript">
   var num = 0;

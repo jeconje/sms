@@ -41,7 +41,7 @@
             </li>
             
             <li class="dropdown user-dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon icon-color icon-gear"></i> <?php echo $info['first_name'].' '.$info['last_name']; ?> <b class="icon icon-color icon-triangle-s"></b></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon icon-color icon-gear"></i> <?php echo "Student Development Placement Center" ?> <b class="icon icon-color icon-triangle-s"></b></a>
               <ul class="dropdown-menu">
                 <li><a href="<?php echo base_url(); ?>sdpc/view_changepassword"><i class="icon icon-color icon-key"></i> Change Password</a></li>
                 <li class="divider"></li>
@@ -74,7 +74,7 @@
           <div class="col-lg-3">
                 <div class="panel panel-warning" style="width:312px; height:200px;">
                <div class="panel-heading" style="width:310px; height:200px;">
-                <?php echo "<b>Name: </b>".$first_name." ".$middle_name." ".$last_name; ?><br>
+                <?php echo "Name: <b>Student Development Placement Center</b>"; ?><br>
               </div>
   
             </div>

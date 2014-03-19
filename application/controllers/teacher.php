@@ -24,7 +24,7 @@
 			$data['date'] = date('Y-m-d');
 			$data['time'] = date('h:i A');
 
-    	$data['account_id'] = $data['info']['account_id'];	 
+    		$data['account_id'] = $data['info']['account_id'];	 
 			$data['account_type'] = $data['info']['account_type'];
 
 			$data['teacherInfo'] = $this->teacher_model->teacherInfo($data);
@@ -75,9 +75,14 @@
 
 		public function get_offer_codes() {
 			$data['info'] = $this->session->userdata('logged_in');
-			$data['faculty_id'] = $data['info']['faculty_id'];
-			$data['first_name'] = $data['info']['first_name'];
-			$data['last_name'] = $data['info']['last_name'];
+			$data['account_id'] = $data['info']['account_id'];	 
+			$data['account_type'] = $data['info']['account_type'];
+
+			$data['teacherInfo'] = $this->teacher_model->teacherInfo($data);
+			
+			$data['first_name'] = $data['teacherInfo']['first_name'];
+			$data['last_name'] = $data['teacherInfo']['last_name'];
+			$data['faculty_id'] = $data['teacherInfo']['faculty_id'];
 
 			$data['subject'] = $this->input->post('subject');
 			$data['offer_code'] = $this->input->post('offer_code');
@@ -97,9 +102,13 @@
 		{
 			$data['info'] = $this->session->userdata('logged_in');
 			if($data['info'] == TRUE) {
-				$data['faculty_id'] = $data['info']['faculty_id'];
-				$data['first_name'] = $data['info']['first_name'];
-				$data['last_name'] = $data['info']['last_name'];
+				$data['account_id'] = $data['info']['account_id'];	 
+				$data['account_type'] = $data['info']['account_type'];
+
+				$data['teacherInfo'] = $this->teacher_model->teacherInfo($data);
+				
+				$data['first_name'] = $data['teacherInfo']['first_name'];
+				$data['last_name'] = $data['teacherInfo']['last_name'];
 
 				$data['subjects'] = $this->teacher_model->get_subject($data);
 				$data['offer_code'] = $this->input->post('offer_code');
@@ -117,10 +126,15 @@
 		{
 			$data['info'] = $this->session->userdata('logged_in');
 			if($data['info'] == TRUE){
-				$data['faculty_id'] = $data['info']['faculty_id'];
-				$data['first_name'] = $data['info']['first_name'];
-				$data['last_name'] = $data['info']['last_name'];
-				$data['viewDistinctLogs'] = $this->teacher_model->viewDistinctLogs($data);				
+			$data['account_id'] = $data['info']['account_id'];	 
+			$data['account_type'] = $data['info']['account_type'];
+
+			$data['teacherInfo'] = $this->teacher_model->teacherInfo($data);
+			
+			$data['first_name'] = $data['teacherInfo']['first_name'];
+			$data['last_name'] = $data['teacherInfo']['last_name'];
+
+			$data['viewDistinctLogs'] = $this->teacher_model->viewDistinctLogs($data);				
 				
 				$this->load->view('teacher/attendance',$data);
 			} else
@@ -538,11 +552,17 @@
 		//Show Calendar
 		public function calendar_teacher($year=null,$month=null) 
 		{
-			$data['teacherInfo'] = $this->session->userdata('logged_in');
-			if($data['teacherInfo'] == TRUE)
+			$data['info'] = $this->session->userdata('logged_in');
+			if($data['info'] == TRUE)
 			{
+				$data['account_id'] = $data['info']['account_id'];	 
+				$data['account_type'] = $data['info']['account_type'];
+
+				$data['teacherInfo'] = $this->teacher_model->teacherInfo($data);
+				
 				$data['first_name'] = $data['teacherInfo']['first_name'];
 				$data['last_name'] = $data['teacherInfo']['last_name'];
+
 				$data['event'] = $this->input->post('event');
 				$data['date'] = $this->input->post('date');	
 				
