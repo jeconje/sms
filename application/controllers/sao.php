@@ -23,23 +23,18 @@
 		 public function profile() 
 		 {
 	    	$data['info'] = $this->session->userdata('logged_in'); 
-	    	if($data['info'] == TRUE){
+	    	if($data['info'] == TRUE)
+	    	{
 		    	$data['account_id'] = $data['info']['account_id'];
 				$data['account_type'] = $data['info']['account_type'];
-				$data['first_name'] = $data['info']['first_name'];
-				$data['last_name'] = $data['info']['last_name'];
-				$data['middle_name'] = $data['info']['middle_name'];
-				$data['gender'] = $data['info']['gender'];
-				$data['contact_number'] = $data['info']['contact_number'];
-				$data['date_of_birth'] = $data['info']['date_of_birth'];
-				$data['address'] = $data['info']['address'];
 
 				$data['saoinfo'] = $this->sao_model->saoInfo($data);
 				$data['view'] = $this->sao_model->viewPhoto($data);
 				$data['image_path'] = $data['view']['image_path'];
 				$config['upload_path'] = "./images/others";	
 				$this->load->view('sao/home',$data);
-			} else
+			} 
+			else
 				$this->index();
   		 }
 
@@ -65,6 +60,21 @@
 				$data['student_info'] = $this->sao_model->get_student_info($student_number);
 
 				$this->load->view('sao/add_violation', $data);
+			} else
+				$this->index();
+    	}
+
+    	public function get_student_info1() 
+    	{
+    		$data['info'] = $this->session->userdata('logged_in');
+    		if($data['info'] == TRUE){
+				$data['first_name'] = $data['info']['first_name'];
+				$data['last_name'] = $data['info']['last_name'];
+
+				$student_number = $this->input->post('student_number');
+				$data['student_info'] = $this->sao_model->get_student_info($student_number);
+
+				$this->load->view('sao/suspended', $data);
 			} else
 				$this->index();
     	}
@@ -117,6 +127,23 @@
 		    redirect($_SERVER['HTTP_REFERER']);
 		}
 
+		public function suspendviolators() 
+		{
+			$data['info'] = $this->session->userdata('logged_in');
+			if($data['info'] == TRUE)
+			{
+				$data['first_name'] = $data['info']['first_name'];
+				$data['last_name'] = $data['info']['last_name'];
+				$data['id'] = $data['info']['id'];
+				// $this->input->get('id');
+
+	    		$this->sao_model->suspend_violators($id);
+			    $this->load->view('sao/suspended');
+			}
+			 else
+				$this->index();
+		}
+
 		public function message()
 		{
 			$data['info'] = $this->session->userdata('logged_in');
@@ -128,13 +155,15 @@
 			} else
 				$this->index();
 		}
+		
+		
 
 		//Change Password
   		public function view_changepassword() 
 	    {
 	      $data['sao_info'] = $this->session->userdata('logged_in');
 	      if($data['sao_info'] == TRUE){
-		      $data['username'] = $data['sao_info']['username'];
+		      $data['username'] = $data['sao_info']['account_id'];
 		      $data['first_name'] = $data['sao_info']['first_name'];
 		      $data['last_name'] = $data['sao_info']['last_name'];
 
@@ -240,14 +269,65 @@
 		//ShowCalendar
 		public function calendar_sao($year=null,$month=null)
 		{
-	      $data['saoInfo'] = $this->session->userdata('logged_in');
-	      if($data['saoInfo'] == TRUE){
-		      $data['first_name'] = $data['saoInfo']['first_name'];
-		      $data['last_name'] = $data['saoInfo']['last_name'];
-		      $data['atays'] = $this->sao_model->getEvents();
+			$data['saoInfo'] = $this->session->userdata('logged_in');
+			if($data['saoInfo'] == TRUE)
+			{
+				$data['first_name'] = $data['saoInfo']['first_name'];
+				$data['last_name'] = $data['saoInfo']['last_name'];
+				$data['event'] = $this->input->post('event');
+				$data['date'] = $this->input->post('date');	
+				
+				$data['result'] = $this->sao_model->getEvents();
 
-		      $data['atay'] = $this->sao_model->showCalendar($year,$month,$events);     
-		      $this->load->view('calendar/calendar_sao',$data);
+				$day = (int)substr($row->date,8,2);
+				$mon = (int)substr($row->date,6,2);
+
+			    $events[(int)$day] = $row->event;
+			    $events = array();
+
+			    foreach($data['result'] as $row) {
+
+			    	$day = (int)substr($row['date'],8,2);
+			    	$mon = (int)substr($row['date'],5,2);
+
+				    if(!array_key_exists($day,$events)) { 
+						$events[$day] = $row['event'];
+					}
+
+					else {
+						$temp = $row['event'];
+						$events[$day] = $events[$day]."<br> <li>".$temp;
+					}
+
+					$events_month[$mon][$day] = $events; 
+					
+				} 
+
+				$config['show_next_prev'] = 'TRUE';
+			    $config['day_type'] = 'long';
+			    $config['next_prev_url'] = base_url().'sao/calendar_sao';
+			    $config['template'] = '
+			    {cal_cell_content}<span class="day_listing">{day}</span>&nbsp;&bull; {content}&nbsp;{/cal_cell_content}
+			    {cal_cell_content_today}<div class="today"><span class="day_listing">{day}</span>&bull; {content}</div>{/cal_cell_content_today}
+			    {cal_cell_no_content}<span class="day_listing">{day}</span>&nbsp;{/cal_cell_no_content}
+			    {cal_cell_no_content_today}<div class="today"><span class="day_listing">{day}</span></div>{/cal_cell_no_content_today}
+			    '; 
+			    $config['template'] = '
+			    {table_open}<table class="calendar">{/table_open}
+			    {week_day_cell}<th class="day_header">{week_day}</th>{/week_day_cell}
+			    {cal_cell_content}<span class="day_listing">{day}</span>&nbsp;&bull; {content}&nbsp;{/cal_cell_content}
+			    {cal_cell_content_today}<div class="today"><span class="day_listing">{day}</span>&bull; {content}</div>{/cal_cell_content_today}
+			    {cal_cell_no_content}<span class="day_listing">{day}</span>&nbsp;{/cal_cell_no_content}
+			    {cal_cell_no_content_today}<div class="today"><span class="day_listing">{day}</span></div>{/cal_cell_no_content_today}
+			    '; 
+
+			    $this->load->library('calendar',$config);
+			    $y = intval($this->uri->segment(3));
+			    $m = intval($this->uri->segment(4));
+    			$data['viewCalendar']= $this->calendar->generate($y,$m,$events_month[$m]);
+					
+				$this->load->view('calendar/calendar_sao',$data);	
+
 		  } else
 		  	$this->index();
 		}

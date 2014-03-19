@@ -61,7 +61,7 @@
             <?php echo form_open("parents/view_registration_ajax"); ?>
 
             <p class="contact"><label for="referral_key" id="referral_keylbl">Referral Key</label></p>
-              <input type="text" name="referral_key" id="referral_key" required="" tabindex="1" placeholder="referral key" value="<?php echo set_value('referral_key'); ?>"></input>
+              <input type="text" name="referral_key" id="referral_key" required="" tabindex="1" placeholder="referral key" value="<?php echo set_value('referral_key'); ?> "></input><span id="check_referral_key" style="color: rgb(255, 0, 0); font: normal 10px/12px Arial,Helvetica,sans-serif; opacity: 50;"></span>
 
             <p class="contact"><label for="name" id="namelbl">Name</label></p>
               <input type="text" name="first_name" id="first_name" required="" tabindex="1" placeholder="first name" value="<?php echo set_value('first_name'); ?>">
@@ -116,7 +116,7 @@
               <?php echo form_dropdown('months',$data[months],'id="month"'). " " . form_dropdown('days',$data[days],'id="day"'). " " . form_dropdown('byear',$data[byear],'id="byear"'); ?><br><br> 
 
             <p class="contact"><label for="username" id="usernamelbl">Choose your username</label></p>
-              <input type="text" name="username" id="username" value="<?php echo set_value('username') ?>" required="" tabindex="1"><span id="user"></span> 
+              <input type="text" name="username" id="username" value="<?php echo set_value('username');   ?>" required="" tabindex="1"><span id="check_username" style="color: rgb(255, 0, 0); font: normal 10px/12px Arial,Helvetica,sans-serif; opacity: 50;"></span>
 
             <p class="contact"><label for="password" id="passwordlbl">Create a password</label></p>
               <input type="password" name="password" id="password" required="" tabindex="1">
@@ -139,21 +139,24 @@
   $(document).ready(function(){
     $("#referral_key").keyup(function() {
       var referral_key = $('#referral_key').val();
-        if(referral_key == "") {
+        if(referral_key == " ") {
             $('#first_name, #middle_name, #last_name, #gender, #address, #contact_number, #username, #password, #confirm_password').attr("disabled",true).css({ "background": "#F0F0F0" });
-              $('#submitbtn').attr("disabled",true);
+            $('#check_referral_key').html(" ").css("color"," ");
+            $('#submitbtn').attr("disabled",true);
         } else {
             $.ajax({
               type: "POST",
-              url: "<?php echo base_url(); ?>parents/check_referral_key",
+              url: "<?php echo base_url(); ?>parents/check_referral_key_registration",
               data: "referral_key=" + referral_key,
               success: function(result) {
                   if($.trim(result) == 'Invalid') {
-                    $('#referral_key').css('border-color','#FF0000')
+                    $('#referral_key').css('border-color','#FF0000');
+                    $('#check_referral_key').html(" Referral key doesn't exist.").css("color","red");
                     $('#name, #first_name, #middle_name, #last_name, #gender, #address, #contact_number, #username, #password, #confirm_password').attr("disabled",true).css({ "background": "#F0F0F0" });
                     $('#submitbtn').attr("disabled",true); 
                   } else {
-                    $('#referral_key').css('border-color','#00CC00')
+                    $('#referral_key').css('border-color','#00CC00');
+                    $('#check_referral_key').html(" Referral key exist.").css("color","green");
                     $('#name, #first_name, #middle_name, #last_name, #gender, #address, #contact_number, #username, #password, #submitbtn, #confirm_password').removeAttr("disabled").css({ "background": "" });
                   }
               }
@@ -185,21 +188,28 @@
   $(document).ready(function(){
     $("#username").keyup(function(){
       var username = $('#username').val();
+
+      // if(username = " "){
+      //   $('#check_username').html(" ").css("color"," ");
+      //   $('#password, #confirm_password, #submitbtn').attr("disabled",true).css({ "background": "#F0F0F0" });
+      // } else {
       $.ajax({
         type: "POST",
-        url: "<?php echo base_url(); ?>sms/check_username",
+        url: "<?php echo base_url(); ?>parents/check_username",
         data: "username=" + username,
         success:function(username){
-          //$("#user").html(username);
           if($.trim(username) == "Valid") {
             $('#username').css('border-color','#00FF00');
-            $('#password, #submitbtn').removeAttr("disabled").css({ "background": "" });
+            $("#check_username").html(" Username available.").css("color","green");
+            $('#password, #confirm_password, #submitbtn').removeAttr("disabled").css({ "background": "" });
           } else {
             $('#username').css('border-color','#FF0000');
-            $('#password, #submitbtn').attr("disabled",true).css({ "background": "#F0F0F0" });
+            $("#check_username").html(" Username already taken.").css("color","red");
+            $('#password, #confirm_password, #submitbtn').attr("disabled",true).css({ "background": "#F0F0F0" });
           }
         }
       });
+    // }
     });
   });
 </script>
@@ -215,10 +225,10 @@
         data:"password=" + password,
         success:function(password){
           if($.trim(password) == "Valid") {
-            $('#password').css('border-color','#00FF00');
+            $('#password, #confirm_password').css('border-color','#00FF00');
             $('#submitbtn').removeAttr("disabled");
           } else {
-            $('#password').css('border-color','#FF0000');
+            $('#password, #confirm_password').css('border-color','#FF0000');
             $('#submitbtn').attr("disabled",true);
           }
         }

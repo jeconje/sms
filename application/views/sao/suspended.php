@@ -7,11 +7,19 @@
     <meta name="author" content="">
     <title>USJR - SMS</title>
     <?php include ('/application/views/templates/nav.php'); ?>
-
+    <!-- Date Picker -->
+    <link rel="stylesheet" href="<?php echo base_url(); ?>css/calendar/jquery-ui.css">
+    <script src="<?php echo base_url(); ?>css/calendar/jquery-1.9.1.js"></script>
+    <script src="<?php echo base_url(); ?>css/calendar/jquery-ui.js"></script>
+    <script>
+    $(function() {
+                   $("#datepicker").datepicker({ minDate: 0, dateFormat: 'yy-mm-dd'});
+                 });
+    </script>
   </head>
 
 <body>
-    <div id="wrapper">
+     <div id="wrapper">
       <div id="wrapper">
       <!-- Sidebar -->
       <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -29,8 +37,8 @@
         <div class="collapse navbar-collapse navbar-ex1-collapse">
           <ul class="nav navbar-nav side-nav">
             <li><a href="<?php echo base_url(); ?>sao/profile"><i class="icon32 icon-color icon-home"></i> Dashboard</a></li>
-            <li><a href="<?php echo base_url(); ?>sao/suspendviolators"><i class="icon32 icon-color icon-pin"></i> Suspend Student</a></li>
-            <li class="active"><a href="<?php echo base_url(); ?>sao/add_violation_view"><i class="icon32 icon-color icon-add"></i> Add Violation</a></li>
+            <li class="active"><a href="<?php echo base_url(); ?>sao/suspendviolators"><i class="icon32 icon-color icon-pin"></i> Suspend Student</a></li>
+            <li><a href="<?php echo base_url(); ?>sao/add_violation_view"><i class="icon32 icon-color icon-add"></i> Add Violation</a></li>
             <li><a href="<?php echo base_url(); ?>sao/violators"><i class="icon32 icon-color icon-alert"></i> Violators</a></li>
             <li ><a href="<?php echo base_url(); ?>sao/calendar_sao/2014/03"><i class="icon32 icon-color icon-calendar"></i> Calendar</a></li>    
           </ul>
@@ -58,50 +66,26 @@
     <?php
       $student_number = $this->input->post('student_number');
     ?>
-    <?php echo form_open('sao/get_student_info'); ?>
-      <p><input type="text" name="student_number" id="student_number" required="" tabindex="1" placeholder="student number" value="<?php echo $student_number; ?>"></p>   
-      
-      <button class="btn btn-primary">Search Student</button>
+    <?php echo form_open('sao/get_student_info1'); ?>
+      <p><input type="text" name="student_number" id="student_number" required="" tabindex="1" placeholder="student number" value="<?php echo $student_number; ?>">&nbsp;&nbsp;&nbsp;<button class="btn btn-primary" name="search">Search Student</button></p>   
+    
     <?php echo form_close(); ?>
 
-    <?php echo form_open("sao/add_violation"); ?>
+    <?php echo form_open("sao/suspendviolators"); ?>
     <?php foreach($student_info as $value){ ?>
       <p class="contact"><label>Name: </label>   
         <input type="hidden" name="student_number" value="<?php echo $student_number; ?>" >
         <input type="text" class="form-control" name="student_info" id="student_info" value="<?php echo $value['last_name'].', '.$value['first_name']; ?>" disabled="disabled"></p>
       <?php } ?>
       <br>
-      <p><textarea id="violation" name="violation" required="" tabindex="1" placeholder="What's the violation?" value="<?php echo set_value('violation'); ?>"></textarea></p>
+     <br><br>
+      <p><input name ="end_date" type="text" id="datepicker" placeholder="End Date" class="form-control"></p></textarea></p>
 
-      <button class="btn btn-primary">Add Violation</button>
+      <button class="btn btn-danger" name="suspend" id="suspend">Suspend Student</button>
     <?php echo form_close(); ?>
   </div>
 
 </div>
-
-<!-- Student info will depend on what student number is inputted 
-<script type="text/javascript">
-  $('#student_number').keyup(function() {
-    $('#student_info').empty();
-      var student_number = $(this).val();
-      if (student_number != "") {
-        $.ajax({
-            type: "POST",
-            url: "<?php echo base_url(); ?>sao/get_student_number",
-            data: "student_number=" + student_number,
-            dataType: "json",
-            success: function (data) {
-              //$("#student_info").html(data);
-              alert(data);
-            }
-        });
-      } else {
-        $('#student_info').empty();
-      }
-  });
-</script>
--->
-
 
 <script type="text/javascript">
  $(document).ready(function(){
@@ -130,6 +114,14 @@
   });
 </script>
 
+<script>
+$('#dp5').datepicker()
+  .on('changeDate', function(ev){
+    if (ev.date.valueOf() < startDate.valueOf()){
+      ....
+    }
+  });
+</script>
 
 <script type="text/javascript">
   $('#violation').attr("disabled",true).css({ "background": "#F0F0F0" });

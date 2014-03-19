@@ -124,7 +124,6 @@
                 <?php echo "<b>Name: </b>".$first_name." ".$middle_name." ".$last_name; ?><br>
                 <?php echo "<b>Department: </b>" .$college['college_desc']; ?><br>
                 <?php echo "<b>Address: </b>".$address; ?><br>
-                <?php echo "<b>Email Address: </b>".$email_address; ?><br>
                 <?php echo "<b>Contact Number: </b>".$contact_number; ?><br>
                 <?php echo "<b>Date of Birth: </b>".$date_of_birth; }?>
               </div>
@@ -164,7 +163,8 @@
                       <tr>
                         <th> Offer Code </th>
                         <th> Subject Description </th>
-                        <th> Time </th>
+                        <th> Start Time </th>
+                        <th> End Time </th>
                         <th> Day </th>
                         <th> Room </th>
                         <th> Enrollees </th>
@@ -185,7 +185,8 @@
                   <tr>
                     <td><?php echo $value['offer_code']; ?></td>  
                     <td><?php echo $value['subject_description']; ?></td>
-                    <td><?php echo $value['time']; ?></td>
+                    <td><?php echo $value['start_time']; ?></td>
+                    <td><?php echo $value['end_time']; ?></td>
                     <td><?php echo $value['days']; ?></td>   
                     <td><?php echo $value['room']; ?></td>  
                     <td><?php echo $count; ?></td>

@@ -18,6 +18,7 @@
   <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <!-- Header -->
   <?php $home = 'sms/profile'; ?>
+  <?php foreach($studentinfo as $value) { } ?>
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">    
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -42,33 +43,15 @@
 
       <ul class="nav navbar-nav navbar-right navbar-user">
         <li class="dropdown messages-dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon icon-color icon-messages"></i> Notification <b class="icon icon-color icon-triangle-s"></b></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="noti-box"><div id="noti"></div><i class="icon icon-color icon-messages"></i> Notification <b class="icon icon-color icon-triangle-s"></b></a>
           <ul class="dropdown-menu">
-            <li class="dropdown-header">8 New Messages</li>
-            <li class="message-preview">
-              <a href="#">
-                <span class="name">John Smith:</span>
-                <span class="message">Hey there, I wanted to ask you something... ASA NI DAPITA</span>
-                <span class="time"><i class="fa fa-clock-o"></i> 4:34 PM</span>
-              </a>
-            </li>
-            <li class="divider"></li>
-            <li class="message-preview">
-              <a href="#">
-                <span class="name">John Smith:</span>
-                <span class="message">Hey there, I wanted to ask you something...</span>
-                <span class="time"><i class="fa fa-clock-o"></i> 4:34 PM</span>
-              </a>
-            </li>
-            <li class="divider"></li>
-            <li><a href="<?php echo base_url(); ?>sms/message">View Inbox <span class="icon icon-color icon-envelope-closed"></span></a></li>
+            <li class="dropdown-header"><div id="notification"></div></li>
           </ul>
         </li><!-- /.dropdown messages-dropdown -->
 
         <li class="dropdown user-dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon icon-color icon-gear"></i> <?php echo $first_name.' '.$last_name ?> <b class="icon icon-color icon-triangle-s"></b></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon icon-color icon-gear"></i> <?php echo $value['first_name'].' '.$value['last_name']; ?> <b class="icon icon-color icon-triangle-s"></b></a>
           <ul class="dropdown-menu">
-           <li><a href="<?php echo base_url(); ?>sms/viewprofile"><i class="icon icon-color icon-user"></i> Edit Profile</a></li>
             <li><a href="<?php echo base_url(); ?>sms/view_changepassword"><i class="icon icon-color icon-key"></i> Change Password</a></li>
             <li class="divider"></li>
             <li><a href="<?php echo base_url(); ?>sms/logout"><i class="icon icon-color icon-cancel"></i> Logout</a></li>
@@ -89,7 +72,7 @@
           <div class="col-lg-4" style="width:300px;">
             <div class="well well-sm">
                <?php
-                    echo 'Student Number: '.$student_number; 
+                    echo 'Student Number: '.$value['student_number']; 
                 ?>
             </div>
           </div>
@@ -104,7 +87,7 @@
         <div>
           <div class="col-lg-4" style="right: 15px; width:300px; top:-12px;">
             <div class="well well-sm">
-              <?php echo 'Course & Year: '.$course. '- ' .$year ?>
+              <?php echo 'Course & Year: '.$value['course']. '- ' .$value['year'] ?>
             </div>
           </div>
         </div>
@@ -119,7 +102,8 @@
                     <th>Description</th>
                     <th>Units</th>
                     <th>Day</th>
-                    <th>Time</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
                     <th>Room</th>
                     <th>Teacher</th>
                   </tr>
@@ -127,7 +111,7 @@
 
                 <tbody align="center">
                   <?php 
-                      foreach($studentInfo as $value) {
+                      foreach($viewStudyLoad as $value) {
                   ?>
                   <tr>
                     <td>
@@ -146,20 +130,88 @@
                       <?php echo $value['days']; ?>
                     </td>    
                     <td>
-                      <?php echo $value['time']; ?>
-                    </td>    
+                      <?php echo $value['start_time']; ?>
+                    </td>
+                    <td>
+                      <?php echo $value['end_time']; ?>
+                    </td> 
                     <td>
                       <?php echo $value['room']; ?>
                     </td>    
                     <td>
-                      <?php echo $value['teacher']; ?>
+                      <?php echo $value['first_name']. " " .$value['last_name']; ?>
                     </td>              
                   </tr>
-                  <?php }?>
+                  <?php } ?>
+
+
                 </tbody>
               </table>
             </div><!-- table-responsive -->
           </div> <!-- end page-wrapper -->
 </div> <!-- end wrapper -->
+
+<script type="text/javascript">
+  var num = 0;
+$(document).ready(function() {
+  $('#noti').hide();
+  var audioElement = document.createElement('audio');
+  audioElement.setAttribute('src', '<?php echo base_url(); ?>notification/Notify_Sound.mp3');
+  var es = new EventSource("<?php echo base_url(); ?>notification/notification_to_student");
+  var listener = function (data) {
+  var data = $.parseJSON(data.data); 
+  
+    var num2 = 0;
+    var id_update = [];
+    var num3=0;
+
+    if(num==num2) { 
+      $.each(data, function(index, val) {  
+        //if(index==data.length-1) { 
+          //audioElement.play();
+          $("#notification").prepend("<li>"+val.message+" ("+val.date+")</li>");
+       // }
+      });  
+    }
+
+    $.each(data, function(index, val) {  
+      id_update[num] = val.notification_id;
+      num++;
+      num3++;
+      $("#noti").hide(); 
+      $("#noti").show(); 
+      $("#noti").html("!");
+    });  
+    
+    num2=num;
+    num=num2;
+    num3=0;
+
+  }
+  es.addEventListener("message", listener);
+
+  $("#noti-box").click(function() {
+  $("#noti").hide();
+  function update_print_noti() {
+    $.ajax({
+      type: 'POST',
+      url: "<?php echo base_url(); ?>notification/notification_update_student",
+      data: {id : id_update},
+      dataType: 'json', 
+      success: function(update) {
+        $.each(update, function(index, val) {
+          $("#notification").prepend("<li>"+val.message+" ("+val.date+")</li>");
+        });
+      }
+    });
+    $("#notification").empty();
+  }
+  update_print_noti();
+  });
+
+});
+
+</script>
+
   </body>
 </html>

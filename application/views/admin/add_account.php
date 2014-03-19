@@ -13,7 +13,7 @@
 
 <body>
     <div id="wrapper">
-       <?php $home = 'profile'; ?>
+       <?php $home = 'admin/profile'; ?>
       <!-- Sidebar -->
       <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -28,14 +28,14 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
           <ul class="nav navbar-nav side-nav">
-            <li><a href="<?php echo $home ?>"><i class="icon32 icon-color icon-home"></i> Dashboard</a></li>
+            <li><a href="<?php echo base_url(); ?><?php echo $home ?>"><i class="icon32 icon-color icon-home"></i> Dashboard</a></li>
             <li  class="active"><a href="<?php echo base_url(); ?>admin/add_account"><i class="icon32 icon-color icon-book-empty"></i> Add Account</a></li>
             <li><a href="<?php echo base_url(); ?>admin/calendar/2014/03"><i class="icon32 icon-color icon-calendar"></i> Calendar</a></li>    
           </ul>
 
           <ul class="nav navbar-nav navbar-right navbar-user">
             <li class="dropdown user-dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon icon-color icon-gear"></i> <?php echo $info['first_name'].' '.$info['last_name']; ?> <b class="icon icon-color icon-triangle-s"></b></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon icon-color icon-gear"></i> Admin Ko <b class="icon icon-color icon-triangle-s"></b></a>
               <ul class="dropdown-menu">
                 <li><a href="<?php echo base_url(); ?>admin/view_changepassword"><i class="icon icon-color icon-key"></i> Change Password</a></li>
                 <li class="divider"></li>
@@ -97,15 +97,27 @@
       <p>Be updated on school events.</p>
     </div>
     <div class="form" id="registration">
-      <?php echo form_open("admin/add_account"); ?> 
-      
+
+      <?php foreach($details as $value) { 
+        $faculty_id = $this->input->post('faculty_id');
+      } ?>
+
+      <?php echo form_open("admin/checkFaculty"); ?>
+
       <p class="contact"><label for="faculty_id" id="faculty_idlbl">Faculty ID</label></p>
-        <input type="text" name="faculty_id" id="faculty_id" class="form-control" placeholder="faculty id" value="<?php echo set_value('student_number') ?>" required="" tabindex="1">        
+        <input type="text" name="faculty_id" id="faculty_id" class="form-control" placeholder="faculty id" value="<?php echo $faculty_id; ?>" required="" tabindex="1"><span id="faculty" style="color: rgb(255, 0, 0); font: normal 10px/12px Arial,Helvetica,sans-serif; opacity: 50;"></span>        
+        
+        <input type="submit" class="button" name="submit" value="Search">
+
+      <?php echo form_close(); ?>
+
+      <?php echo form_open("admin/add_account"); ?> 
+      <input type="hidden" name="faculty_id" value="<?php echo $faculty_id; ?>" >
 
       <p class="contact"><label for="name" id="namelbl">Name</label></p>
-        <input type="text" name="first_name" id="first_name" placeholder="First Name" value="<?php echo set_value('first_name'); ?>" required="" tabindex="1">        
-        <input type="text" name="middle_name" id="middle_name" placeholder="Middle Name" value="<?php echo set_value('middle_name'); ?>" required="" tabindex="1">
-        <input type="text" name="last_name" id="last_name" placeholder="Last Name" value="<?php echo set_value('last_name'); ?>" required="" tabindex="1">
+        <input type="text" name="first_name" id="first_name" value="<?php echo $value['first_name']; ?>" disabled="disabled">
+        <input type="text" name="middle_name" id="middle_name" value="<?php echo $value['middle_name']; ?>" disabled="disabled">
+        <input type="text" name="last_name"  id="last_name" value="<?php echo $value['last_name']; ?>" disabled="disabled">
 
       <p class="contact"><label for="account_type" id="account_typelbl">Account Type</label></p>
         <select class="select-style select" name="account_type" id="account_type">
@@ -115,30 +127,24 @@
         </select><br><br>
 
       <p class="contact"><label for="gender" id="genderlbl">Gender</label></p>
-          <select class="select-style select" name="gender" id="gender">
-            <option value="male" <?php set_radio('gender', 'Male'); ?>>Male</option>
-            <option value="female" <?php set_radio('gender', 'Female'); ?>>Female</option>
-          </select><br><br>
+        <input type="text" name="gender" id="gender" value="<?php echo $value['gender'] ?>" class="form-control">
 
       <p class="contact"><label for="contact_number" id="contact_numberlbl">Contact Number</label></p>
-        <input type="text" name="contact_number" id="contact_number" value="<?php echo set_value('contact_number'); ?>" class="form-control" required="" tabindex="1">
+        <input type="text" name="contact_number" id="contact_number" value="<?php echo $value['contact_number'] ?>" class="form-control">
 
       <p class="contact"><label for="address" id="addresslbl">Address</label></p>
-        <input type="text" name="address" id="address" value="<?php echo set_value('address'); ?>" class="form-control" required="" tabindex="1">
+        <input type="text" name="address" id="address" value="<?php echo $value['address'] ?>" class="form-control">
 
       <p class="contact"><label for="email_address" id="email_addresslbl">Email Address</label></p>
-        <input type="email" name="email_address" id="email_address" value="<?php echo set_value('email_address'); ?>" class="form-control" required="" tabindex="1">
+        <input type="text" name="email_address" id="email_address" value="<?php echo $value['email_address'] ?>" class="form-control">
 
       <p class="contact"><label for="date_of_birth" id="date_of_birth">Date Of Birth</label></p>
-        <?php echo form_dropdown('months',$data['months'],"id='month'"). " " . form_dropdown('days',$data['days'],"id='day'"). " " . form_dropdown('byear',$data['byear'],"id='byear'"); ?><br><br>
-
-      <p class="contact"><label for="username" id="usernamelbl">Choose your username</label></p>
-            <input type="text" name="username" id="username" value="<?php echo set_value('username') ?>" required="" tabindex="1"><span id="user"></span> 
+        <input type="text" name="date_of_birth" id="date_of_birth" value="<?php echo $value['date_of_birth'] ?>" class="form-control">
 
       <p class="contact"><label for="password" id="passwordlbl">Create a password</label></p>
         <input type="password" name="password" id="password" required="" tabindex="1">
 
-      <p class="contact"><label for="confirm_password" id="confirm_passwordlbl">Create a password</label></p>
+      <p class="contact"><label for="confirm_password" id="confirm_passwordlbl">Confirm Password</label></p>
         <input type="password" name="confirm_password" id="confirm_password" required="" tabindex="1" onkeyup="checkPasswordMatch()">
       
       <div id="divCheckPasswordMatch" style="color: rgb(255, 0, 0); font: normal 10px/12px Arial,Helvetica,sans-serif; opacity: 50;"></div>
@@ -153,10 +159,10 @@
 <!-- Verifies the inputted student_number if it exist in the database -->
 <script type="text/javascript">
   $(document).ready(function(){
-    $("#faculty_id").keyup(function() {
+    $("#faculty_id").focusout(function() {
       var faculty_id = $('#faculty_id').val();
         if(faculty_id == "") {
-            $('#first_name, #middle_name, #last_name, #account_type, #year, #college, #course, #gender, #address, #contact_number, #email_address, #username, #password, #confirm_password').attr("disabled",true).css({ "background": "#F0F0F0" });
+            //$('#first_name, #middle_name, #last_name, #account_type, #year, #college, #course, #gender, #address, #contact_number, #email_address, #username, #password, #confirm_password').attr("disabled",true).css({ "background": "#F0F0F0" });
             $('submitbtn').attr("disabled",true);
         } else {
             $.ajax({
@@ -164,42 +170,20 @@
               url: "<?php echo base_url(); ?>admin/check_id_number",
               data: "faculty_id=" + faculty_id,
               success: function(result) {
-                  if($.trim(result) == 'Invalid') {
-                    $('#faculty_id').css('border-color','#FF0000')
-                    $('#first_name, #middle_name, #last_name, #account_type, #year, #college, #course, #gender, #address, #contact_number, #email_address, #username, #password, #confirm_password').attr("disabled",true).css({ "background": "#F0F0F0" });
-                     $('#submitbtn').attr("disabled",true);
-                  } else {
-                    $('#faculty_id').css('border-color','#00CC00')
-                    $('#first_name, #middle_name, #last_name, #account_type, #year, #college, #course, #gender, #address, #contact_number, #email_address, #username, #password, #confirm_password, #submitbtn').removeAttr("disabled").css({ "background": "" });
-                  }
+                if($.trim(result) == 'Invalid') {
+                  $('#faculty_id').css('border-color','#00CC00');
+                  $('#faculty').html(" Faculty ID exist.").css("color", "green");
+                  $('#account_type, #username, #password, #confirm_password, #submitbtn').removeAttr("disabled").css({ "background": "" });
+                } else {
+                  $('#faculty_id').css('border-color','#FF0000');
+                  $('#faculty').html(" Faculty ID doesn't exist.").css("color", "red");
+                  $('#account_type, #username, #password, #confirm_password').attr("disabled",true).css({ "background": "#F0F0F0" });
+                  $('#submitbtn').attr("disabled",true);
+                }
               }
             });
             return false;
           }
-    });
-  });
-</script>
-
-<!-- Verifies if the faculty id inputted is already registered or not -->
-<script type="text/javascript">
-  $(document).ready(function(){
-    $("#faculty_id").keyup(function(){
-      var faculty_id = $('#faculty_id').val();
-      $.ajax({
-        type: "POST",
-        url: "<?php echo base_url(); ?>admin/verify_faculty_id",
-        data: "faculty_id=" + faculty_id,
-        success:function(faculty_id){
-          if($.trim(faculty_id) == 'Valid') {
-            $('#faculty_id').css('border-color','#FF0000')
-            $('#first_name, #middle_name, #last_name, #account_type, #year, #college, #course, #gender, #address, #contact_number, #email_address, #username, #password, #confirm_password').removeAttr("disabled").css({ "background": "" });
-          } else {
-            $('#faculty_id').css('border-color','#00CC00')
-            $('#first_name, #middle_name, #last_name, #account_type, #year, #college, #course, #gender, #address, #contact_number, #email_address, #username, #password, #confirm_password, #submitbtn').attr("disabled",true).css({ "background": "#F0F0F0" });
-            $('#submitbtn').attr("disabled",true);
-          }
-        }
-      });
     });
   });
 </script>
@@ -215,10 +199,12 @@
         data: "username=" + username,
         success:function(username){
           if($.trim(username) == "Valid") {
-            $('#username').css('border-color','#00FF00');
+            $('#username').css('border-color','green');
+            $('#user').html(" Username available.").css("color", "green");
             $('#password, #confirm_password, #submitbtn').removeAttr("disabled").css({ "background": "" });
           } else {
-            $('#username').css('border-color','#FF0000');
+            $('#username').css('border-color','red');
+            $('#user').html(" Username already taken.").css("color", "red");
             $('#password, #confirm_password').attr("disabled",true).css({ "background": "#F0F0F0" });
             $('submitbtn').attr("disabled",true);
           }
@@ -269,7 +255,7 @@
 
 <script type="text/javascript">
   $(document).ready(function() {
-    $('#first_name, #middle_name, #last_name, #account_type, #year, #college, #course, #gender, #address, #contact_number, #email_address, #parent_email, #username, #password, #confirm_password').attr("disabled",true).css({ "background": "#F0F0F0" });
+    $('#first_name, #middle_name, #last_name, #date_of_birth, #year, #college, #course, #gender, #address, #contact_number, #email_address, #parent_email, #username, #password, #confirm_password').attr("disabled",true).css({ "background": "#F0F0F0" });
     $('#submitbtn').attr("disabled",true);
   });
 </script>

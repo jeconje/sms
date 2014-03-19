@@ -4,8 +4,7 @@
 
 	class Admin extends CI_Controller 
 	{
-		public function __construct() 
-		{
+		public function __construct()  {
 			error_reporting(0);
 			parent::__construct();
 		}
@@ -14,61 +13,47 @@
 			$data['logged_in'] = $this->session->userdata('logged_in');
 			if($data['logged_in'] == TRUE){
 				$this->profile();
-			}
-			else
+			} else
 				$this->load->view('pages/signin');
 		} 
 
 		//View Admin Information
-		public function profile() 
-		{
-	    	$data['info'] = $this->session->userdata('logged_in'); 	 
-	    	if($data['info'] == TRUE){   	
-		    	$data['account_id'] = $data['info']['account_id'];	    	
-				$data['account_type'] = $data['info']['account_type'];
-				$data['first_name'] = $data['info']['first_name'];
-				$data['last_name'] = $data['info']['last_name'];
-				$data['middle_name'] = $data['info']['middle_name'];			
-				$data['gender'] = $data['info']['gender'];
-				$data['contact_number'] = $data['info']['contact_number'];
-				$data['date_of_birth'] = $data['info']['date_of_birth'];
-				$data['address'] = $data['info']['address'];		
+		public function profile() {
+    	$data['info'] = $this->session->userdata('logged_in'); 
+    	if($data['info'] == TRUE) {	
+    		$data['account_id'] = $data['info']['account_id'];
+    		$data['account_type'] = $data['info']['account_type'];
 
-				$data['admininfo'] = $this->admin_model->adminInfo($data);
-				$data['view'] = $this->admin_model->viewPhoto($data);
-				$data['image_path'] = $data['view']['image_path'];
-				$config['upload_path'] = "./images/others";
-				
-				$this->load->view('admin/home',$data);
-			}
-			else
-				$this->index();
-  		}
+			$data['admininfo'] = $this->admin_model->adminInfo($data);
+			$data['view'] = $this->admin_model->viewPhoto($data);
+			$data['image_path'] = $data['view']['image_path'];
+			$config['upload_path'] = "./images/others";
+			
+			$this->load->view('admin/home',$data);
+		}
+		else
+			$this->index();
+		}
+
+		public function checkFaculty() {
+			$data['faculty_id'] = $_POST['faculty_id'];
+			$data['details'] = $this->admin_model->checkFaculty($data);
+
+			$this->load->view('admin/add_account', $data);
+		}
 
   		//View Add an account (Teacher, Chairperson, Dean)
   		public function add_account()
   		{	
   			$data['info'] = $this->session->userdata('logged_in');
-  			if($data['info'] == TRUE){
-				$data['first_name'] = $data['info']['first_name'];
-				$data['last_name'] = $data['info']['last_name'];
-				$data['middle_name'] = $data['info']['middle_name'];	
+  			if($data['info'] == TRUE){	
 
 	  			$combinedate = $this->input->post('byear').'-'.$this->input->post('months').'-'.$this->input->post('days');
 	        	$date = date("Y-m-d", strtotime($combinedate));
 
 	  			if ($_POST) {
-					// field name, error message, validation rules
-					$this->form_validation->set_rules('last_name','Last Name','trim|required');
-					$this->form_validation->set_rules('first_name','First Name','trim|required');
-					$this->form_validation->set_rules('middle_name','Middle Name','trim|required');
-					$this->form_validation->set_rules('gender', 'Gender', 'required');
-					$this->form_validation->set_rules('address','Address','trim|required');
-					$this->form_validation->set_rules('contact_number','Contact Number','trim|required|numeric');
-					$this->form_validation->set_rules('email_address', 'Email Address', 'trim|required|valid_email');
-					$this->form_validation->set_rules('username','Username','trim|required|min_length[6]|is_unique[account.username]');
-					$this->form_validation->set_rules('password','Password','trim|required|min_length[6]');
-					$this->form_validation->set_rules('confirm_password','Confirm Password','trim|required|matches[password]');
+						$this->form_validation->set_rules('password','Password','trim|required|min_length[6]');
+						$this->form_validation->set_rules('confirm_password','Confirm Password','trim|required|matches[password]');
 					
 					if($this->form_validation->run()) {
 						$month = $this->input->post('months');
@@ -81,20 +66,13 @@
 					if($this->form_validation->run() == FALSE) {
 						$this->load->view('admin/add_account',$data);
 					} else {
-			  			$data['account_type'] = $this->input->post('account_type');
-			  			$data['first_name'] = $this->input->post('first_name');
-			  			$data['middle_name'] = $this->input->post('middle_name');
-			  			$data['last_name'] = $this->input->post('last_name');
-			  			$data['gender'] = $this->input->post('gender');	
-			  			$data['contact_number'] = $this->input->post('contact_number');	
-			  			$data['address'] = $this->input->post('address');
-			  			$data['date_of_birth'] = $date;
-			  			$data['email_address'] = $this->input->post('email_address');
-			  			$data['username'] = $this->input->post('username');
-			  			$data['password'] = $this->input->post('password');
+							$data['account_type'] = $this->input->post('account_type');
+							$data['account_id'] = $this->input->post('faculty_id');
+							$data['details'] = $this->sms_model->viewStudentDetails($data);
 	  			
-		  			$this->admin_model->addAccount($data);
-		  			redirect('admin/profile');
+			  			$this->admin_model->addAccount($data);
+
+		  				redirect('admin/profile');
 		  			}
 		  		} else 
 		  			$this->load->view('admin/add_account', $data);
@@ -107,10 +85,9 @@
     	public function check_id_number() {
     		$check_id_number = $this->input->post('faculty_id');
 
-			$check_id_numbers = $this->admin_model->check_id_numbers($check_id_number);
-			
+				$check_id_numbers = $this->admin_model->check_id_numbers($check_id_number);
 
-				if($check_id_numbers == 0 && strlen($check_id_numbers) < 10) { //Checks the inputted student number from database and checks the length
+				if($check_id_numbers == 1 && strlen($check_id_number) <= 10) { //Checks the inputted student number from database and checks the length
 					echo "Invalid";
 				} else {
 					echo "Valid";
@@ -119,7 +96,6 @@
 
     	public function verify_faculty_id() {
     		$faculty_id = $this->input->post('faculty_id');
-
     		$verify_faculty_id = $this->admin_model->verify_faculty_id($faculty_id);
 
     		if($verify_faculty_id == TRUE) { //Checks the inputted student number from database and checks the length
@@ -127,7 +103,6 @@
 			} else {
 				echo "Invalid";
 			}
-
     	}
 
     	//Checks the username if it already exist and length must be 6 and above

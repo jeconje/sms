@@ -34,6 +34,8 @@
 				$data['department_id'] = $data['info']['department_id'];
 
 				$data['faculty_id'] = $data['info']['faculty_id'];
+				$data['classes'] = $this->dean_model->viewClasses($data);
+				$data['students_load'] = $this->dean_model->studentsStudyLoad();
 				$data['deaninfo'] = $this->dean_model->deanInfo($data);
 
 				//Get college
@@ -265,53 +267,251 @@
 	      }
 
 	  	//SEATPLAN VIEW
-		public function classroom()
+		public function classroom($id)
 		{
-			$data['deanInfo'] = $this->session->userdata('logged_in');
-			if($data['deanInfo'] == TRUE){
-				$data['first_name'] = $data['deanInfo']['first_name'];
-				$data['last_name'] = $data['deanInfo']['last_name'];
+			$data['info'] = $this->session->userdata('logged_in');
+			if($data['info'] == TRUE){
+				$data['id_code'] = $id;
+				$data['first_name'] = $data['info']['first_name'];
+				$data['last_name'] = $data['info']['last_name'];
+				$data['viewAttendance'] = $this->dean_model->viewAttendance($data);				
+				$data['logins'] = $this->dean_model->viewCampusLogin($data);
+				$data['violation'] = $this->dean_model->viewViolation($data);	
+				$data['suspension'] = $this->dean_model->viewSuspension($data);
 
-				$this->load->view('seatplan/classroom',$data);	
+				
+				for ($i=1; $i <41 ; $i++) { 
+					$data['a'.$i] = $this->input->post('attendance'.$i);		
+				}
+
+				for ($i=1; $i <41 ; $i++) { 
+				$data['student_number'.$i] = $this->input->post('student_number'.$i);	
+				}						
+							
+				if(isset($_POST['submit']))
+				{								
+					$this->dean_model->insertAttendance($data);
+					header('Location:http://localhost/sms/dean/classroom/'.$data['id_code']);							
+				}
+
+				$data['viewStudents'] = $this->dean_model->viewStudents($data);
+				$this->load->view('seatplan_dean/classroom',$data);	
 			} else
 				$this->index();
 		}
 
-		public function laboratory()
+		public function assign_classroom($id)
 		{
-			$data['deanInfo'] = $this->session->userdata('logged_in');
-			if($data['deanInfo'] == TRUE){
-				$data['first_name'] = $data['deanInfo']['first_name'];
-				$data['last_name'] = $data['deanInfo']['last_name'];
+			
+			$data['info'] = $this->session->userdata('logged_in');
+			if($data['info'] == TRUE){
+				$data['id_code'] = $id;
+				$data['first_name'] = $data['info']['first_name'];
+				$data['last_name'] = $data['info']['last_name'];
+				$data['viewStudents'] = $this->dean_model->viewStudents($data);
+				$data['assigned_seats'] = $this->dean_model->viewAssignedStudents($data);
+				for ($i=1; $i < 41 ; $i++) { 
+				$data['a'.$i] = $this->input->post(''.$i);
+				}					
+				
 
-				$this->load->view('seatplan/laboratory',$data);	
+				if(isset($_POST['submit'])){			
+					$this->dean_model->updateSeat($data);
+					header('Location:http://localhost/sms/dean/assign_classroom/'.$data['id_code']);
+				}
+				else					
+					$this->load->view('seatplan_dean/assign_classroom',$data);
 			} else
 				$this->index();
 		}
 
-		public function brd1()
+		public function laboratory($id)
 		{
-			$data['deanInfo'] = $this->session->userdata('logged_in');
-			if($data['deanInfo'] == TRUE){
-				$data['first_name'] = $data['deanInfo']['first_name'];
-				$data['last_name'] = $data['deanInfo']['last_name'];
+			
+			$data['info'] = $this->session->userdata('logged_in');
+			if($data['info'] == TRUE){
+				$data['id_code'] = $id;
+				$data['first_name'] = $data['info']['first_name'];
+				$data['last_name'] = $data['info']['last_name'];
+				$data['viewAttendance'] = $this->dean_model->viewAttendance($data);				
+				$data['logins'] = $this->dean_model->viewCampusLogin($data);
+				$data['violation'] = $this->dean_model->viewViolation($data);		
+				$data['suspension'] = $this->dean_model->viewSuspension($data);
 
-				$this->load->view('seatplan/brd1',$data);	
+
+				for ($i=1; $i <49 ; $i++) { 
+					$data['a'.$i] = $this->input->post('attendance'.$i);		
+				}
+
+				for ($i=1; $i <49 ; $i++) { 
+				$data['student_number'.$i] = $this->input->post('student_number'.$i);	
+				}						
+							
+				if(isset($_POST['submit']))
+				{								
+					$this->dean_model->insertAttendance($data);
+					header('Location:http://localhost/sms/dean/laboratory/'.$data['id_code']);							
+				}
+
+				$data['viewStudents'] = $this->dean_model->viewStudents($data);
+				$this->load->view('seatplan_dean/laboratory',$data);		
 			} else 
-				$this->index();
+				$this->index();		
+				
 		}
 
-		public function brd2()
+		public function assign_laboratory($id)
 		{
-			$data['deanInfo'] = $this->session->userdata('logged_in');
-			if($data['deanInfo'] == TRUE){
-				$data['first_name'] = $data['deanInfo']['first_name'];
-				$data['last_name'] = $data['deanInfo']['last_name'];
+			
+			$data['info'] = $this->session->userdata('logged_in');
+			if($data['info'] == TRUE){
 
-				$this->load->view('seatplan/brd2',$data);	
+				$data['id_code'] = $id;
+				$data['first_name'] = $data['info']['first_name'];
+				$data['last_name'] = $data['info']['last_name'];				
+				$data['viewStudents'] = $this->dean_model->viewStudents($data);
+				$data['assigned_seats'] = $this->dean_model->viewAssignedStudents($data);		
+				
+				for ($i=1; $i < 41 ; $i++) { 
+					$data['a'.$i] = $this->input->post($i);
+				}					
+				
+				if(isset($_POST['submit'])) {		
+
+					if(!in_array($data['a'.$i], $data['assigned_seats'])) {
+						$this->dean_model->updateSeat($data);
+						header('Location:http://localhost/sms/dean/assign_laboratory/'.$data['id_code']);
+						
+					} else {
+						echo "Not allowed.";
+					}
+					
+				}
+				else {
+					$this->load->view('seatplan_dean/assign_laboratory',$data);
+				}
+					
+			} else {
+				$this->index();
+			}
+				
+		}
+
+		public function brd1($id)
+		{
+
+			
+			$data['info'] = $this->session->userdata('logged_in');
+			if($data['info'] == TRUE){
+
+				$data['id_code'] = $id;
+				$data['first_name'] = $data['info']['first_name'];
+				$data['last_name'] = $data['info']['last_name'];
+				$data['viewStudents'] = $this->dean_model->viewStudents($data);
+				$data['viewAttendance'] = $this->dean_model->viewAttendance($data);				
+			
+				for ($i=1; $i < 49 ; $i++) { 
+					$data['a'.$i] = $this->input->post('attendance'.$i);		
+				}
+				for ($i=1; $i < 49 ; $i++) { 
+				$data['student_number'.$i] = $this->input->post('student_number'.$i);	
+				}								
+											
+				if(isset($_POST['submit']))
+				{								
+					$this->dean_model->insertAttendance($data);		
+					header('Location:http://localhost/sms/dean/brd2/'.$data['id_code']);					
+				}				
+				$this->load->view('seatplan_dean/brd2',$data);		
+			} else 
+				$this->index();	
+	    }	
+
+		public function assign_brd1($id)
+		{
+			
+			$data['info'] = $this->session->userdata('logged_in');
+			if($data['info'] == TRUE){
+				$data['id_code'] = $id;
+				$data['first_name'] = $data['info']['first_name'];
+				$data['last_name'] = $data['info']['last_name'];
+				$data['viewStudents'] = $this->dean_model->viewStudents($data);
+				$data['assigned_seats'] = $this->dean_model->viewAssignedStudents($data);
+				
+				for ($i=1; $i < 49 ; $i++) { 
+				$data['a'.$i] = $this->input->post($i);
+				}	
+				
+				if(isset($_POST['submit'])){			
+				$this->dean_model->updateSeat($data);				
+				header('Location:http://localhost/sms/dean/assign_brd1/'.$data['id_code']);
+				} 
+				else				
+				$this->load->view('seatplan_dean/assign_brd1',$data);
+
+			} else
+				$this->index();
+			
+		}
+
+		public function brd2($id)
+		{
+
+			
+			$data['info'] = $this->session->userdata('logged_in');
+			if($data['info'] == TRUE){
+
+				$data['id_code'] = $id;
+				$data['first_name'] = $data['info']['first_name'];
+				$data['last_name'] = $data['info']['last_name'];
+				$data['viewStudents'] = $this->dean_model->viewStudents($data);
+				$data['viewAttendance'] = $this->dean_model->viewAttendance($data);		
+				$data['suspension'] = $this->dean_model->viewSuspension($data);		
+			
+				for ($i=1; $i < 32 ; $i++) { 
+					$data['a'.$i] = $this->input->post('attendance'.$i);		
+				}
+				for ($i=1; $i < 32 ; $i++) { 
+				$data['student_number'.$i] = $this->input->post('student_number'.$i);	
+				}								
+											
+				if(isset($_POST['submit']))
+				{								
+					$this->dean_model->insertAttendance($data);		
+					header('Location:http://localhost/sms/dean/brd2/'.$data['id_code']);					
+				}				
+				$this->load->view('seatplan_dean/brd2',$data);		
+			} else 
+				$this->index();	
+	    }	
+
+		public function assign_brd2($id)
+		{
+			
+			$data['info'] = $this->session->userdata('logged_in');
+			if($data['info'] == TRUE){
+				$data['id_code'] = $id;
+				$data['first_name'] = $data['info']['first_name'];
+				$data['last_name'] = $data['info']['last_name'];			
+				$data['viewStudents'] = $this->dean_model->viewStudents($data);
+				$data['assigned_seats'] = $this->dean_model->viewAssignedStudents($data);
+
+
+				for ($i=1; $i < 41 ; $i++) { 
+				$data['a'.$i] = $this->input->post(''.$i);
+				}					
+				
+				if(isset($_POST['submit'])){			
+				$this->dean_model->updateSeat($data);
+				header('Location:http://localhost/sms/dean/assign_brd2/'.$data['id_code']);
+				}
+				else
+
+				$this->load->view('seatplan_dean/assign_brd2',$data);
 			} else
 				$this->index();
 		}
+
 
 
 		//Show Calendar

@@ -16,6 +16,7 @@
   <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <!-- Header -->
   <?php $home = 'sms/profile'; ?>
+  <?php foreach($studentinfo as $value) { } ?>
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">    
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -31,7 +32,7 @@
     <div class="collapse navbar-collapse navbar-ex1-collapse">
       <ul class="nav navbar-nav side-nav">
         <li class="active"><a href="<?php echo base_url(); ?>sms/profile"><i class="icon32 icon-color icon-home"></i> Dashboard</a></li>
-        <li><a href="<?php echo base_url(); ?>sms/viewgrades"><i class="icon32 icon-color icon-document"></i> Grades</a></li>
+        <li><a href="<?php echo base_url(); ?>sms/viewGrades"><i class="icon32 icon-color icon-document"></i> Grades</a></li>
         <li><a href="<?php echo base_url(); ?>sms/viewstudyload"><i class="icon32 icon-color icon-compose"></i> Study Load</a></li>
         <li><a href="<?php echo base_url(); ?>sms/viewlasent"><i class="icon32 icon-red icon-clock"></i> Lates and Absences</a></li>
         <li><a href="<?php echo base_url(); ?>sms/viewParents"><i class="icon32 icon-color icon-users"></i> Trackers</a></li>
@@ -43,15 +44,12 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="noti-box"><div id="noti"></div><i class="icon icon-color icon-messages"></i> Notification <b class="icon icon-color icon-triangle-s"></b></a>
           <ul class="dropdown-menu">
             <li class="dropdown-header"><div id="notification"></div></li>
-            <li class="divider"></li>
-            <li><a href="<?php echo base_url(); ?>sms/message">View Inbox <span class="icon icon-color icon-envelope-closed"></span></a></li>
           </ul>
         </li><!-- /.dropdown messages-dropdown -->
 
         <li class="dropdown user-dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon icon-color icon-gear"></i> <?php echo $info['first_name'].' '.$info['last_name']; ?> <b class="icon icon-color icon-triangle-s"></b></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon icon-color icon-gear"></i> <?php echo $value['first_name'].' '.$value['last_name']; ?> <b class="icon icon-color icon-triangle-s"></b></a>
           <ul class="dropdown-menu">
-            <li><a href="<?php echo base_url(); ?>sms/viewprofile"><i class="icon icon-color icon-user"></i> Edit Profile</a></li>
             <li><a href="<?php echo base_url(); ?>sms/view_changepassword"><i class="icon icon-color icon-key"></i> Change Password</a></li>
             <li class="divider"></li>
             <li><a href="<?php echo base_url(); ?>sms/logout"><i class="icon icon-color icon-cancel"></i> Logout</a></li>
@@ -92,15 +90,15 @@
   <div class="col-lg-3">
           <div class="panel panel-warning" style="width:312px; height:200px;">
       <div class="panel-heading">
-          <?php echo "<b>Student Number: </b>".$student_number; ?><br>
-          <?php echo "<b>Name: </b>".$first_name." ".$middle_name." ".$last_name; ?><br>
-          <?php echo "<b>College: </b>" .$college; ?><br>
-          <?php echo "<b>Course & Year: </b>".$course." - ".$year; ?><br>
-          <?php echo "<b>Address: </b>".$address; ?><br>
-          <?php echo "<b>Email Address: </b>".$email_address; ?><br>
-          <?php echo "<b>Contact Number: </b>".$contact_number; ?><br>
-          <?php echo "<b>Gender: </b>".$gender; ?><br>
-          <?php echo "<b>Date of Birth: </b>".$date_of_birth; ?><br>
+          <?php echo "<b>Student Number: </b>".$value['student_number']; ?><br>
+          <?php echo "<b>Name: </b>".$value['first_name']." ".$value['middle_name']." ".$value['last_name']; ?><br>
+          <?php echo "<b>College: </b>" .$value['college']; ?><br>
+          <?php echo "<b>Course & Year: </b>".$value['course']." - ".$value['year']; ?><br>
+          <?php echo "<b>Address: </b>".$value['address']; ?><br>
+          <?php echo "<b>Email Address: </b>".$value['email_address']; ?><br>
+          <?php echo "<b>Contact Number: </b>".$value['contact_number']; ?><br>
+          <?php echo "<b>Gender: </b>".$value['gender']; ?><br>
+          <?php echo "<b>Date of Birth: </b>".$value['date_of_birth']; ?><br>
           <?php echo "<b>Your referral key: </b>".$referral_key; ?>
       </div><!-- /.panel-heading -->
     </div><!-- /.panel panel-warning -->
@@ -138,7 +136,9 @@
             <tr>
               <th>Subject ID </th>
               <th>Subject Description</th>
-              <th>Time</th>
+              <th>Start Time</th>
+              <th>End Time</th>
+              <th>Teacher</th>
             </tr>
           </thead>
           <tbody>
@@ -146,7 +146,9 @@
             <tr>
               <td><?php echo $value['offer_code']; ?></td>
               <td><?php echo $value['subject_description']; ?></td>
-              <td><?php echo $value['time']; ?></td>
+              <td><?php echo $value['start_time']; ?></td>
+              <td><?php echo $value['end_time']; ?></td>
+              <td><?php echo $value['first_name']. " " .$value['last_name'] ; ?></td>
             </tr>       
             <?php }?>
           </tbody>
@@ -209,11 +211,10 @@ $(document).ready(function() {
       id_update[num] = val.notification_id;
       num++;
       num3++;
-      $("#noti").fadeOut(); 
-      $("#noti").fadeIn(); 
-      $("#noti").html(num3);
+      $("#noti").hide(); 
+      $("#noti").show(); 
+      $("#noti").html("!");
     });  
-
     
     num2=num;
     num=num2;
