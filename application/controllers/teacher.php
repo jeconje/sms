@@ -327,7 +327,7 @@
 				$data['last_name'] = $data['info']['last_name'];
 				$data['viewStudents'] = $this->teacher_model->viewStudents($data);
 				$data['assigned_seats'] = $this->teacher_model->viewAssignedStudents($data);
-				for ($i=1; $i < 41 ; $i++) { 
+				for ($i=1; $i <49 ; $i++) { 
 				$data['a'.$i] = $this->input->post(''.$i);
 				}					
 				
