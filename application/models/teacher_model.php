@@ -15,8 +15,7 @@
            return $result;
         }
         //View Teacher's Info
-        public function teacherInfo($data)
-        {
+        public function teacherInfo($data) {
           $this-> db -> select();
           $this-> db -> from('faculty');
           $this-> db -> where('faculty_id', $data['account_id']);

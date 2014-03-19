@@ -24,18 +24,21 @@
 			$data['date'] = date('Y-m-d');
 			$data['time'] = date('h:i A');
 
-    	$data['account_id'] = $data['info']['faculty_id'];	    	
+    	$data['account_id'] = $data['info']['account_id'];	 
 			$data['account_type'] = $data['info']['account_type'];
-			$data['first_name'] = $data['info']['first_name'];
-			$data['last_name'] = $data['info']['last_name'];
-			$data['middle_name'] = $data['info']['middle_name'];			
-			$data['gender'] = $data['info']['gender'];
-			$data['contact_number'] = $data['info']['contact_number'];
-			$data['date_of_birth'] = $data['info']['date_of_birth'];
-			$data['address'] = $data['info']['address'];
-			$data['email_address'] = $data['info']['email_address'];
 
-			$data['faculty_id'] = $data['info']['faculty_id'];
+			$data['teacherInfo'] = $this->teacher_model->teacherInfo($data);
+			
+			$data['first_name'] = $data['teacherInfo']['first_name'];
+			$data['middle_name'] = $data['teacherInfo']['middle_name'];
+			$data['last_name'] = $data['teacherInfo']['last_name'];
+			$data['middle_name'] = $data['teacherInfo']['middle_name'];
+			$data['gender'] = $data['teacherInfo']['gender'];
+			$data['contact_number'] = $data['teacherInfo']['contact_number'];
+			$data['address'] = $data['teacherInfo']['address'];
+			$data['date_of_birth'] = $data['teacherInfo']['date_of_birth'];
+
+			$data['faculty_id'] = $data['teacherInfo']['faculty_id'];
 			$data['classes'] = $this->teacher_model->viewClasses($data);
 			$data['students_load'] = $this->teacher_model->studentsStudyLoad();
 

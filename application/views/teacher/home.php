@@ -163,52 +163,47 @@
                     <td><?php echo $value['room']; ?></td>  
                     <td><?php echo $count; ?></td>
 
-                  <?php if($value['room'] == 'BCL 1' || $value['room'] == 'BCL 2' || $value['room'] == 'BCL 3' || $value['room'] == 'BCL 4' || $value['room'] == 'BCL 5' || $value['room'] == 'BCL 6' || $value['room'] == 'BCL 7' || $value['room'] == 'BCL 8' || $value['room'] == 'BCL 9') 
-                        {
-                            $room = "laboratory";
-                            $check = "assign_laboratory";
-                        }
-                        else if($value['room'] == 'BRD 1')
-                        { 
-                            $room = "brd1";
-                            $check = "assign_brd1";
+<?php if($value['room'] == 'BCL 1' || $value['room'] == 'BCL 2' || $value['room'] == 'BCL 3' || $value['room'] == 'BCL 4' || $value['room'] == 'BCL 5' || $value['room'] == 'BCL 6' || $value['room'] == 'BCL 7' || $value['room'] == 'BCL 8' || $value['room'] == 'BCL 9') 
+  {
+      $room = "laboratory";
+      $check = "assign_laboratory";
+  }
+  else if($value['room'] == 'BRD 1')
+  { 
+      $room = "brd1";
+      $check = "assign_brd1";
 
-                        }
-                        else if ($value['room'] == 'BRD 2')
-                        {
-                            $room = "brd2";
-                            $check = "assign_brd2";
-                        }
-                        else
-                        {
-                            $room = "classroom";
-                            $check = "assign_classroom";
-                        }
-                        
-                    ?>
+  }
+  else if ($value['room'] == 'BRD 2')
+  {
+      $room = "brd2";
+      $check = "assign_brd2";
+  }
+  else
+  {
+      $room = "classroom";
+      $check = "assign_classroom";
+  }
+?>
                     
-                    <td><a href='http://localhost/sms/teacher/<?php echo $check ?>/<?php echo $value['offer_code']; ?>'><input class="btn btn-primary" type="submit" value="Assign Seats"/></a></td>                                
-                    
-                    <td><a href='http://localhost/sms/teacher/<?php echo $room ?>/<?php echo $value['offer_code']; ?>'>
-                      <input  
-                          <?php foreach($suspendClass as $suspend){ 
-                            if($noClass != "")
-                           {
-                              echo "disabled";
-                           }  
-                           else if($suspend['start_time'] >= $value['start_time'] && $suspend['end_time'] <= $value['end_time']) {
-                                    echo "disabled";
-                              }  
-                          if ( strtotime(date('h:i A')) >= strtotime($value['start_time']) && strtotime(date('h:i A')) <= strtotime($value['end_time']))   {                                                         
-                            
-                           } 
-                                                                                                   
-                           else 
-                           echo "disabled";?>
-                       class="btn btn-primary" type="submit" value="Check Attendance"
-                          <?php } ?>
+<td><a href='<?php echo base_url(); ?>teacher/<?php echo $check ?>/<?php echo $value['offer_code']; ?>'><input class="btn btn-primary" type="submit" value="Assign Seats"/></a></td>
+<td><a href='<?php echo base_url(); ?>teacher/<?php echo $room ?>/<?php echo $value['offer_code']; ?>'>
+<input  
+    <?php foreach($suspendClass as $suspend){ 
+      if($noClass != "") {
+        echo "disabled";
+     }  
+     else if($suspend['start_time'] >= $value['start_time'] && $suspend['end_time'] <= $value['end_time']) {
+        echo "disabled";
+      }  
+    if ( strtotime(date('h:i A')) >= strtotime($value['start_time']) && strtotime(date('h:i A')) <= strtotime($value['end_time']))   {                                                         
+      
+     } else 
+     echo "disabled";?>
+ class="btn btn-primary" type="submit" value="Check Attendance"
+    <?php } ?>
 
-                       /></a></td>                                        
+/></a></td>                                        
 
                             
                   </tr>
