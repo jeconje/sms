@@ -2,8 +2,7 @@
 	class Dean_model extends CI_Model 
   {
         //Redirect Login
-        public function loginDean($username, $password)
-        {
+        public function loginDean($username, $password) {
            $this -> db -> select(); 
            $this -> db -> from('account');              
            $this -> db -> where('account_id', $username);
@@ -11,12 +10,12 @@
 
            $query = $this -> db -> get();
            $result = $query -> first_row('array');
+
            return $result;
         }
         
         //View dean's Info
-        public function deanInfo($data)
-        {
+        public function deanInfo($data) {
           $this-> db -> select();
           $this-> db -> from('faculty');
           $this-> db -> where('faculty_id',$data['account_id']);
@@ -26,22 +25,22 @@
           return $result;
         }
 
+        
         //Get specfic college
-        public function get_college($data) 
-        {
+        public function get_college($data) {
           $this-> db -> select();
           $this-> db -> from('college');
           $this-> db -> join('faculty', 'college.college_id = faculty.college_id');
           $this-> db -> where('faculty.college_id', $data['college_id']);
+
           $query = $this -> db -> get();
-          $result = $query -> result_array();
+          $result = $query -> first_row('array');
 
           return $result;
         }
         
             //Upload
-        public function upload($data)
-        {    
+        public function upload($data) {    
             $this->db->where('account_id',$data['account_id']);
             $path = array( 'image_path' => $data['file_path'].$data['file_name']);
 
@@ -49,8 +48,7 @@
         } 
 
         //View photo in profile
-        public function viewPhoto($data)
-        {
+        public function viewPhoto($data) {
           $this->db->select();
           $this->db->from('account');
           $this->db->where('account_id',$data['account_id']);
@@ -62,8 +60,7 @@
         }
 
         //View Study Load
-        public function viewStudyLoad($data)
-        {
+        public function viewStudyLoad($data)  {
             $this->db->select();
             $this->db->from('teacher_load');
             //$this->db->join('faculty','faculty.faculty. = study_load.student_number');
@@ -98,13 +95,13 @@
             return $result;
         }
 
-        public function viewClasses($data)
-        {
+        public function viewClasses($data) {
             $this->db->select();
             $this->db->from('offering');          
             $this->db->join('faculty','offering.faculty_id = faculty.faculty_id');
             $this->db->join('subject','offering.offer_code = subject.offer_code');            
-            $this->db->where('offering.faculty_id',$data['faculty_id']);                        
+            $this->db->where('offering.faculty_id',$data['faculty_id']);    
+                                
             $query = $this->db->get();
             $result = $query -> result_array();
 

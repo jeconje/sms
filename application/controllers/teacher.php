@@ -22,19 +22,19 @@
 	    	$data['info'] = $this->session->userdata('logged_in'); 
 	    	if($data['info'] == TRUE){
 		    	$data['account_id'] = $data['info']['faculty_id'];	    	
-				$data['account_type'] = $data['info']['account_type'];
-				$data['first_name'] = $data['info']['first_name'];
-				$data['last_name'] = $data['info']['last_name'];
-				$data['middle_name'] = $data['info']['middle_name'];			
-				$data['gender'] = $data['info']['gender'];
-				$data['contact_number'] = $data['info']['contact_number'];
-				$data['date_of_birth'] = $data['info']['date_of_birth'];
-				$data['address'] = $data['info']['address'];
-				$data['email_address'] = $data['info']['email_address'];
+					$data['account_type'] = $data['info']['account_type'];
+					$data['first_name'] = $data['info']['first_name'];
+					$data['last_name'] = $data['info']['last_name'];
+					$data['middle_name'] = $data['info']['middle_name'];			
+					$data['gender'] = $data['info']['gender'];
+					$data['contact_number'] = $data['info']['contact_number'];
+					$data['date_of_birth'] = $data['info']['date_of_birth'];
+					$data['address'] = $data['info']['address'];
+					$data['email_address'] = $data['info']['email_address'];
 
-				$data['faculty_id'] = $data['info']['faculty_id'];
-				$data['classes'] = $this->teacher_model->viewClasses($data);
-				$data['students_load'] = $this->teacher_model->studentsStudyLoad();
+					$data['faculty_id'] = $data['info']['faculty_id'];
+					$data['classes'] = $this->teacher_model->viewClasses($data);
+					$data['students_load'] = $this->teacher_model->studentsStudyLoad();
 
 				//$data['offer_code'] = $this->db->get('offer_code');
 
