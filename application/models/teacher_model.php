@@ -143,17 +143,17 @@
             return $result;
         }*/
 
-        public function viewClasses($data)
-        {
-            $this->db->select();
-            $this->db->from('offering');          
-            $this->db->join('faculty','offering.faculty_id = faculty.faculty_id');
-            $this->db->join('subject','offering.offer_code = subject.offer_code');            
-            $this->db->where('offering.faculty_id',$data['faculty_id']);                        
-            $query = $this->db->get();
-            $result = $query -> result_array();
+        public function viewClasses($data) {
+          $this->db->select();
+          $this->db->from('offering');          
+          $this->db->join('faculty','offering.faculty_id = faculty.faculty_id');
+          $this->db->join('subject','offering.offer_code = subject.offer_code');            
+          $this->db->where('offering.faculty_id',$data['faculty_id']);
 
-            return $result;
+          $query = $this->db->get();
+          $result = $query -> result_array();
+
+          return $result;
         }
         
          public function viewCandidates($data)
@@ -204,8 +204,7 @@
     }
 
     //Get offer codes based on subjects
-    public function get_offer_code($data) 
-    {
+    public function get_offer_code($data)  {
       $this->db->select();
       $this->db->from('subjects');
       $this->db->where(array('subject_code' => $data['subject']));
@@ -214,8 +213,7 @@
       $subject = $query->result_array();
 
       $id = array(0=>0);
-      foreach ($subject as $value) 
-      {
+      foreach ($subject as $value) {
         $id[$value['subject_code']] = $value['subject_code'];
       }
   

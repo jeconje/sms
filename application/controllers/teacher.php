@@ -81,7 +81,6 @@
 			$data['offer_code'] = $this->input->post('offer_code');
 			$data['subjects'] = $this->teacher_model->get_subject($data);
 
-
 			$offer_codes = $this->teacher_model->get_offer_code($data);
 				foreach ($offer_codes as $offer_code) {
 					$value[$i]['id'] = $offer_code->offer_code_id;
