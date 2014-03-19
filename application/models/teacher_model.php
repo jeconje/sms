@@ -1,6 +1,6 @@
 <?php
 
-	class Teacher_model extends CI_Model 
+  class Teacher_model extends CI_Model 
   {
         //Redirect Login
         public function loginTeacher($username, $password)

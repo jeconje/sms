@@ -128,6 +128,15 @@
 
 
 		//View Attendance Logs
+
+		public function updateStatus(){
+			$data['student_number'] = $this->uri->segment(4);
+			$this->teacher_model->updateAttendance($data);	
+			
+
+			// $this->load->view('teacher/logs');
+		}
+
 		public function logs($id)
 		{
 			$data['info'] = $this->session->userdata('logged_in');
@@ -137,23 +146,18 @@
 				$data['first_name'] = $data['info']['first_name'];
 				$data['last_name'] = $data['info']['last_name'];				
 				$data['viewLogs'] = $this->teacher_model->viewLogs($data);
-				$data['attendance_id'] = $_GET['id'];
-				$data['subject'] = $this->input->post('subject')			;
+				
+				$data['subject'] = $this->input->post('subject');
 				$data['classes'] = $this->teacher_model->viewClasses($data);
 
-
-				/*if(isset($_POST['submit']))
-				{
-					$data['viewLogs'] = $this->teacher_model->viewSearchedLogs($data);
-					print_r($data['viewLogs']);
-				}*/
-				//$this->teacher_model->updateAttendance($data);	
 				
-
-
+				$data['viewLogs'] = $this->teacher_model->viewSearchedLogs($data);
+				
+			
+				
 				$this->load->view('teacher/logs',$data);
-			} else
-				$this->index();
+			} //else
+				// $this->index();
 		}
 
 		public function message()
