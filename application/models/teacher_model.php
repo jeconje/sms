@@ -39,7 +39,7 @@
           $result = $query -> result_array();
 
           return $result;
-        }
+        }        
 
           //Upload
           public function upload($data)
@@ -124,24 +124,6 @@
           $result = $query->result_array();
           return $result;
         }
-
-      //END CALENDAR
-
-/*         public function viewSDPC($data)
-        {
-            $this->db->select();
-            $this->db->from('offering');          
-            $this->db->join('study_load','study_load.offer_code = offering.offer_code');
-            $this->db->join('studentsStudyLoad','students.student_number = study_load.student_number');
-            $this->db->join('faculty','offering.faculty_id = faculty.faculty_id');
-            $this->db->join('subject','offering.offer_code = subject.offer_code');            
-            $this->db->where('offering.faculty_id',$data['faculty_id']);   
-                  
-            $query = $this->db->get();
-            $result = $query -> result_array();
-
-            return $result;
-        }*/
 
         public function viewClasses($data)
         {
@@ -388,6 +370,27 @@
             $result = $query -> result_array();
 
             return $result;
+        }
+
+        public function noClass($data)
+        {
+            $this->db->select();
+            $this->db->from('calendar');
+            $this->db->where('date',$data['date']);
+            $query = $this->db->get();
+            $result = $query -> result_array();
+
+            return $result;
+        }
+
+        public function suspendClass()
+        {
+            $this->db->select();
+            $this->db->from('calendar');                      
+            $query = $this->db->get();
+            $result = $query -> result_array();
+
+            return $result; 
         }
   }
 ?>
