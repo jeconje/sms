@@ -43,7 +43,7 @@
 			$data['students_load'] = $this->teacher_model->studentsStudyLoad();
 
 			//Get college
-			$data['college_id'] = $data['info']['college_id'];
+			$data['college_id'] = $data['teacherInfo']['college_id'];
 			$data['collegeinfo'] = $this->teacher_model->get_college($data);
 			$data['teacherinfo'] = $this->teacher_model->teacherInfo($data);	
 			//$this->load->view('teacher/home',$data);
