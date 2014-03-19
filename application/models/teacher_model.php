@@ -3,14 +3,12 @@
   class Teacher_model extends CI_Model 
   {
         //Redirect Login
-        public function loginTeacher($username, $password)
-        {
-           
+        public function loginTeacher($username, $password) {
            $this -> db -> select(); 
            $this -> db -> from('account');              
-           $this -> db -> join ('faculty','account.account_id = faculty.faculty_id');
-           $this -> db -> where('account.account_id', $username);
+           $this -> db -> where('account_id', $username);
            $this -> db -> where('password', sha1($password));
+           
            $query = $this -> db -> get();
            $result = $query -> first_row('array');
 

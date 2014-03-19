@@ -52,19 +52,15 @@ class VerifyLogin extends CI_Controller
         //Field validation succeeded. Validate against database
         $username = $this->input->post('username');        
         $teacher = $this->teacher_model->loginTeacher($username, $password);
-        //query the database
-        /*$student = $this->sms_model->loginStudent($username, $password);        
+        $student = $this->sms_model->loginStudent($username, $password);        
         $parent = $this->parent_model->loginParent($username, $password); 
-        
-
         $chairperson = $this->chairperson_model->loginChairperson($username, $password);
         $dean = $this->dean_model->loginDean($username, $password);
-
-        $chairperson = $this->chairperson_model->loginChairperson($username, $password);*/
+        $chairperson = $this->chairperson_model->loginChairperson($username, $password);
         $dean = $this->dean_model->loginDean($username, $password);        
-       /* $sao = $this->sao_model->loginSao($username, $password); 
+        $sao = $this->sao_model->loginSao($username, $password); 
         $sdpc = $this->sdpc_model->loginSdpc($username, $password);
-        $admin = $this->admin_model->loginAdmin($username, $password);     */
+        $admin = $this->admin_model->loginAdmin($username, $password);     
         
         if($student)
         {
@@ -78,14 +74,14 @@ class VerifyLogin extends CI_Controller
         {
             $this->session->set_userdata('logged_in', $teacher);
         }
-        // else if($chairperson)
-        // {
-        //     $this->session->set_userdata('logged_in', $chairperson);
-        // }
-        // else if($dean)
-        // {
-        //     $this->session->set_userdata('logged_in', $dean);
-        // }
+        else if($chairperson)
+        {
+            $this->session->set_userdata('logged_in', $chairperson);
+        }
+        else if($dean)
+        {
+            $this->session->set_userdata('logged_in', $dean);
+        }
         else if($sao)
         {
             $this->session->set_userdata('logged_in', $sao);

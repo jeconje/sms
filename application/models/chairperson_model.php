@@ -7,9 +7,8 @@
         {
            $this -> db -> select(); 
            $this -> db -> from('account');              
-           $this -> db -> join ('faculty','account.account_id = faculty.account_id');
-           $this -> db -> where('username', $username);
-           $this -> db -> where('password', $password);
+           $this -> db -> where('account_id', $username);
+           $this -> db -> where('password', sha1($password));
            $query = $this -> db -> get();
            $result = $query -> first_row('array');
 
