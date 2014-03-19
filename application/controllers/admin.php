@@ -96,7 +96,7 @@
 
 				$check_id_numbers = $this->admin_model->check_id_numbers($check_id_number);
 
-				if($check_id_numbers == 0 && strlen($check_id_number) > 10) { //Checks the inputted student number from database and checks the length
+				if($check_id_numbers == 0 && strlen($check_id_number) >= 10) { //Checks the inputted student number from database and checks the length
 					echo "Valid";
 				} else {
 					echo "Invalid";

@@ -22,6 +22,17 @@
       $query = $this->db->get();
       return $query->result_array();
     }
+
+    public function viewName($data)
+    {
+      $this->db->select();
+      $this->db->from('account');
+      $this->db->join('students', 'account.account_id = students.student_number');
+      $this->db->where('account_id', $data['account_id']);
+
+      $query = $this->db->get();
+      return $query->result_array();
+    }
     
 		// Inserts student data to students table in database
 		public function add_student($data) {
@@ -94,7 +105,7 @@
       $this->db->from('campus_login');
       $this->db->join('students', 'students.student_number = campus_login.student_number');      
       $this->db->where('campus_login.student_number',$data['account_id']);
-      $this->db->order_by('date','desc');
+      $this->db->order_by('log_id', desc);
 
       $query = $this->db->get();
       $result = $query->result_array();
@@ -141,7 +152,7 @@
     public function viewTrackers($data) {
       $this->db->select();
       $this->db->from('tracker');
-      $this->db->join('account','account.account_id = tracker.account_id');
+      $this->db->join('account','account.account_id = tracker.tracker_id');
       $this->db->where('tracker.account_id', $data['account_id']);
 
       $query = $this->db->get();

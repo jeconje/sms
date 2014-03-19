@@ -304,10 +304,12 @@
 		public function view_changepassword() {
 			$data['student_info'] = $this->session->userdata('logged_in');
 			if($data['student_info'] == TRUE) {	
-				$data['username'] = $data['student_info']['username'];
+				//print_r($data['student_info']);
+				$data['username'] = $data['student_info']['account_id'];
 				$data['first_name'] = $data['student_info']['first_name'];
 				$data['last_name'] = $data['student_info']['last_name'];
 
+				$data['view']= $this->sms_model->viewName($data);
 				$this->form_validation->set_rules('password','Password','required|trim|callback_change');
 				$this->form_validation->set_rules('new_password','New Password','required|trim|min_length[6]');
 				$this->form_validation->set_rules('cnew_password','Confirm Password','required|trim|matches[new_password]');
@@ -322,7 +324,7 @@
 		public function change() {
 			$data['student_info'] = $this->session->userdata('logged_in');
 			if($data['student_info'] == TRUE) {	
-				$data['username'] = $data['student_info']['username'];
+				$data['username'] = $data['student_info']['account_id'];
 				$data['first_name'] = $data['student_info']['first_name'];
 				$data['last_name'] = $data['student_info']['last_name'];
 				$data['password'] = $data['student_info']['password'];
