@@ -21,7 +21,7 @@
 		{			
 	    	$data['info'] = $this->session->userdata('logged_in'); 
 	    	if($data['info'] == TRUE){
-		    	$data['account_id'] = $data['info']['account_id'];	    	
+		    	$data['account_id'] = $data['info']['faculty_id'];	    	
 				$data['account_type'] = $data['info']['account_type'];
 				$data['first_name'] = $data['info']['first_name'];
 				$data['last_name'] = $data['info']['last_name'];
@@ -70,7 +70,6 @@
 				$this->index();
   		}
 
-  		//Get course with specified college
 		public function get_offer_codes()
 		{
 			$data['info'] = $this->session->userdata('logged_in');
@@ -81,8 +80,8 @@
 			$data['subject'] = $this->input->post('subject');
 			$data['offer_code'] = $this->input->post('offer_code');
 			$data['subjects'] = $this->teacher_model->get_subject($data);
-			
-			$i = 0;
+
+
 			$offer_codes = $this->teacher_model->get_offer_code($data);
 				foreach ($offer_codes as $offer_code) {
 					$value[$i]['id'] = $offer_code->offer_code_id;
@@ -92,18 +91,19 @@
 				echo json_encode($value);
 		}
 
+
 		public function view_candidates() 
 		{
 			$data['info'] = $this->session->userdata('logged_in');
-			if($data['info'] == TRUE){
+			if($data['info'] == TRUE) {
 				$data['faculty_id'] = $data['info']['faculty_id'];
 				$data['first_name'] = $data['info']['first_name'];
 				$data['last_name'] = $data['info']['last_name'];
 
-				$data['offer_code'] = $this->input->post('offer_code');
 				$data['subjects'] = $this->teacher_model->get_subject($data);
-				
-				$data['viewSubjects'] = $this->teacher_model->viewSDPC($data);
+				$data['offer_code'] = $this->input->post('offer_code');
+
+				$data['viewSubjects'] = $this->teacher_model->viewClasses($data);
 				$data['viewCandidates'] = $this->teacher_model->viewCandidates($data);
 
 				$this->load->view('teacher/viewsdpc',$data);
@@ -119,14 +119,15 @@
 				$data['faculty_id'] = $data['info']['faculty_id'];
 				$data['first_name'] = $data['info']['first_name'];
 				$data['last_name'] = $data['info']['last_name'];
-				$data['viewDistinctLogs'] = $this->teacher_model->viewDistinctLogs($data);
+				$data['viewDistinctLogs'] = $this->teacher_model->viewDistinctLogs($data);				
 				
 				$this->load->view('teacher/attendance',$data);
 			} else
 				$this->index();
 		}
 
-		//View Logs
+
+		//View Attendance Logs
 		public function logs($id)
 		{
 			$data['info'] = $this->session->userdata('logged_in');
@@ -137,10 +138,17 @@
 				$data['last_name'] = $data['info']['last_name'];				
 				$data['viewLogs'] = $this->teacher_model->viewLogs($data);
 				$data['attendance_id'] = $_GET['id'];
+				$data['subject'] = $this->input->post('subject')			;
+				$data['classes'] = $this->teacher_model->viewClasses($data);
+
+
+				/*if(isset($_POST['submit']))
+				{
+					$data['viewLogs'] = $this->teacher_model->viewSearchedLogs($data);
+					print_r($data['viewLogs']);
+				}*/
+				//$this->teacher_model->updateAttendance($data);	
 				
-				//if(isset($_POST['submit'])){
-				$this->teacher_model->updateAttendance($data);	
-				//header('Location:http://localhost/sms/teacher/logs/'.$data['date'].$data['attendance_id']);			
 
 
 				$this->load->view('teacher/logs',$data);
@@ -157,36 +165,6 @@
 
 				$this->load->view('teacher/message',$data);
 			} else
-				$this->index();
-		}
-
-		public function edit_profile() 
-		{
-			$data['teacher_info'] = $this->session->userdata('logged_in');
-			if($data['teacher_info'] == TRUE){
-				$data['first_name'] = $data['teacher_info']['first_name'];
-				$data['last_name'] = $data['teacher_info']['last_name'];
-
-				$data['username'] = $data['teacher_info']['username'];
-				$data['info'] = $this->teacher_model->editProfile($data);
-
-				//Get college
-				$data['college_id'] = $data['info']['college_id'];
-				$data['collegeinfo'] = $this->teacher_model->get_college($data);
-				
-				$this->load->view('teacher/edit_profile',$data);
-
-				if(isset($_POST['submit'])) 
-				{
-					$newURL = "http://localhost/sms/teacher/edit_profile";
-					header('Location: '.$newURL);		
-					$data['username'] = $data['teacher_info']['username'];
-					$data['address'] = $this->input->post('address');
-					$data['contact_number'] = $this->input->post('contact_number');
-					
-					 $this->teacher_model->edit_profile($data);
-				}
-			} else 
 				$this->index();
 		}
 		
@@ -308,6 +286,7 @@
 				$data['viewAttendance'] = $this->teacher_model->viewAttendance($data);				
 				$data['logins'] = $this->teacher_model->viewCampusLogin($data);
 				$data['violation'] = $this->teacher_model->viewViolation($data);	
+				$data['suspension'] = $this->teacher_model->viewSuspension($data);
 
 				
 				for ($i=1; $i <41 ; $i++) { 
@@ -366,6 +345,11 @@
 				$data['viewAttendance'] = $this->teacher_model->viewAttendance($data);				
 				$data['logins'] = $this->teacher_model->viewCampusLogin($data);
 				$data['violation'] = $this->teacher_model->viewViolation($data);		
+				$data['suspension'] = $this->teacher_model->viewSuspension($data);
+
+				date_default_timezone_set('Asia/Manila');
+				$date = date('Y-m-d');
+				$this->teacher_model->updateStatus();
 
 
 				for ($i=1; $i <49 ; $i++) { 
@@ -400,6 +384,7 @@
 				$data['last_name'] = $data['info']['last_name'];				
 				$data['viewStudents'] = $this->teacher_model->viewStudents($data);
 				$data['assigned_seats'] = $this->teacher_model->viewAssignedStudents($data);		
+				
 				
 				for ($i=1; $i < 41 ; $i++) { 
 					$data['a'.$i] = $this->input->post($i);
@@ -494,7 +479,8 @@
 				$data['first_name'] = $data['info']['first_name'];
 				$data['last_name'] = $data['info']['last_name'];
 				$data['viewStudents'] = $this->teacher_model->viewStudents($data);
-				$data['viewAttendance'] = $this->teacher_model->viewAttendance($data);				
+				$data['viewAttendance'] = $this->teacher_model->viewAttendance($data);		
+				$data['suspension'] = $this->teacher_model->viewSuspension($data);		
 			
 				for ($i=1; $i < 32 ; $i++) { 
 					$data['a'.$i] = $this->input->post('attendance'.$i);		
@@ -614,6 +600,7 @@
 		    session_destroy();
 		    $this->index();
 	  	  }	  	
+	  
 
 
 }

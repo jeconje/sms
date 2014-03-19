@@ -25,7 +25,7 @@ class VerifyLogin extends CI_Controller
         {   
                 $data['info'] = $this->session->userdata('logged_in');                    
                 
-                if($data['info']['account_type'] == 'parent')
+                if($data['info']['account_type'] == 'tracker')
                     redirect('parents/profile', 'refresh');
                 else if($data['info']['account_type'] == 'teacher')
                     redirect('teacher/profile', 'refresh');
@@ -53,14 +53,14 @@ class VerifyLogin extends CI_Controller
         $username = $this->input->post('username');
     
         //query the database
-        $student = $this->sms_model->loginStudent($username, $password);        
-        $parent = $this->parent_model->loginParent($username, $password); 
+        /*$student = $this->sms_model->loginStudent($username, $password);        
+        $parent = $this->parent_model->loginParent($username, $password); */
         $teacher = $this->teacher_model->loginTeacher($username, $password);
-        $chairperson = $this->chairperson_model->loginChairperson($username, $password);
+      /*  $chairperson = $this->chairperson_model->loginChairperson($username, $password);
         $dean = $this->dean_model->loginDean($username, $password);
         $sao = $this->sao_model->loginSao($username, $password); 
         $sdpc = $this->sdpc_model->loginSdpc($username, $password);
-        $admin = $this->admin_model->loginAdmin($username, $password);       
+        $admin = $this->admin_model->loginAdmin($username, $password);  */     
         
         if($student)
         {

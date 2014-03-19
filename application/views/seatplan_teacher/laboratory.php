@@ -10,16 +10,16 @@
     <?php $home = 'teacher/profile'; ?>
     <?php include ('/application/views/templates/nav.php'); ?>
     <style type="text/css">
-    	.auto-style1 
+      .auto-style1 
       {
-    		font-size: x-small;
-    	}
-    	.auto-style2 
+        font-size: x-small;
+      }
+      .auto-style2 
       {
-    		font-size: x-small;
-    		text-align: left;
-    	}
-    	.platform
+        font-size: x-small;
+        text-align: left;
+      }
+      .platform
       {
         background-color: #CC9966;
         height: 20px;
@@ -29,15 +29,15 @@
       }
       .auto-style3 
       {
-    		border-style: none;
-    		border-color: inherit;
-    		border-width: 0px;
-    		background-color: #CC9966;
-    		height: 20px;
-    		width: 700px;
-    		border-radius: 2px;
-    		text-align: center;
-  	 }
+        border-style: none;
+        border-color: inherit;
+        border-width: 0px;
+        background-color: #CC9966;
+        height: 20px;
+        width: 700px;
+        border-radius: 2px;
+        text-align: center;
+     }
 
     </style>
   </head>
@@ -153,12 +153,12 @@
        ?>
       <input type = "hidden" name = "student_number1" value = "<?php echo $value['student_number'];  ?>" />
       <input name="1" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">      
-		  <p align="right">1</p> 
+      <p align="right">1</p> 
      <div class="auto-style1" style="width: 49px; height: 10px">Lates: <?php echo $late; ?></div>
      <div class="auto-style1" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
-		 <div class="bs-example" align="right">
+     <div class="bs-example" align="right">
               <input checked="true" name="attendance1" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
-			         <input name="attendance1" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+               <input name="attendance1" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
               <input name="attendance1" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
       </div>             
       <?php if($status == "In campus with violation" && $violate_number == $value['student_number']){ ?>
