@@ -48,30 +48,7 @@
             <li class="dropdown messages-dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon icon-color icon-messages"></i> Notification <b class="icon icon-color icon-triangle-s"></b></a>
               <ul class="dropdown-menu">
-                <li class="dropdown-header">8 New Messages</li>
-                <li class="message-preview">
-                  <a href="#">
-                    <span class="name">John Smith:</span>
-                    <span class="message">Hey there, I wanted to ask you something... ASA NI DAPITA</span>
-                    <span class="time"><i class="fa fa-clock-o"></i> 4:34 PM</span>
-                  </a>
-                </li>
-                <li class="divider"></li>
-                <li class="message-preview">
-                  <a href="#">
-                    <span class="name">John Smith:</span>
-                    <span class="message">Hey there, I wanted to ask you something...</span>
-                    <span class="time"><i class="fa fa-clock-o"></i> 4:34 PM</span>
-                  </a>
-                </li>
-                <li class="divider"></li>
-                <li class="message-preview">
-                  <a href="#">
-                    <span class="name">John Smith:</span>
-                    <span class="message">Hey there, I wanted to ask you something...</span>
-                    <span class="time"><i class="fa fa-clock-o"></i> 4:34 PM</span>
-                  </a>
-                </li>
+
                 <li class="divider"></li>
             <li><a href="<?php echo base_url(); ?>dean/message">View Inbox <span class="icon icon-color icon-envelope-closed"></span></a></li>
               </ul>
@@ -92,16 +69,62 @@
 <center>
   <?php echo form_open('dean/calendar_dean'); ?>
   <table>
-    <tr>
-      <td><input name ="date" type="text" id="datepicker" placeholder="Pick Date" class="form-control"></td>
+    <tr align="center">
+      <td><br><select id="options">
+        <option name="suspension" class="form-control" value="suspension">Suspend Classes</option>
+        <option name="no_class" class="form-control" value="no_class">No Class</option>
+        <option name="others" class="form-control" value="others">Others</option>
+      </select></td>
     </tr>
+<br>
     <tr>
-      <td><textarea id="event" name="event" placeholder="Enter Event" class="form-control" value="" resizable="false"></textarea></td>
+      <td><input name ="date" type="text" id="datepicker" placeholder="Pick Date" class="form-control"><br></td>
+    </tr>
+
+    <tr>
+      <td align="center">
+      <?php
+            $start = '08:00AM';
+            $end = '8:59PM';
+            $interval = '+1 hour';
+
+            $start_str = strtotime($start);
+            $end_str = strtotime($end);
+            $now_str = $start_str;
+
+            echo '<select name="start_time" id="start_time">';
+            while($now_str <= $end_str)
+            {
+                echo '<option value="' . date('h:i A', $now_str) . '">' . date('h:i A', $now_str) . '</option>';
+                $now_str = strtotime($interval, $now_str);
+            }
+            echo '</select>'; ?>
+      <?php
+            $start = '08:00AM';
+            $end = '8:59PM';
+            $interval = '+1 hour';
+
+            $start_str = strtotime($start);
+            $end_str = strtotime($end);
+            $now_str = $start_str;
+
+            echo '<select name="end_time" name="end_time">';
+            while($now_str <= $end_str){
+                echo '<option value="' . date('h:i A', $now_str) . '">' . date('h:i A', $now_str) . '</option>';
+                $now_str = strtotime($interval, $now_str);
+            }
+            echo '</select>'; ?>
+      </td>
+    </tr>
+    <br>
+    <tr>
+      <td><br><textarea id="event" name="event" placeholder="Enter Event" class="form-control" value="" resizable="false"></textarea></td>
     </tr>
   </table>
     <br>
     <button type="submit" id="add" name="add" class="btn btn-default">Add Event</button>
-    <a href='<?php echo base_url(); ?>dean/edit_calendar'><button type="button" class="btn btn-primary">Edit Calendar</button></a>
+    <button type="submit" id="suspend" class="btn btn-warning">Update Event</button>
+    <a href='<?php echo base_url(); ?>dean/edit_calendar'><button type="button" id="edit" class="btn btn-primary">Edit Calendar</button></a>
     <!---<button type="submit" id="delete" name="delete" class="btn btn-default">Delete Event</button>-->
 </div>
       <?php echo $viewCalendar;?>
@@ -115,6 +138,28 @@ $('#dp5').datepicker()
       ....
     }
   });
+</script>
+
+<script type="text/javascript">
+    $('#datepicker').hide();
+    $('#start_time').hide();
+    $('#end_time').hide();
+    $('#suspend').hide();
+    $('#add').hide();
+    $('#edit').hide();
+    $('#event').hide();
+
+    $('#options').on('change', function () {
+      if('#options' == 'suspension') {
+        $('#datepicker').show();
+        $('#start_time').show();
+        $('#end_time').show();
+        $('#suspend').show();
+        $('#add').hide();
+        $('#edit').hide();
+        $('#event').hide();
+      }
+    });
 </script>
 
 </body>
