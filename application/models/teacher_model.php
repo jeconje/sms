@@ -10,7 +10,7 @@
            $this -> db -> from('account');              
            $this -> db -> join ('faculty','account.account_id = faculty.faculty_id');
            $this -> db -> where('account.account_id', $username);
-           $this -> db -> where('password', $password);
+           $this -> db -> where('password', sha1($password));
            $query = $this -> db -> get();
            $result = $query -> first_row('array');
 
@@ -122,6 +122,24 @@
           return $result;
         }
 
+      //END CALENDAR
+
+/*         public function viewSDPC($data)
+        {
+            $this->db->select();
+            $this->db->from('offering');          
+            $this->db->join('study_load','study_load.offer_code = offering.offer_code');
+            $this->db->join('studentsStudyLoad','students.student_number = study_load.student_number');
+            $this->db->join('faculty','offering.faculty_id = faculty.faculty_id');
+            $this->db->join('subject','offering.offer_code = subject.offer_code');            
+            $this->db->where('offering.faculty_id',$data['faculty_id']);   
+                  
+            $query = $this->db->get();
+            $result = $query -> result_array();
+
+            return $result;
+        }*/
+
         public function viewClasses($data)
         {
             $this->db->select();
@@ -134,11 +152,9 @@
 
             return $result;
         }
-             
         
          public function viewCandidates($data)
         {
-
           $this->db->select();
           $this->db->from('attendance');
           $this->db->join('students', 'students.student_number = attendance.student_number');
@@ -317,10 +333,16 @@
         public function updateAttendance($data)
         {
           $update = array (
+<<<<<<< HEAD
                             'status' => 'X'
                            );
           
           $this->db->where('student_number',$data['student_number']);
+=======
+                        'status' => 'X'
+                    );
+          $this->db->where('attendance_id',$data['attendance_id']);
+>>>>>>> dc70a8a0d195489c4ef7eacaf8e783eb95f82dc3
           $this->db->update('attendance',$update);
 
         }

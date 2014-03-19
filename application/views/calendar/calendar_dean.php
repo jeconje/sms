@@ -13,11 +13,13 @@
     <script src="//code.jquery.com/jquery-1.9.1.js"></script>
     <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
     <link rel="stylesheet" href="/resources/demos/style.css">
+    
     <script>
     $(function() {
-                   $("#datepicker").datepicker({ minDate: 0, dateFormat: 'yy-mm-dd'});
-                 });
+       $("#datepicker").datepicker({ minDate: 0, dateFormat: 'yy-mm-dd'});
+     });
     </script> 
+
   </head>
 
 <body>
@@ -48,9 +50,6 @@
             <li class="dropdown messages-dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon icon-color icon-messages"></i> Notification <b class="icon icon-color icon-triangle-s"></b></a>
               <ul class="dropdown-menu">
-
-                <li class="divider"></li>
-            <li><a href="<?php echo base_url(); ?>dean/message">View Inbox <span class="icon icon-color icon-envelope-closed"></span></a></li>
               </ul>
             </li>
             
@@ -70,7 +69,8 @@
   <?php echo form_open('dean/calendar_dean'); ?>
   <table>
     <tr align="center">
-      <td><br><select id="options">
+      <td><br><select id="options" name="options">
+        <option value="">- please select -</option>
         <option name="suspension" class="form-control" value="suspension">Suspend Classes</option>
         <option name="no_class" class="form-control" value="no_class">No Class</option>
         <option name="others" class="form-control" value="others">Others</option>
@@ -78,7 +78,7 @@
     </tr>
 <br>
     <tr>
-      <td><input name ="date" type="text" id="datepicker" placeholder="Pick Date" class="form-control"><br></td>
+      <td><br><input name ="date" type="text" id="datepicker" placeholder="Pick Date" class="form-control"><br></td>
     </tr>
 
     <tr>
@@ -108,7 +108,7 @@
             $end_str = strtotime($end);
             $now_str = $start_str;
 
-            echo '<select name="end_time" name="end_time">';
+            echo '<select name="end_time" id="end_time">';
             while($now_str <= $end_str){
                 echo '<option value="' . date('h:i A', $now_str) . '">' . date('h:i A', $now_str) . '</option>';
                 $now_str = strtotime($interval, $now_str);
@@ -122,8 +122,8 @@
     </tr>
   </table>
     <br>
-    <button type="submit" id="add" name="add" class="btn btn-default">Add Event</button>
-    <button type="submit" id="suspend" class="btn btn-warning">Update Event</button>
+    <button type="submit" id="add" name="add" class="btn btn-primary">Add Event</button>
+    <button type="submit" id="suspend" class="btn btn-danger">Suspend</button>
     <a href='<?php echo base_url(); ?>dean/edit_calendar'><button type="button" id="edit" class="btn btn-primary">Edit Calendar</button></a>
     <!---<button type="submit" id="delete" name="delete" class="btn btn-default">Delete Event</button>-->
 </div>
@@ -141,23 +141,41 @@ $('#dp5').datepicker()
 </script>
 
 <script type="text/javascript">
-    $('#datepicker').hide();
-    $('#start_time').hide();
-    $('#end_time').hide();
-    $('#suspend').hide();
-    $('#add').hide();
-    $('#edit').hide();
-    $('#event').hide();
+    $('#datepicker').fadeOut();
+    $('#start_time').fadeOut();
+    $('#end_time').fadeOut();
+    $('#suspend').fadeOut();
+    $('#add').fadeOut();
+    $('#edit').fadeOut();
+    $('#event').fadeOut();
 
-    $('#options').on('change', function () {
-      if('#options' == 'suspension') {
-        $('#datepicker').show();
-        $('#start_time').show();
-        $('#end_time').show();
-        $('#suspend').show();
-        $('#add').hide();
-        $('#edit').hide();
-        $('#event').hide();
+   $('#options').change(function (){
+     var options = $('#options').val();
+     
+      if(options == 'suspension') {
+        $('#datepicker').fadeIn();
+        $('#start_time').fadeIn();
+        $('#end_time').fadeIn();
+        $('#suspend').fadeIn();
+        $('#add').fadeOut();
+        $('#edit').fadeOut();
+        $('#event').fadeOut();
+      } else if(options == 'no_class') {
+        $('#datepicker').fadeIn();
+        $('#event').fadeIn();
+        $('#start_time').fadeOut();
+        $('#end_time').fadeOut();
+        $('#suspend').fadeOut();
+        $('#add').fadeIn();
+        $('#edit').fadeOut();
+      } else {
+        $('#datepicker').fadeIn();
+        $('#start_time').fadeIn();
+        $('#end_time').fadeIn();
+        $('#suspend').fadeOut();
+        $('#add').fadeIn();
+        $('#edit').fadeOut();
+        $('#event').fadeIn();
       }
     });
 </script>

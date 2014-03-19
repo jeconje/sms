@@ -9,14 +9,6 @@
     <?php include ('/application/views/templates/nav.php'); ?>   
   </head>
 
-<style>
-.upload
-{
-  width: 10px;
-  height: 180px;
-}
-</style>
-
 <body>
     <div id="wrapper">
       <!-- Sidebar -->
@@ -88,20 +80,17 @@
                 </div>
             </div>        
           </div>
-          <?php foreach($collegeinfo as $college) { 
-
-          } ?>
           
           <div class="col-lg-3">
            <div class="panel panel-warning" style="width:312px; height:200px;">
+            
                <div class="panel-heading" style="width:310px; height:200px;">
-                 <?php if($college['college_id'] == $college_id) { ?>
                 <?php echo "<b>Faculty ID: </b>".$faculty_id; ?><br>
                 <?php echo "<b>Name: </b>".$first_name." ".$middle_name." ".$last_name; ?><br>
-                <?php echo "<b>Department: </b>" .$college['college_desc']; ?><br>
+                <?php echo "<b>Department: </b>" .$college_desc; ?><br>
                 <?php echo "<b>Address: </b>".$address; ?><br>
                 <?php echo "<b>Contact Number: </b>".$contact_number; ?><br>
-                <?php echo "<b>Date of Birth: </b>".$date_of_birth; }?>
+                <?php echo "<b>Date of Birth: </b>".$date_of_birth; ?>
               </div>
   
             </div>

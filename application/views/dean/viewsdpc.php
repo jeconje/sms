@@ -60,7 +60,7 @@
 
       <div id="page-wrapper">
         <center>
-          <?php echo form_open("teacher/view_candidates"); ?>
+          <?php echo form_open("dean/view_candidates"); ?>
           <table>
             <tr>
               <td></td><td></td><td></td>
@@ -158,7 +158,7 @@ $(document).ready(function(){
       if (subject != "") {
         $.ajax({
             type: "POST",
-            url: "<?php echo base_url(); ?>teacher/get_offer_codes",
+            url: "<?php echo base_url(); ?>dean/get_offer_codes",
             data: "subject=" + subject,
             dataType: "json",
             success: function (data) {
