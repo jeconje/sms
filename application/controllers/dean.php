@@ -47,8 +47,8 @@
 				$data['view'] = $this->dean_model->viewPhoto($data);
 				$data['image_path'] = $data['view']['image_path'];
 				$config['upload_path'] = "./images/faculty";
-     		$config['allowed_types'] = 'jpg|jpeg|png';
-      	$this->load->library('upload',$config);     		    
+     			$config['allowed_types'] = 'jpg|jpeg|png';
+      			$this->load->library('upload',$config);     		    
 
      		if(!$this->upload->do_upload()) {  
      			$data['error'] = $this->upload->display_errors();
@@ -600,7 +600,7 @@
 			    $y = intval($this->uri->segment(3));
 			    $m = intval($this->uri->segment(4));
     			$data['viewCalendar']= $this->calendar->generate($y,$m,$events_month[$m]);
-					
+		
 				$this->load->view('calendar/calendar_dean',$data);	
 
 			}

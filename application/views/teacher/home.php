@@ -10,6 +10,7 @@
   </head>
 
 <body>
+
     <div id="wrapper">
     <div id="wrapper">
       <?php $home = 'teacher/profile'; ?>
@@ -146,13 +147,13 @@
                    <?php                                  
                      date_default_timezone_set('Asia/Manila');                              
                      $date = date('Y-m-d');                       
-                    foreach($classes as $value) {
-                      $count = 0;
-                          foreach($students_load as $load)
-                          {
-                              if($load['offer_code'] == $value['offer_code'])                             
+             foreach($classes as $value) {                        
+                 $count = 0;
+                    foreach($students_load as $load)
+                         {
+                            if($load['offer_code'] == $value['offer_code'])                             
                                 $count++;
-                          };       
+                         };       
                     ?>
                   <tr>
                     <td><?php echo $value['offer_code']; ?></td>  
@@ -183,16 +184,33 @@
                             $room = "classroom";
                             $check = "assign_classroom";
                         }
+                        
                     ?>
                     
                     <td><a href='http://localhost/sms/teacher/<?php echo $check ?>/<?php echo $value['offer_code']; ?>'><input class="btn btn-primary" type="submit" value="Assign Seats"/></a></td>                                
                     
                     <td><a href='http://localhost/sms/teacher/<?php echo $room ?>/<?php echo $value['offer_code']; ?>'>
                       <input  
-                          <?php if ( strtotime(date('h:i A')) >= strtotime($value['start_time']) && strtotime(date('h:i A')) <= strtotime($value['end_time']))   {                                                         
-                           } else echo "disabled"; ?> 
-                       class="btn btn-primary" type="submit" value="Check Attendance"/></a></td>                    
-                    
+                          <?php foreach($suspendClass as $suspend){ 
+                            if($noClass != "")
+                           {
+                              echo "disabled";
+                           }  
+                           else if($suspend['start_time'] >= $value['start_time'] && $suspend['end_time'] <= $value['end_time']) {
+                                    echo "disabled";
+                              }  
+                          if ( strtotime(date('h:i A')) >= strtotime($value['start_time']) && strtotime(date('h:i A')) <= strtotime($value['end_time']))   {                                                         
+                            
+                           } 
+                                                                                                   
+                           else 
+                           echo "disabled";?>
+                       class="btn btn-primary" type="submit" value="Check Attendance"
+                          <?php } ?>
+
+                       /></a></td>                                        
+
+                            
                   </tr>
                   <?php } ?>
                     
