@@ -1,6 +1,6 @@
 <?php
 
-	class Teacher_model extends CI_Model 
+  class Teacher_model extends CI_Model 
   {
         //Redirect Login
         public function loginTeacher($username, $password)
@@ -62,6 +62,9 @@
 
             return $result;
           }
+
+    
+
 
         //Change password
         public function changepassword($data)
@@ -333,18 +336,10 @@
         public function updateAttendance($data)
         {
           $update = array (
-<<<<<<< HEAD
-                            'status' => 'X'
-                           );
-          
-          $this->db->where('student_number',$data['student_number']);
-=======
                         'status' => 'X'
                     );
           $this->db->where('attendance_id',$data['attendance_id']);
->>>>>>> dc70a8a0d195489c4ef7eacaf8e783eb95f82dc3
           $this->db->update('attendance',$update);
-
         }
 
         public function viewAssignedStudents($data)
