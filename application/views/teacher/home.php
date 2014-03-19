@@ -190,7 +190,7 @@
                     <td><a href='http://localhost/sms/teacher/<?php echo $room ?>/<?php echo $value['offer_code']; ?>'>
                       <input  
                           <?php if ( strtotime(date('h:i A')) >= strtotime($value['start_time']) && strtotime(date('h:i A')) <= strtotime($value['end_time']))   {                                                         
-                           } else echo ""; ?> 
+                           } else echo "disabled"; ?> 
                        class="btn btn-primary" type="submit" value="Check Attendance"/></a></td>                    
                     
                   </tr>
