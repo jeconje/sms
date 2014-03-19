@@ -64,7 +64,7 @@
     public function verify_faculty_id($faculty_id) {
       $this -> db -> select('faculty_id');
       $this -> db -> from('faculty');
-      $this -> db -> where('faculty_id, account_id ==', $faculty_id, NULL);
+      $this -> db -> where('faculty_id', $faculty_id, NULL);
       $query = $this -> db -> get();
 
       return $query;
