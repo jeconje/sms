@@ -15,30 +15,22 @@
     }
 
     public function addAccount($data) {
-      $combinedate = $this->input->post('byear').'-'.$this->input->post('months').'-'.$this->input->post('days');
-        $date = date("Y-m-d", strtotime($combinedate));
-
-        $data['account_info'] = array (                              
-                                      'account_type' => $data['account_type'],
-                                      'account_id' => $this->input->post('faculty_id'),
-                                      'password' => sha1(rand())
-                                      );
+      $data['account_info'] = array (                              
+                                    'account_type' => $this->input->post('account_type'),
+                                    'account_id' => $this->input->post('faculty_id'),
+                                    'password' => sha1($this->input->post('password'))
+                                    );
 
       $this->db->insert('account',$data['account_info']);
+  }
 
-      $data['facultyInfo'] = array (
-                                    'faculty_id' => $this->input->post('faculty_id'),
-                                    'first_name' => $this->input->post('first_name'),
-                                    'middle_name' => $this->input->post('middle_name'),
-                                    'last_name' => $this->input->post('last_name'),
-                                    'college_id' => '1',
-                                    'gender' => $this->input->post('gender'),
-                                    'contact_number' => $this->input->post('contact_number'),
-                                    'address' => $this->input->post('address'),
-                                    'date_of_birth' => $date
-                                  );
+  public function checkFaculty($data) {
+    $this->db->select();
+    $this->db->from('faculty');          
+    $this->db->where('faculty_id', $data['faculty_id']);
 
-      $this->db->insert('faculty', $data['facultyInfo']);
+    $query = $this->db->get();
+    return $query->result_array();
   }
 
 
@@ -112,8 +104,6 @@
       
       return $query;
     }
-
-    
 
     //Calendar
   public function showCalendar($year,$month)
