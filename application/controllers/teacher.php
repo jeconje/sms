@@ -21,7 +21,12 @@
 		{			
 	    	$data['info'] = $this->session->userdata('logged_in'); 
 	    	if($data['info'] == TRUE){
-		    	$data['account_id'] = $data['info']['faculty_id'];	    	
+
+	    			date_default_timezone_set('Asia/Manila');
+					$data['date'] = date('Y-m-d');
+					$data['time'] = date('h:i A');
+
+		    		$data['account_id'] = $data['info']['faculty_id'];	    	
 					$data['account_type'] = $data['info']['account_type'];
 					$data['first_name'] = $data['info']['first_name'];
 					$data['last_name'] = $data['info']['last_name'];
@@ -49,7 +54,11 @@
 				$data['image_path'] = $data['view']['image_path'];
 				$config['upload_path'] = "./images/faculty";
 	     		$config['allowed_types'] = 'jpg|jpeg|png';
-	      		$this->load->library('upload',$config);     		    
+	      		$this->load->library('upload',$config);    
+
+	      		$data['noClass'] = $this->teacher_model->noClass($data);		
+	      		$data['suspendClass'] = $this->teacher_model->suspendClass($data);
+	      		
 
 	     		if(!$this->upload->do_upload())
 	     		{  
@@ -80,7 +89,6 @@
 			$data['subject'] = $this->input->post('subject');
 			$data['offer_code'] = $this->input->post('offer_code');
 			$data['subjects'] = $this->teacher_model->get_subject($data);
-
 
 			$offer_codes = $this->teacher_model->get_offer_code($data);
 				foreach ($offer_codes as $offer_code) {
@@ -292,8 +300,7 @@
 				$data['violation'] = $this->teacher_model->viewViolation($data);	
 				$data['suspension'] = $this->teacher_model->viewSuspension($data);
 
-				date_default_timezone_set('Asia/Manila');
-				$date = date('Y-m-d');
+				
 				$this->teacher_model->updateStatus();
 
 				
@@ -607,9 +614,7 @@
 		    $this->session->unset_userdata('logged_in');
 		    session_destroy();
 		    $this->index();
-	  	  }	  	
-	  
-
+	  	  }	  		  	    
 
 }
 

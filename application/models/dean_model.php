@@ -6,7 +6,7 @@
            $this -> db -> select(); 
            $this -> db -> from('account');              
            $this -> db -> where('account_id', $username);
-           $this -> db -> where('password', $password);
+           $this -> db -> where('password', sha1($password));
 
            $query = $this -> db -> get();
            $result = $query -> first_row('array');
@@ -136,8 +136,7 @@
           return $result;
         }
     //Get subjects
-    public function get_subject($data) 
-    {
+    public function get_subject($data) {
       $this->db->select()->from('subjects');
       $this->db->order_by('subject_description');
       $this->db->join('offering', 'subjects.subject_code = offering.subject_code');

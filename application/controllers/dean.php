@@ -47,8 +47,8 @@
 				$data['view'] = $this->dean_model->viewPhoto($data);
 				$data['image_path'] = $data['view']['image_path'];
 				$config['upload_path'] = "./images/faculty";
-     		$config['allowed_types'] = 'jpg|jpeg|png';
-      	$this->load->library('upload',$config);     		    
+     			$config['allowed_types'] = 'jpg|jpeg|png';
+      			$this->load->library('upload',$config);     		    
 
      		if(!$this->upload->do_upload()) {  
      			$data['error'] = $this->upload->display_errors();
@@ -112,6 +112,30 @@
 			} else
 				$this->index();
 		}
+
+		//Get offer codes based on subjects
+    public function get_offer_code($data)  {
+      $this->db->select();
+      $this->db->from('subjects');
+      $this->db->where(array('subject_code' => $data['subject']));
+
+      $query = $this->db->get();
+      $subject = $query->result_array();
+
+      $id = array(0=>0);
+      foreach ($subject as $value) 
+      {
+        $id[$value['subject_code']] = $value['subject_code'];
+      }
+  
+      $this->db->select()->from('offering');
+      $this->db->where('faculty_id', $data['faculty_id']);
+      $this->db->where_in('subject_code',$id);
+
+      $query = $this->db->get();
+
+      return $query->result();
+    }
 
 		public function message()
 		{
@@ -576,7 +600,7 @@
 			    $y = intval($this->uri->segment(3));
 			    $m = intval($this->uri->segment(4));
     			$data['viewCalendar']= $this->calendar->generate($y,$m,$events_month[$m]);
-					
+		
 				$this->load->view('calendar/calendar_dean',$data);	
 
 			}
