@@ -13,6 +13,7 @@
     <div id="wrapper">
     <div id="wrapper">
       <?php $home = 'teacher/profile'; ?>
+      <?php foreach($teacherInfo as $value) { } ?>
       <!-- Sidebar -->
       <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -44,7 +45,7 @@
         </li><!-- /.dropdown messages-dropdown -->
             
             <li class="dropdown user-dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon icon-color icon-gear"></i> <?php echo $first_name.' '.$last_name ?> <b class="icon icon-color icon-triangle-s"></b></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon icon-color icon-gear"></i> <?php echo $value['first_name'].' '.$value['last_name']; ?> <b class="icon icon-color icon-triangle-s"></b></a>
               <ul class="dropdown-menu">
                 <li><a href="<?php echo base_url(); ?>teacher/edit_profile"><i class="icon icon-color icon-user"></i> Edit Profile</a></li>
                 <li><a href="<?php echo base_url(); ?>teacher/view_changepassword"><i class="icon icon-color icon-key"></i> Change Password</a></li>
@@ -90,7 +91,7 @@
            <div class="panel panel-warning" style="width:312px; height:200px;">
                  <div class="panel-heading" style="width:310px; height:200px;">
             <?php if($college['college_id'] == $college_id) { ?>
-                <?php echo "<b>Faculty ID: </b>".$faculty_id; ?><br>
+                <?php echo "<b>Faculty ID: </b>".$value['faculty_id']; ?><br>
                 <?php echo "<b>Name: </b>".$first_name." ".$middle_name." ".$last_name; ?><br>
                 <?php echo "<b>Department: </b>" .$college['college_desc']; ?><br>
                 <?php echo "<b>Address: </b>".$address; ?><br>

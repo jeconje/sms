@@ -21,7 +21,8 @@
 		{
 	    	$data['info'] = $this->session->userdata('logged_in');
 	    	if($data['info'] == TRUE){
-		    	$data['account_id'] = $data['info']['account_id'];	  
+		    	$data['account_id'] = $data['info']['account_id'];
+		    		  
 				$data['account_type'] = $data['info']['account_type'];
 				$data['first_name'] = $data['info']['first_name'];
 				$data['last_name'] = $data['info']['last_name'];
