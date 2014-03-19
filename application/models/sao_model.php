@@ -127,15 +127,15 @@
 		}
 
 		//Suspend Violator
-		public function suspend_violators() 
+		public function suspend_violators($data) 
 		{
 			date_default_timezone_set('Asia/Manila');
       		$date = date('Y-m-d');
 
 			$suspend = array(                          
-								'student_number' => $this->input->post('student_number'),
+								'student_number' => $data['student_number'],
 	                            'start_date' => $date,
-	                            'end_date' => $this->input->post('end_date'),
+	                            'end_date' => $data['end_date'],
 	                            'status' => "Suspended"
         					);
 
