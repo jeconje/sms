@@ -198,7 +198,7 @@
 		  			} else if($data['select_referral_key']) {			
 		  				$data['trackerInfo'] = $this->parent_model->trackerInfo($data);		
 							$this->parent_model->addChild($data);
-							redirect('parent','refresh'); 																		
+							redirect('parents/profile','refresh'); 																		
 		  			} else {
 		  				echo "";
 		  			}

@@ -100,7 +100,7 @@
       <?php echo form_open("admin/add_account"); ?> 
       
       <p class="contact"><label for="faculty_id" id="faculty_idlbl">Faculty ID</label></p>
-        <input type="text" name="faculty_id" id="faculty_id" class="form-control" placeholder="faculty id" value="<?php echo set_value('student_number') ?>" required="" tabindex="1">        
+        <input type="text" name="faculty_id" id="faculty_id" class="form-control" placeholder="faculty id" value="<?php echo set_value('student_number') ?>" required="" tabindex="1"><span id="faculty" style="color: rgb(255, 0, 0); font: normal 10px/12px Arial,Helvetica,sans-serif; opacity: 50;"></span>        
 
       <p class="contact"><label for="name" id="namelbl">Name</label></p>
         <input type="text" name="first_name" id="first_name" placeholder="First Name" value="<?php echo set_value('first_name'); ?>" required="" tabindex="1">        
@@ -133,7 +133,7 @@
         <?php echo form_dropdown('months',$data['months'],"id='month'"). " " . form_dropdown('days',$data['days'],"id='day'"). " " . form_dropdown('byear',$data['byear'],"id='byear'"); ?><br><br>
 
       <p class="contact"><label for="username" id="usernamelbl">Choose your username</label></p>
-            <input type="text" name="username" id="username" value="<?php echo set_value('username') ?>" required="" tabindex="1"><span id="user"></span> 
+        <input type="text" name="username" id="username" value="<?php echo set_value('username') ?>" required="" tabindex="1"><span id="user" style="color: rgb(255, 0, 0); font: normal 10px/12px Arial,Helvetica,sans-serif; opacity: 50;"></span>  
 
       <p class="contact"><label for="password" id="passwordlbl">Create a password</label></p>
         <input type="password" name="password" id="password" required="" tabindex="1">
@@ -164,14 +164,17 @@
               url: "<?php echo base_url(); ?>admin/check_id_number",
               data: "faculty_id=" + faculty_id,
               success: function(result) {
-                  if($.trim(result) == 'Invalid') {
-                    $('#faculty_id').css('border-color','#FF0000')
-                    $('#first_name, #middle_name, #last_name, #account_type, #year, #college, #course, #gender, #address, #contact_number, #email_address, #username, #password, #confirm_password').attr("disabled",true).css({ "background": "#F0F0F0" });
-                     $('#submitbtn').attr("disabled",true);
-                  } else {
-                    $('#faculty_id').css('border-color','#00CC00')
-                    $('#first_name, #middle_name, #last_name, #account_type, #year, #college, #course, #gender, #address, #contact_number, #email_address, #username, #password, #confirm_password, #submitbtn').removeAttr("disabled").css({ "background": "" });
-                  }
+                if($.trim(result) == 'Valid') {
+                  $('#faculty_id').css('border-color','#00CC00');
+                  $('#faculty').html(" Faculty ID available.").css("color", "green");
+                  $('#first_name, #middle_name, #last_name, #account_type, #year, #college, #course, #gender, #address, #contact_number, #email_address, #username, #password, #confirm_password, #submitbtn').removeAttr("disabled").css({ "background": "" });
+                } else {
+                  $('#faculty_id').css('border-color','#FF00000');
+                  $('#faculty').html(" Faculty ID not available.").css("color", "red");
+                  $('#first_name, #middle_name, #last_name, #account_type, #year, #college, #course, #gender, #address, #contact_number, #email_address, #username, #password, #confirm_password').attr("disabled",true).css({ "background": "#F0F0F0" });
+                  $('#submitbtn').attr("disabled",true);
+
+                }
               }
             });
             return false;
@@ -191,10 +194,10 @@
         data: "faculty_id=" + faculty_id,
         success:function(faculty_id){
           if($.trim(faculty_id) == 'Valid') {
-            $('#faculty_id').css('border-color','#FF0000')
+            $('#faculty_id').css('border-color','#FF0000');
             $('#first_name, #middle_name, #last_name, #account_type, #year, #college, #course, #gender, #address, #contact_number, #email_address, #username, #password, #confirm_password').removeAttr("disabled").css({ "background": "" });
           } else {
-            $('#faculty_id').css('border-color','#00CC00')
+            $('#faculty_id').css('border-color','#00CC00');
             $('#first_name, #middle_name, #last_name, #account_type, #year, #college, #course, #gender, #address, #contact_number, #email_address, #username, #password, #confirm_password, #submitbtn').attr("disabled",true).css({ "background": "#F0F0F0" });
             $('#submitbtn').attr("disabled",true);
           }
@@ -215,10 +218,12 @@
         data: "username=" + username,
         success:function(username){
           if($.trim(username) == "Valid") {
-            $('#username').css('border-color','#00FF00');
+            $('#username').css('border-color','green');
+            $('#user').html(" Username available.").css("color", "green");
             $('#password, #confirm_password, #submitbtn').removeAttr("disabled").css({ "background": "" });
           } else {
-            $('#username').css('border-color','#FF0000');
+            $('#username').css('border-color','red');
+            $('#user').html(" Username already taken.").css("color", "red");
             $('#password, #confirm_password').attr("disabled",true).css({ "background": "#F0F0F0" });
             $('submitbtn').attr("disabled",true);
           }

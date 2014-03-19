@@ -60,7 +60,7 @@ class VerifyLogin extends CI_Controller
         // $dean = $this->dean_model->loginDean($username, $password);
         // $sao = $this->sao_model->loginSao($username, $password); 
         // $sdpc = $this->sdpc_model->loginSdpc($username, $password);
-        // $admin = $this->admin_model->loginAdmin($username, $password);       
+        $admin = $this->admin_model->loginAdmin($username, $password);       
         
         if($student)
         {

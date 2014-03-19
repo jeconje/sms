@@ -9,14 +9,6 @@
     <?php include ('/application/views/templates/nav.php'); ?>   
   </head>
 
-<style>
-.upload
-{
-  width: 10px;
-  height: 180px;
-}
-</style>
-
 <body>
     <div id="wrapper">
        <?php $home = 'admin/profile'; ?>
@@ -40,8 +32,6 @@
           </ul>
 
           <ul class="nav navbar-nav navbar-right navbar-user">
-
-            
             <li class="dropdown user-dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon icon-color icon-gear"></i> Admin Ko <b class="icon icon-color icon-triangle-s"></b></a>
               <ul class="dropdown-menu">
@@ -76,9 +66,8 @@
               <div class="panel panel-warning" style="width:312px; height:200px;">
                <div class="panel-heading" style="width:310px; height:200px;">
                 <?php echo "<b>Admin ID: </b>".$account_type; ?><br>
-                <?php echo "<b>Name: </b>".$first_name." ".$middle_name." ".$last_name; ?><br>
+                <?php echo "<b>Name: </b>"?>Admin Ko<br>
               </div>
-  
             </div>
           </div>
         </div><!-- /.row -->        
@@ -100,7 +89,6 @@
             </div>
           </div>
         </div><!-- /.row -->
-
 
   </body>
 </html>

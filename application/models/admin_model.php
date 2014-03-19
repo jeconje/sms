@@ -14,29 +14,36 @@
        return $result;
     }
 
-    public function addAccount($data)
-    {
+    public function addAccount($data) {
       $combinedate = $this->input->post('byear').'-'.$this->input->post('months').'-'.$this->input->post('days');
         $date = date("Y-m-d", strtotime($combinedate));
 
         $data['account_info'] = array (                              
-                                        'account_type' => $data['account_type'],
-                                        'account_id' => $this->input->post('faculty_id'),
-                                        'password' => sha1(rand())
+                                      'account_type' => $data['account_type'],
+                                      'account_id' => $this->input->post('faculty_id'),
+                                      'password' => sha1(rand())
                                       );
 
       $this->db->insert('account',$data['account_info']);
-      // $account_id = $this->db->insert_id();
-      // $faculty_id = $this->input->post('faculty_id');
-      // $faculty_data = array('account_id' => $account_id);                   
-      // $this->db->where('faculty_id', $faculty_id);                   
-      // $this->db->update('faculty',$faculty_data);
+
+      $data['facultyInfo'] = array (
+                                    'faculty_id' => $this->input->post('faculty_id'),
+                                    'first_name' => $this->input->post('first_name'),
+                                    'middle_name' => $this->input->post('middle_name'),
+                                    'last_name' => $this->input->post('last_name'),
+                                    'college_id' => '1',
+                                    'gender' => $this->input->post('gender'),
+                                    'contact_number' => $this->input->post('contact_number'),
+                                    'address' => $this->input->post('address'),
+                                    'date_of_birth' => $date
+                                  );
+
+      $this->db->insert('faculty', $data['facultyInfo']);
   }
 
 
     //View Admin Profile Info
-    public function adminInfo($data)
-    {
+    public function adminInfo($data) {
         $this-> db -> select();
         $this-> db -> from('account');
         $this-> db -> where('account_id',$data['account_id']);
@@ -44,6 +51,30 @@
         $result = $query -> first_row('array');
 
         return $result;
+    }
+
+    //Checks if student number exists on database
+    public function check_id_numbers($check_id_number) {
+      $check_from_faculty = mysql_query("select * from faculty where faculty_id='$check_id_number'");
+      $from_faculty = mysql_num_rows($check_from_faculty);
+
+      return $from_faculty;
+    }
+
+    public function verify_faculty_id($faculty_id) {
+      $this -> db -> select('faculty_id');
+      $this -> db -> from('faculty');
+      $this -> db -> where('faculty_id, account_id ==', $faculty_id, NULL);
+      $query = $this -> db -> get();
+
+      return $query;
+    }
+
+    public function check_usernames($username) {
+      $check_username = mysql_query("select * from account where account_id='$username'");
+      $result = mysql_num_rows($check_username);
+
+      return $result;
     }
 
     //View photo in profile
@@ -75,29 +106,14 @@
     {
       $this -> db -> select();
       $this -> db -> from('account');
-      $this -> db -> where('account_id',$data['username']);
+      $this -> db -> where('account_id',$data['account_id']);
 
       $query = $this -> db -> get();
       
       return $query;
     }
 
-    //Checks if student number exists on database
-    public function check_id_numbers($check_id_number) {
-      $check_from_faculty = mysql_query("select * from faculty where faculty_id='$check_id_number' OR account_id='NULL'");
-      $from_faculty = mysql_num_rows($check_from_faculty);
-
-      return $from_faculty;
-    }
-
-    public function verify_faculty_id($faculty_id) {
-      $this -> db -> select('faculty_id');
-      $this -> db -> from('faculty');
-      $this -> db -> where('faculty_id, account_id ==', $faculty_id, NULL);
-      $query = $this -> db -> get();
-
-      return $query;
-    }
+    
 
     //Calendar
   public function showCalendar($year,$month)
