@@ -336,9 +336,9 @@
         public function updateAttendance($data)
         {
           $update = array (
-                        'status' => 'X'
-                    );
-          $this->db->where('attendance_id',$data['attendance_id']);
+                              'status' => 'X'
+                           );
+          $this->db->where('student_number',$data['student_number']);
           $this->db->update('attendance',$update);
         }
 
