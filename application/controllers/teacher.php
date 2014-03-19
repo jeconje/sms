@@ -2,8 +2,7 @@
 	session_start();
 	class Teacher extends CI_Controller 
 	{
-		public function __construct()
-		{
+		public function __construct() {
 			error_reporting(0);
 			parent::__construct();			
 		}
@@ -17,70 +16,61 @@
 				$this->load->view('pages/signin');
 		} 
 
-		public function profile() 
-		{			
-	    	$data['info'] = $this->session->userdata('logged_in'); 
-	    	if($data['info'] == TRUE){
+		public function profile() {			
+    	$data['info'] = $this->session->userdata('logged_in'); 
+    	if($data['info'] == TRUE){
 
-	    			date_default_timezone_set('Asia/Manila');
-					$data['date'] = date('Y-m-d');
-					$data['time'] = date('h:i A');
+  		date_default_timezone_set('Asia/Manila');
+			$data['date'] = date('Y-m-d');
+			$data['time'] = date('h:i A');
 
-		    		$data['account_id'] = $data['info']['faculty_id'];	    	
-					$data['account_type'] = $data['info']['account_type'];
-					$data['first_name'] = $data['info']['first_name'];
-					$data['last_name'] = $data['info']['last_name'];
-					$data['middle_name'] = $data['info']['middle_name'];			
-					$data['gender'] = $data['info']['gender'];
-					$data['contact_number'] = $data['info']['contact_number'];
-					$data['date_of_birth'] = $data['info']['date_of_birth'];
-					$data['address'] = $data['info']['address'];
-					$data['email_address'] = $data['info']['email_address'];
+    	$data['account_id'] = $data['info']['faculty_id'];	    	
+			$data['account_type'] = $data['info']['account_type'];
+			$data['first_name'] = $data['info']['first_name'];
+			$data['last_name'] = $data['info']['last_name'];
+			$data['middle_name'] = $data['info']['middle_name'];			
+			$data['gender'] = $data['info']['gender'];
+			$data['contact_number'] = $data['info']['contact_number'];
+			$data['date_of_birth'] = $data['info']['date_of_birth'];
+			$data['address'] = $data['info']['address'];
+			$data['email_address'] = $data['info']['email_address'];
 
-					$data['faculty_id'] = $data['info']['faculty_id'];
-					$data['classes'] = $this->teacher_model->viewClasses($data);
-					$data['students_load'] = $this->teacher_model->studentsStudyLoad();
+			$data['faculty_id'] = $data['info']['faculty_id'];
+			$data['classes'] = $this->teacher_model->viewClasses($data);
+			$data['students_load'] = $this->teacher_model->studentsStudyLoad();
 
-				//$data['offer_code'] = $this->db->get('offer_code');
+			//Get college
+			$data['college_id'] = $data['info']['college_id'];
+			$data['collegeinfo'] = $this->teacher_model->get_college($data);
+			$data['teacherinfo'] = $this->teacher_model->teacherInfo($data);	
+			//$this->load->view('teacher/home',$data);
 
-				//Get college
-				$data['college_id'] = $data['info']['college_id'];
-				$data['collegeinfo'] = $this->teacher_model->get_college($data);
-				$data['teacherinfo'] = $this->teacher_model->teacherInfo($data);	
-				//$this->load->view('teacher/home',$data);
+			//Upload Photo
+			$data['view'] = $this->teacher_model->viewPhoto($data);
+			$data['image_path'] = $data['view']['image_path'];
+			$config['upload_path'] = "./images/faculty";
+   		$config['allowed_types'] = 'jpg|jpeg|png';
+  		$this->load->library('upload',$config);    
 
-				//Upload Photo
-				$data['view'] = $this->teacher_model->viewPhoto($data);
-				$data['image_path'] = $data['view']['image_path'];
-				$config['upload_path'] = "./images/faculty";
-	     		$config['allowed_types'] = 'jpg|jpeg|png';
-	      		$this->load->library('upload',$config);    
+  		$data['noClass'] = $this->teacher_model->noClass($data);		
+  		$data['suspendClass'] = $this->teacher_model->suspendClass($data);
 
-	      		$data['noClass'] = $this->teacher_model->noClass($data);		
-	      		$data['suspendClass'] = $this->teacher_model->suspendClass($data);
-	      		
-
-	     		if(!$this->upload->do_upload())
-	     		{  
-	     			$data['error'] = $this->upload->display_errors();
-	     			$this->load->view('teacher/home',$data);
-	     		}
-	     		
-	     		else
-	     		{     	
-		     	   	$data['upload'] = $this->upload->data();      		    
-		     	   	$data['file_path'] = "../images/faculty/";  		    	     		    	
-		     	  	$data['file_name'] = $data['upload']['file_name'];     		    	
-		     	  	$data['update'] = $this->teacher_model->upload($data);
-		     	  	
-					$this->load->view('teacher/home',$data);
+   		if(!$this->upload->do_upload()) {  
+   			$data['error'] = $this->upload->display_errors();
+   			$this->load->view('teacher/home',$data);
+   		} else {     	
+   	   	$data['upload'] = $this->upload->data();      		    
+   	   	$data['file_path'] = "../images/faculty/";  		    	     		    	
+   	  	$data['file_name'] = $data['upload']['file_name'];     		    	
+   	  	$data['update'] = $this->teacher_model->upload($data);
+	     	  	
+				$this->load->view('teacher/home',$data);
 				}
 			} else
 				$this->index();
   		}
 
-		public function get_offer_codes()
-		{
+		public function get_offer_codes() {
 			$data['info'] = $this->session->userdata('logged_in');
 			$data['faculty_id'] = $data['info']['faculty_id'];
 			$data['first_name'] = $data['info']['first_name'];
