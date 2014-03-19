@@ -63,9 +63,6 @@
             return $result;
           }
 
-    
-
-
         //Change password
         public function changepassword($data)
         {
@@ -247,7 +244,7 @@
                       $insert = array (                            
                           
                           'offer_code' => $data['id_code'],
-                          'attendance' => $data['a'.$i],
+                          'status' => $data['a'.$i],
                           'date' => $date,
                           'student_number' => $data['student_number'.$i], 
                           
@@ -320,10 +317,12 @@
         public function updateAttendance($data)
         {
           $update = array (
-                        'attendance' => 'X'
-                    );
-          $this->db->where('attendance_id',$data['attendance_id']);
+                            'status' => 'X'
+                           );
+          
+          $this->db->where('student_number',$data['student_number']);
           $this->db->update('attendance',$update);
+
         }
 
         public function viewAssignedStudents($data)

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -82,15 +81,13 @@
                      
                   ?>
                   <tr>
-                    <?php $date = $value['date']; $attendance_id = $value['attendance_id'] ?>                    
+                    <?php $date = $value['date']; $attendance_id = $value['student_number'] ?>                    
                     <td><?php echo $value['subject_description']; ?></td>
                     <td><?php echo $date; ?></td>
                     <td><?php echo $value['first_name']. " ". $value['last_name']; ?></td>
-                    <td><?php echo $value['attendance']; ?></td>                                                                                
-                    <input type = "hidden" name = "attendance_id" value="<?php echo $value['attendance_id']; ?>" />                    
-                    <td><a href="<?php echo base_url(); ?>teacher/logs/<?php echo $date;?>?id=<?php echo $value['attendance_id']; ?>"><input class="btn btn-primary" name="submit" type="submit" value="Excused"/><a/></td>                    
-
-                    
+                    <td><?php echo $value['status']; ?></td>                                                                                
+                    <input type = "hidden" name = "student_number" value="<?php echo $value['student_number']; ?>" />                    
+                    <td><a href="<?php echo base_url(); ?>teacher/updateStatus/<?php echo $date;?>/<?php echo $value['student_number']; ?>"><input class="btn btn-primary" name="submit" type="submit" value="Excused"/><a/></td>            
                   </tr>
                   <?php }
                       echo form_close();
