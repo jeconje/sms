@@ -143,6 +143,8 @@
                     </thead>
                     <tbody>                                       
                    <?php                                  
+                     date_default_timezone_set('Asia/Manila');                              
+                     $date = date('Y-m-d');                       
                     foreach($classes as $value) {
                       $count = 0;
                           foreach($students_load as $load)
@@ -154,7 +156,7 @@
                   <tr>
                     <td><?php echo $value['offer_code']; ?></td>  
                     <td><?php echo $value['subject_description']; ?></td>
-                    <td><?php echo $value['start_time'].'-'.$value['end_time']; ?></td>
+                    <td><?php echo $value['start_time'].' - '.$value['end_time']; ?></td>
                     <td><?php echo $value['days']; ?></td>   
                     <td><?php echo $value['room']; ?></td>  
                     <td><?php echo $count; ?></td>
@@ -182,10 +184,17 @@
                         }
                     ?>
                     
-                    <td><a href='http://localhost/sms/teacher/<?php echo $check ?>/<?php echo $value['offer_code']; ?>'><input class="btn btn-primary" type="submit" value="Assign Seats"/></a></td>
-                    <td><a href='http://localhost/sms/teacher/<?php echo $room ?>/<?php echo $value['offer_code']; ?>'><input class="btn btn-primary" type="submit" value="Check Attendance"/></a></td>                                     
+                    <td><a href='http://localhost/sms/teacher/<?php echo $check ?>/<?php echo $value['offer_code']; ?>'><input class="btn btn-primary" type="submit" value="Assign Seats"/></a></td>                                
+                    
+                    <td><a href='http://localhost/sms/teacher/<?php echo $room ?>/<?php echo $value['offer_code']; ?>'>
+                      <input  
+                          <?php if ( strtotime(date('h:i A')) >= strtotime($value['start_time']) && strtotime(date('h:i A')) <= strtotime($value['end_time']))   {                                                         
+                           } else echo "disabled"; ?>
+                       class="btn btn-primary" type="submit" value="Check Attendance"/></a></td>                    
+                    
                   </tr>
                   <?php } ?>
+                    
                     </tbody>
                   </table>
                 </div>
