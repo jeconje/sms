@@ -405,7 +405,7 @@
         {
             $this->db->select();
             $this->db->from('calendar');
-            $this->db->where('date',$data['date']);
+            $this->db->where('date',$data['hour']);
             $query = $this->db->get();
             $result = $query -> result_array();
 

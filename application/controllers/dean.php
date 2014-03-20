@@ -113,6 +113,30 @@
 				$this->index();
 		}
 
+		//Get offer codes based on subjects
+    public function get_offer_code($data)  {
+      $this->db->select();
+      $this->db->from('subjects');
+      $this->db->where(array('subject_code' => $data['subject']));
+
+      $query = $this->db->get();
+      $subject = $query->result_array();
+
+      $id = array(0=>0);
+      foreach ($subject as $value) 
+      {
+        $id[$value['subject_code']] = $value['subject_code'];
+      }
+  
+      $this->db->select()->from('offering');
+      $this->db->where('faculty_id', $data['faculty_id']);
+      $this->db->where_in('subject_code',$id);
+
+      $query = $this->db->get();
+
+      return $query->result();
+    }
+
 		public function message()
 		{
 			$data['deanInfo'] = $this->session->userdata('logged_in');

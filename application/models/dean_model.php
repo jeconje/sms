@@ -136,8 +136,7 @@
           return $result;
         }
     //Get subjects
-    public function get_subject($data) 
-    {
+    public function get_subject($data) {
       $this->db->select()->from('subjects');
       $this->db->order_by('subject_description');
       $this->db->join('offering', 'subjects.subject_code = offering.subject_code');

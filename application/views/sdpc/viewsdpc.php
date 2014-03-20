@@ -21,6 +21,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
+
           <a class="navbar-brand" href="<?php echo base_url(); ?><?php echo $home; ?>">University Of San Jose Recoletos - Student Monitoring System</a></div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
@@ -60,6 +61,7 @@
                       <center><input class="btn btn-primary" id="submitbtn" type="submit" value="Search"/></center><br>
                 </td>
             </tr>
+            
     </table>
   </div> 
   <?php echo form_close(); ?>
