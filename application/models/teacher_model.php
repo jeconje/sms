@@ -326,6 +326,15 @@
           $this->db->update('attendance',$update);
         }
 
+        public function updateStatusOfLate($data) {
+          $update = array (
+                            'status' => ''
+                           );
+          $this->db->where('student_number',$data['student_number']);
+          $this->db->where('date', $data['date']);
+          $this->db->update('attendance',$update);
+        }
+
         public function viewAssignedStudents($data)
         {               
               $this->db->select();

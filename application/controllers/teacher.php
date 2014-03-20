@@ -163,6 +163,16 @@
 	          header('Location: '.$newURL);
 		}
 
+		//View Attendance Logs
+		public function updateStatusLate($id){
+			$data['student_number'] = $_GET['id'];
+			$data['date'] = $id;
+			$this->teacher_model->updateStatusOfLate($data);	
+			
+			$newURL = "http://localhost/sms/teacher/logs";
+	          header('Location: '.$newURL);
+		}
+
 		public function logs($id)
 		{
 			$data['info'] = $this->session->userdata('logged_in');
