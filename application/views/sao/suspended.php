@@ -63,12 +63,16 @@
   
   <br><br>
   <div id="content" align="center">
-   <?php echo form_open("sao/suspendviolators"); ?>
+  <?php
+    $student_number = $this->input->post('student_number');
+  ?>
+    <?php echo form_open('sao/get_student_info_suspension'); ?>
+    <p><input type="text" name="student_number" id="student_number" required="" tabindex="1" placeholder="student number" value="<?php echo $student_number; ?>"></p>   
+      
+    <button class="btn btn-primary">Search Student</button>
+  <?php echo form_close(); ?>
     
-      <p><input type="text" name="student_number" id="student_number" required="" tabindex="1" placeholder="student number" value="<?php echo $student_number; ?>">&nbsp;&nbsp;&nbsp;<button class="btn btn-primary" name="search">Search Student</button></p>   
-    
-    
-
+<?php echo form_open("sao/suspendviolators"); ?>
     
     <?php foreach($student_info as $value){ ?>
       <p class="contact"><label>Name: </label>   
@@ -118,6 +122,33 @@ $('#dp5').datepicker()
     if (ev.date.valueOf() < startDate.valueOf()){
       ....
     }
+  });
+</script>
+
+<script type="text/javascript">
+ $(document).ready(function(){
+    $("#student_number").keyup(function() {
+      var student_number = $('#student_number').val();
+        if(student_number=="") {
+            $('#violation').attr("disabled",true).css({ "background": "#F0F0F0" });
+        } else {
+            $.ajax({
+              type: "POST",
+              url: "<?php echo base_url(); ?>sao/check_student_number",
+              data: "student_number=" + student_number,
+              success: function(result) {
+                  if($.trim(result) == 'Invalid') {
+                    $('#student_number').css('border-color','#FF0000')
+                    $('#violation').attr("disabled",true).css({ "background": "#F0F0F0" });
+                  } else {
+                    $('#student_number').css('border-color','#00CC00')
+                    $('#violation').removeAttr("disabled").css({ "background": "" });
+                  }
+              }
+            });
+            return false;
+          }
+    });
   });
 </script>
 
