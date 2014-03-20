@@ -247,7 +247,7 @@
                       $insert = array (                            
                           
                           'offer_code' => $data['id_code'],
-                          'attendance' => $data['a'.$i],
+                          'status' => $data['a'.$i],
                           'date' => $date,
                           'student_number' => $data['student_number'.$i], 
                           
@@ -320,7 +320,7 @@
         public function updateAttendance($data)
         {
           $update = array (
-                        'attendance' => 'X'
+                        'status' => 'X'
                     );
           $this->db->where('attendance_id',$data['attendance_id']);
           $this->db->update('attendance',$update);

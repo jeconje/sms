@@ -288,6 +288,10 @@
 				$data['violation'] = $this->teacher_model->viewViolation($data);	
 				$data['suspension'] = $this->teacher_model->viewSuspension($data);
 
+				date_default_timezone_set('Asia/Manila');
+				$date = date('Y-m-d');
+				$this->teacher_model->updateStatus();
+
 				
 				for ($i=1; $i <41 ; $i++) { 
 					$data['a'.$i] = $this->input->post('attendance'.$i);		
