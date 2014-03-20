@@ -185,28 +185,38 @@
       $check = "assign_classroom";
   }
 ?>
+<?php 
+  $currentDay = date('l');
+
+  $mgaAdlaw = $value['days'];
+
+  $subjectDays = explode(",",$mgaAdlaw);
+
+  if($currentDay == $subjectDays[0]){
+    $subjectDays = $subjectDays[0];
+  } else if($currentDay == $subjectDays[1]){
+    $subjectDays = $subjectDays[1];
+  } else if($currentDay == $subjectDays[2]){
+    $subjectDays = $subjectDays[2];
+  }
+?>
 
 <td><a href='<?php echo base_url(); ?>teacher/<?php echo $check ?>/<?php echo $value['offer_code']; ?>'><input class="btn btn-primary" type="submit" value="Assign Seats"/></a></td>
 <td><a href='<?php echo base_url(); ?>teacher/<?php echo $room ?>/<?php echo $value['offer_code']; ?>'>
 <input  
     <?php 
-      if($wayKlase != "") {
+
+      if($currentDay != $subjectDays) { // Get subject day
         echo "disabled";
-      }
-      else 
-      {
-        if($event == "Suspended" && $petsa == date('Y-m-d')) {
-        if(strtotime(date('h:i A')) >= strtotime($start_time) && strtotime(date('h:i A')) <= strtotime($end_time)) {
-       echo "disabled";
-          
-        }
-      }
-     if(strtotime(date('h:i A')) >= strtotime($value['start_time']) && strtotime(date('h:i A')) <= strtotime($value['end_time']))   {                                                         
-        echo "";
-     }      
-     else
-      echo "disabled";
-    }
+      } else if($wayKlase != "") { // Disables the button if no class is declared in calendar
+        echo "disabled";
+      } else if($event == "Suspended" && $petsa == date('Y-m-d') && strtotime(date('h:i A')) >= strtotime($sugod) && strtotime(date('h:i A')) <= strtotime($human)) { // Suspends a class depending on the start time, end time and date
+           echo "disabled";
+      } else if(strtotime(date('h:i A')) >= strtotime($value['start_time']) && strtotime(date('h:i A')) <= strtotime($value['end_time'])) {                                                         
+          echo "";
+      } else
+          echo "disabled";
+  
      ?>
      
  class="btn btn-primary" type="submit" value="Check Attendance"/>
