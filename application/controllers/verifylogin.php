@@ -50,7 +50,7 @@ class VerifyLogin extends CI_Controller
     function check_database($password)
     {
         //Field validation succeeded. Validate against database
-        $username = $this->input->post('username');
+        $username = $this->input->post('username');        
         $teacher = $this->teacher_model->loginTeacher($username, $password);
         //query the database
         /*$student = $this->sms_model->loginStudent($username, $password);        

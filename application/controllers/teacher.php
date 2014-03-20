@@ -24,7 +24,7 @@
 
 	    			date_default_timezone_set('Asia/Manila');
 					$data['date'] = date('Y-m-d');
-					$data['time'] = data('h:i A');
+					$data['time'] = date('h:i A');
 
 		    		$data['account_id'] = $data['info']['faculty_id'];	    	
 					$data['account_type'] = $data['info']['account_type'];

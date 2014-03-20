@@ -404,8 +404,7 @@
         public function suspendClass()
         {
             $this->db->select();
-            $this->db->from('calendar');
-            $this->db->where('date',$data['hour']);
+            $this->db->from('calendar');            
             $query = $this->db->get();
             $result = $query -> result_array();
 
