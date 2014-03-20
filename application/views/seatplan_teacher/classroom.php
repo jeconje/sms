@@ -104,10 +104,9 @@
   <div>
     <div> 
       <button 
-                   <?php 
-                  if($onlyonce != ""){
-                 echo "disabled"; } ?>   
-
+          <?php 
+              if($onlyonce != ""){
+            echo "disabled"; } ?>   
                 type="submit" name ="submit" class="btn btn-primary" onClick = "return confirm('Are you sure you want to submit because you can only submit once?')" >Submit Attendance</button>
        <?php echo form_open("teacher/classroom/$id_code"); ?>
     </div>
@@ -348,7 +347,7 @@
                   <div class="bs-example" align="right">
                           <input name="attendance3" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
                           <input name="attendance3" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
-                          <input checked="true" name="attendanc3" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <input checked="true" name="attendance3" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
                           <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
                   </div>  <?php } ?>                                           
     <?php } 
@@ -3400,7 +3399,7 @@
                 ?>
                 <input type = "hidden" name = "student_number42" value = "<?php echo $value['student_number'];  ?>" />
                 <input name="42" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">      
-                <p align="right">1</p> 
+                <p align="right">42</p> 
                 <div class="auto-style1" style="width: 49px; height: 10px">Lates: <?php echo $late; ?></div>
                 <div class="auto-style1" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
 

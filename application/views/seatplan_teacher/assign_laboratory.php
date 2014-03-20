@@ -710,7 +710,7 @@
     <select name="33" style="width: 120px">
          <?php         
         foreach($assigned_seats as $row){
-        if($row['seat_number'] == '6'){
+        if($row['seat_number'] == '33'){
       ?>    
             <option><?php echo $row['last_name'].', '.$row['first_name']; ?></option>     
       <?php }} ?>
@@ -780,13 +780,21 @@
     <center>
 		<br><br><br>Platform
 	</center>
+
     <td>
-		<select name="34" style="width: 120px">
-        <option>SELECT</option>     
-		    <?php foreach ($viewStudents as $value){ ?>	
-				<option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option> 						  													
-			<?php }  ?>
-		</select>34
+    <select name="34" style="width: 120px">
+         <?php         
+        foreach($assigned_seats as $row){
+        if($row['seat_number'] == '34'){
+      ?>    
+            <option><?php echo $row['last_name'].', '.$row['first_name']; ?></option>     
+      <?php }} ?>
+        <option>SELECT</option>
+      <?php foreach ($viewStudents as $value){ ?>     
+        <option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option>                                        
+      <?php }  ?>
+
+    </select>34
     </td>
 
     <td>

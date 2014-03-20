@@ -313,11 +313,11 @@
 				$data['onlyonce'] = $this->teacher_model->viewNumberOfAttendance();
 
 				
-				for ($i=1; $i <41 ; $i++) { 
+				for ($i=1; $i <49 ; $i++) { 
 					$data['a'.$i] = $this->input->post('attendance'.$i);		
 				}
 
-				for ($i=1; $i <41 ; $i++) { 
+				for ($i=1; $i <49 ; $i++) { 
 				$data['student_number'.$i] = $this->input->post('student_number'.$i);	
 				}						
 							
