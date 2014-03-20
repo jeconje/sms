@@ -71,7 +71,7 @@
 				$data['first_name'] = $data['info']['first_name'];
 				$data['last_name'] = $data['info']['last_name'];
 
-				$student_number = $this->input->post('student_number');
+				$data = $this->input->post('student_number');
 				$data['student_info'] = $this->sao_model->get_student_info($student_number);
 
 				$this->load->view('sao/suspended', $data);
@@ -137,8 +137,7 @@
 				$data['id'] = $data['info']['id'];
 				$data['student_number'] = $this->input->post('student_number');
 				$data['end_date'] = $this->input->post('end_date');
-
-				echo $data['student_number'];
+				
 	    		$this->sao_model->suspend_violators($data);
 			    $this->load->view('sao/suspended');
 			}

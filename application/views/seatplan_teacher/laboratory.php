@@ -118,9 +118,7 @@
                     }                                     
                 }
                if($value['seat_number'] == 1){                              
-                ?>
 
-                <?php                                                 
                       $temp_late = $late / 3;
                       $absent = $absent + number_format($temp_late);
                 ?>
@@ -1250,7 +1248,7 @@
                       $temp_late = $late / 3;
                       $absent = $absent + number_format($temp_late);
                 ?>
-                <input type = "hidden" name = "student_number1" value = "<?php echo $value['student_number'];  ?>" />
+                <input type = "hidden" name = "student_number14" value = "<?php echo $value['student_number'];  ?>" />
                 <input name="14" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">      
                 <p align="right">14</p> 
                 <div class="auto-style1" style="width: 49px; height: 10px">Lates: <?php echo $late; ?></div>

@@ -221,9 +221,13 @@
 
         public function viewCampusLogin($data)
         {
+          date_default_timezone_set('Asia/Manila');                  
+          $date = date('Y-m-d');    
+
           $this->db->select();
-          $this->db->from('campus_login');                
-          $this->db->order_by('log_id','asc');          
+          $this->db->from('campus_login');           
+          $this->db->where('date',$date);     
+          $this->db->order_by('log_id','asc');                   
           $query = $this->db->get();
           $result = $query -> result_array('array');
 
@@ -233,9 +237,9 @@
         public function insertAttendance($data)
         {          
             date_default_timezone_set('Asia/Manila');                  
+            $date = date('Y-m-d');  
             
-            $date = date('Y-m-d');    
-                  for ($i=1; $i < 41 ; $i++) { 
+                  for ($i = 1; $i < 41 ; $i++) { 
                  
                       if($data['a'.$i] == 'L' || $data['a'.$i] == 'A'){
                       $insert = array (                            

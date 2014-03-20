@@ -63,15 +63,13 @@
   
   <br><br>
   <div id="content" align="center">
-    <?php
-      $student_number = $this->input->post('student_number');
-    ?>
-    <?php echo form_open('sao/get_student_info1'); ?>
+   <?php echo form_open("sao/suspendviolators"); ?>
+    
       <p><input type="text" name="student_number" id="student_number" required="" tabindex="1" placeholder="student number" value="<?php echo $student_number; ?>">&nbsp;&nbsp;&nbsp;<button class="btn btn-primary" name="search">Search Student</button></p>   
     
-    <?php echo form_close(); ?>
+    
 
-    <?php echo form_open("sao/suspendviolators"); ?>
+    
     <?php foreach($student_info as $value){ ?>
       <p class="contact"><label>Name: </label>   
         <input type="hidden" name="student_number" value="<?php echo $student_number; ?>" >

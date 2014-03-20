@@ -190,7 +190,7 @@
 <td><a href='<?php echo base_url(); ?>teacher/<?php echo $room ?>/<?php echo $value['offer_code']; ?>'>
 <input  
     <?php 
-      if($wayKlase != "") {
+      /*if($wayKlase != "") {
         echo "disabled";
       }
       else 
@@ -206,7 +206,7 @@
      }      
      else
       echo "disabled";
-    }
+    }*/
      ?>
      
  class="btn btn-primary" type="submit" value="Check Attendance"/>
