@@ -66,7 +66,7 @@
 	  		$data['suspendClass'] = $this->teacher_model->suspendClass($data);
 	  		$data['petsa'] = $data['suspendClass']['date'];
 	  		$data['sugod'] = $data['suspendClass']['start_time'];
-	  		$data['end_time'] = $data['suspendClass']['end_time'];
+	  		$data['human'] = $data['suspendClass']['end_time'];
 	  		$data['event'] = $data['suspendClass']['event'];
 
    		if(!$this->upload->do_upload()) {  
