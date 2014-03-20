@@ -446,6 +446,27 @@
     $result = $this->db->insert('calendar',$data['events']);
   }
 
+
+        public function noClassEvent($data) {
+          $this->db->select();
+          $this->db->from('calendar');
+          $this->db->where('event', $data['event']);
+
+          $query = $this->db->get();
+          $result = $query -> result_array();
+
+          return $result;
+        }
+
+        public function suspendClass($data) {
+          $suspend = array (
+                            'date' => $data['datepicker'],
+                            'event' => 'Suspended',
+                            'start_time' => $data['start_time'],
+                            'end_time' => $data['end_time']);
+          $this->db->insert('calendar', $suspend);
+        }
+
 //Update Details
         public function calendar_update($data)
         {

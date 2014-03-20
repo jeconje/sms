@@ -548,6 +548,18 @@
 				
 				$data['result'] = $this->dean_model->getEvents();
 
+				$data['event'] = $this->input->post('options');
+				$data['getEvent'] = $this->teacher_model->getEvents($data);
+
+				$data['datepicker'] = $this->input->post('date');
+				$data['start_time'] = $this->input->post('start_time');
+				$data['end_time'] = $this->input->post('end_time');
+
+				$data['suspend'] = $this->dean_model->suspendClass($data);
+
+				
+
+
 				$day = (int)substr($row->date,8,2);
 				$mon = (int)substr($row->date,6,2);
 
