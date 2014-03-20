@@ -576,7 +576,7 @@
 			    $y = intval($this->uri->segment(3));
 			    $m = intval($this->uri->segment(4));
     			$data['viewCalendar']= $this->calendar->generate($y,$m,$events_month[$m]);
-					
+		
 				$this->load->view('calendar/calendar_dean',$data);	
 
 			}

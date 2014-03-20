@@ -39,7 +39,7 @@
           $result = $query -> result_array();
 
           return $result;
-        }
+        }        
 
           //Upload
           public function upload($data)
@@ -388,6 +388,28 @@
             $result = $query -> result_array();
 
             return $result;
+        }
+
+        public function noClass($data)
+        {
+            $this->db->select();
+            $this->db->from('calendar');
+            $this->db->where('date',$data['date']);
+            $query = $this->db->get();
+            $result = $query -> result_array();
+
+            return $result;
+        }
+
+        public function suspendClass()
+        {
+            $this->db->select();
+            $this->db->from('calendar');
+            $this->db->where('date',$data['date']);
+            $query = $this->db->get();
+            $result = $query -> result_array();
+
+            return $result; 
         }
   }
 ?>
