@@ -8,47 +8,39 @@ class VerifyLogin extends CI_Controller
         parent::__construct();
     }
 
-    function index()
-    {
+    function index() {
         $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
     
         $this->form_validation->set_rules('username', 'Username', 'trim|required|xss_clean');
         $this->form_validation->set_rules('password', 'Password', 'trim|required|xss_clean|callback_check_database');
 
-        if($this->form_validation->run() == FALSE)
-        {
-            //Field validation failed. User redirected to login page
-            $this->load->view('pages/signin');
-        }
-
-        else            
-        {   
-                $data['info'] = $this->session->userdata('logged_in');                    
-                
-                if($data['info']['account_type'] == 'tracker')
-                    redirect('parents/profile', 'refresh');
-                else if($data['info']['account_type'] == 'teacher')
-                    redirect('teacher/profile', 'refresh');
-                else if($data['info']['account_type'] == 'student')
-                    redirect('sms/profile', 'refresh');
-                else if($data['info']['account_type'] == 'chairperson')
-                    redirect('chairperson/profile', 'refresh');
-                else if($data['info']['account_type'] == 'dean')
-                    redirect('dean/profile', 'refresh');
-                else if($data['info']['account_type'] == 'sao')
-                    redirect('sao/profile', 'refresh');
-                else if($data['info']['account_type'] == 'sdpc')
-                    redirect('sdpc/profile', 'refresh');
-                else if($data['info']['account_type'] == 'admin')
-                    redirect('admin/profile', 'refresh');
-                else
-                   //If no session, redirect to login page
-                    redirect('sms/profile', 'refresh');
+        if($this->form_validation->run() == FALSE) {
+        } else {   
+            $data['info'] = $this->session->userdata('logged_in');                    
+            
+            if($data['info']['account_type'] == 'tracker')
+                redirect('parents/profile', 'refresh');
+            else if($data['info']['account_type'] == 'teacher')
+                redirect('teacher/profile', 'refresh');
+            else if($data['info']['account_type'] == 'student')
+                redirect('sms/profile', 'refresh');
+            else if($data['info']['account_type'] == 'chairperson')
+                redirect('chairperson/profile', 'refresh');
+            else if($data['info']['account_type'] == 'dean')
+                redirect('dean/profile', 'refresh');
+            else if($data['info']['account_type'] == 'sao')
+                redirect('sao/profile', 'refresh');
+            else if($data['info']['account_type'] == 'sdpc')
+                redirect('sdpc/profile', 'refresh');
+            else if($data['info']['account_type'] == 'admin')
+                redirect('admin/profile', 'refresh');
+            else
+               //If no session, redirect to login page
+                redirect('sms/profile', 'refresh');
         }
     }
 
-    function check_database($password)
-    {
+    function check_database($password) {
         //Field validation succeeded. Validate against database
         $username = $this->input->post('username');        
         $teacher = $this->teacher_model->loginTeacher($username, $password);

@@ -99,7 +99,12 @@
         </nav>
 <center> 
      <?php echo form_open("teacher/brd2/$id_code"); ?>
-     <button type="submit" name="submit" class="btn btn-primary">Submit Attendance</button><br><br>
+     <button 
+                   <?php 
+                  if($onlyonce != ""){
+                 echo "disabled"; } ?>   
+
+                type="submit" name ="submit" class="btn btn-primary" onClick = "return confirm('Are you sure you want to submit because you can only submit once?')" >Submit Attendance</button><br><br>
       <div class="table-responsive">
        <table style="width: 1070px; height: 632px" class="table table-bordered">
   <tr>

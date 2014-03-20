@@ -249,7 +249,14 @@
      <td rowspan="6" style="width: 50px"></td>
        <td colspan="5" style="height: 13px" valign="top" >
             <center><br><br><br>
-                  <button type="submit" name ="submit" class="btn btn-primary">Submit Attendance</button>
+                 
+                  <button 
+                   <?php 
+                  if($onlyonce != ""){
+                 echo "disabled"; } ?>   
+
+                type="submit" name ="submit" class="btn btn-primary" onClick = "return confirm('Are you sure you want to submit because you can only submit once?')" >Submit Attendance</button>
+                
             </center>
        </td>
     <!-- END -->

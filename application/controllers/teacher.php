@@ -2,8 +2,7 @@
 	session_start();
 	class Teacher extends CI_Controller 
 	{
-		public function __construct()
-		{
+		public function __construct() {
 			error_reporting(0);
 			parent::__construct();			
 		}
@@ -17,74 +16,73 @@
 				$this->load->view('pages/signin');
 		} 
 
-		public function profile() 
-		{			
-	    	$data['info'] = $this->session->userdata('logged_in'); 
-	    	if($data['info'] == TRUE){
+		public function profile() {			
+    	$data['info'] = $this->session->userdata('logged_in'); 
+    	if($data['info'] == TRUE){
 
-	    			date_default_timezone_set('Asia/Manila');
-					$data['date'] = date('Y-m-d');
-					$data['time'] = date('h:i A');
+  		date_default_timezone_set('Asia/Manila');
+			$data['date'] = date('Y-m-d');
+			$data['time'] = date('h:i A');
 
-		    		$data['account_id'] = $data['info']['faculty_id'];	    	
-					$data['account_type'] = $data['info']['account_type'];
-					$data['first_name'] = $data['info']['first_name'];
-					$data['last_name'] = $data['info']['last_name'];
-					$data['middle_name'] = $data['info']['middle_name'];			
-					$data['gender'] = $data['info']['gender'];
-					$data['contact_number'] = $data['info']['contact_number'];
-					$data['date_of_birth'] = $data['info']['date_of_birth'];
-					$data['address'] = $data['info']['address'];
-					$data['email_address'] = $data['info']['email_address'];
+    		$data['account_id'] = $data['info']['account_id'];	 
+			$data['account_type'] = $data['info']['account_type'];
 
-					$data['faculty_id'] = $data['info']['faculty_id'];
-					$data['classes'] = $this->teacher_model->viewClasses($data);
-					$data['students_load'] = $this->teacher_model->studentsStudyLoad();
+			$data['teacherInfo'] = $this->teacher_model->teacherInfo($data);
+			
+			$data['first_name'] = $data['teacherInfo']['first_name'];
+			$data['middle_name'] = $data['teacherInfo']['middle_name'];
+			$data['last_name'] = $data['teacherInfo']['last_name'];
+			$data['middle_name'] = $data['teacherInfo']['middle_name'];
+			$data['gender'] = $data['teacherInfo']['gender'];
+			$data['contact_number'] = $data['teacherInfo']['contact_number'];
+			$data['address'] = $data['teacherInfo']['address'];
+			$data['date_of_birth'] = $data['teacherInfo']['date_of_birth'];
 
-				//$data['offer_code'] = $this->db->get('offer_code');
+			$data['faculty_id'] = $data['teacherInfo']['faculty_id'];
+			$data['classes'] = $this->teacher_model->viewClasses($data);
+			$data['students_load'] = $this->teacher_model->studentsStudyLoad();
 
-				//Get college
-				$data['college_id'] = $data['info']['college_id'];
-				$data['collegeinfo'] = $this->teacher_model->get_college($data);
-				$data['teacherinfo'] = $this->teacher_model->teacherInfo($data);	
-				//$this->load->view('teacher/home',$data);
+			//Get college
+			$data['college_id'] = $data['teacherInfo']['college_id'];
+			$data['collegeinfo'] = $this->teacher_model->get_college($data);
+			$data['teacherinfo'] = $this->teacher_model->teacherInfo($data);	
+			//$this->load->view('teacher/home',$data);
 
-				//Upload Photo
-				$data['view'] = $this->teacher_model->viewPhoto($data);
-				$data['image_path'] = $data['view']['image_path'];
-				$config['upload_path'] = "./images/faculty";
-	     		$config['allowed_types'] = 'jpg|jpeg|png';
-	      		$this->load->library('upload',$config);    
+			//Upload Photo
+			$data['view'] = $this->teacher_model->viewPhoto($data);
+			$data['image_path'] = $data['view']['image_path'];
+			$config['upload_path'] = "./images/faculty";
+   		$config['allowed_types'] = 'jpg|jpeg|png';
+  		$this->load->library('upload',$config);    
 
-	      		$data['noClass'] = $this->teacher_model->noClass($data);		
-	      		$data['suspendClass'] = $this->teacher_model->suspendClass($data);
-	      		
+  		$data['noClass'] = $this->teacher_model->noClass($data);		
+  		$data['suspendClass'] = $this->teacher_model->suspendClass($data);
 
-	     		if(!$this->upload->do_upload())
-	     		{  
-	     			$data['error'] = $this->upload->display_errors();
-	     			$this->load->view('teacher/home',$data);
-	     		}
-	     		
-	     		else
-	     		{     	
-		     	   	$data['upload'] = $this->upload->data();      		    
-		     	   	$data['file_path'] = "../images/faculty/";  		    	     		    	
-		     	  	$data['file_name'] = $data['upload']['file_name'];     		    	
-		     	  	$data['update'] = $this->teacher_model->upload($data);
-		     	  	
-					$this->load->view('teacher/home',$data);
+   		if(!$this->upload->do_upload()) {  
+   			$data['error'] = $this->upload->display_errors();
+   			$this->load->view('teacher/home',$data);
+   		} else {     	
+   	   	$data['upload'] = $this->upload->data();      		    
+   	   	$data['file_path'] = "../images/faculty/";  		    	     		    	
+   	  	$data['file_name'] = $data['upload']['file_name'];     		    	
+   	  	$data['update'] = $this->teacher_model->upload($data);
+	     	  	
+				$this->load->view('teacher/home',$data);
 				}
 			} else
 				$this->index();
   		}
 
-		public function get_offer_codes()
-		{
+		public function get_offer_codes() {
 			$data['info'] = $this->session->userdata('logged_in');
-			$data['faculty_id'] = $data['info']['faculty_id'];
-			$data['first_name'] = $data['info']['first_name'];
-			$data['last_name'] = $data['info']['last_name'];
+			$data['account_id'] = $data['info']['account_id'];	 
+			$data['account_type'] = $data['info']['account_type'];
+
+			$data['teacherInfo'] = $this->teacher_model->teacherInfo($data);
+			
+			$data['first_name'] = $data['teacherInfo']['first_name'];
+			$data['last_name'] = $data['teacherInfo']['last_name'];
+			$data['faculty_id'] = $data['teacherInfo']['faculty_id'];
 
 			$data['subject'] = $this->input->post('subject');
 			$data['offer_code'] = $this->input->post('offer_code');
@@ -92,8 +90,8 @@
 
 			$offer_codes = $this->teacher_model->get_offer_code($data);
 				foreach ($offer_codes as $offer_code) {
-					$value[$i]['id'] = $offer_code->offer_code_id;
-					$value[$i]['o_code'] = $offer_code->offer_code;
+					$value[$i]['id'] = $offer_code->subject_code;
+					$value[$i]['o_code'] = $offer_code->subject_code;
 					$i++;
 				}
 				echo json_encode($value);
@@ -104,9 +102,14 @@
 		{
 			$data['info'] = $this->session->userdata('logged_in');
 			if($data['info'] == TRUE) {
-				$data['faculty_id'] = $data['info']['faculty_id'];
-				$data['first_name'] = $data['info']['first_name'];
-				$data['last_name'] = $data['info']['last_name'];
+				$data['account_id'] = $data['info']['account_id'];	 
+				$data['account_type'] = $data['info']['account_type'];
+
+				$data['teacherInfo'] = $this->teacher_model->teacherInfo($data);
+				
+				$data['first_name'] = $data['teacherInfo']['first_name'];
+				$data['last_name'] = $data['teacherInfo']['last_name'];
+				$data['faculty_id'] = $data['teacherInfo']['faculty_id'];
 
 				$data['subjects'] = $this->teacher_model->get_subject($data);
 				$data['offer_code'] = $this->input->post('offer_code');
@@ -124,10 +127,15 @@
 		{
 			$data['info'] = $this->session->userdata('logged_in');
 			if($data['info'] == TRUE){
-				$data['faculty_id'] = $data['info']['faculty_id'];
-				$data['first_name'] = $data['info']['first_name'];
-				$data['last_name'] = $data['info']['last_name'];
-				$data['viewDistinctLogs'] = $this->teacher_model->viewDistinctLogs($data);				
+			$data['account_id'] = $data['info']['account_id'];	 
+			$data['account_type'] = $data['info']['account_type'];
+
+			$data['teacherInfo'] = $this->teacher_model->teacherInfo($data);
+			
+			$data['first_name'] = $data['teacherInfo']['first_name'];
+			$data['last_name'] = $data['teacherInfo']['last_name'];
+
+			$data['viewDistinctLogs'] = $this->teacher_model->viewDistinctLogs($data);				
 				
 				$this->load->view('teacher/attendance',$data);
 			} else
@@ -302,6 +310,7 @@
 
 				
 				$this->teacher_model->updateStatus();
+				$data['onlyonce'] = $this->teacher_model->viewNumberOfAttendance();
 
 				
 				for ($i=1; $i <41 ; $i++) { 
@@ -365,6 +374,7 @@
 				date_default_timezone_set('Asia/Manila');
 				$date = date('Y-m-d');
 				$this->teacher_model->updateStatus();
+				$data['onlyonce'] = $this->teacher_model->viewNumberOfAttendance();
 
 
 				for ($i=1; $i <49 ; $i++) { 
@@ -437,7 +447,10 @@
 				$data['first_name'] = $data['info']['first_name'];
 				$data['last_name'] = $data['info']['last_name'];
 				$data['viewStudents'] = $this->teacher_model->viewStudents($data);
-				$data['viewAttendance'] = $this->teacher_model->viewAttendance($data);				
+				$data['viewAttendance'] = $this->teacher_model->viewAttendance($data);	
+
+				$this->teacher_model->updateStatus();
+				$data['onlyonce'] = $this->teacher_model->viewNumberOfAttendance();			
 			
 				for ($i=1; $i < 49 ; $i++) { 
 					$data['a'.$i] = $this->input->post('attendance'.$i);		
@@ -496,6 +509,9 @@
 				$data['viewStudents'] = $this->teacher_model->viewStudents($data);
 				$data['viewAttendance'] = $this->teacher_model->viewAttendance($data);		
 				$data['suspension'] = $this->teacher_model->viewSuspension($data);		
+
+				$this->teacher_model->updateStatus();
+				$data['onlyonce'] = $this->teacher_model->viewNumberOfAttendance();	
 			
 				for ($i=1; $i < 32 ; $i++) { 
 					$data['a'.$i] = $this->input->post('attendance'.$i);		
@@ -545,11 +561,17 @@
 		//Show Calendar
 		public function calendar_teacher($year=null,$month=null) 
 		{
-			$data['teacherInfo'] = $this->session->userdata('logged_in');
-			if($data['teacherInfo'] == TRUE)
+			$data['info'] = $this->session->userdata('logged_in');
+			if($data['info'] == TRUE)
 			{
+				$data['account_id'] = $data['info']['account_id'];	 
+				$data['account_type'] = $data['info']['account_type'];
+
+				$data['teacherInfo'] = $this->teacher_model->teacherInfo($data);
+				
 				$data['first_name'] = $data['teacherInfo']['first_name'];
 				$data['last_name'] = $data['teacherInfo']['last_name'];
+
 				$data['event'] = $this->input->post('event');
 				$data['date'] = $this->input->post('date');	
 				
