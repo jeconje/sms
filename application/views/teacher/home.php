@@ -205,25 +205,6 @@
 <td><a href='<?php echo base_url(); ?>teacher/<?php echo $room ?>/<?php echo $value['offer_code']; ?>'>
 <input  
     <?php 
-<<<<<<< HEAD
-      /*if($wayKlase != "") {
-        echo "disabled";
-      }
-      else 
-      {
-        if($event == "Suspended" && $petsa == date('Y-m-d')) {
-        if(strtotime(date('h:i A')) >= strtotime($start_time) && strtotime(date('h:i A')) <= strtotime($end_time)) {
-       echo "disabled";
-          
-        }
-      }
-     if(strtotime(date('h:i A')) >= strtotime($value['start_time']) && strtotime(date('h:i A')) <= strtotime($value['end_time']))   {                                                         
-        echo "";
-     }      
-     else
-      echo "disabled";
-    }*/
-=======
 
       if($currentDay != $subjectDays) { // Get subject day
         echo "disabled";
@@ -236,7 +217,6 @@
       } else
           echo "disabled";
   
->>>>>>> 110e5251d27d0179d118ea66ed9b2044acf5f400
      ?>
      
  class="btn btn-primary" type="submit" value="Check Attendance"/>
