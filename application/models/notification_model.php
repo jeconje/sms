@@ -5,8 +5,7 @@
     public function studentInfo($data) {
       $this->db->select();
       $this->db->from('students');
-      // $this->db->join('account','students.account_id = account.account_id');
-      $this->db->where('students.account_id', $data['id']);
+      $this->db->where('student_number', $data['id']);
       $query = $this->db->get();
       $result = $query->result_array();
 
@@ -16,7 +15,7 @@
     public function parentInfo() {
       $this->db->select();
       $this->db->from('parent');
-      $this->db->join('account','parent.account_id = account.account_id');
+      $this->db->join('account','tracker.tracker_id = account.account_id');
       $query = $this->db->get();
       $result = $query->result_array();
 
@@ -26,7 +25,7 @@
     public function teacherInfo() {
       $this->db->select();
       $this->db->from('faculty');
-      $this->db->join('account','faculty.account_id = account.account_id');
+      $this->db->join('account','faculty.faculty_id = account.account_id');
       $query = $this->db->get();
       $result = $query->result_array();
 
