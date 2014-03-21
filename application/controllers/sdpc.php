@@ -161,7 +161,7 @@
 
 				$data['viewSubjects'] = $this->sdpc_model->viewClasses();
 				$data['student_number'] = $this->input->post('student_number');
-				$data['viewCandidates'] = $this->sdpc_model->viewCandidates($data);
+				$data['viewCandidates'] = $this->sdpc_model->viewCandidates();
 				
 				// echo "<pre>";
 				// print_r($data['viewCandidates']);
