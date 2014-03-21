@@ -119,6 +119,16 @@
             return $result;
         }
 
+         public function studentsStudyLoad()
+        {
+            $this->db->select();
+            $this->db->from('study_load');
+            $query = $this->db->get();
+            $result = $query -> result_array();
+
+            return $result;
+        }
+
        //Get values from database 
         public function editProfile($data) 
         { 
@@ -297,6 +307,192 @@ public function showCalendar($year,$month)
     $result = $query->result_array();
     return $result;
   }
+    //Get subjects
+    public function get_subject($data) 
+    {
+      $this->db->select()->from('subjects');
+      $this->db->order_by('subject_description');
+      $this->db->join('offering', 'subjects.subject_code = offering.subject_code');
+      $this->db->where('faculty_id', $data['faculty_id']);
+
+      $query = $this->db->get();
+
+      return $query->result();
+    }
+
+    //Get offer codes based on subjects
+    public function get_offer_code($data) 
+    {
+      $this->db->select();
+      $this->db->from('subjects');
+      $this->db->where(array('subject_code' => $data['subject']));
+
+      $query = $this->db->get();
+      $subject = $query->result_array();
+
+      $id = array(0=>0);
+      foreach ($subject as $value) 
+      {
+        $id[$value['subject_code']] = $value['subject_code'];
+      }
+  
+      $this->db->select()->from('offering');
+      $this->db->where('faculty_id', $data['faculty_id']);
+      $this->db->where_in('subject_code',$id);
+
+      $query = $this->db->get();
+
+      return $query->result();
+    }
+
+        public function viewAttendance($data)
+        { 
+          $this->db->select();
+          $this->db->from('attendance');
+          $this->db->where('offer_code',$data['id_code']);
+
+          $query = $this->db->get();
+          $result = $query -> result_array();
+
+          return $result;          
+
+        }
+
+        public function viewCampusLogin($data)
+        {
+          $this->db->select();
+          $this->db->from('campus_login');                
+          $this->db->order_by('log_id','asc');          
+          $query = $this->db->get();
+          $result = $query -> result_array('array');
+
+          return $result;  
+        }
+
+        public function insertAttendance($data)
+        {          
+            date_default_timezone_set('Asia/Manila');                  
+            
+            $date = date('Y-m-d');    
+                  for ($i=1; $i < 41 ; $i++) { 
+                 
+                      if($data['a'.$i] == 'L' || $data['a'.$i] == 'A'){
+                      $insert = array (                            
+                          
+                          'offer_code' => $data['id_code'],
+                          'attendance' => $data['a'.$i],
+                          'date' => $date,
+                          'student_number' => $data['student_number'.$i], 
+                          
+                       );   
+                          $this->db->insert('attendance',$insert);        
+                       }
+                 }
+
+        }
+
+        public function updateSeat($data)
+        {
+            for ($i=1; $i <41 ; $i++) {                       
+                $update = array (
+                        'seat_number' => $i
+                 );
+                $this->db->where('offer_code',$data['id_code']);
+                $this->db->where('student_number',$data['a'.$i]);
+                $this->db->update('study_load',$update);          
+            }            
+        }
+
+        public function viewDistinctLogs($data)
+        {
+          $this->db->distinct();
+          $this->db->select ('date');
+          $this->db->from('attendance');
+          $this->db->join('offering','attendance.offer_code = offering.offer_code');
+          $this->db->join('subject','subject.offer_code = offering.offer_code');
+          $this->db->where('faculty_id',$data['faculty_id']);
+          $this->db->order_by('attendance.date',desc);
+          $query = $this->db->get();
+          $result = $query -> result_array();
+          return $result;
+
+        }
+
+        public function viewLogs($data)
+        {          
+          $this->db->select ();
+          $this->db->from('attendance');
+          $this->db->join('offering','attendance.offer_code = offering.offer_code');
+          $this->db->join('subject','subject.offer_code = offering.offer_code');
+          $this->db->join('students','attendance.student_number = students.student_number');          
+          $this->db->where('attendance.date',$data['date']);          
+          $this->db->where('faculty_id',$data['faculty_id']);
+
+          $this->db->order_by('subject.subject_description');
+          $query = $this->db->get();
+          $result = $query -> result_array();
+          return $result;
+        }       
+
+        public function viewSearchedLogs($data)
+        {          
+          $this->db->select ();
+          $this->db->from('attendance');
+          $this->db->join('offering','attendance.offer_code = offering.offer_code');
+          $this->db->join('subject','subject.offer_code = offering.offer_code');
+          $this->db->join('students','attendance.student_number = students.student_number');     
+          $this->db->where('subject.subject_description',$data['subject'])     ;
+          $this->db->where('attendance.date',$data['date']);          
+          $this->db->where('faculty_id',$data['faculty_id']);          
+          $this->db->order_by('subject.subject_description');
+          $query = $this->db->get();
+          $result = $query -> result_array();
+          return $result;
+        }
+
+        public function updateAttendance($data)
+        {
+          $update = array (
+                        'attendance' => 'X'
+                    );
+          $this->db->where('attendance_id',$data['attendance_id']);
+          $this->db->update('attendance',$update);
+        }
+
+        public function viewAssignedStudents($data)
+        {               
+              $this->db->select();
+              $this->db->from('study_load');
+              $this->db->join('students','students.student_number = study_load.student_number');
+              $this->db->where('offer_code',$data['id_code']);                      
+              $query = $this->db->get();
+              $result = $query -> result_array();
+
+              return $result;
+       }     
+
+       public function viewViolation($data)
+       {
+            $this->db->select();
+            $this->db->from('violation');
+            $this->db->join('students','violation.student_number = students.student_number ');                                
+            $query = $this->db->get();
+            $result = $query -> result_array();
+
+            return $result;
+       }      
+
+       public function viewSuspension($data)
+       {
+
+            $this->db->select();
+            $this->db->from('suspend');
+            $this->db->join('students','suspend.student_number = students.student_number ');                                
+            $query = $this->db->get();
+            $result = $query -> result_array();
+
+            return $result;
+        }
 
 }
 

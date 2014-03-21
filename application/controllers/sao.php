@@ -160,6 +160,8 @@
 			} else
 				$this->index();
 		}
+		
+		
 
 		//Change Password
   		public function view_changepassword() 

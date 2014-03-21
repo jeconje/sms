@@ -564,16 +564,16 @@
 
     <td>
 		<select name="32" style="width: 120px">
-       <?php         
-        foreach($assigned_seats as $row){
-        if($row['seat_number'] == '32'){
-      ?>    
-            <option><?php echo $row['last_name'].', '.$row['first_name']; ?></option>     
-      <?php }} ?>
-        <option>SELECT</option>
-      <?php foreach ($viewStudents as $value){ ?>     
-        <option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option>                                        
-      <?php }  ?>
+         <?php         
+          foreach($assigned_seats as $row){
+          if($row['seat_number'] == '32'){
+        ?>    
+              <option><?php echo $row['last_name'].', '.$row['first_name']; ?></option>     
+        <?php }} ?>
+          <option>SELECT</option>
+        <?php foreach ($viewStudents as $value){ ?>     
+          <option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option>                                        
+        <?php }  ?>
 
 		</select>32
     </td>

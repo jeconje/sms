@@ -241,13 +241,17 @@
                 }
 
                 if($value['seat_number'] == 2){
+        
        ?>     
+
+
 
     <input type = "hidden" name = "student_number2" value = "<?php echo $value['student_number'];  ?>" />              
 
     <input name="2" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
     <p align="right">2</p>
         <div class="auto-style1" style="width: 49px; height: 10px">Lates: <?php echo $late; ?></div>
+
          <div class="auto-style1" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
          <?php if($statuss == "Suspended" && $suspend_number == $value['student_number']){ ?>
      <div class="bs-example" align="right">
@@ -323,6 +327,8 @@
 
                 }
                 if($value['seat_number'] == 3){
+                  
+
        ?>     
 
     <input type = "hidden" name = "student_number3" value = "<?php echo $value['student_number'];  ?>" />              
@@ -405,6 +411,10 @@
 
                 }
                 if($value['seat_number'] == 4){
+                     
+        $temp = $late / 3;
+        $absent = $absent + $temp;
+        $absent = $absent + $temp;
        ?>
     <input type = "hidden" name = "student_number4" value = "<?php echo $value['student_number'];  ?>" />  
     <input name="4" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
@@ -487,6 +497,7 @@
 
                 }
                 if($value['seat_number'] == 5){
+                           
        ?>
     <input type = "hidden" name = "student_number5" value = "<?php echo $value['student_number'];  ?>" />  
     <input name="5" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
@@ -568,6 +579,8 @@
                 }
 
                 if($value['seat_number'] == 6){
+
+                         
        ?>
     <input type = "hidden" name = "student_number6" value = "<?php echo $value['student_number'];  ?>" />  
     <input name="6" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
@@ -648,6 +661,8 @@
 
                 }
                 if($value['seat_number'] == 7){
+
+                     
        ?>
     <input type = "hidden" name = "student_number7" value = "<?php echo $value['student_number'];  ?>" /> 
     <input name="7" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
@@ -730,6 +745,8 @@
 
                 }
                 if($value['seat_number'] == 8){
+                     
+        
        ?>
     <input type = "hidden" name = "student_number8" value = "<?php echo $value['student_number'];  ?>" />  
     <input name="8" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
@@ -810,6 +827,7 @@
 
                 }
                 if($value['seat_number'] == 16){
+                     
        ?>     
 
     <input type = "hidden" name = "student_number16" value = "<?php echo $value['student_number'];  ?>" />              
@@ -892,6 +910,8 @@
 
                 }
                 if($value['seat_number'] == 15){
+                     
+        
        ?>
     <input type = "hidden" name = "student_number15" value = "<?php echo $value['student_number'];  ?>" />  
     <input name="15" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
@@ -970,6 +990,8 @@
 
                 }
                 if($value['seat_number'] == 7){
+                     
+        
        ?>
     <input type = "hidden" name = "student_number7" value = "<?php echo $value['student_number'];  ?>" />  
     <input name="7" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
@@ -1049,6 +1071,8 @@
 
                 }
                 if($value['seat_number'] == 13){
+                     
+        
        ?>
     <input type = "hidden" name = "student_number13" value = "<?php echo $value['student_number'];  ?>" />  
     <input name="13" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
@@ -1129,6 +1153,7 @@
 
                 }
                 if($value['seat_number'] == 12){
+        
        ?>
     <input type = "hidden" name = "student_number12" value = "<?php echo $value['student_number'];  ?>" />  
     <input name="12" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
@@ -1208,6 +1233,8 @@
 
                 }
                 if($value['seat_number'] == 11){
+                     
+        
        ?>
     <input type = "hidden" name = "student_number11" value = "<?php echo $value['student_number'];  ?>" />  
     <input name="11" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
@@ -1287,6 +1314,8 @@
 
                 }
                 if($value['seat_number'] == 10){
+                     
+        
        ?>
     <input type = "hidden" name = "student_number10" value = "<?php echo $value['student_number'];  ?>" />  
     <input name="10" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
@@ -1367,6 +1396,8 @@
 
                 }
                 if($value['seat_number'] == 9){
+                     
+        
        ?>
     <input type = "hidden" name = "student_number9" value = "<?php echo $value['student_number'];  ?>" />  
     <input name="9" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
@@ -1448,6 +1479,8 @@
 
                 }
                 if($value['seat_number'] == 17){
+                     
+        
        ?>
     <input type = "hidden" name = "student_number17" value = "<?php echo $value['student_number'];  ?>" />  
     <input name="17" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
@@ -1527,6 +1560,8 @@
 
                 }
                 if($value['seat_number'] == 18){
+                     
+        
        ?>
     <input type = "hidden" name = "student_number18" value = "<?php echo $value['student_number'];  ?>" />  
     <input name="18" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
@@ -1606,6 +1641,8 @@
 
                 }
                 if($value['seat_number'] == 19){
+                     
+        
        ?>
     <input type = "hidden" name = "student_number19" value = "<?php echo $value['student_number'];  ?>" />  
     <input name="19" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
@@ -1685,6 +1722,8 @@
 
                 }
                 if($value['seat_number'] == 20){
+                     
+        
        ?>
     <input type = "hidden" name = "student_number20" value = "<?php echo $value['student_number'];  ?>" />  
     <input name="20" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
@@ -1763,6 +1802,8 @@
 
                 }
                 if($value['seat_number'] == 21){
+                     
+        
        ?>
     <input type = "hidden" name = "student_number21" value = "<?php echo $value['student_number'];  ?>" />  
     <input name="21" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
@@ -1842,6 +1883,8 @@
 
                 }
                 if($value['seat_number'] == 22){
+                     
+        
        ?>
     <input type = "hidden" name = "student_number22" value = "<?php echo $value['student_number'];  ?>" />  
     <input name="22" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
@@ -1921,6 +1964,8 @@
 
                 }
                 if($value['seat_number'] == 23){
+                     
+        
        ?>
     <input type = "hidden" name = "student_number23" value = "<?php echo $value['student_number'];  ?>" />  
     <input name="23" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
@@ -2000,6 +2045,8 @@
 
                 }
                 if($value['seat_number'] == 24){
+                     
+        
        ?>
     <input type = "hidden" name = "student_number24" value = "<?php echo $value['student_number'];  ?>" />  
     <input name="24" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
@@ -2081,6 +2128,8 @@
 
                 }
                 if($value['seat_number'] == 25){
+                     
+        
        ?>
     <input type = "hidden" name = "student_number25" value = "<?php echo $value['student_number'];  ?>" />  
     <input name="25" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
@@ -2162,6 +2211,8 @@
 
                 }
                 if($value['seat_number'] == 26){
+                     
+        
        ?>
     <input type = "hidden" name = "student_number26" value = "<?php echo $value['student_number'];  ?>" />  
     <input name="26" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
@@ -2242,6 +2293,8 @@
 
                 }
                 if($value['seat_number'] == 27){
+                     
+        
        ?>
     <input type = "hidden" name = "student_number27" value = "<?php echo $value['student_number'];  ?>" />
     <input name="27" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
@@ -2321,6 +2374,8 @@
 
                 }
                 if($value['seat_number'] == 28){
+                     
+        
        ?>
     <input type = "hidden" name = "student_number28" value = "<?php echo $value['student_number'];  ?>" />  
     <input name="28" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
@@ -2400,6 +2455,8 @@
 
                 }
                 if($value['seat_number'] == 29){
+                     
+        
        ?>
     <input type = "hidden" name = "student_number29" value = "<?php echo $value['student_number'];  ?>" />  
     <input name="29" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
@@ -2479,6 +2536,8 @@
 
                 }
                 if($value['seat_number'] == 30){
+                     
+        
        ?>
     <input type = "hidden" name = "student_number30" value = "<?php echo $value['student_number'];  ?>" />  
     <input name="30" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
@@ -2558,6 +2617,8 @@
 
                 }
                 if($value['seat_number'] == 31){
+                     
+        
        ?>
     <input type = "hidden" name = "student_number31" value = "<?php echo $value['student_number'];  ?>" />  
     <input name="31" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
@@ -2637,6 +2698,8 @@
 
                 }
                 if($value['seat_number'] == 32){
+                     
+        
        ?>
     <input type = "hidden" name = "student_number32" value = "<?php echo $value['student_number'];  ?>" />  
     <input name="32" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
@@ -2718,6 +2781,8 @@
 
                 }
                 if($value['seat_number'] == 40){
+                     
+        
        ?>
     <input type = "hidden" name = "student_number40" value = "<?php echo $value['student_number'];  ?>" />      
     <input name="40" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
@@ -2797,6 +2862,8 @@
 
                 }
                 if($value['seat_number'] == 39){
+                     
+        
        ?>
     <input type = "hidden" name = "student_number39" value = "<?php echo $value['student_number'];  ?>" />  
     <input name="39" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
@@ -2876,6 +2943,8 @@
 
                 }
                 if($value['seat_number'] == 38){
+                     
+        
        ?>
     <input type = "hidden" name = "student_number38" value = "<?php echo $value['student_number'];  ?>" />  
     <input name="38" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
@@ -2955,6 +3024,7 @@
 
                 }
                 if($value['seat_number'] == 37){
+                             
        ?>
     <input type = "hidden" name = "student_number37" value = "<?php echo $value['student_number'];  ?>" />  
     <input name="37" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
@@ -3034,6 +3104,8 @@
 
                 }
                 if($value['seat_number'] == 36){
+                     
+        
        ?>
     <input type = "hidden" name = "student_number36" value = "<?php echo $value['student_number'];  ?>" />  
     <input name="36" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
@@ -3113,6 +3185,8 @@
 
                 }
                 if($value['seat_number'] == 35){
+                     
+        
        ?>
     <input type = "hidden" name = "student_number35" value = "<?php echo $value['student_number'];  ?>" />  
     <input name="35" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
@@ -3192,6 +3266,8 @@
 
                 }
                 if($value['seat_number'] == 34){
+                     
+        
        ?>
     <input type = "hidden" name = "student_number34" value = "<?php echo $value['student_number'];  ?>" />  
     <input name="34" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
@@ -3271,6 +3347,8 @@
 
                 }
                 if($value['seat_number'] == 33){
+                     
+        
        ?>
     <input type = "hidden" name = "student_number33" value = "<?php echo $value['student_number'];  ?>" />  
     <input name="33" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
@@ -3351,6 +3429,8 @@
 
                 }
                 if($value['seat_number'] == 41){
+                     
+        
        ?>
     <input type = "hidden" name = "student_number41" value = "<?php echo $value['student_number'];  ?>" />  
     <input name="41" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
@@ -3429,6 +3509,8 @@
 
                 }
                 if($value['seat_number'] == 42){
+                     
+        
        ?>
     <input type = "hidden" name = "student_number42" value = "<?php echo $value['student_number'];  ?>" />  
     <input name="42" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
@@ -3507,6 +3589,8 @@
 
                 }
                 if($value['seat_number'] == 43){
+                     
+        
        ?>
     <input type = "hidden" name = "student_number43" value = "<?php echo $value['student_number'];  ?>" />  
     <input name="43" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
@@ -3585,6 +3669,8 @@
 
                 }
                 if($value['seat_number'] == 44){
+                     
+        
        ?>
     <input type = "hidden" name = "student_number44" value = "<?php echo $value['student_number'];  ?>" />  
     <input name="44" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
@@ -3663,6 +3749,8 @@
 
                 }
                 if($value['seat_number'] == 45){
+                     
+        
        ?>
     <input type = "hidden" name = "student_number45" value = "<?php echo $value['student_number'];  ?>" />  
     <input name="45" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
@@ -3741,6 +3829,8 @@
 
                 }
                 if($value['seat_number'] == 46){
+                     
+        
        ?>
     <input type = "hidden" name = "student_number46" value = "<?php echo $value['student_number'];  ?>" />  
     <input name="46" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
@@ -3819,6 +3909,8 @@
 
                 }
                 if($value['seat_number'] == 47){
+                     
+
        ?>
     <input type = "hidden" name = "student_number47" value = "<?php echo $value['student_number'];  ?>" />  
     <input name="47" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
@@ -3897,6 +3989,8 @@
 
                 }
                 if($value['seat_number'] == 48){
+                                       
+
        ?>
     <input type = "hidden" name = "student_number48" value = "<?php echo $value['student_number'];  ?>" />  
     <input name="48" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">

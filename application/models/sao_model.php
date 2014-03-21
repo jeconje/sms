@@ -190,6 +190,20 @@
     return $result;
   }
 
+
+  public function updateStatus()
+  {
+  	date_default_timezone_set('Asia/Manila');
+  	$date = date('Y-m-d');
+
+  	$update = array(
+  						'status' => "Not Suspended"
+  					);
+
+  	$this->db->where('end_date',date('Y-m-d'));
+  	$this->db->update('suspend',$update);  
+  }
+
 //END CALENDAR
 
 }
