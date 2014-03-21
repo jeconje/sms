@@ -26,12 +26,12 @@
         }
 
         //Get specfic college
-        public function get_college($data) 
-        {
+        public function get_college($data) {
           $this-> db -> select();
           $this-> db -> from('college');
           $this-> db -> join('faculty', 'college.college_id = faculty.college_id');
           $this-> db -> where('faculty.college_id', $data['college_id']);
+
           $query = $this -> db -> get();
           $result = $query -> result_array();
 
@@ -183,8 +183,7 @@
     }
 
     //Get offer codes based on subjects
-    public function get_offer_code($data) 
-    {
+    public function get_offer_code($data) {
       $this->db->select();
       $this->db->from('subjects');
       $this->db->where(array('subject_code' => $data['subject']));
@@ -193,8 +192,7 @@
       $subject = $query->result_array();
 
       $id = array(0=>0);
-      foreach ($subject as $value) 
-      {
+      foreach ($subject as $value) {
         $id[$value['subject_code']] = $value['subject_code'];
       }
   
@@ -203,8 +201,9 @@
       $this->db->where_in('subject_code',$id);
 
       $query = $this->db->get();
+      $result = $query->result();
 
-      return $query->result();
+      return $result;
     }
 
         public function viewAttendance($data)
@@ -388,6 +387,20 @@
             $result = $query -> result_array();
 
             return $result; 
+        }
+        public function viewNumberOfAttendance()
+        {
+            date_default_timezone_set('Asia/Manila');
+            $date = date('Y-m-d');
+
+            $this->db->select();
+            $this->db->from('attendance');
+            $this->db->where('date',$date);
+            $query = $this->db->get();
+            $result = $query -> num_rows();
+
+            return $result;
+
         }
   }
 ?>

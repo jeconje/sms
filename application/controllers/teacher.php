@@ -90,8 +90,8 @@
 
 			$offer_codes = $this->teacher_model->get_offer_code($data);
 				foreach ($offer_codes as $offer_code) {
-					$value[$i]['id'] = $offer_code->offer_code_id;
-					$value[$i]['o_code'] = $offer_code->offer_code;
+					$value[$i]['id'] = $offer_code->subject_code;
+					$value[$i]['o_code'] = $offer_code->subject_code;
 					$i++;
 				}
 				echo json_encode($value);
@@ -109,6 +109,7 @@
 				
 				$data['first_name'] = $data['teacherInfo']['first_name'];
 				$data['last_name'] = $data['teacherInfo']['last_name'];
+				$data['faculty_id'] = $data['teacherInfo']['faculty_id'];
 
 				$data['subjects'] = $this->teacher_model->get_subject($data);
 				$data['offer_code'] = $this->input->post('offer_code');
@@ -309,6 +310,7 @@
 
 				
 				$this->teacher_model->updateStatus();
+				$data['onlyonce'] = $this->teacher_model->viewNumberOfAttendance();
 
 				
 				for ($i=1; $i <41 ; $i++) { 
@@ -372,6 +374,7 @@
 				date_default_timezone_set('Asia/Manila');
 				$date = date('Y-m-d');
 				$this->teacher_model->updateStatus();
+				$data['onlyonce'] = $this->teacher_model->viewNumberOfAttendance();
 
 
 				for ($i=1; $i <49 ; $i++) { 
@@ -444,7 +447,10 @@
 				$data['first_name'] = $data['info']['first_name'];
 				$data['last_name'] = $data['info']['last_name'];
 				$data['viewStudents'] = $this->teacher_model->viewStudents($data);
-				$data['viewAttendance'] = $this->teacher_model->viewAttendance($data);				
+				$data['viewAttendance'] = $this->teacher_model->viewAttendance($data);	
+
+				$this->teacher_model->updateStatus();
+				$data['onlyonce'] = $this->teacher_model->viewNumberOfAttendance();			
 			
 				for ($i=1; $i < 49 ; $i++) { 
 					$data['a'.$i] = $this->input->post('attendance'.$i);		
@@ -503,6 +509,9 @@
 				$data['viewStudents'] = $this->teacher_model->viewStudents($data);
 				$data['viewAttendance'] = $this->teacher_model->viewAttendance($data);		
 				$data['suspension'] = $this->teacher_model->viewSuspension($data);		
+
+				$this->teacher_model->updateStatus();
+				$data['onlyonce'] = $this->teacher_model->viewNumberOfAttendance();	
 			
 				for ($i=1; $i < 32 ; $i++) { 
 					$data['a'.$i] = $this->input->post('attendance'.$i);		

@@ -191,13 +191,13 @@
 <input  
     <?php foreach($suspendClass as $suspend){ 
       if($noClass != "") {
-        echo "disabled";
+        echo "";
      }  
      else if($suspend['start_time'] >= $value['start_time'] && $suspend['end_time'] <= $value['end_time']) {
-        echo "disabled";
+        echo "";
       }  
     if ( strtotime(date('h:i A')) >= strtotime($value['start_time']) && strtotime(date('h:i A')) <= strtotime($value['end_time']))   {                                                         
-      echo "disabled"; 
+      echo ""; 
      } ?>
      
  class="btn btn-primary" type="submit" value="Check Attendance"
