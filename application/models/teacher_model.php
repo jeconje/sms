@@ -128,7 +128,21 @@
             $this->db->join('faculty','offering.faculty_id = faculty.faculty_id');
             $this->db->join('subject','offering.offer_code = subject.offer_code');            
             $this->db->where('offering.faculty_id',$data['faculty_id']);   
-            //$this->db->where('offering.offer_code', $data['id']);            
+            $this->db->order_by('days');
+
+            $query = $this->db->get();
+            $result = $query -> result_array();
+
+            return $result;
+        } 
+
+         public function mgaKlase($data) { 
+            $this->db->select();
+            $this->db->from('offering');          
+            $this->db->join('faculty','offering.faculty_id = faculty.faculty_id');
+            $this->db->join('subject','offering.offer_code = subject.offer_code');            
+            $this->db->where('offering.faculty_id',$data['faculty_id']);   
+            $this->db->where('offering.offer_code', $data['id']);            
             $this->db->order_by('days');
 
             $query = $this->db->get();
@@ -137,7 +151,8 @@
             return $result;
         }
 
-        
+
+          
          public function viewCandidates($data)
         {
           $this->db->select();
@@ -315,15 +330,14 @@
           return $result;
         }
 
-        public function viewLogs($data) {          
-          $this->db->select('subject_description');      
-          $this->db->select('date');
+        public function viewLogs($data) {    
+          $this->db->select();
           $this->db->from('attendance');
           $this->db->join('offering','attendance.offer_code = offering.offer_code');
           $this->db->join('subject','subject.offer_code = offering.offer_code');
           $this->db->join('faculty','faculty.faculty_id = offering.faculty_id');
           $this->db->where('faculty.faculty_id',$data['faculty_id']);
-          $this->db->where('subject.subject_description',$data['id']);          
+          $this->db->where('subject.offer_code',$data['id']);          
 
           $query = $this->db->get();
           $result = $query -> result_array();

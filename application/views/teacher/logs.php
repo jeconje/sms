@@ -78,7 +78,7 @@
                   <?php foreach($viewDistinctLogs as $value) { ?>
                     <tr>                                                            
                       <td><?php echo $value['date']; ?></td>                        
-                      <td><?php echo anchor('teacher/classroom?date='.$value['date']."/".$class['offer_code'], 'View Logs', 'id="$value->date" class="btn btn-primary"'); ?></td>  
+                      <td><?php echo anchor('teacher/classroom?id='.$value['date']."/".$class['offer_code'], 'View Logs', 'id="$value->date" class="btn btn-primary"'); ?></td>  
                     </tr> 
                   <?php } ?>
 

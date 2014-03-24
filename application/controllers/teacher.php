@@ -180,7 +180,7 @@
 				$data['account_id'] = $data['info']['account_id'];	 
 				$data['account_type'] = $data['info']['account_type'];
 
-				//$data['id'] = $_GET['id'];
+				$data['id'] = $_GET['id'];
 
 				$data['teacherInfo'] = $this->teacher_model->teacherInfo($data);
 				$data['faculty_id'] = $data['teacherInfo']['faculty_id'];
@@ -231,9 +231,9 @@
 				$data['last_name'] = $data['teacherInfo']['last_name'];		
 
 				$data['viewDistinctLogs'] = $this->teacher_model->viewDistinctLogs($data);
-				$data['classes'] = $this->teacher_model->viewClasses($data);
+				$data['classes'] = $this->teacher_model->mgaKlase($data);
 
-				$data['viewLogs'] = $this->teacher_model->viewLogs($data); // subjects
+				//$data['viewLogs'] = $this->teacher_model->viewLogs($data); // subjects
 
 				$this->load->view('teacher/logs',$data);
 			} else
@@ -372,12 +372,12 @@
 				$data['first_name'] = $data['teacherInfo']['first_name'];
 				$data['last_name'] = $data['teacherInfo']['last_name'];
 
-				$data['date'] = $_GET['date'];
+				$data['id'] = $_GET['id'];
 				$data['oper_code'] = $_GET['oper_code'];
 
 				$data['viewAttendance'] = $this->teacher_model->viewAttendance($data);				
 
-				echo $data['date'];
+				echo $data['id'];
 				// echo "<pre>";
 				// print_r($data['viewAttendance']);
 				// echo "</pre>";
