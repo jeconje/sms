@@ -59,20 +59,17 @@
                 <thead>
                   <tr>                    
                     <th><center>Subject</center></th>
-                    
                    </tr>
                 </thead>
 
 
-                <tbody  align="center">
-                <?php foreach($classes as $view){                   
-                  ?>
-                            
-                    <tr>
-                      <td><?php echo $view['subject_description']; ?></td>
-                      <td><a href="logs?id=<?php echo $view['subject_description']; ?>"><input class="btn btn-primary" name ="submit" type="submit" value="View Logs"/></td>
-                    </tr>
-                 <?php } ?>
+                <tbody align="center">
+                <?php foreach($classes as $view){ ?>
+                  <tr>
+                    <td><?php echo $view['subject_description']; ?></td>
+                    <td><?php echo anchor('teacher/logs?id='.$view['offer_code'], 'View Logs', 'id="$value->date" class="btn btn-primary"'); ?></td>
+                  </tr>
+                <?php } ?>
                 </tbody>
               </table>
             </div>

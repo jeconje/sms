@@ -73,17 +73,14 @@
                     <th><center></th>                                        
                   </tr>
                 </thead>                                
-                <tbody  align="center">                                                      
-                  <?php foreach($viewDistinctLogs as $value) {                         
-                                              
-                  ?>
-                            <tr>                                                            
-                              <td><?php echo $value['date']; ?></td>                        
-                              <td><a href="classroom/$value['date']"><input class="btn btn-primary" name ="submit" type="submit" value="View Logs"/></td>  
-                              
-                            </tr> 
-                  <?php }                      
-                   ?>
+                <tbody  align="center">                        
+                <?php foreach($classes as $class) { } ?>             
+                  <?php foreach($viewDistinctLogs as $value) { ?>
+                    <tr>                                                            
+                      <td><?php echo $value['date']; ?></td>                        
+                      <td><?php echo anchor('teacher/classroom?date='.$value['date']."/".$class['offer_code'], 'View Logs', 'id="$value->date" class="btn btn-primary"'); ?></td>  
+                    </tr> 
+                  <?php } ?>
 
                 </tbody>
               </table>
