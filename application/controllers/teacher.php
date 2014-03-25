@@ -34,6 +34,24 @@
 			$this->load->view('seatplan_teacher/review_classroom',$data);
 		}
 
+	     public function huehue3($id)
+		{
+			$data['id_code'] = $id;
+			$data['viewStudents'] = $this->teacher_model->viewStudents($data);
+			$data['viewAttendance'] = $this->teacher_model->viewReviewAttendance($data);			
+
+			$this->load->view('seatplan_teacher/review_brd2',$data);
+		}
+
+		public function huehue4($id)
+		{
+			$data['id_code'] = $id;
+			$data['viewStudents'] = $this->teacher_model->viewStudents($data);
+			$data['viewAttendance'] = $this->teacher_model->viewReviewAttendance($data);			
+
+			$this->load->view('seatplan_teacher/review_brd1',$data);
+		}
+
 		public function profile() {			
     	$data['info'] = $this->session->userdata('logged_in'); 
     	if($data['info'] == TRUE){
@@ -485,93 +503,102 @@
 
 		public function brd1($id)
 		{
-
-			
 			$data['info'] = $this->session->userdata('logged_in');
 			if($data['info'] == TRUE){
-
 				$data['id_code'] = $id;
 				$data['first_name'] = $data['info']['first_name'];
 				$data['last_name'] = $data['info']['last_name'];
-				$data['viewStudents'] = $this->teacher_model->viewStudents($data);
-				$data['viewAttendance'] = $this->teacher_model->viewAttendance($data);	
+				$data['viewAttendance'] = $this->teacher_model->viewAttendance($data);				
+				$data['logins'] = $this->teacher_model->viewCampusLogin($data);
+				$data['violation'] = $this->teacher_model->viewViolation($data);		
+				$data['suspension'] = $this->teacher_model->viewSuspension($data);
 
+				date_default_timezone_set('Asia/Manila');
+				$date = date('Y-m-d');
 				$this->teacher_model->updateStatus();
-				$data['onlyonce'] = $this->teacher_model->viewNumberOfAttendance();			
-			
-				for ($i=1; $i < 49 ; $i++) { 
+				$data['onlyonce'] = $this->teacher_model->viewNumberOfAttendance();
+
+
+				for ($i=1; $i <49 ; $i++) { 
 					$data['a'.$i] = $this->input->post('attendance'.$i);		
 				}
-				for ($i=1; $i < 49 ; $i++) { 
+
+				for ($i=1; $i <49 ; $i++) { 
 				$data['student_number'.$i] = $this->input->post('student_number'.$i);	
-				}								
-											
+				}						
+							
 				if(isset($_POST['submit']))
 				{								
-					$this->teacher_model->insertAttendance($data);		
-					header('Location:http://localhost/sms/teacher/brd2/'.$data['id_code']);					
-				}				
-				$this->load->view('seatplan_teacher/brd2',$data);		
+					$this->teacher_model->insertAttendance($data);
+					header('Location:http://localhost/sms/teacher/huehue4/'.$data['id_code']);							
+				}
+
+				$data['viewStudents'] = $this->teacher_model->viewStudents($data);
+				$this->load->view('seatplan_teacher/brd1',$data);		
 			} else 
 				$this->index();	
 	    }	
 
 		public function assign_brd1($id)
 		{
-			
 			$data['info'] = $this->session->userdata('logged_in');
-			if($data['info'] == TRUE){
+			if($data['info'] == TRUE)
+			{
 				$data['id_code'] = $id;
 				$data['first_name'] = $data['info']['first_name'];
 				$data['last_name'] = $data['info']['last_name'];
-				$data['viewStudents'] = $this->teacher_model->viewStudents($data);
+				$data['viewStudents'] = $this->teacher_model->viewStudents($data);				
 				$data['assigned_seats'] = $this->teacher_model->viewAssignedStudents($data);
+				for ($i=1; $i <49 ; $i++) 
+				{ 
+					$data['a'.$i] = $this->input->post(''.$i);
+				}					
 				
-				for ($i=1; $i < 49 ; $i++) { 
-				$data['a'.$i] = $this->input->post($i);
-				}	
-				
-				if(isset($_POST['submit'])){			
-				$this->teacher_model->updateSeat($data);				
-				header('Location:http://localhost/sms/teacher/assign_brd1/'.$data['id_code']);
-				} 
-				else				
-				$this->load->view('seatplan_teacher/assign_brd1',$data);
 
+				if(isset($_POST['submit'])){			
+					$this->teacher_model->updateSeat($data);
+					header('Location:http://localhost/sms/teacher/assign_brd1/'.$data['id_code']);
+				}
+				else					
+					$this->load->view('seatplan_teacher/assign_brd1',$data);
 			} else
 				$this->index();
-			
+		
 		}
 
 		public function brd2($id)
 		{
-
-			
 			$data['info'] = $this->session->userdata('logged_in');
 			if($data['info'] == TRUE){
-
 				$data['id_code'] = $id;
 				$data['first_name'] = $data['info']['first_name'];
 				$data['last_name'] = $data['info']['last_name'];
-				$data['viewStudents'] = $this->teacher_model->viewStudents($data);
-				$data['viewAttendance'] = $this->teacher_model->viewAttendance($data);		
-				$data['suspension'] = $this->teacher_model->viewSuspension($data);		
+				$data['viewAttendance'] = $this->teacher_model->viewAttendance($data);				
+				$data['logins'] = $this->teacher_model->viewCampusLogin($data);
+				$data['violation'] = $this->teacher_model->viewViolation($data);		
+				$data['suspension'] = $this->teacher_model->viewSuspension($data);
 
+				date_default_timezone_set('Asia/Manila');
+				$date = date('Y-m-d');
 				$this->teacher_model->updateStatus();
-				$data['onlyonce'] = $this->teacher_model->viewNumberOfAttendance();	
-			
-				for ($i=1; $i < 32 ; $i++) { 
+				$data['onlyonce'] = $this->teacher_model->viewNumberOfAttendance();
+
+
+				for ($i=1; $i <33 ; $i++) { 
 					$data['a'.$i] = $this->input->post('attendance'.$i);		
 				}
-				for ($i=1; $i < 32 ; $i++) { 
+
+				for ($i=1; $i <33 ; $i++) { 
 				$data['student_number'.$i] = $this->input->post('student_number'.$i);	
-				}								
-											
+				}						
+							
 				if(isset($_POST['submit']))
 				{								
-					$this->teacher_model->insertAttendance($data);		
-					header('Location:http://localhost/sms/teacher/brd2/'.$data['id_code']);					
-				}				
+					$this->teacher_model->insertAttendance($data);
+					header('Location:http://localhost/sms/teacher/huehue3/'.$data['id_code']);							
+				}
+
+				$data['viewStudents'] = $this->teacher_model->viewStudents($data);
 				$this->load->view('seatplan_teacher/brd2',$data);		
 			} else 
 				$this->index();	
@@ -579,27 +606,26 @@
 
 		public function assign_brd2($id)
 		{
-			
 			$data['info'] = $this->session->userdata('logged_in');
-			if($data['info'] == TRUE){
+			if($data['info'] == TRUE)
+			{
 				$data['id_code'] = $id;
 				$data['first_name'] = $data['info']['first_name'];
-				$data['last_name'] = $data['info']['last_name'];			
-				$data['viewStudents'] = $this->teacher_model->viewStudents($data);
+				$data['last_name'] = $data['info']['last_name'];
+				$data['viewStudents'] = $this->teacher_model->viewStudents($data);				
 				$data['assigned_seats'] = $this->teacher_model->viewAssignedStudents($data);
-
-
-				for ($i=1; $i < 41 ; $i++) { 
-				$data['a'.$i] = $this->input->post(''.$i);
+				for ($i=1; $i <33 ; $i++) 
+				{ 
+					$data['a'.$i] = $this->input->post(''.$i);
 				}					
 				
-				if(isset($_POST['submit'])){			
-				$this->teacher_model->updateSeat($data);
-				header('Location:http://localhost/sms/teacher/assign_brd2/'.$data['id_code']);
-				}
-				else
 
-				$this->load->view('seatplan_teacher/assign_brd2',$data);
+				if(isset($_POST['submit'])){			
+					$this->teacher_model->updateSeat($data);
+					header('Location:http://localhost/sms/teacher/assign_brd2/'.$data['id_code']);
+				}
+				else					
+					$this->load->view('seatplan_teacher/assign_brd2',$data);
 			} else
 				$this->index();
 		}
