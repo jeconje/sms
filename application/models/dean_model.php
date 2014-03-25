@@ -461,9 +461,10 @@
         public function suspendClass($data) {
           $suspend = array (
                             'date' => $data['datepicker'],
-                            'event' => 'Suspended',
+                            'event' => $data['okasyon'],
                             'start_time' => $data['start_time'],
                             'end_time' => $data['end_time']);
+
           $this->db->insert('calendar', $suspend);
         }
 
@@ -488,7 +489,7 @@
 //Get events on calendar table from database
   public function getEvents($year , $month)
   {
-    $query = $this->db->select('date,event')->from('calendar')->like('date', "$year-$month")->get();
+    $query = $this->db->select()->from('calendar')->like('date', "$year-$month")->get();
     $result = $query->result_array();
     return $result;
   }

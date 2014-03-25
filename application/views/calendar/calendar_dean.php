@@ -68,10 +68,10 @@
 <center>
   <?php echo form_open('dean/calendar_dean'); ?>
   <table>
-    <tr align="center">
+    <tr align="center"?>
       <td><br><select id="options" name="options">
         <option value="">- please select -</option>
-        <option name="suspension" class="form-control" value="suspension">Suspend Classes</option>
+        <option name="suspension" class="form-control" value="<?php echo $okasyon; ?>">Suspend Classes</option>
         <option name="no_class" class="form-control" value="no_class">No Class</option>
         <option name="others" class="form-control" value="others">Others</option>
       </select></td>
@@ -159,7 +159,7 @@ $('#dp5').datepicker()
         $('#suspend').fadeIn();
         $('#add').fadeOut();
         $('#edit').fadeOut();
-        $('#event').fadeOut();
+        $('#event').fadeIn();
       } else if(options == 'no_class') {
         $('#datepicker').fadeIn();
         $('#event').fadeIn();
