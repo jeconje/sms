@@ -382,29 +382,29 @@
 				// print_r($data['viewAttendance']);
 				// echo "</pre>";
 
-				// $data['logins'] = $this->teacher_model->viewCampusLogin($data);
-				// $data['violation'] = $this->teacher_model->viewViolation($data);		
-				// $data['suspension'] = $this->teacher_model->viewSuspension($data);
+				$data['logins'] = $this->teacher_model->viewCampusLogin($data);
+				$data['violation'] = $this->teacher_model->viewViolation($data);		
+				$data['suspension'] = $this->teacher_model->viewSuspension($data);
 				
-				// $this->teacher_model->updateStatus();
-				// $data['onlyonce'] = $this->teacher_model->viewNumberOfAttendance();
+				$this->teacher_model->updateStatus();
+				$data['onlyonce'] = $this->teacher_model->viewNumberOfAttendance();
 				
-				// for ($i=1; $i <49 ; $i++) { 
-				// 	$data['a'.$i] = $this->input->post('attendance'.$i);		
-				// }
+				for ($i=1; $i <49 ; $i++) { 
+					$data['a'.$i] = $this->input->post('attendance'.$i);		
+				}
 
-				// for ($i=1; $i <49 ; $i++) { 
-				// 	$data['student_number'.$i] = $this->input->post('student_number'.$i);	
-				// }						
+				for ($i=1; $i <49 ; $i++) { 
+					$data['student_number'.$i] = $this->input->post('student_number'.$i);	
+				}						
 							
-				// if(isset($_POST['submit'])){								
-				// 	$this->teacher_model->insertAttendance($data);
-				// 	header('Location:http://localhost/sms/teacher/huehue2/'.$data['id_code']);												
-				// }
+				if(isset($_POST['submit'])){								
+					$this->teacher_model->insertAttendance($data);
+					header('Location:http://localhost/sms/teacher/huehue2/'.$data['id_code']);												
+				}
 
-				// $data['viewStudents'] = $this->teacher_model->viewStudents($data);
-				// // $this->load->view('seatplan_teacher/classroom',$data);	
-				// header('Location:http://localhost/sms/teacher/huehue2/'.$data['id_code']);
+				$data['viewStudents'] = $this->teacher_model->viewStudents($data);
+				// $this->load->view('seatplan_teacher/classroom',$data);	
+				header('Location:http://localhost/sms/teacher/huehue2/'.$data['id_code']);
 			} else
 				$this->index();
 		}
