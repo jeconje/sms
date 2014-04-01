@@ -57,30 +57,7 @@
             <li class="dropdown messages-dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon icon-color icon-messages"></i> Notification <b class="icon icon-color icon-triangle-s"></b></a>
               <ul class="dropdown-menu">
-                <li class="dropdown-header">8 New Messages</li>
-                <li class="message-preview">
-                  <a href="#">
-                    <span class="name">John Smith:</span>
-                    <span class="message">Hey there, I wanted to ask you something... ASA NI DAPITA</span>
-                    <span class="time"><i class="fa fa-clock-o"></i> 4:34 PM</span>
-                  </a>
-                </li>
-                <li class="divider"></li>
-                <li class="message-preview">
-                  <a href="#">
-                    <span class="name">John Smith:</span>
-                    <span class="message">Hey there, I wanted to ask you something...</span>
-                    <span class="time"><i class="fa fa-clock-o"></i> 4:34 PM</span>
-                  </a>
-                </li>
-                <li class="divider"></li>
-                <li class="message-preview">
-                  <a href="#">
-                    <span class="name">John Smith:</span>
-                    <span class="message">Hey there, I wanted to ask you something...</span>
-                    <span class="time"><i class="fa fa-clock-o"></i> 4:34 PM</span>
-                  </a>
-                </li>
+
                 <li class="divider"></li>
             <li><a href="<?php echo base_url(); ?>teacher/message">View Inbox <span class="icon icon-color icon-envelope-closed"></span></a></li>
               </ul>
@@ -106,8 +83,8 @@
   <tr>
     <td colspan="2" style="height: 119px"></td>
     <td>
-		<select name="1" style="width: 120px">
-     <?php         
+      <select name="1" style="width: 120px">
+        <?php         
         foreach($assigned_seats as $row){
         if($row['seat_number'] == '1'){
       ?>    
@@ -116,8 +93,8 @@
       <option>SELECT</option>
       <?php foreach ($viewStudents as $value){ ?>     
         <option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option>                                        
-      <?php }  ?>
-		</select>1
+      <?php }  ?>   
+      </select>1
 		</td>
 		
 	   <!---SEPARATOR DESIGN -->	
@@ -127,8 +104,8 @@
     <!---SEPARATOR DESIGN END-->
     
     <td>
-		<select name="9" style="width: 120px">
-	<?php         
+      <select name="9" style="width: 120px">
+        <?php         
         foreach($assigned_seats as $row){
         if($row['seat_number'] == '9'){
       ?>    
@@ -137,8 +114,8 @@
       <option>SELECT</option>
       <?php foreach ($viewStudents as $value){ ?>     
         <option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option>                                        
-      <?php }  ?>
-		</select>9
+      <?php }  ?>   
+      </select>9
     </td>
 
 
@@ -148,8 +125,8 @@
     
 
     <td>
-		<select name="17" style="width: 120px">
-		<?php         
+      <select name="17" style="width: 120px">
+        <?php         
         foreach($assigned_seats as $row){
         if($row['seat_number'] == '17'){
       ?>    
@@ -158,9 +135,8 @@
       <option>SELECT</option>
       <?php foreach ($viewStudents as $value){ ?>     
         <option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option>                                        
-      <?php }  ?>
-
-		</select>17
+      <?php }  ?>   
+      </select>17
     </td>
 
 
@@ -170,8 +146,8 @@
     <td colspan="2">
 
 
-		<select name="25" style="width: 120px">
-		    <?php         
+      <select name="25" style="width: 120px">
+        <?php         
         foreach($assigned_seats as $row){
         if($row['seat_number'] == '25'){
       ?>    
@@ -180,9 +156,8 @@
       <option>SELECT</option>
       <?php foreach ($viewStudents as $value){ ?>     
         <option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option>                                        
-      <?php }  ?>
-
-		</select>25
+      <?php }  ?>   
+      </select>25
     </td>
     <td></td>
   </tr>
@@ -190,8 +165,8 @@
 
   <tr>
     <td>
-		<select name="2" style="width: 120px">
-		    <?php         
+      <select name="2" style="width: 120px">
+        <?php         
         foreach($assigned_seats as $row){
         if($row['seat_number'] == '2'){
       ?>    
@@ -200,15 +175,14 @@
       <option>SELECT</option>
       <?php foreach ($viewStudents as $value){ ?>     
         <option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option>                                        
-      <?php }  ?>
-
-		</select>2
+      <?php }  ?>   
+      </select>2
 		</td>
 				
     <td colspan="3"></td>
     <td>
-		<select name="3" style="width: 120px">
-		  <?php         
+      <select name="3" style="width: 120px">
+        <?php         
         foreach($assigned_seats as $row){
         if($row['seat_number'] == '3'){
       ?>    
@@ -217,15 +191,14 @@
       <option>SELECT</option>
       <?php foreach ($viewStudents as $value){ ?>     
         <option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option>                                        
-      <?php }  ?>
-
-		</select>3
+      <?php }  ?>   
+      </select>3
     </td>
 
 
     <td>
-		<select name="10" style="width: 120px">
-		  <?php         
+      <select name="10" style="width: 120px">
+        <?php         
         foreach($assigned_seats as $row){
         if($row['seat_number'] == '10'){
       ?>    
@@ -234,16 +207,15 @@
       <option>SELECT</option>
       <?php foreach ($viewStudents as $value){ ?>     
         <option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option>                                        
-      <?php }  ?>
-
-		</select>10
+      <?php }  ?>   
+      </select>10
     </td>
 
 
     <td colspan="3"></td>
     <td>
-		<select name="11" style="width: 120px">
-		    <?php         
+      <select name="11" style="width: 120px">
+        <?php         
         foreach($assigned_seats as $row){
         if($row['seat_number'] == '11'){
       ?>    
@@ -252,14 +224,14 @@
       <option>SELECT</option>
       <?php foreach ($viewStudents as $value){ ?>     
         <option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option>                                        
-      <?php }  ?>
-		</select>11
+      <?php }  ?>   
+      </select>11
      </td>
 
 
     <td>
-		<select name="18" style="width: 120px">
-		   <?php         
+      <select name="18" style="width: 120px">
+        <?php         
         foreach($assigned_seats as $row){
         if($row['seat_number'] == '18'){
       ?>    
@@ -268,15 +240,14 @@
       <option>SELECT</option>
       <?php foreach ($viewStudents as $value){ ?>     
         <option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option>                                        
-      <?php }  ?>
-
-		</select>18
+      <?php }  ?>   
+      </select>18
     </td>
 
     <td colspan="3"></td>
     <td>
-		<select name="19" style="width: 120px">
-		 <?php         
+      <select name="19" style="width: 120px">
+        <?php         
         foreach($assigned_seats as $row){
         if($row['seat_number'] == '19'){
       ?>    
@@ -285,14 +256,14 @@
       <option>SELECT</option>
       <?php foreach ($viewStudents as $value){ ?>     
         <option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option>                                        
-      <?php }  ?>
-		</select>19
+      <?php }  ?>   
+      </select>19
     </td>
 
 
     <td>
-		<select name="26" style="width: 120px">
-	<?php         
+      <select name="26" style="width: 120px">
+        <?php         
         foreach($assigned_seats as $row){
         if($row['seat_number'] == '26'){
       ?>    
@@ -301,15 +272,15 @@
       <option>SELECT</option>
       <?php foreach ($viewStudents as $value){ ?>     
         <option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option>                                        
-      <?php }  ?>
-		</select>26
+      <?php }  ?>   
+      </select>26
     </td>
 
     <td colspan="2"></td>
 
     <td>
-		<select name="27" style="width: 120px">
-		<?php         
+      <select name="27" style="width: 120px">
+        <?php         
         foreach($assigned_seats as $row){
         if($row['seat_number'] == '27'){
       ?>    
@@ -318,8 +289,8 @@
       <option>SELECT</option>
       <?php foreach ($viewStudents as $value){ ?>     
         <option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option>                                        
-      <?php }  ?>
-		</select>27
+      <?php }  ?>   
+      </select>27
     </td>
   </tr>
 
@@ -327,8 +298,8 @@
   <tr>
     <td colspan="2"></td>
     <td>
-		<select name="4" style="width: 120px">
-		    		<?php         
+      <select name="4" style="width: 120px">
+        <?php         
         foreach($assigned_seats as $row){
         if($row['seat_number'] == '4'){
       ?>    
@@ -337,16 +308,15 @@
       <option>SELECT</option>
       <?php foreach ($viewStudents as $value){ ?>     
         <option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option>                                        
-      <?php }  ?>
-
-		</select>4
+      <?php }  ?>   
+      </select>4
     </td>
 
     <td colspan="2"></td>
     <td colspan="2"></td>
     <td>
-		<select name="12" style="width: 120px">
-		    <?php         
+      <select name="12" style="width: 120px">
+        <?php         
         foreach($assigned_seats as $row){
         if($row['seat_number'] == '12'){
       ?>    
@@ -355,16 +325,16 @@
       <option>SELECT</option>
       <?php foreach ($viewStudents as $value){ ?>     
         <option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option>                                        
-      <?php }  ?>
-		</select>12
+      <?php }  ?>   
+      </select>12
     </td>
 
     <td colspan="2"></td>
     <td colspan="2"></td>
     
     <td>
-		<select name="20" style="width: 120px">
-		    	<?php         
+      <select name="20" style="width: 120px">
+        <?php         
         foreach($assigned_seats as $row){
         if($row['seat_number'] == '20'){
       ?>    
@@ -373,19 +343,18 @@
       <option>SELECT</option>
       <?php foreach ($viewStudents as $value){ ?>     
         <option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option>                                        
-      <?php }  ?>
-
-		</select>20
+      <?php }  ?>   
+      </select>20
     </td>
 
     <td colspan="2"></td>
     <td></td>
     <td colspan="2">
 
-		<select name="27" style="width: 120px">
-		 <?php         
+		<select name="32" style="width: 120px">
+      <?php         
         foreach($assigned_seats as $row){
-        if($row['seat_number'] == '27'){
+        if($row['seat_number'] == '32'){
       ?>    
             <option><?php echo $row['last_name'].', '.$row['first_name']; ?></option>     
       <?php }} ?>
@@ -393,7 +362,7 @@
       <?php foreach ($viewStudents as $value){ ?>     
         <option value ="<?php echo $value['student_number']; ?>"><?php echo $value['last_name'].', '.$value['first_name']; ?></option>                                        
       <?php }  ?>
-		</select>27
+    </select>32
     </td>
     <td></td>
   </tr>

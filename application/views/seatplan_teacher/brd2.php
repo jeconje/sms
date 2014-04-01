@@ -110,62 +110,81 @@
   <tr>
     <td colspan="2" style="height: 119px"></td>
     <td style="width: 120px; height: 160px;">
-       <?php foreach($viewStudents as $value){
+      <?php foreach($viewStudents as $value){
         $late = 0;
         $absent = 0;
-                foreach($viewAttendance as $attendance)
-                {                  
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'L')
+                foreach($viewAttendance as $attendance){                        
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'L')
                      $late++;
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'A')
-                     $absent++;
-                } 
-                foreach($logins as $login)
-                {                    
-                         
-                    if($login['student_number'] == $value['student_number'])
-                    {           
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'A')
+                     $absent++;                   
+                }              
+                foreach($logins as $login){                    
+                    if($login['student_number'] == $value['student_number']){           
                        $temp= $login['student_number'];                                                         
                        $timeout = $login['time_out'];
                        $timein = $login['time_in'];
-
-
+                    }   
+                }       
+                foreach($violation as $row){
+                    if($row['student_number'] == $value['student_number']){                                             
+                      $violate_number = $row['student_number'];
+                      $status = $row['status'];                                 
                     }                                     
                 }
-                if($value['seat_number'] == 1){
-      ?> 
-     <input type = "hidden" name = "student_number1" value = "<?php echo $value['student_number'];  ?>" />  
-    <input name="1" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
-    <p align="right">1</p>
-      
-		 <div class="auto-style1" style="width: 40px; height: 10px">Lates: <?php echo $late; ?></div>
-           <div class="auto-style1" style="width: 62px; height: 8px">Absences: <?php echo $absent; ?></div>
-       <div class="bs-example" align="right">
+                foreach($suspension as $suspend){
+                    if($suspend['student_number'] == $value['student_number']){                                             
+                      $suspend_number = $suspend['student_number'];
+                      $statuss = $suspend['status'];                                 
+                    }                                     
+                }
+               if($value['seat_number'] == 1){                              
+                ?>
 
-        <?php if($statuss == "Suspended" && $suspend_number == $value['student_number']){ ?>
-     <div class="bs-example" align="right">
-              <input name="attendance1" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
-               <input name="attendance1" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
-              <input checked="true" name="attendance1" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
-              <div class="auto-style2">Status: <?php echo "Suspended"; ?></div>      
-      </div>  
-      <?php } else { ?>
-      
-                <input checked="true" name="attendance1" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-          <input name="attendance1" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
-                <input name="attendance1" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
-           </div>
-           <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp == $value['student_number'] && $timein == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp != $value['student_number']){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div> 
-      <?php }} ?>    
-           <?php }} ?>
-		</td>		
+                <?php                                                 
+                      $temp_late = $late / 3;
+                      $absent = $absent + number_format($temp_late);
+                ?>
+                <input type = "hidden" name = "student_number1" value = "<?php echo $value['student_number'];  ?>" />
+                <input name="1" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">      
+                <p align="right">1</p> 
+                <div class="auto-style1" style="width: 49px; height: 10px">Lates: <?php echo $late; ?></div>
+                <div class="auto-style1" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
+
+                 <?php if($statuss == "Suspended" && $suspend_number == $value['student_number']){ ?>
+                 <div class="bs-example" align="right">
+                          <input name="attendance1" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance1" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance1" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Suspended"; ?></div>      
+                  </div> <?php }                
+
+                   else if($status == "In campus with violation" && $violate_number == $value['student_number']){ ?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance1" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance1" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true"  name="attendance1" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "With Violation"; ?></div>      
+                  </div>  <?php }
+
+                  else if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
+                  <div class="bs-example" align="right">
+                          <input checked="true"  name="attendance1" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance1" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input name="attendance1" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
+                  </div>  
+                  <?php }    
+
+                  else if($temp == $value['student_number'] && $timein == '00:00:00' || $temp != $value['student_number'] ){?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance1" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance1" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance1" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
+                  </div>  <?php } ?>                                           
+    <?php } 
+  } ?>		</td>		
 	   <!---SEPARATOR DESIGN -->	
     <td colspan="2" style="height: 119px"></td>
     <td rowspan="7"></td>
@@ -176,58 +195,78 @@
        <?php foreach($viewStudents as $value){
         $late = 0;
         $absent = 0;
-                foreach($viewAttendance as $attendance)
-                {                  
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'L')
+                foreach($viewAttendance as $attendance){                        
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'L')
                      $late++;
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'A')
-                     $absent++;
-                } 
-                foreach($logins as $login)
-                {                    
-                         
-                    if($login['student_number'] == $value['student_number'])
-                    {           
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'A')
+                     $absent++;                   
+                }              
+                foreach($logins as $login){                    
+                    if($login['student_number'] == $value['student_number']){           
                        $temp= $login['student_number'];                                                         
                        $timeout = $login['time_out'];
                        $timein = $login['time_in'];
-
-
+                    }   
+                }       
+                foreach($violation as $row){
+                    if($row['student_number'] == $value['student_number']){                                             
+                      $violate_number = $row['student_number'];
+                      $status = $row['status'];                                 
                     }                                     
                 }
-                foreach($suspension as $suspend)
-                {
-
-                    if($suspend['student_number'] == $value['student_number'])
-                    {                                             
+                foreach($suspension as $suspend){
+                    if($suspend['student_number'] == $value['student_number']){                                             
                       $suspend_number = $suspend['student_number'];
                       $statuss = $suspend['status'];                                 
                     }                                     
-
                 }
+               if($value['seat_number'] == 9){                              
+                ?>
 
-                if($value['seat_number'] == 9){
-       ?>
- <input type = "hidden" name = "student_number9" value = "<?php echo $value['student_number'];  ?>" />      
-<input name="9" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
-    <p align="right">9</p>
-      <div class="auto-style1" style="width: 40px; height: 10px">Lates: <?php echo $late; ?></div>
-           <div class="auto-style1" style="width: 62px; height: 8px">Absences: <?php echo $absent; ?></div>
-       <div class="bs-example" align="right">
-                <input checked="true" name="attendance9" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-          <input name="attendance9" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
-                <input name="attendance9" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
-           </div>
-          <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp == $value['student_number'] && $timein == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp != $value['student_number']){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div> 
-      <?php } ?>    
-     <?php }} ?>     
+                <?php                                                 
+                      $temp_late = $late / 3;
+                      $absent = $absent + number_format($temp_late);
+                ?>
+                <input type = "hidden" name = "student_number9" value = "<?php echo $value['student_number'];  ?>" />
+                <input name="9" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">      
+                <p align="right">9</p> 
+                <div class="auto-style1" style="width: 49px; height: 10px">Lates: <?php echo $late; ?></div>
+                <div class="auto-style1" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
+
+                 <?php if($statuss == "Suspended" && $suspend_number == $value['student_number']){ ?>
+                 <div class="bs-example" align="right">
+                          <input name="attendance9" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance9" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance9" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Suspended"; ?></div>      
+                  </div> <?php }                
+
+                   else if($status == "In campus with violation" && $violate_number == $value['student_number']){ ?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance9" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance9" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true"  name="attendance9" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "With Violation"; ?></div>      
+                  </div>  <?php }
+
+                  else if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
+                  <div class="bs-example" align="right">
+                          <input checked="true"  name="attendance9" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance9" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input name="attendance9" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
+                  </div>  
+                  <?php }    
+
+                  else if($temp == $value['student_number'] && $timein == '00:00:00' || $temp != $value['student_number'] ){?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance9" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance9" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance9" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
+                  </div>  <?php } ?>                                           
+    <?php } 
+  } ?>
     </td>
 
 
@@ -240,47 +279,78 @@
        <?php foreach($viewStudents as $value){
         $late = 0;
         $absent = 0;
-                foreach($viewAttendance as $attendance)
-                {                  
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'L')
+                foreach($viewAttendance as $attendance){                        
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'L')
                      $late++;
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'A')
-                     $absent++;
-                } 
-                foreach($logins as $login)
-                {                    
-                         
-                    if($login['student_number'] == $value['student_number'])
-                    {           
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'A')
+                     $absent++;                   
+                }              
+                foreach($logins as $login){                    
+                    if($login['student_number'] == $value['student_number']){           
                        $temp= $login['student_number'];                                                         
                        $timeout = $login['time_out'];
                        $timein = $login['time_in'];
-
-
+                    }   
+                }       
+                foreach($violation as $row){
+                    if($row['student_number'] == $value['student_number']){                                             
+                      $violate_number = $row['student_number'];
+                      $status = $row['status'];                                 
                     }                                     
                 }
-                if($value['seat_number'] == 17){
-       ?>
-<input type = "hidden" name = "student_number17" value = "<?php echo $value['student_number'];  ?>" />         
-<input name="17" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
-    <p align="right">17</p>
-      <div class="auto-style1" style="width: 40px; height: 10px">Lates: <?php echo $late; ?></div>
-           <div class="auto-style1" style="width: 62px; height: 8px">Absences: <?php echo $absent; ?></div>
-       <div class="bs-example" align="right">
-                <input checked="true" name="attendance17" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-          <input name="attendance17" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
-                <input name="attendance17" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
-           </div>
-          <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp == $value['student_number'] && $timein == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp != $value['student_number']){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div> 
-      <?php } ?>    
-          <?php }} ?>
+                foreach($suspension as $suspend){
+                    if($suspend['student_number'] == $value['student_number']){                                             
+                      $suspend_number = $suspend['student_number'];
+                      $statuss = $suspend['status'];                                 
+                    }                                     
+                }
+               if($value['seat_number'] == 17){                              
+                ?>
+
+                <?php                                                 
+                      $temp_late = $late / 3;
+                      $absent = $absent + number_format($temp_late);
+                ?>
+                <input type = "hidden" name = "student_number17" value = "<?php echo $value['student_number'];  ?>" />
+                <input name="1" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">      
+                <p align="right">17</p> 
+                <div class="auto-style1" style="width: 49px; height: 10px">Lates: <?php echo $late; ?></div>
+                <div class="auto-style1" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
+
+                 <?php if($statuss == "Suspended" && $suspend_number == $value['student_number']){ ?>
+                 <div class="bs-example" align="right">
+                          <input name="attendance17" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance17" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance17" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Suspended"; ?></div>      
+                  </div> <?php }                
+
+                   else if($status == "In campus with violation" && $violate_number == $value['student_number']){ ?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance17" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance17" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true"  name="attendance17" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "With Violation"; ?></div>      
+                  </div>  <?php }
+
+                  else if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
+                  <div class="bs-example" align="right">
+                          <input checked="true"  name="attendance17" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance17" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input name="attendance17" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
+                  </div>  
+                  <?php }    
+
+                  else if($temp == $value['student_number'] && $timein == '00:00:00' || $temp != $value['student_number'] ){?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance17" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance17" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance17" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
+                  </div>  <?php } ?>                                           
+    <?php } 
+  } ?>
     </td>
 
 
@@ -289,50 +359,81 @@
     <td style="width: 120px; height: 160px;"></td>
     <td colspan="2">
 
-     <?php foreach($viewStudents as $value){
-      $late = 0;
+      <?php foreach($viewStudents as $value){
+        $late = 0;
         $absent = 0;
-                foreach($viewAttendance as $attendance)
-                {                  
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'L')
+                foreach($viewAttendance as $attendance){                        
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'L')
                      $late++;
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'A')
-                     $absent++;
-                } 
-                foreach($logins as $login)
-                {                    
-                         
-                    if($login['student_number'] == $value['student_number'])
-                    {           
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'A')
+                     $absent++;                   
+                }              
+                foreach($logins as $login){                    
+                    if($login['student_number'] == $value['student_number']){           
                        $temp= $login['student_number'];                                                         
                        $timeout = $login['time_out'];
                        $timein = $login['time_in'];
-
-
+                    }   
+                }       
+                foreach($violation as $row){
+                    if($row['student_number'] == $value['student_number']){                                             
+                      $violate_number = $row['student_number'];
+                      $status = $row['status'];                                 
                     }                                     
                 }
-                if($value['seat_number'] == 25){
-       ?>  
-       <input type = "hidden" name = "student_number25" value = "<?php echo $value['student_number'];  ?>" />  
-<input name="25" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
-    <p align="right">25</p>
-          <div class="auto-style1" style="width: 40px; height: 10px">Lates: <?php echo $late; ?></div>
-           <div class="auto-style1" style="width: 62px; height: 8px">Absences: <?php echo $absent; ?></div>
-       <div class="bs-example" align="right">
-                <input checked="true" name="attendance25" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-          <input name="attendance25" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
-                <input name="attendance25" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
-           </div>
-          <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp == $value['student_number'] && $timein == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp != $value['student_number']){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div> 
-      <?php } ?>    
-          <?php }} ?>
+                foreach($suspension as $suspend){
+                    if($suspend['student_number'] == $value['student_number']){                                             
+                      $suspend_number = $suspend['student_number'];
+                      $statuss = $suspend['status'];                                 
+                    }                                     
+                }
+               if($value['seat_number'] == 25){                              
+                ?>
+
+                <?php                                                 
+                      $temp_late = $late / 3;
+                      $absent = $absent + number_format($temp_late);
+                ?>
+                <input type = "hidden" name = "student_number25" value = "<?php echo $value['student_number'];  ?>" />
+                <input name="25" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">      
+                <p align="right">25</p> 
+                <div class="auto-style1" style="width: 49px; height: 10px">Lates: <?php echo $late; ?></div>
+                <div class="auto-style1" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
+
+                 <?php if($statuss == "Suspended" && $suspend_number == $value['student_number']){ ?>
+                 <div class="bs-example" align="right">
+                          <input name="attendance25" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance25" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance25" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Suspended"; ?></div>      
+                  </div> <?php }                
+
+                   else if($status == "In campus with violation" && $violate_number == $value['student_number']){ ?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance25" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance25" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true"  name="attendance25" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "With Violation"; ?></div>      
+                  </div>  <?php }
+
+                  else if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
+                  <div class="bs-example" align="right">
+                          <input checked="true"  name="attendance25" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance25" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input name="attendance25" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
+                  </div>  
+                  <?php }    
+
+                  else if($temp == $value['student_number'] && $timein == '00:00:00' || $temp != $value['student_number'] ){?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance25" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance25" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance25" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
+                  </div>  <?php } ?>                                           
+    <?php } 
+  } ?>
     </td>
     <td style="width: 120px; height: 160px;"></td>
   </tr>
@@ -343,46 +444,78 @@
        <?php foreach($viewStudents as $value){
         $late = 0;
         $absent = 0;
-                foreach($viewAttendance as $attendance)
-                {                  
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'L')
+                foreach($viewAttendance as $attendance){                        
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'L')
                      $late++;
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'A')
-                     $absent++;
-                } 
-                foreach($logins as $login)
-                {                    
-                         
-                    if($login['student_number'] == $value['student_number'])
-                    {           
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'A')
+                     $absent++;                   
+                }              
+                foreach($logins as $login){                    
+                    if($login['student_number'] == $value['student_number']){           
                        $temp= $login['student_number'];                                                         
                        $timeout = $login['time_out'];
                        $timein = $login['time_in'];
-
-
+                    }   
+                }       
+                foreach($violation as $row){
+                    if($row['student_number'] == $value['student_number']){                                             
+                      $violate_number = $row['student_number'];
+                      $status = $row['status'];                                 
                     }                                     
                 }
-                if($value['seat_number'] == 2){
-       ?>
-<input type = "hidden" name = "student_number2" value = "<?php echo $value['student_number'];  ?>" />         
-<input name="2" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
-    <p align="right">2</p>
-			 <div class="auto-style1" style="width: 40px; height: 10px">Lates: <?php echo $late; ?></div>
-           <div class="auto-style1" style="width: 62px; height: 8px">Absences: <?php echo $absent; ?></div>
-       <div class="bs-example" align="right">
-                <input checked="true" name="attendance2" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-          <input name="attendance2" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
-                <input name="attendance2" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
-           </div>
-          <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp == $value['student_number'] && $timein == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp != $value['student_number']){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div> 
-      <?php } ?>    <?php }} ?>
+                foreach($suspension as $suspend){
+                    if($suspend['student_number'] == $value['student_number']){                                             
+                      $suspend_number = $suspend['student_number'];
+                      $statuss = $suspend['status'];                                 
+                    }                                     
+                }
+               if($value['seat_number'] == 2){                              
+                ?>
+
+                <?php                                                 
+                      $temp_late = $late / 3;
+                      $absent = $absent + number_format($temp_late);
+                ?>
+                <input type = "hidden" name = "student_number2" value = "<?php echo $value['student_number'];  ?>" />
+                <input name="2" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">      
+                <p align="right">2</p> 
+                <div class="auto-style1" style="width: 49px; height: 10px">Lates: <?php echo $late; ?></div>
+                <div class="auto-style1" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
+
+                 <?php if($statuss == "Suspended" && $suspend_number == $value['student_number']){ ?>
+                 <div class="bs-example" align="right">
+                          <input name="attendance2" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance2" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance2" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Suspended"; ?></div>      
+                  </div> <?php }                
+
+                   else if($status == "In campus with violation" && $violate_number == $value['student_number']){ ?>
+                  <div class="bs-example" align="right">
+                          <input name="attendanc2" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance2" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true"  name="attendance2" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "With Violation"; ?></div>      
+                  </div>  <?php }
+
+                  else if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
+                  <div class="bs-example" align="right">
+                          <input checked="true"  name="attendance2" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance2" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input name="attendance2" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
+                  </div>  
+                  <?php }    
+
+                  else if($temp == $value['student_number'] && $timein == '00:00:00' || $temp != $value['student_number'] ){?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance2" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance2" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance2" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
+                  </div>  <?php } ?>                                           
+    <?php } 
+  } ?>
 		</td>
 		
 		
@@ -391,191 +524,316 @@
        <?php foreach($viewStudents as $value){
         $late = 0;
         $absent = 0;
-                foreach($viewAttendance as $attendance)
-                {                  
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'L')
+                foreach($viewAttendance as $attendance){                        
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'L')
                      $late++;
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'A')
-                     $absent++;
-                } 
-                foreach($logins as $login)
-                {                    
-                         
-                    if($login['student_number'] == $value['student_number'])
-                    {           
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'A')
+                     $absent++;                   
+                }              
+                foreach($logins as $login){                    
+                    if($login['student_number'] == $value['student_number']){           
                        $temp= $login['student_number'];                                                         
                        $timeout = $login['time_out'];
                        $timein = $login['time_in'];
-
-
+                    }   
+                }       
+                foreach($violation as $row){
+                    if($row['student_number'] == $value['student_number']){                                             
+                      $violate_number = $row['student_number'];
+                      $status = $row['status'];                                 
                     }                                     
                 }
-                if($value['seat_number'] == 3){
-       ?>
-<input type = "hidden" name = "student_number3" value = "<?php echo $value['student_number'];  ?>" />         
-<input name="3" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
-    <p align="right">3</p>
-          <div class="auto-style1" style="width: 40px; height: 10px">Lates: <?php echo $late; ?></div>
-           <div class="auto-style1" style="width: 62px; height: 8px">Absences: <?php echo $absent; ?></div>
-       <div class="bs-example" align="right">
-                <input checked="true" name="attendance3" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-          <input name="attendance3" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
-                <input name="attendance3" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
-           </div>
-          <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp == $value['student_number'] && $timein == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp != $value['student_number']){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div> 
-      <?php } ?>    <?php }} ?>
+                foreach($suspension as $suspend){
+                    if($suspend['student_number'] == $value['student_number']){                                             
+                      $suspend_number = $suspend['student_number'];
+                      $statuss = $suspend['status'];                                 
+                    }                                     
+                }
+               if($value['seat_number'] == 3){                              
+                ?>
+
+                <?php                                                 
+                      $temp_late = $late / 3;
+                      $absent = $absent + number_format($temp_late);
+                ?>
+                <input type = "hidden" name = "student_number3" value = "<?php echo $value['student_number'];  ?>" />
+                <input name="3" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">      
+                <p align="right">3</p> 
+                <div class="auto-style1" style="width: 49px; height: 10px">Lates: <?php echo $late; ?></div>
+                <div class="auto-style1" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
+
+                 <?php if($statuss == "Suspended" && $suspend_number == $value['student_number']){ ?>
+                 <div class="bs-example" align="right">
+                          <input name="attendance3" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance3" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance3" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Suspended"; ?></div>      
+                  </div> <?php }                
+
+                   else if($status == "In campus with violation" && $violate_number == $value['student_number']){ ?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance3" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance3" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true"  name="attendance3" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "With Violation"; ?></div>      
+                  </div>  <?php }
+
+                  else if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
+                  <div class="bs-example" align="right">
+                          <input checked="true"  name="attendance3" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance3" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input name="attendance3" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
+                  </div>  
+                  <?php }    
+
+                  else if($temp == $value['student_number'] && $timein == '00:00:00' || $temp != $value['student_number'] ){?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance3" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance3" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance3" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
+                  </div>  <?php } ?>                                           
+    <?php } 
+  } ?>
     </td>
 
 
     <td style="width: 120px; height: 160px;">
-       <?php foreach($viewStudents as $value){
+     <?php foreach($viewStudents as $value){
         $late = 0;
         $absent = 0;
-                foreach($viewAttendance as $attendance)
-                {                  
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'L')
+                foreach($viewAttendance as $attendance){                        
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'L')
                      $late++;
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'A')
-                     $absent++;
-                } 
-                foreach($logins as $login)
-                {                    
-                         
-                    if($login['student_number'] == $value['student_number'])
-                    {           
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'A')
+                     $absent++;                   
+                }              
+                foreach($logins as $login){                    
+                    if($login['student_number'] == $value['student_number']){           
                        $temp= $login['student_number'];                                                         
                        $timeout = $login['time_out'];
                        $timein = $login['time_in'];
-
-
+                    }   
+                }       
+                foreach($violation as $row){
+                    if($row['student_number'] == $value['student_number']){                                             
+                      $violate_number = $row['student_number'];
+                      $status = $row['status'];                                 
                     }                                     
                 }
-                if($value['seat_number'] == 10){
-       ?>
-<input type = "hidden" name = "student_number10" value = "<?php echo $value['student_number'];  ?>" />         
-<input name="10" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
-    <p align="right">10</p>
-        <div class="auto-style1" style="width: 40px; height: 10px">Lates: <?php echo $late; ?></div>
-           <div class="auto-style1" style="width: 62px; height: 8px">Absences: <?php echo $absent; ?></div>
-       <div class="bs-example" align="right">
-                <input checked="true" name="attendance10" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-          <input name="attendance10" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
-                <input name="attendance10" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
-           </div>
-          <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp == $value['student_number'] && $timein == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp != $value['student_number']){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div> 
-      <?php } ?>    <?php }} ?>
+                foreach($suspension as $suspend){
+                    if($suspend['student_number'] == $value['student_number']){                                             
+                      $suspend_number = $suspend['student_number'];
+                      $statuss = $suspend['status'];                                 
+                    }                                     
+                }
+               if($value['seat_number'] == 10){                              
+                ?>
+
+                <?php                                                 
+                      $temp_late = $late / 3;
+                      $absent = $absent + number_format($temp_late);
+                ?>
+                <input type = "hidden" name = "student_number10" value = "<?php echo $value['student_number'];  ?>" />
+                <input name="10" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">      
+                <p align="right">10</p> 
+                <div class="auto-style1" style="width: 49px; height: 10px">Lates: <?php echo $late; ?></div>
+                <div class="auto-style1" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
+
+                 <?php if($statuss == "Suspended" && $suspend_number == $value['student_number']){ ?>
+                 <div class="bs-example" align="right">
+                          <input name="attendance10" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance10" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance10" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Suspended"; ?></div>      
+                  </div> <?php }                
+
+                   else if($status == "In campus with violation" && $violate_number == $value['student_number']){ ?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance10" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance10" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true"  name="attendance10" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "With Violation"; ?></div>      
+                  </div>  <?php }
+
+                  else if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
+                  <div class="bs-example" align="right">
+                          <input checked="true"  name="attendance10" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance10" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input name="attendance10" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
+                  </div>  
+                  <?php }    
+
+                  else if($temp == $value['student_number'] && $timein == '00:00:00' || $temp != $value['student_number'] ){?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance10" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance10" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance10" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
+                  </div>  <?php } ?>                                           
+    <?php } 
+  } ?>
     </td>
 
 
     <td colspan="3"></td>
     <td style="width: 120px; height: 160px;">
-       <?php foreach($viewStudents as $value){                  
+      <?php foreach($viewStudents as $value){
         $late = 0;
         $absent = 0;
-                foreach($viewAttendance as $attendance)
-                {                  
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'L')
+                foreach($viewAttendance as $attendance){                        
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'L')
                      $late++;
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'A')
-                     $absent++;
-                } 
-                foreach($logins as $login)
-                {                    
-                         
-                    if($login['student_number'] == $value['student_number'])
-                    {           
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'A')
+                     $absent++;                   
+                }              
+                foreach($logins as $login){                    
+                    if($login['student_number'] == $value['student_number']){           
                        $temp= $login['student_number'];                                                         
                        $timeout = $login['time_out'];
                        $timein = $login['time_in'];
-
-
+                    }   
+                }       
+                foreach($violation as $row){
+                    if($row['student_number'] == $value['student_number']){                                             
+                      $violate_number = $row['student_number'];
+                      $status = $row['status'];                                 
                     }                                     
                 }
-                if($value['seat_number'] == 11){
-       ?>
-<input type = "hidden" name = "student_number11" value = "<?php echo $value['student_number'];  ?>" />         
-<input name="11" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
-    <p align="right">11</p>
-          <div class="auto-style1" style="width: 40px; height: 10px">Lates: <?php echo $late; ?></div>
-           <div class="auto-style1" style="width: 62px; height: 8px">Absences: <?php echo $absent; ?></div>
-       <div class="bs-example" align="right">
-                <input checked="true" name="attendance11" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-          <input name="attendance11" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
-                <input name="attendance11" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
-           </div>
-          <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp == $value['student_number'] && $timein == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp != $value['student_number']){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div> 
-      <?php } ?>    <?php }} ?>
+                foreach($suspension as $suspend){
+                    if($suspend['student_number'] == $value['student_number']){                                             
+                      $suspend_number = $suspend['student_number'];
+                      $statuss = $suspend['status'];                                 
+                    }                                     
+                }
+               if($value['seat_number'] == 11){                              
+                ?>
+
+                <?php                                                 
+                      $temp_late = $late / 3;
+                      $absent = $absent + number_format($temp_late);
+                ?>
+                <input type = "hidden" name = "student_number11" value = "<?php echo $value['student_number'];  ?>" />
+                <input name="11" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">      
+                <p align="right">11</p> 
+                <div class="auto-style1" style="width: 49px; height: 10px">Lates: <?php echo $late; ?></div>
+                <div class="auto-style1" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
+
+                 <?php if($statuss == "Suspended" && $suspend_number == $value['student_number']){ ?>
+                 <div class="bs-example" align="right">
+                          <input name="attendance11" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance11" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance11" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Suspended"; ?></div>      
+                  </div> <?php }                
+
+                   else if($status == "In campus with violation" && $violate_number == $value['student_number']){ ?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance11" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance11" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true"  name="attendance11" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "With Violation"; ?></div>      
+                  </div>  <?php }
+
+                  else if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
+                  <div class="bs-example" align="right">
+                          <input checked="true"  name="attendance11" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance11" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input name="attendance11" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
+                  </div>  
+                  <?php }    
+
+                  else if($temp == $value['student_number'] && $timein == '00:00:00' || $temp != $value['student_number'] ){?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance11" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance11" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance11" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
+                  </div>  <?php } ?>                                           
+    <?php } 
+  } ?>
     </td>
 
 
     <td style="width: 120px; height: 160px;">
-       <?php foreach($viewStudents as $value){    
+     <?php foreach($viewStudents as $value){
         $late = 0;
         $absent = 0;
-                foreach($viewAttendance as $attendance)
-                {                  
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'L')
+                foreach($viewAttendance as $attendance){                        
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'L')
                      $late++;
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'A')
-                     $absent++;
-                }      
-                foreach($logins as $login)
-                {                    
-                         
-                    if($login['student_number'] == $value['student_number'])
-                    {           
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'A')
+                     $absent++;                   
+                }              
+                foreach($logins as $login){                    
+                    if($login['student_number'] == $value['student_number']){           
                        $temp= $login['student_number'];                                                         
                        $timeout = $login['time_out'];
                        $timein = $login['time_in'];
-
-
+                    }   
+                }       
+                foreach($violation as $row){
+                    if($row['student_number'] == $value['student_number']){                                             
+                      $violate_number = $row['student_number'];
+                      $status = $row['status'];                                 
                     }                                     
-                }                                
-                if($value['seat_number'] == 18){
-       ?>
- <input type = "hidden" name = "seat_number" value = "18" />       
-<input type = "hidden" name = "student_number18" value = "<?php echo $value['student_number'];  ?>" />         
-<input name="18" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
-    <p align="right">18</p>
-          <?php echo $data['student_number'.$i]; ?>
-        
-          <div class="auto-style1" style="width: 40px; height: 10px">Lates: <?php echo $late; ?></div>
-           <div class="auto-style1" style="width: 62px; height: 8px">Absences: <?php echo $absent; ?></div>
-       <div class="bs-example" align="right">                
-                <input checked="true" name="attendance18" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-          <input name="attendance18" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
-                <input name="attendance18" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
-           </div>
-          <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp == $value['student_number'] && $timein == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp != $value['student_number']){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div> 
-      <?php } ?>    <?php }} ?>
+                }
+                foreach($suspension as $suspend){
+                    if($suspend['student_number'] == $value['student_number']){                                             
+                      $suspend_number = $suspend['student_number'];
+                      $statuss = $suspend['status'];                                 
+                    }                                     
+                }
+               if($value['seat_number'] == 18){                              
+                ?>
+
+                <?php                                                 
+                      $temp_late = $late / 3;
+                      $absent = $absent + number_format($temp_late);
+                ?>
+                <input type = "hidden" name = "student_number18" value = "<?php echo $value['student_number'];  ?>" />
+                <input name="18" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">      
+                <p align="right">18</p> 
+                <div class="auto-style1" style="width: 49px; height: 10px">Lates: <?php echo $late; ?></div>
+                <div class="auto-style1" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
+
+                 <?php if($statuss == "Suspended" && $suspend_number == $value['student_number']){ ?>
+                 <div class="bs-example" align="right">
+                          <input name="attendance18" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance18" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance18" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Suspended"; ?></div>      
+                  </div> <?php }                
+
+                   else if($status == "In campus with violation" && $violate_number == $value['student_number']){ ?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance18" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance18" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true"  name="attendance18" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "With Violation"; ?></div>      
+                  </div>  <?php }
+
+                  else if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
+                  <div class="bs-example" align="right">
+                          <input checked="true"  name="attendance18" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance18" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input name="attendance18" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
+                  </div>  
+                  <?php }    
+
+                  else if($temp == $value['student_number'] && $timein == '00:00:00' || $temp != $value['student_number'] ){?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance18" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance18" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance18" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
+                  </div>  <?php } ?>                                           
+    <?php } 
+  } ?>
     </td>
 
     <td colspan="3"></td>
@@ -583,141 +841,237 @@
        <?php foreach($viewStudents as $value){
         $late = 0;
         $absent = 0;
-                foreach($viewAttendance as $attendance)
-                {                  
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'L')
+                foreach($viewAttendance as $attendance){                        
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'L')
                      $late++;
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'A')
-                     $absent++;
-                } 
-                foreach($logins as $login)
-                {                    
-                         
-                    if($login['student_number'] == $value['student_number'])
-                    {           
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'A')
+                     $absent++;                   
+                }              
+                foreach($logins as $login){                    
+                    if($login['student_number'] == $value['student_number']){           
                        $temp= $login['student_number'];                                                         
                        $timeout = $login['time_out'];
                        $timein = $login['time_in'];
-
-
+                    }   
+                }       
+                foreach($violation as $row){
+                    if($row['student_number'] == $value['student_number']){                                             
+                      $violate_number = $row['student_number'];
+                      $status = $row['status'];                                 
                     }                                     
                 }
-                if($value['seat_number'] == 19){
-       ?>
-<input type = "hidden" name = "student_number19" value = "<?php echo $value['student_number'];  ?>" />         
-<input name="19" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
-    <p align="right">19</p>
-          <div class="auto-style1" style="width: 40px; height: 10px">Lates: <?php echo $late; ?></div>
-           <div class="auto-style1" style="width: 62px; height: 8px">Absences: <?php echo $absent; ?></div>
-       <div class="bs-example" align="right">
-                <input checked="true" name="attendance19" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-          <input name="attendance19" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
-                <input name="attendance19" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
-           </div>
-          <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp == $value['student_number'] && $timein == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp != $value['student_number']){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div> 
-      <?php } ?>    <?php }} ?>
+                foreach($suspension as $suspend){
+                    if($suspend['student_number'] == $value['student_number']){                                             
+                      $suspend_number = $suspend['student_number'];
+                      $statuss = $suspend['status'];                                 
+                    }                                     
+                }
+               if($value['seat_number'] == 19){                              
+                ?>
+
+                <?php                                                 
+                      $temp_late = $late / 3;
+                      $absent = $absent + number_format($temp_late);
+                ?>
+                <input type = "hidden" name = "student_number19" value = "<?php echo $value['student_number'];  ?>" />
+                <input name="19" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">      
+                <p align="right">19</p> 
+                <div class="auto-style1" style="width: 49px; height: 10px">Lates: <?php echo $late; ?></div>
+                <div class="auto-style1" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
+
+                 <?php if($statuss == "Suspended" && $suspend_number == $value['student_number']){ ?>
+                 <div class="bs-example" align="right">
+                          <input name="attendance19" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance19" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance19" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Suspended"; ?></div>      
+                  </div> <?php }                
+
+                   else if($status == "In campus with violation" && $violate_number == $value['student_number']){ ?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance19" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance19" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true"  name="attendance19" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "With Violation"; ?></div>      
+                  </div>  <?php }
+
+                  else if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
+                  <div class="bs-example" align="right">
+                          <input checked="true"  name="attendance19" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance19" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input name="attendance19" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
+                  </div>  
+                  <?php }    
+
+                  else if($temp == $value['student_number'] && $timein == '00:00:00' || $temp != $value['student_number'] ){?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance19" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance19" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance19" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
+                  </div>  <?php } ?>                                           
+    <?php } 
+  } ?>
     </td>
 
 
     <td style="width: 120px; height: 160px;">
-       <?php foreach($viewStudents as $value){
+      <?php foreach($viewStudents as $value){
         $late = 0;
         $absent = 0;
-                foreach($viewAttendance as $attendance)
-                {                  
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'L')
+                foreach($viewAttendance as $attendance){                        
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'L')
                      $late++;
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'A')
-                     $absent++;
-                } 
-                foreach($logins as $login)
-                {                    
-                         
-                    if($login['student_number'] == $value['student_number'])
-                    {           
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'A')
+                     $absent++;                   
+                }              
+                foreach($logins as $login){                    
+                    if($login['student_number'] == $value['student_number']){           
                        $temp= $login['student_number'];                                                         
                        $timeout = $login['time_out'];
                        $timein = $login['time_in'];
-
-
+                    }   
+                }       
+                foreach($violation as $row){
+                    if($row['student_number'] == $value['student_number']){                                             
+                      $violate_number = $row['student_number'];
+                      $status = $row['status'];                                 
                     }                                     
                 }
-                if($value['seat_number'] == 26){
-       ?>
-<input type = "hidden" name = "student_number26" value = "<?php echo $value['student_number'];  ?>" />         
-<input name="26" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
-    <p align="right">26</p>
-          <div class="auto-style1" style="width: 40px; height: 10px">Lates: <?php echo $late; ?></div>
-           <div class="auto-style1" style="width: 62px; height: 8px">Absences: <?php echo $absent; ?></div>
-       <div class="bs-example" align="right">
-                <input checked="true" name="attendance26" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-          <input name="attendance26" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
-                <input name="attendance26" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
-           </div>
-          <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp == $value['student_number'] && $timein == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp != $value['student_number']){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div> 
-      <?php } ?>    <?php }} ?>   
+                foreach($suspension as $suspend){
+                    if($suspend['student_number'] == $value['student_number']){                                             
+                      $suspend_number = $suspend['student_number'];
+                      $statuss = $suspend['status'];                                 
+                    }                                     
+                }
+               if($value['seat_number'] == 26){                              
+                ?>
+
+                <?php                                                 
+                      $temp_late = $late / 3;
+                      $absent = $absent + number_format($temp_late);
+                ?>
+                <input type = "hidden" name = "student_number26" value = "<?php echo $value['student_number'];  ?>" />
+                <input name="26" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">      
+                <p align="right">26</p> 
+                <div class="auto-style1" style="width: 49px; height: 10px">Lates: <?php echo $late; ?></div>
+                <div class="auto-style1" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
+
+                 <?php if($statuss == "Suspended" && $suspend_number == $value['student_number']){ ?>
+                 <div class="bs-example" align="right">
+                          <input name="attendance26" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance26" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance26" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Suspended"; ?></div>      
+                  </div> <?php }                
+
+                   else if($status == "In campus with violation" && $violate_number == $value['student_number']){ ?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance26" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance26" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true"  name="attendance26" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "With Violation"; ?></div>      
+                  </div>  <?php }
+
+                  else if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
+                  <div class="bs-example" align="right">
+                          <input checked="true"  name="attendance26" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance26" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input name="attendance26" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
+                  </div>  
+                  <?php }    
+
+                  else if($temp == $value['student_number'] && $timein == '00:00:00' || $temp != $value['student_number'] ){?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance26" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance26" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance26" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
+                  </div>  <?php } ?>                                           
+    <?php } 
+  } ?>
     </td>
 
     <td colspan="2"></td>
 
     <td style="width: 120px; height: 160px;">
-       <?php foreach($viewStudents as $value){
+      <?php foreach($viewStudents as $value){
         $late = 0;
         $absent = 0;
-                foreach($viewAttendance as $attendance)
-                {                  
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'L')
+                foreach($viewAttendance as $attendance){                        
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'L')
                      $late++;
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'A')
-                     $absent++;
-                } 
-                foreach($logins as $login)
-                {                    
-                         
-                    if($login['student_number'] == $value['student_number'])
-                    {           
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'A')
+                     $absent++;                   
+                }              
+                foreach($logins as $login){                    
+                    if($login['student_number'] == $value['student_number']){           
                        $temp= $login['student_number'];                                                         
                        $timeout = $login['time_out'];
                        $timein = $login['time_in'];
-
-
+                    }   
+                }       
+                foreach($violation as $row){
+                    if($row['student_number'] == $value['student_number']){                                             
+                      $violate_number = $row['student_number'];
+                      $status = $row['status'];                                 
                     }                                     
                 }
-                if($value['seat_number'] == 27){
-       ?>
-<input type = "hidden" name = "student_number27" value = "<?php echo $value['student_number'];  ?>" />         
-<input name="27" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
-    <p align="right">27</p>
-          <div class="auto-style1" style="width: 40px; height: 10px">Lates: <?php echo $late; ?></div>
-           <div class="auto-style1" style="width: 62px; height: 8px">Absences: <?php echo $absent; ?></div>
-       <div class="bs-example" align="right">
-                <input checked="true" name="attendance27" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-          <input name="attendance27" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
-                <input name="attendance27" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
-           </div>
-          <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp == $value['student_number'] && $timein == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp != $value['student_number']){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div> 
-      <?php } ?>    <?php }} ?>
+                foreach($suspension as $suspend){
+                    if($suspend['student_number'] == $value['student_number']){                                             
+                      $suspend_number = $suspend['student_number'];
+                      $statuss = $suspend['status'];                                 
+                    }                                     
+                }
+               if($value['seat_number'] == 27){                              
+                ?>
+
+                <?php                                                 
+                      $temp_late = $late / 3;
+                      $absent = $absent + number_format($temp_late);
+                ?>
+                <input type = "hidden" name = "student_number27" value = "<?php echo $value['student_number'];  ?>" />
+                <input name="27" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">      
+                <p align="right">27</p> 
+                <div class="auto-style1" style="width: 49px; height: 10px">Lates: <?php echo $late; ?></div>
+                <div class="auto-style1" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
+
+                 <?php if($statuss == "Suspended" && $suspend_number == $value['student_number']){ ?>
+                 <div class="bs-example" align="right">
+                          <input name="attendance27" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance27" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance27" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Suspended"; ?></div>      
+                  </div> <?php }                
+
+                   else if($status == "In campus with violation" && $violate_number == $value['student_number']){ ?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance27" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance27" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true"  name="attendance27" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "With Violation"; ?></div>      
+                  </div>  <?php }
+
+                  else if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
+                  <div class="bs-example" align="right">
+                          <input checked="true"  name="attendance27" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance27" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input name="attendance27" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
+                  </div>  
+                  <?php }    
+
+                  else if($temp == $value['student_number'] && $timein == '00:00:00' || $temp != $value['student_number'] ){?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance27" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance27" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance27" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
+                  </div>  <?php } ?>                                           
+    <?php } 
+  } ?>
     </td>
   </tr>
 
@@ -728,192 +1082,320 @@
        <?php foreach($viewStudents as $value){
         $late = 0;
         $absent = 0;
-                foreach($viewAttendance as $attendance)
-                {                  
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'L')
+                foreach($viewAttendance as $attendance){                        
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'L')
                      $late++;
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'A')
-                     $absent++;
-                } 
-                foreach($logins as $login)
-                {                    
-                         
-                    if($login['student_number'] == $value['student_number'])
-                    {           
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'A')
+                     $absent++;                   
+                }              
+                foreach($logins as $login){                    
+                    if($login['student_number'] == $value['student_number']){           
                        $temp= $login['student_number'];                                                         
                        $timeout = $login['time_out'];
                        $timein = $login['time_in'];
-
-
+                    }   
+                }       
+                foreach($violation as $row){
+                    if($row['student_number'] == $value['student_number']){                                             
+                      $violate_number = $row['student_number'];
+                      $status = $row['status'];                                 
                     }                                     
                 }
-                if($value['seat_number'] == 4){
-       ?>
-<input type = "hidden" name = "student_number4" value = "<?php echo $value['student_number'];  ?>" />         
-<input name="4" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
-    <p align="right">4</p>
-          <div class="auto-style1" style="width: 40px; height: 10px">Lates: <?php echo $late; ?></div>
-           <div class="auto-style1" style="width: 62px; height: 8px">Absences: <?php echo $absent; ?></div>
-       <div class="bs-example" align="right">
-                <input checked="true" name="attendance4" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-          <input name="attendance4" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
-                <input name="attendance4" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
-           </div>
-          <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp == $value['student_number'] && $timein == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp != $value['student_number']){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div> 
-      <?php } ?>    <?php }} ?>
+                foreach($suspension as $suspend){
+                    if($suspend['student_number'] == $value['student_number']){                                             
+                      $suspend_number = $suspend['student_number'];
+                      $statuss = $suspend['status'];                                 
+                    }                                     
+                }
+               if($value['seat_number'] == 4){                              
+                ?>
+
+                <?php                                                 
+                      $temp_late = $late / 3;
+                      $absent = $absent + number_format($temp_late);
+                ?>
+                <input type = "hidden" name = "student_number4" value = "<?php echo $value['student_number'];  ?>" />
+                <input name="4" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">      
+                <p align="right">4</p> 
+                <div class="auto-style1" style="width: 49px; height: 10px">Lates: <?php echo $late; ?></div>
+                <div class="auto-style1" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
+
+                 <?php if($statuss == "Suspended" && $suspend_number == $value['student_number']){ ?>
+                 <div class="bs-example" align="right">
+                          <input name="attendance4" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance4" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance4" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Suspended"; ?></div>      
+                  </div> <?php }                
+
+                   else if($status == "In campus with violation" && $violate_number == $value['student_number']){ ?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance4" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance4" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true"  name="attendance4" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "With Violation"; ?></div>      
+                  </div>  <?php }
+
+                  else if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
+                  <div class="bs-example" align="right">
+                          <input checked="true"  name="attendance4" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance4" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input name="attendance4" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
+                  </div>  
+                  <?php }    
+
+                  else if($temp == $value['student_number'] && $timein == '00:00:00' || $temp != $value['student_number'] ){?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance4" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance4" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance4" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
+                  </div>  <?php } ?>                                           
+    <?php } 
+  } ?>
     </td>
 
     <td colspan="2"></td>
     <td colspan="2"></td>
     <td style="width: 120px; height: 160px;">
-       <?php foreach($viewStudents as $value){
+      <?php foreach($viewStudents as $value){
         $late = 0;
         $absent = 0;
-                foreach($viewAttendance as $attendance)
-                {                  
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'L')
+                foreach($viewAttendance as $attendance){                        
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'L')
                      $late++;
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'A')
-                     $absent++;
-                } 
-                foreach($logins as $login)
-                {                    
-                         
-                    if($login['student_number'] == $value['student_number'])
-                    {           
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'A')
+                     $absent++;                   
+                }              
+                foreach($logins as $login){                    
+                    if($login['student_number'] == $value['student_number']){           
                        $temp= $login['student_number'];                                                         
                        $timeout = $login['time_out'];
                        $timein = $login['time_in'];
-
-
+                    }   
+                }       
+                foreach($violation as $row){
+                    if($row['student_number'] == $value['student_number']){                                             
+                      $violate_number = $row['student_number'];
+                      $status = $row['status'];                                 
                     }                                     
                 }
-                if($value['seat_number'] == 12){
-       ?>
-<input type = "hidden" name = "student_number12" value = "<?php echo $value['student_number'];  ?>" />         
-<input name="12" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
-    <p align="right">12</p>
-          <div class="auto-style1" style="width: 40px; height: 10px">Lates: <?php echo $late; ?></div>
-           <div class="auto-style1" style="width: 62px; height: 8px">Absences: <?php echo $absent; ?></div>
-       <div class="bs-example" align="right">
-                <input checked="true" name="attendance12" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-          <input name="attendance12" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
-                <input name="attendance12" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
-           </div>
-          <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp == $value['student_number'] && $timein == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp != $value['student_number']){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div> 
-      <?php } ?>    <?php }} ?>
+                foreach($suspension as $suspend){
+                    if($suspend['student_number'] == $value['student_number']){                                             
+                      $suspend_number = $suspend['student_number'];
+                      $statuss = $suspend['status'];                                 
+                    }                                     
+                }
+               if($value['seat_number'] == 12){                              
+                ?>
+
+                <?php                                                 
+                      $temp_late = $late / 3;
+                      $absent = $absent + number_format($temp_late);
+                ?>
+                <input type = "hidden" name = "student_number12" value = "<?php echo $value['student_number'];  ?>" />
+                <input name="12" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">      
+                <p align="right">12</p> 
+                <div class="auto-style1" style="width: 49px; height: 10px">Lates: <?php echo $late; ?></div>
+                <div class="auto-style1" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
+
+                 <?php if($statuss == "Suspended" && $suspend_number == $value['student_number']){ ?>
+                 <div class="bs-example" align="right">
+                          <input name="attendance12" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance12" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance12" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Suspended"; ?></div>      
+                  </div> <?php }                
+
+                   else if($status == "In campus with violation" && $violate_number == $value['student_number']){ ?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance12" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance12" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true"  name="attendance12" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "With Violation"; ?></div>      
+                  </div>  <?php }
+
+                  else if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
+                  <div class="bs-example" align="right">
+                          <input checked="true"  name="attendance12" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance12" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input name="attendance12" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
+                  </div>  
+                  <?php }    
+
+                  else if($temp == $value['student_number'] && $timein == '00:00:00' || $temp != $value['student_number'] ){?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance12" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance12" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance12" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
+                  </div>  <?php } ?>                                           
+    <?php } 
+  } ?>
     </td>
 
     <td colspan="2"></td>
     <td colspan="2"></td>
     
     <td style="width: 120px; height: 160px;">
-       <?php foreach($viewStudents as $value){
+      <?php foreach($viewStudents as $value){
         $late = 0;
         $absent = 0;
-                foreach($viewAttendance as $attendance)
-                {                  
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'L')
+                foreach($viewAttendance as $attendance){                        
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'L')
                      $late++;
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'A')
-                     $absent++;
-                } 
-                foreach($logins as $login)
-                {                    
-                         
-                    if($login['student_number'] == $value['student_number'])
-                    {           
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'A')
+                     $absent++;                   
+                }              
+                foreach($logins as $login){                    
+                    if($login['student_number'] == $value['student_number']){           
                        $temp= $login['student_number'];                                                         
                        $timeout = $login['time_out'];
                        $timein = $login['time_in'];
-
-
+                    }   
+                }       
+                foreach($violation as $row){
+                    if($row['student_number'] == $value['student_number']){                                             
+                      $violate_number = $row['student_number'];
+                      $status = $row['status'];                                 
                     }                                     
                 }
-                if($value['seat_number'] == 20){
-       ?>
-<input type = "hidden" name = "student_number20" value = "<?php echo $value['student_number'];  ?>" />         
-<input name="20" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
-    <p align="right">20</p>
-          <div class="auto-style1" style="width: 40px; height: 10px">Lates: <?php echo $late; ?></div>
-           <div class="auto-style1" style="width: 62px; height: 8px">Absences: <?php echo $absent; ?></div>
-       <div class="bs-example" align="right">
-                <input checked="true" name="attendance20" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-          <input name="attendance20" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
-                <input name="attendance20" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
-           </div>
-          <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp == $value['student_number'] && $timein == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp != $value['student_number']){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div> 
-      <?php } ?>    <?php }} ?>
+                foreach($suspension as $suspend){
+                    if($suspend['student_number'] == $value['student_number']){                                             
+                      $suspend_number = $suspend['student_number'];
+                      $statuss = $suspend['status'];                                 
+                    }                                     
+                }
+               if($value['seat_number'] == 20){                              
+                ?>
+
+                <?php                                                 
+                      $temp_late = $late / 3;
+                      $absent = $absent + number_format($temp_late);
+                ?>
+                <input type = "hidden" name = "student_number20" value = "<?php echo $value['student_number'];  ?>" />
+                <input name="20" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">      
+                <p align="right">20</p> 
+                <div class="auto-style1" style="width: 49px; height: 10px">Lates: <?php echo $late; ?></div>
+                <div class="auto-style1" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
+
+                 <?php if($statuss == "Suspended" && $suspend_number == $value['student_number']){ ?>
+                 <div class="bs-example" align="right">
+                          <input name="attendance20" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance20" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance20" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Suspended"; ?></div>      
+                  </div> <?php }                
+
+                   else if($status == "In campus with violation" && $violate_number == $value['student_number']){ ?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance20" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance20" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true"  name="attendance20" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "With Violation"; ?></div>      
+                  </div>  <?php }
+
+                  else if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
+                  <div class="bs-example" align="right">
+                          <input checked="true"  name="attendance20" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance20" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input name="attendance20" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
+                  </div>  
+                  <?php }    
+
+                  else if($temp == $value['student_number'] && $timein == '00:00:00' || $temp != $value['student_number'] ){?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance20" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance20" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance20" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
+                  </div>  <?php } ?>                                           
+    <?php } 
+  } ?>
     </td>
 
 
     <td colspan="2"></td>
     <td style="width: 120px; height: 160px;"></td>
     <td colspan="2">
- <?php foreach($viewStudents as $value){
+      <?php foreach($viewStudents as $value){
         $late = 0;
         $absent = 0;
-                foreach($viewAttendance as $attendance)
-                {                  
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'L')
+                foreach($viewAttendance as $attendance){                        
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'L')
                      $late++;
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'A')
-                     $absent++;
-                } 
-                foreach($logins as $login)
-                {                    
-                         
-                    if($login['student_number'] == $value['student_number'])
-                    {           
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'A')
+                     $absent++;                   
+                }              
+                foreach($logins as $login){                    
+                    if($login['student_number'] == $value['student_number']){           
                        $temp= $login['student_number'];                                                         
                        $timeout = $login['time_out'];
                        $timein = $login['time_in'];
-
-
+                    }   
+                }       
+                foreach($violation as $row){
+                    if($row['student_number'] == $value['student_number']){                                             
+                      $violate_number = $row['student_number'];
+                      $status = $row['status'];                                 
                     }                                     
                 }
-                if($value['seat_number'] == 27){
-       ?>
-       <input type = "hidden" name = "student_number27" value = "<?php echo $value['student_number'];  ?>" />  
-	<input name="27" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
-    <p align="right">27</p>
-          <div class="auto-style1" style="width: 40px; height: 10px">Lates: <?php echo $late; ?></div>
-           <div class="auto-style1" style="width: 62px; height: 8px">Absences: <?php echo $absent; ?></div>
-       <div class="bs-example" align="right">
-                <input checked="true" name="attendance37" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-          <input name="attendance37" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
-                <input name="attendance37" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
-           </div>
-          <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp == $value['student_number'] && $timein == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp != $value['student_number']){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div> 
-      <?php } ?>    <?php }} ?>
+                foreach($suspension as $suspend){
+                    if($suspend['student_number'] == $value['student_number']){                                             
+                      $suspend_number = $suspend['student_number'];
+                      $statuss = $suspend['status'];                                 
+                    }                                     
+                }
+               if($value['seat_number'] == 32){                              
+                ?>
+
+                <?php                                                 
+                      $temp_late = $late / 3;
+                      $absent = $absent + number_format($temp_late);
+                ?>
+                <input type = "hidden" name = "student_number32" value = "<?php echo $value['student_number'];  ?>" />
+                <input name="32" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">      
+                <p align="right">32</p> 
+                <div class="auto-style1" style="width: 49px; height: 10px">Lates: <?php echo $late; ?></div>
+                <div class="auto-style1" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
+
+                 <?php if($statuss == "Suspended" && $suspend_number == $value['student_number']){ ?>
+                 <div class="bs-example" align="right">
+                          <input name="attendance32" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance32" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance32" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Suspended"; ?></div>      
+                  </div> <?php }                
+
+                   else if($status == "In campus with violation" && $violate_number == $value['student_number']){ ?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance32" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance32" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true"  name="attendance32" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "With Violation"; ?></div>      
+                  </div>  <?php }
+
+                  else if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
+                  <div class="bs-example" align="right">
+                          <input checked="true"  name="attendance32" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance32" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input name="attendance32" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
+                  </div>  
+                  <?php }    
+
+                  else if($temp == $value['student_number'] && $timein == '00:00:00' || $temp != $value['student_number'] ){?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance32" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance32" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance32" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
+                  </div>  <?php } ?>                                           
+    <?php } 
+  } ?>
     </td>
     <td style="width: 120px; height: 160px;"></td>
   </tr>
@@ -931,95 +1413,1114 @@
        <?php foreach($viewStudents as $value){
         $late = 0;
         $absent = 0;
-                foreach($viewAttendance as $attendance)
-                {                  
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'L')
+                foreach($viewAttendance as $attendance){                        
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'L')
                      $late++;
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'A')
-                     $absent++;
-                } 
-                foreach($logins as $login)
-                {                    
-                         
-                    if($login['student_number'] == $value['student_number'])
-                    {           
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'A')
+                     $absent++;                   
+                }              
+                foreach($logins as $login){                    
+                    if($login['student_number'] == $value['student_number']){           
                        $temp= $login['student_number'];                                                         
                        $timeout = $login['time_out'];
                        $timein = $login['time_in'];
-
-
+                    }   
+                }       
+                foreach($violation as $row){
+                    if($row['student_number'] == $value['student_number']){                                             
+                      $violate_number = $row['student_number'];
+                      $status = $row['status'];                                 
                     }                                     
                 }
-                if($value['seat_number'] == 5){
-       ?>
-       <input type = "hidden" name = "student_number5" value = "<?php echo $value['student_number'];  ?>" />  
-<input name="5" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
-    <p align="right">5</p>
-          <div class="auto-style1" style="width: 40px; height: 10px">Lates: <?php echo $late; ?></div>
-           <div class="auto-style1" style="width: 62px; height: 8px">Absences: <?php echo $absent; ?></div>
-       <div class="bs-example" align="right">
-                <input checked="true" name="attendance5" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-          <input name="attendance5" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
-                <input name="attendance5" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
-           </div>
-          <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp == $value['student_number'] && $timein == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp != $value['student_number']){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div> 
-      <?php } ?>    <?php }} ?>
+                foreach($suspension as $suspend){
+                    if($suspend['student_number'] == $value['student_number']){                                             
+                      $suspend_number = $suspend['student_number'];
+                      $statuss = $suspend['status'];                                 
+                    }                                     
+                }
+               if($value['seat_number'] == 5){                              
+                ?>
+
+                <?php                                                 
+                      $temp_late = $late / 3;
+                      $absent = $absent + number_format($temp_late);
+                ?>
+                <input type = "hidden" name = "student_number5" value = "<?php echo $value['student_number'];  ?>" />
+                <input name="5" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">      
+                <p align="right">5</p> 
+                <div class="auto-style1" style="width: 49px; height: 10px">Lates: <?php echo $late; ?></div>
+                <div class="auto-style1" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
+
+                 <?php if($statuss == "Suspended" && $suspend_number == $value['student_number']){ ?>
+                 <div class="bs-example" align="right">
+                          <input name="attendance5" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance5" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance5" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Suspended"; ?></div>      
+                  </div> <?php }                
+
+                   else if($status == "In campus with violation" && $violate_number == $value['student_number']){ ?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance5" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance5" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true"  name="attendance5" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "With Violation"; ?></div>      
+                  </div>  <?php }
+
+                  else if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
+                  <div class="bs-example" align="right">
+                          <input checked="true"  name="attendance5" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance5" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input name="attendance5" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
+                  </div>  
+                  <?php }    
+
+                  else if($temp == $value['student_number'] && $timein == '00:00:00' || $temp != $value['student_number'] ){?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance5" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance5" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance5" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
+                  </div>  <?php } ?>                                           
+    <?php } 
+  } ?>
     </td>
 
     <td colspan="2"></td>
     <td colspan="2"></td>
 
     <td style="width: 120px; height: 160px;">
-       <?php foreach($viewStudents as $value){
+        <?php foreach($viewStudents as $value){
         $late = 0;
         $absent = 0;
-                foreach($viewAttendance as $attendance)
-                {                  
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'L')
+                foreach($viewAttendance as $attendance){                        
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'L')
                      $late++;
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'A')
-                     $absent++;
-                } 
-                foreach($logins as $login)
-                {                    
-                         
-                    if($login['student_number'] == $value['student_number'])
-                    {           
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'A')
+                     $absent++;                   
+                }              
+                foreach($logins as $login){                    
+                    if($login['student_number'] == $value['student_number']){           
                        $temp= $login['student_number'];                                                         
                        $timeout = $login['time_out'];
                        $timein = $login['time_in'];
-
-
+                    }   
+                }       
+                foreach($violation as $row){
+                    if($row['student_number'] == $value['student_number']){                                             
+                      $violate_number = $row['student_number'];
+                      $status = $row['status'];                                 
                     }                                     
                 }
-                if($value['seat_number'] == 13){
-       ?>
-       <input type = "hidden" name = "student_number13" value = "<?php echo $value['student_number'];  ?>" />  
-<input name="13" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
-    <p align="right">13</p>
-          <div class="auto-style1" style="width: 40px; height: 10px">Lates: <?php echo $late; ?></div>
-           <div class="auto-style1" style="width: 62px; height: 8px">Absences: <?php echo $absent; ?></div>
-       <div class="bs-example" align="right">
-                <input checked="true" name="attendance13" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-          <input name="attendance13" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
-                <input name="attendance13" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
-           </div>
-          <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp == $value['student_number'] && $timein == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp != $value['student_number']){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div> 
-      <?php } ?>    <?php }} ?>
+                foreach($suspension as $suspend){
+                    if($suspend['student_number'] == $value['student_number']){                                             
+                      $suspend_number = $suspend['student_number'];
+                      $statuss = $suspend['status'];                                 
+                    }                                     
+                }
+               if($value['seat_number'] == 13){                              
+                ?>
+
+                <?php                                                 
+                      $temp_late = $late / 3;
+                      $absent = $absent + number_format($temp_late);
+                ?>
+                <input type = "hidden" name = "student_number13" value = "<?php echo $value['student_number'];  ?>" />
+                <input name="13" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">      
+                <p align="right">13</p> 
+                <div class="auto-style1" style="width: 49px; height: 10px">Lates: <?php echo $late; ?></div>
+                <div class="auto-style1" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
+
+                 <?php if($statuss == "Suspended" && $suspend_number == $value['student_number']){ ?>
+                 <div class="bs-example" align="right">
+                          <input name="attendance13" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance13" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance13" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Suspended"; ?></div>      
+                  </div> <?php }                
+
+                   else if($status == "In campus with violation" && $violate_number == $value['student_number']){ ?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance13" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance13" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true"  name="attendance13" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "With Violation"; ?></div>      
+                  </div>  <?php }
+
+                  else if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
+                  <div class="bs-example" align="right">
+                          <input checked="true"  name="attendance13" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance13" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input name="attendance13" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
+                  </div>  
+                  <?php }    
+
+                  else if($temp == $value['student_number'] && $timein == '00:00:00' || $temp != $value['student_number'] ){?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance13" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance13" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance13" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
+                  </div>  <?php } ?>                                           
+    <?php } 
+  } ?>
+    </td>
+
+    <td colspan="2"></td>
+    <td style="width: 120px; height: 160px;"></td>
+    <td colspan="3">
+      <?php foreach($viewStudents as $value){
+        $late = 0;
+        $absent = 0;
+                foreach($viewAttendance as $attendance){                        
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'L')
+                     $late++;
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'A')
+                     $absent++;                   
+                }              
+                foreach($logins as $login){                    
+                    if($login['student_number'] == $value['student_number']){           
+                       $temp= $login['student_number'];                                                         
+                       $timeout = $login['time_out'];
+                       $timein = $login['time_in'];
+                    }   
+                }       
+                foreach($violation as $row){
+                    if($row['student_number'] == $value['student_number']){                                             
+                      $violate_number = $row['student_number'];
+                      $status = $row['status'];                                 
+                    }                                     
+                }
+                foreach($suspension as $suspend){
+                    if($suspend['student_number'] == $value['student_number']){                                             
+                      $suspend_number = $suspend['student_number'];
+                      $statuss = $suspend['status'];                                 
+                    }                                     
+                }
+               if($value['seat_number'] == 21){                              
+                ?>
+
+                <?php                                                 
+                      $temp_late = $late / 3;
+                      $absent = $absent + number_format($temp_late);
+                ?>
+                <input type = "hidden" name = "student_number21" value = "<?php echo $value['student_number'];  ?>" />
+                <input name="21" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">      
+                <p align="right">21</p> 
+                <div class="auto-style1" style="width: 49px; height: 10px">Lates: <?php echo $late; ?></div>
+                <div class="auto-style1" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
+
+                 <?php if($statuss == "Suspended" && $suspend_number == $value['student_number']){ ?>
+                 <div class="bs-example" align="right">
+                          <input name="attendance21" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance21" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance21" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Suspended"; ?></div>      
+                  </div> <?php }                
+
+                   else if($status == "In campus with violation" && $violate_number == $value['student_number']){ ?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance21" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance21" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true"  name="attendance21" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "With Violation"; ?></div>      
+                  </div>  <?php }
+
+                  else if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
+                  <div class="bs-example" align="right">
+                          <input checked="true"  name="attendance21" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance21" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input name="attendance21" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
+                  </div>  
+                  <?php }    
+
+                  else if($temp == $value['student_number'] && $timein == '00:00:00' || $temp != $value['student_number'] ){?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance21" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance21" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance21" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
+                  </div>  <?php } ?>                                           
+    <?php } 
+  } ?>
+    </td>
+
+    <td style="width: 120px; height: 160px;"></td>
+    <td style="width: 120px; height: 160px;"></td>
+    
+    <td style="width: 120px; height: 160px;">
+      <?php foreach($viewStudents as $value){
+        $late = 0;
+        $absent = 0;
+                foreach($viewAttendance as $attendance){                        
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'L')
+                     $late++;
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'A')
+                     $absent++;                   
+                }              
+                foreach($logins as $login){                    
+                    if($login['student_number'] == $value['student_number']){           
+                       $temp= $login['student_number'];                                                         
+                       $timeout = $login['time_out'];
+                       $timein = $login['time_in'];
+                    }   
+                }       
+                foreach($violation as $row){
+                    if($row['student_number'] == $value['student_number']){                                             
+                      $violate_number = $row['student_number'];
+                      $status = $row['status'];                                 
+                    }                                     
+                }
+                foreach($suspension as $suspend){
+                    if($suspend['student_number'] == $value['student_number']){                                             
+                      $suspend_number = $suspend['student_number'];
+                      $statuss = $suspend['status'];                                 
+                    }                                     
+                }
+               if($value['seat_number'] == 28){                              
+                ?>
+
+                <?php                                                 
+                      $temp_late = $late / 3;
+                      $absent = $absent + number_format($temp_late);
+                ?>
+                <input type = "hidden" name = "student_number28" value = "<?php echo $value['student_number'];  ?>" />
+                <input name="28" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">      
+                <p align="right">28</p> 
+                <div class="auto-style1" style="width: 49px; height: 10px">Lates: <?php echo $late; ?></div>
+                <div class="auto-style1" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
+
+                 <?php if($statuss == "Suspended" && $suspend_number == $value['student_number']){ ?>
+                 <div class="bs-example" align="right">
+                          <input name="attendance28" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance28" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance28" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Suspended"; ?></div>      
+                  </div> <?php }                
+
+                   else if($status == "In campus with violation" && $violate_number == $value['student_number']){ ?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance28" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance28" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true"  name="attendance28" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "With Violation"; ?></div>      
+                  </div>  <?php }
+
+                  else if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
+                  <div class="bs-example" align="right">
+                          <input checked="true"  name="attendance28" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance28" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input name="attendance28" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
+                  </div>  
+                  <?php }    
+
+                  else if($temp == $value['student_number'] && $timein == '00:00:00' || $temp != $value['student_number'] ){?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance28" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance28" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance28" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
+                  </div>  <?php } ?>                                           
+    <?php } 
+  } ?>
+    </td>
+    <td colspan="2"></td>
+  </tr>
+
+  <tr>
+    <td style="width: 120px; height: 160px;">
+      <?php foreach($viewStudents as $value){
+        $late = 0;
+        $absent = 0;
+                foreach($viewAttendance as $attendance){                        
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'L')
+                     $late++;
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'A')
+                     $absent++;                   
+                }              
+                foreach($logins as $login){                    
+                    if($login['student_number'] == $value['student_number']){           
+                       $temp= $login['student_number'];                                                         
+                       $timeout = $login['time_out'];
+                       $timein = $login['time_in'];
+                    }   
+                }       
+                foreach($violation as $row){
+                    if($row['student_number'] == $value['student_number']){                                             
+                      $violate_number = $row['student_number'];
+                      $status = $row['status'];                                 
+                    }                                     
+                }
+                foreach($suspension as $suspend){
+                    if($suspend['student_number'] == $value['student_number']){                                             
+                      $suspend_number = $suspend['student_number'];
+                      $statuss = $suspend['status'];                                 
+                    }                                     
+                }
+               if($value['seat_number'] == 6){                              
+                ?>
+
+                <?php                                                 
+                      $temp_late = $late / 3;
+                      $absent = $absent + number_format($temp_late);
+                ?>
+                <input type = "hidden" name = "student_number6" value = "<?php echo $value['student_number'];  ?>" />
+                <input name="6" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">      
+                <p align="right">6</p> 
+                <div class="auto-style1" style="width: 49px; height: 10px">Lates: <?php echo $late; ?></div>
+                <div class="auto-style1" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
+
+                 <?php if($statuss == "Suspended" && $suspend_number == $value['student_number']){ ?>
+                 <div class="bs-example" align="right">
+                          <input name="attendance6" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance6" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance6" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Suspended"; ?></div>      
+                  </div> <?php }                
+
+                   else if($status == "In campus with violation" && $violate_number == $value['student_number']){ ?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance6" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance6" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true"  name="attendance6" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "With Violation"; ?></div>      
+                  </div>  <?php }
+
+                  else if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
+                  <div class="bs-example" align="right">
+                          <input checked="true"  name="attendance6" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance6" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input name="attendance6" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
+                  </div>  
+                  <?php }    
+
+                  else if($temp == $value['student_number'] && $timein == '00:00:00' || $temp != $value['student_number'] ){?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance6" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance6" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance6" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
+                  </div>  <?php } ?>                                           
+    <?php } 
+  } ?> 
+    </td>
+
+    <td colspan="3"></td>
+    <td style="width: 120px; height: 160px;">
+         <?php foreach($viewStudents as $value){
+        $late = 0;
+        $absent = 0;
+                foreach($viewAttendance as $attendance){                        
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'L')
+                     $late++;
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'A')
+                     $absent++;                   
+                }              
+                foreach($logins as $login){                    
+                    if($login['student_number'] == $value['student_number']){           
+                       $temp= $login['student_number'];                                                         
+                       $timeout = $login['time_out'];
+                       $timein = $login['time_in'];
+                    }   
+                }       
+                foreach($violation as $row){
+                    if($row['student_number'] == $value['student_number']){                                             
+                      $violate_number = $row['student_number'];
+                      $status = $row['status'];                                 
+                    }                                     
+                }
+                foreach($suspension as $suspend){
+                    if($suspend['student_number'] == $value['student_number']){                                             
+                      $suspend_number = $suspend['student_number'];
+                      $statuss = $suspend['status'];                                 
+                    }                                     
+                }
+               if($value['seat_number'] == 7){                              
+                ?>
+
+                <?php                                                 
+                      $temp_late = $late / 3;
+                      $absent = $absent + number_format($temp_late);
+                ?>
+                <input type = "hidden" name = "student_number7" value = "<?php echo $value['student_number'];  ?>" />
+                <input name="7" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">      
+                <p align="right">7</p> 
+                <div class="auto-style1" style="width: 49px; height: 10px">Lates: <?php echo $late; ?></div>
+                <div class="auto-style1" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
+
+                 <?php if($statuss == "Suspended" && $suspend_number == $value['student_number']){ ?>
+                 <div class="bs-example" align="right">
+                          <input name="attendance7" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance7" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance7" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Suspended"; ?></div>      
+                  </div> <?php }                
+
+                   else if($status == "In campus with violation" && $violate_number == $value['student_number']){ ?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance7" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance7" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true"  name="attendance7" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "With Violation"; ?></div>      
+                  </div>  <?php }
+
+                  else if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
+                  <div class="bs-example" align="right">
+                          <input checked="true"  name="attendance7" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance7" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input name="attendance7" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
+                  </div>  
+                  <?php }    
+
+                  else if($temp == $value['student_number'] && $timein == '00:00:00' || $temp != $value['student_number'] ){?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance7" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance7" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance7" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
+                  </div>  <?php } ?>                                           
+    <?php } 
+  } ?>
+    </td>
+
+    <td style="width: 120px; height: 160px;">
+        <?php foreach($viewStudents as $value){
+        $late = 0;
+        $absent = 0;
+                foreach($viewAttendance as $attendance){                        
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'L')
+                     $late++;
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'A')
+                     $absent++;                   
+                }              
+                foreach($logins as $login){                    
+                    if($login['student_number'] == $value['student_number']){           
+                       $temp= $login['student_number'];                                                         
+                       $timeout = $login['time_out'];
+                       $timein = $login['time_in'];
+                    }   
+                }       
+                foreach($violation as $row){
+                    if($row['student_number'] == $value['student_number']){                                             
+                      $violate_number = $row['student_number'];
+                      $status = $row['status'];                                 
+                    }                                     
+                }
+                foreach($suspension as $suspend){
+                    if($suspend['student_number'] == $value['student_number']){                                             
+                      $suspend_number = $suspend['student_number'];
+                      $statuss = $suspend['status'];                                 
+                    }                                     
+                }
+               if($value['seat_number'] == 14){                              
+                ?>
+
+                <?php                                                 
+                      $temp_late = $late / 3;
+                      $absent = $absent + number_format($temp_late);
+                ?>
+                <input type = "hidden" name = "student_number14" value = "<?php echo $value['student_number'];  ?>" />
+                <input name="14" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">      
+                <p align="right">14</p> 
+                <div class="auto-style1" style="width: 49px; height: 10px">Lates: <?php echo $late; ?></div>
+                <div class="auto-style1" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
+
+                 <?php if($statuss == "Suspended" && $suspend_number == $value['student_number']){ ?>
+                 <div class="bs-example" align="right">
+                          <input name="attendance14" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance14" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance14" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Suspended"; ?></div>      
+                  </div> <?php }                
+
+                   else if($status == "In campus with violation" && $violate_number == $value['student_number']){ ?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance14" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance14" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true"  name="attendance14" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "With Violation"; ?></div>      
+                  </div>  <?php }
+
+                  else if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
+                  <div class="bs-example" align="right">
+                          <input checked="true"  name="attendance14" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance14" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input name="attendance14" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
+                  </div>  
+                  <?php }    
+
+                  else if($temp == $value['student_number'] && $timein == '00:00:00' || $temp != $value['student_number'] ){?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance14" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance14" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance14" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
+                  </div>  <?php } ?>                                           
+    <?php } 
+  } ?>
+    </td>
+
+    <td colspan="3"></td>
+    <td style="width: 120px; height: 160px;">
+       <?php foreach($viewStudents as $value){
+        $late = 0;
+        $absent = 0;
+                foreach($viewAttendance as $attendance){                        
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'L')
+                     $late++;
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'A')
+                     $absent++;                   
+                }              
+                foreach($logins as $login){                    
+                    if($login['student_number'] == $value['student_number']){           
+                       $temp= $login['student_number'];                                                         
+                       $timeout = $login['time_out'];
+                       $timein = $login['time_in'];
+                    }   
+                }       
+                foreach($violation as $row){
+                    if($row['student_number'] == $value['student_number']){                                             
+                      $violate_number = $row['student_number'];
+                      $status = $row['status'];                                 
+                    }                                     
+                }
+                foreach($suspension as $suspend){
+                    if($suspend['student_number'] == $value['student_number']){                                             
+                      $suspend_number = $suspend['student_number'];
+                      $statuss = $suspend['status'];                                 
+                    }                                     
+                }
+               if($value['seat_number'] == 15){                              
+                ?>
+
+                <?php                                                 
+                      $temp_late = $late / 3;
+                      $absent = $absent + number_format($temp_late);
+                ?>
+                <input type = "hidden" name = "student_number15" value = "<?php echo $value['student_number'];  ?>" />
+                <input name="15" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">      
+                <p align="right">15</p> 
+                <div class="auto-style1" style="width: 49px; height: 10px">Lates: <?php echo $late; ?></div>
+                <div class="auto-style1" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
+
+                 <?php if($statuss == "Suspended" && $suspend_number == $value['student_number']){ ?>
+                 <div class="bs-example" align="right">
+                          <input name="attendance15" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance15" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance15" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Suspended"; ?></div>      
+                  </div> <?php }                
+
+                   else if($status == "In campus with violation" && $violate_number == $value['student_number']){ ?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance15" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance15" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true"  name="attendance15" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "With Violation"; ?></div>      
+                  </div>  <?php }
+
+                  else if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
+                  <div class="bs-example" align="right">
+                          <input checked="true"  name="attendance15" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance15" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input name="attendance15" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
+                  </div>  
+                  <?php }    
+
+                  else if($temp == $value['student_number'] && $timein == '00:00:00' || $temp != $value['student_number'] ){?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance15" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance15" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance15" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
+                  </div>  <?php } ?>                                           
+    <?php } 
+  } ?>
+    </td>
+
+    <td style="width: 120px; height: 160px;">
+      <?php foreach($viewStudents as $value){
+        $late = 0;
+        $absent = 0;
+                foreach($viewAttendance as $attendance){                        
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'L')
+                     $late++;
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'A')
+                     $absent++;                   
+                }              
+                foreach($logins as $login){                    
+                    if($login['student_number'] == $value['student_number']){           
+                       $temp= $login['student_number'];                                                         
+                       $timeout = $login['time_out'];
+                       $timein = $login['time_in'];
+                    }   
+                }       
+                foreach($violation as $row){
+                    if($row['student_number'] == $value['student_number']){                                             
+                      $violate_number = $row['student_number'];
+                      $status = $row['status'];                                 
+                    }                                     
+                }
+                foreach($suspension as $suspend){
+                    if($suspend['student_number'] == $value['student_number']){                                             
+                      $suspend_number = $suspend['student_number'];
+                      $statuss = $suspend['status'];                                 
+                    }                                     
+                }
+               if($value['seat_number'] == 22){                              
+                ?>
+
+                <?php                                                 
+                      $temp_late = $late / 3;
+                      $absent = $absent + number_format($temp_late);
+                ?>
+                <input type = "hidden" name = "student_number22" value = "<?php echo $value['student_number'];  ?>" />
+                <input name="22" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">      
+                <p align="right">22</p> 
+                <div class="auto-style1" style="width: 49px; height: 10px">Lates: <?php echo $late; ?></div>
+                <div class="auto-style1" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
+
+                 <?php if($statuss == "Suspended" && $suspend_number == $value['student_number']){ ?>
+                 <div class="bs-example" align="right">
+                          <input name="attendance22" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance22" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance22" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Suspended"; ?></div>      
+                  </div> <?php }                
+
+                   else if($status == "In campus with violation" && $violate_number == $value['student_number']){ ?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance22" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance22" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true"  name="attendance22" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "With Violation"; ?></div>      
+                  </div>  <?php }
+
+                  else if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
+                  <div class="bs-example" align="right">
+                          <input checked="true"  name="attendance22" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance22" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input name="attendance22" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
+                  </div>  
+                  <?php }    
+
+                  else if($temp == $value['student_number'] && $timein == '00:00:00' || $temp != $value['student_number'] ){?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance22" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance22" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance22" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
+                  </div>  <?php } ?>                                           
+    <?php } 
+  } ?>
+    </td>
+
+    <td colspan="3"></td>
+    <td style="width: 120px; height: 160px;">
+      <?php foreach($viewStudents as $value){
+        $late = 0;
+        $absent = 0;
+                foreach($viewAttendance as $attendance){                        
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'L')
+                     $late++;
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'A')
+                     $absent++;                   
+                }              
+                foreach($logins as $login){                    
+                    if($login['student_number'] == $value['student_number']){           
+                       $temp= $login['student_number'];                                                         
+                       $timeout = $login['time_out'];
+                       $timein = $login['time_in'];
+                    }   
+                }       
+                foreach($violation as $row){
+                    if($row['student_number'] == $value['student_number']){                                             
+                      $violate_number = $row['student_number'];
+                      $status = $row['status'];                                 
+                    }                                     
+                }
+                foreach($suspension as $suspend){
+                    if($suspend['student_number'] == $value['student_number']){                                             
+                      $suspend_number = $suspend['student_number'];
+                      $statuss = $suspend['status'];                                 
+                    }                                     
+                }
+               if($value['seat_number'] == 23){                              
+                ?>
+
+                <?php                                                 
+                      $temp_late = $late / 3;
+                      $absent = $absent + number_format($temp_late);
+                ?>
+                <input type = "hidden" name = "student_number23" value = "<?php echo $value['student_number'];  ?>" />
+                <input name="23" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">      
+                <p align="right">23</p> 
+                <div class="auto-style1" style="width: 49px; height: 10px">Lates: <?php echo $late; ?></div>
+                <div class="auto-style1" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
+
+                 <?php if($statuss == "Suspended" && $suspend_number == $value['student_number']){ ?>
+                 <div class="bs-example" align="right">
+                          <input name="attendance23" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance23" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance23" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Suspended"; ?></div>      
+                  </div> <?php }                
+
+                   else if($status == "In campus with violation" && $violate_number == $value['student_number']){ ?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance23" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance23" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true"  name="attendance23" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "With Violation"; ?></div>      
+                  </div>  <?php }
+
+                  else if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
+                  <div class="bs-example" align="right">
+                          <input checked="true"  name="attendance23" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance23" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input name="attendance23" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
+                  </div>  
+                  <?php }    
+
+                  else if($temp == $value['student_number'] && $timein == '00:00:00' || $temp != $value['student_number'] ){?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance23" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance23" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance23" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
+                  </div>  <?php } ?>                                           
+    <?php } 
+  } ?>
+    </td>
+
+    <td style="width: 120px; height: 160px;">
+     <?php foreach($viewStudents as $value){
+        $late = 0;
+        $absent = 0;
+                foreach($viewAttendance as $attendance){                        
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'L')
+                     $late++;
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'A')
+                     $absent++;                   
+                }              
+                foreach($logins as $login){                    
+                    if($login['student_number'] == $value['student_number']){           
+                       $temp= $login['student_number'];                                                         
+                       $timeout = $login['time_out'];
+                       $timein = $login['time_in'];
+                    }   
+                }       
+                foreach($violation as $row){
+                    if($row['student_number'] == $value['student_number']){                                             
+                      $violate_number = $row['student_number'];
+                      $status = $row['status'];                                 
+                    }                                     
+                }
+                foreach($suspension as $suspend){
+                    if($suspend['student_number'] == $value['student_number']){                                             
+                      $suspend_number = $suspend['student_number'];
+                      $statuss = $suspend['status'];                                 
+                    }                                     
+                }
+               if($value['seat_number'] == 29){                              
+                ?>
+
+                <?php                                                 
+                      $temp_late = $late / 3;
+                      $absent = $absent + number_format($temp_late);
+                ?>
+                <input type = "hidden" name = "student_number29" value = "<?php echo $value['student_number'];  ?>" />
+                <input name="29" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">      
+                <p align="right">29</p> 
+                <div class="auto-style1" style="width: 49px; height: 10px">Lates: <?php echo $late; ?></div>
+                <div class="auto-style1" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
+
+                 <?php if($statuss == "Suspended" && $suspend_number == $value['student_number']){ ?>
+                 <div class="bs-example" align="right">
+                          <input name="attendance29" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance29" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance29" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Suspended"; ?></div>      
+                  </div> <?php }                
+
+                   else if($status == "In campus with violation" && $violate_number == $value['student_number']){ ?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance29" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance29" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true"  name="attendance29" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "With Violation"; ?></div>      
+                  </div>  <?php }
+
+                  else if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
+                  <div class="bs-example" align="right">
+                          <input checked="true"  name="attendance29" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance29" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input name="attendance29" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
+                  </div>  
+                  <?php }    
+
+                  else if($temp == $value['student_number'] && $timein == '00:00:00' || $temp != $value['student_number'] ){?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance29" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance29" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance29" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
+                  </div>  <?php } ?>                                           
+    <?php } 
+  } ?>
+    </td>
+
+    <td colspan="2"></td>
+    <td style="width: 120px; height: 160px;">
+      <?php foreach($viewStudents as $value){
+        $late = 0;
+        $absent = 0;
+                foreach($viewAttendance as $attendance){                        
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'L')
+                     $late++;
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'A')
+                     $absent++;                   
+                }              
+                foreach($logins as $login){                    
+                    if($login['student_number'] == $value['student_number']){           
+                       $temp= $login['student_number'];                                                         
+                       $timeout = $login['time_out'];
+                       $timein = $login['time_in'];
+                    }   
+                }       
+                foreach($violation as $row){
+                    if($row['student_number'] == $value['student_number']){                                             
+                      $violate_number = $row['student_number'];
+                      $status = $row['status'];                                 
+                    }                                     
+                }
+                foreach($suspension as $suspend){
+                    if($suspend['student_number'] == $value['student_number']){                                             
+                      $suspend_number = $suspend['student_number'];
+                      $statuss = $suspend['status'];                                 
+                    }                                     
+                }
+               if($value['seat_number'] == 30){                              
+                ?>
+
+                <?php                                                 
+                      $temp_late = $late / 3;
+                      $absent = $absent + number_format($temp_late);
+                ?>
+                <input type = "hidden" name = "student_number30" value = "<?php echo $value['student_number'];  ?>" />
+                <input name="30" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">      
+                <p align="right">30</p> 
+                <div class="auto-style1" style="width: 49px; height: 10px">Lates: <?php echo $late; ?></div>
+                <div class="auto-style1" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
+
+                 <?php if($statuss == "Suspended" && $suspend_number == $value['student_number']){ ?>
+                 <div class="bs-example" align="right">
+                          <input name="attendance30" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance30" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance30" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Suspended"; ?></div>      
+                  </div> <?php }                
+
+                   else if($status == "In campus with violation" && $violate_number == $value['student_number']){ ?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance30" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance30" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true"  name="attendance30" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "With Violation"; ?></div>      
+                  </div>  <?php }
+
+                  else if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
+                  <div class="bs-example" align="right">
+                          <input checked="true"  name="attendance30" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance30" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input name="attendance30" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
+                  </div>  
+                  <?php }    
+
+                  else if($temp == $value['student_number'] && $timein == '00:00:00' || $temp != $value['student_number'] ){?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance30" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance30" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance30" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
+                  </div>  <?php } ?>                                           
+    <?php } 
+  } ?>
+  
+    </td>
+  </tr>
+
+  <tr>
+    <td colspan="2"></td>
+    <td style="width: 120px; height: 160px;">
+      <?php foreach($viewStudents as $value){
+        $late = 0;
+        $absent = 0;
+                foreach($viewAttendance as $attendance){                        
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'L')
+                     $late++;
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'A')
+                     $absent++;                   
+                }              
+                foreach($logins as $login){                    
+                    if($login['student_number'] == $value['student_number']){           
+                       $temp= $login['student_number'];                                                         
+                       $timeout = $login['time_out'];
+                       $timein = $login['time_in'];
+                    }   
+                }       
+                foreach($violation as $row){
+                    if($row['student_number'] == $value['student_number']){                                             
+                      $violate_number = $row['student_number'];
+                      $status = $row['status'];                                 
+                    }                                     
+                }
+                foreach($suspension as $suspend){
+                    if($suspend['student_number'] == $value['student_number']){                                             
+                      $suspend_number = $suspend['student_number'];
+                      $statuss = $suspend['status'];                                 
+                    }                                     
+                }
+               if($value['seat_number'] == 8){                              
+                ?>
+
+                <?php                                                 
+                      $temp_late = $late / 3;
+                      $absent = $absent + number_format($temp_late);
+                ?>
+                <input type = "hidden" name = "student_number8" value = "<?php echo $value['student_number'];  ?>" />
+                <input name="8" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">      
+                <p align="right">8</p> 
+                <div class="auto-style1" style="width: 49px; height: 10px">Lates: <?php echo $late; ?></div>
+                <div class="auto-style1" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
+
+                 <?php if($statuss == "Suspended" && $suspend_number == $value['student_number']){ ?>
+                 <div class="bs-example" align="right">
+                          <input name="attendance8" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance8" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance8" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Suspended"; ?></div>      
+                  </div> <?php }                
+
+                   else if($status == "In campus with violation" && $violate_number == $value['student_number']){ ?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance8" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance8" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true"  name="attendance8" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "With Violation"; ?></div>      
+                  </div>  <?php }
+
+                  else if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
+                  <div class="bs-example" align="right">
+                          <input checked="true"  name="attendance8" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance8" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input name="attendance8" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
+                  </div>  
+                  <?php }    
+
+                  else if($temp == $value['student_number'] && $timein == '00:00:00' || $temp != $value['student_number'] ){?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance8" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance8" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance8" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
+                  </div>  <?php } ?>                                           
+    <?php } 
+  } ?>
+    </td>
+
+    <td colspan="2"></td>
+    <td colspan="2"></td>
+
+    <td style="width: 120px; height: 160px;">
+      <?php foreach($viewStudents as $value){
+        $late = 0;
+        $absent = 0;
+                foreach($viewAttendance as $attendance){                        
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'L')
+                     $late++;
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'A')
+                     $absent++;                   
+                }              
+                foreach($logins as $login){                    
+                    if($login['student_number'] == $value['student_number']){           
+                       $temp= $login['student_number'];                                                         
+                       $timeout = $login['time_out'];
+                       $timein = $login['time_in'];
+                    }   
+                }       
+                foreach($violation as $row){
+                    if($row['student_number'] == $value['student_number']){                                             
+                      $violate_number = $row['student_number'];
+                      $status = $row['status'];                                 
+                    }                                     
+                }
+                foreach($suspension as $suspend){
+                    if($suspend['student_number'] == $value['student_number']){                                             
+                      $suspend_number = $suspend['student_number'];
+                      $statuss = $suspend['status'];                                 
+                    }                                     
+                }
+               if($value['seat_number'] == 16){                              
+                ?>
+
+                <?php                                                 
+                      $temp_late = $late / 3;
+                      $absent = $absent + number_format($temp_late);
+                ?>
+                <input type = "hidden" name = "student_number16" value = "<?php echo $value['student_number'];  ?>" />
+                <input name="16" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">      
+                <p align="right">16</p> 
+                <div class="auto-style1" style="width: 49px; height: 10px">Lates: <?php echo $late; ?></div>
+                <div class="auto-style1" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
+
+                 <?php if($statuss == "Suspended" && $suspend_number == $value['student_number']){ ?>
+                 <div class="bs-example" align="right">
+                          <input name="attendance16" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance16" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance16" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Suspended"; ?></div>      
+                  </div> <?php }                
+
+                   else if($status == "In campus with violation" && $violate_number == $value['student_number']){ ?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance16" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance16" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true"  name="attendance16" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "With Violation"; ?></div>      
+                  </div>  <?php }
+
+                  else if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
+                  <div class="bs-example" align="right">
+                          <input checked="true"  name="attendance16" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance16" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input name="attendance16" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
+                  </div>  
+                  <?php }    
+
+                  else if($temp == $value['student_number'] && $timein == '00:00:00' || $temp != $value['student_number'] ){?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance16" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance16" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance16" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
+                  </div>  <?php } ?>                                           
+    <?php } 
+  } ?>
     </td>
 
     <td colspan="2"></td>
@@ -1028,46 +2529,78 @@
        <?php foreach($viewStudents as $value){
         $late = 0;
         $absent = 0;
-                foreach($viewAttendance as $attendance)
-                {                  
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'L')
+                foreach($viewAttendance as $attendance){                        
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'L')
                      $late++;
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'A')
-                     $absent++;
-                } 
-                foreach($logins as $login)
-                {                    
-                         
-                    if($login['student_number'] == $value['student_number'])
-                    {           
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'A')
+                     $absent++;                   
+                }              
+                foreach($logins as $login){                    
+                    if($login['student_number'] == $value['student_number']){           
                        $temp= $login['student_number'];                                                         
                        $timeout = $login['time_out'];
                        $timein = $login['time_in'];
-
-
+                    }   
+                }       
+                foreach($violation as $row){
+                    if($row['student_number'] == $value['student_number']){                                             
+                      $violate_number = $row['student_number'];
+                      $status = $row['status'];                                 
                     }                                     
                 }
-                if($value['seat_number'] == 21){
-       ?>
-       <input type = "hidden" name = "student_number21" value = "<?php echo $value['student_number'];  ?>" />  
-<input name="21" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
-    <p align="right">21</p>
-          <div class="auto-style1" style="width: 40px; height: 10px">Lates: <?php echo $late; ?></div>
-           <div class="auto-style1" style="width: 62px; height: 8px">Absences: <?php echo $absent; ?></div>
-       <div class="bs-example" align="right">
-                <input checked="true" name="attendance21" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-          <input name="attendance21" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
-                <input name="attendance21" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
-           </div>
-          <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp == $value['student_number'] && $timein == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp != $value['student_number']){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div> 
-      <?php } ?>    <?php }} ?>
+                foreach($suspension as $suspend){
+                    if($suspend['student_number'] == $value['student_number']){                                             
+                      $suspend_number = $suspend['student_number'];
+                      $statuss = $suspend['status'];                                 
+                    }                                     
+                }
+               if($value['seat_number'] == 24){                              
+                ?>
+
+                <?php                                                 
+                      $temp_late = $late / 3;
+                      $absent = $absent + number_format($temp_late);
+                ?>
+                <input type = "hidden" name = "student_number24" value = "<?php echo $value['student_number'];  ?>" />
+                <input name="24" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">      
+                <p align="right">24</p> 
+                <div class="auto-style1" style="width: 49px; height: 10px">Lates: <?php echo $late; ?></div>
+                <div class="auto-style1" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
+
+                 <?php if($statuss == "Suspended" && $suspend_number == $value['student_number']){ ?>
+                 <div class="bs-example" align="right">
+                          <input name="attendance24" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance24" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance24" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Suspended"; ?></div>      
+                  </div> <?php }                
+
+                   else if($status == "In campus with violation" && $violate_number == $value['student_number']){ ?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance24" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance24" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true"  name="attendance24" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "With Violation"; ?></div>      
+                  </div>  <?php }
+
+                  else if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
+                  <div class="bs-example" align="right">
+                          <input checked="true"  name="attendance24" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance24" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input name="attendance24" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
+                  </div>  
+                  <?php }    
+
+                  else if($temp == $value['student_number'] && $timein == '00:00:00' || $temp != $value['student_number'] ){?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance24" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance24" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance24" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
+                  </div>  <?php } ?>                                           
+    <?php } 
+  } ?>
     </td>
 
     <td style="width: 120px; height: 160px;"></td>
@@ -1077,617 +2610,78 @@
        <?php foreach($viewStudents as $value){
         $late = 0;
         $absent = 0;
-                foreach($viewAttendance as $attendance)
-                {                  
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'L')
+                foreach($viewAttendance as $attendance){                        
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'L')
                      $late++;
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'A')
-                     $absent++;
-                } 
-                foreach($logins as $login)
-                {                    
-                         
-                    if($login['student_number'] == $value['student_number'])
-                    {           
+                    if($attendance['student_number'] == $value['student_number'] && $attendance['status'] == 'A')
+                     $absent++;                   
+                }              
+                foreach($logins as $login){                    
+                    if($login['student_number'] == $value['student_number']){           
                        $temp= $login['student_number'];                                                         
                        $timeout = $login['time_out'];
                        $timein = $login['time_in'];
-
-
+                    }   
+                }       
+                foreach($violation as $row){
+                    if($row['student_number'] == $value['student_number']){                                             
+                      $violate_number = $row['student_number'];
+                      $status = $row['status'];                                 
                     }                                     
                 }
-                if($value['seat_number'] == 28){
-       ?>
-       <input type = "hidden" name = "student_number28" value = "<?php echo $value['student_number'];  ?>" />  
-<input name="28" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
-    <p align="right">28</p>
-          <div class="auto-style1" style="width: 40px; height: 10px">Lates: <?php echo $late; ?></div>
-           <div class="auto-style1" style="width: 62px; height: 8px">Absences: <?php echo $absent; ?></div>
-       <div class="bs-example" align="right">
-                <input checked="true" name="attendance28" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-          <input name="attendance28" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
-                <input name="attendance28" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
-           </div>
-          <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp == $value['student_number'] && $timein == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp != $value['student_number']){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div> 
-      <?php } ?>    <?php }} ?>
-    </td>
-    <td colspan="2"></td>
-  </tr>
-
-  <tr>
-    <td style="width: 120px; height: 160px;">
-       <?php foreach($viewStudents as $value){
-        $late = 0;
-        $absent = 0;
-                foreach($viewAttendance as $attendance)
-                {                  
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'L')
-                     $late++;
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'A')
-                     $absent++;
-                } 
-                foreach($logins as $login)
-                {                    
-                         
-                    if($login['student_number'] == $value['student_number'])
-                    {           
-                       $temp= $login['student_number'];                                                         
-                       $timeout = $login['time_out'];
-                       $timein = $login['time_in'];
-
-
+                foreach($suspension as $suspend){
+                    if($suspend['student_number'] == $value['student_number']){                                             
+                      $suspend_number = $suspend['student_number'];
+                      $statuss = $suspend['status'];                                 
                     }                                     
                 }
-                if($value['seat_number'] == 6){
-       ?>
-       <input type = "hidden" name = "student_number6" value = "<?php echo $value['student_number'];  ?>" />  
-<input name="6" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
-    <p align="right">6</p>
-          <div class="auto-style1" style="width: 40px; height: 10px">Lates: <?php echo $late; ?></div>
-           <div class="auto-style1" style="width: 62px; height: 8px">Absences: <?php echo $absent; ?></div>
-       <div class="bs-example" align="right">
-                <input checked="true" name="attendance6" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-          <input name="attendance6" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
-                <input name="attendance6" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
-           </div>
-          <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp == $value['student_number'] && $timein == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp != $value['student_number']){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div> 
-      <?php } ?>    <?php }} ?>
-    </td>
+               if($value['seat_number'] == 31){                              
+                ?>
 
-    <td colspan="3"></td>
-    <td style="width: 120px; height: 160px;">
-       <?php foreach($viewStudents as $value){
-        $late = 0;
-        $absent = 0;
-                foreach($viewAttendance as $attendance)
-                {                  
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'L')
-                     $late++;
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'A')
-                     $absent++;
-                } 
-                foreach($logins as $login)
-                {                    
-                         
-                    if($login['student_number'] == $value['student_number'])
-                    {           
-                       $temp= $login['student_number'];                                                         
-                       $timeout = $login['time_out'];
-                       $timein = $login['time_in'];
+                <?php                                                 
+                      $temp_late = $late / 3;
+                      $absent = $absent + number_format($temp_late);
+                ?>
+                <input type = "hidden" name = "student_number31" value = "<?php echo $value['student_number'];  ?>" />
+                <input name="31" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">      
+                <p align="right">31</p> 
+                <div class="auto-style1" style="width: 49px; height: 10px">Lates: <?php echo $late; ?></div>
+                <div class="auto-style1" style="width: 70px; height: 8px">Absences: <?php echo $absent; ?></div>
 
+                 <?php if($statuss == "Suspended" && $suspend_number == $value['student_number']){ ?>
+                 <div class="bs-example" align="right">
+                          <input name="attendance31" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance31" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance31" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Suspended"; ?></div>      
+                  </div> <?php }                
 
-                    }                                     
-                }
-                if($value['seat_number'] == 7){
-       ?>
-       <input type = "hidden" name = "student_number7" value = "<?php echo $value['student_number'];  ?>" />  
-<input name="7" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
-    <p align="right">7</p>
-          <div class="auto-style1" style="width: 40px; height: 10px">Lates: <?php echo $late; ?></div>
-           <div class="auto-style1" style="width: 62px; height: 8px">Absences: <?php echo $absent; ?></div>
-       <div class="bs-example" align="right">
-                <input checked="true" name="attendance7" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-          <input name="attendance7" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
-                <input name="attendance7" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
-           </div>
-          <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp == $value['student_number'] && $timein == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp != $value['student_number']){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div> 
-      <?php } ?>    <?php }} ?>
-    </td>
+                   else if($status == "In campus with violation" && $violate_number == $value['student_number']){ ?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance31" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance31" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true"  name="attendance31" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "With Violation"; ?></div>      
+                  </div>  <?php }
 
-    <td style="width: 120px; height: 160px;">
-       <?php foreach($viewStudents as $value){
-        $late = 0;
-        $absent = 0;
-                foreach($viewAttendance as $attendance)
-                {                  
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'L')
-                     $late++;
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'A')
-                     $absent++;
-                } 
-                foreach($logins as $login)
-                {                    
-                         
-                    if($login['student_number'] == $value['student_number'])
-                    {           
-                       $temp= $login['student_number'];                                                         
-                       $timeout = $login['time_out'];
-                       $timein = $login['time_in'];
+                  else if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
+                  <div class="bs-example" align="right">
+                          <input checked="true"  name="attendance31" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance31" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input name="attendance31" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
+                  </div>  
+                  <?php }    
 
-
-                    }                                     
-                }
-                if($value['seat_number'] == 14){
-       ?>
-       <input type = "hidden" name = "student_number14" value = "<?php echo $value['student_number'];  ?>" />  
-<input name="14" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
-    <p align="right">14</p>
-          <div class="auto-style1" style="width: 40px; height: 10px">Lates: <?php echo $late; ?></div>
-           <div class="auto-style1" style="width: 62px; height: 8px">Absences: <?php echo $absent; ?></div>
-       <div class="bs-example" align="right">
-                <input checked="true" name="attendance14" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-          <input name="attendance14" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
-                <input name="attendance14" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
-           </div>
-          <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp == $value['student_number'] && $timein == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp != $value['student_number']){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div> 
-      <?php } ?>    <?php }} ?>
-    </td>
-
-    <td colspan="3"></td>
-    <td style="width: 120px; height: 160px;">
-       <?php foreach($viewStudents as $value){
-        $late = 0;
-        $absent = 0;
-                foreach($viewAttendance as $attendance)
-                {                  
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'L')
-                     $late++;
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'A')
-                     $absent++;
-                } 
-                foreach($logins as $login)
-                {                    
-                         
-                    if($login['student_number'] == $value['student_number'])
-                    {           
-                       $temp= $login['student_number'];                                                         
-                       $timeout = $login['time_out'];
-                       $timein = $login['time_in'];
-
-
-                    }                                     
-                }
-                if($value['seat_number'] == 15){
-       ?>
-       <input type = "hidden" name = "student_number15" value = "<?php echo $value['student_number'];  ?>" />  
-<input name="15" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
-    <p align="right">15</p>
-          <div class="auto-style1" style="width: 40px; height: 10px">Lates: <?php echo $late; ?></div>
-           <div class="auto-style1" style="width: 62px; height: 8px">Absences: <?php echo $absent; ?></div>
-       <div class="bs-example" align="right">
-                <input checked="true" name="attendance15" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-          <input name="attendance15" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
-                <input name="attendance15" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
-           </div>
-          <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp == $value['student_number'] && $timein == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp != $value['student_number']){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div> 
-      <?php } ?>    <?php }} ?>
-    </td>
-
-    <td style="width: 120px; height: 160px;">
-       <?php foreach($viewStudents as $value){
-        $late = 0;
-        $absent = 0;
-                foreach($viewAttendance as $attendance)
-                {                  
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'L')
-                     $late++;
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'A')
-                     $absent++;
-                } 
-                foreach($logins as $login)
-                {                    
-                         
-                    if($login['student_number'] == $value['student_number'])
-                    {           
-                       $temp= $login['student_number'];                                                         
-                       $timeout = $login['time_out'];
-                       $timein = $login['time_in'];
-
-
-                    }                                     
-                }
-                if($value['seat_number'] == 22){
-       ?>
-       <input type = "hidden" name = "student_number22" value = "<?php echo $value['student_number'];  ?>" />  
-<input name="22" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
-    <p align="right">22</p>
-        <div class="auto-style1" style="width: 40px; height: 10px">Lates: <?php echo $late; ?></div>
-           <div class="auto-style1" style="width: 62px; height: 8px">Absences: <?php echo $absent; ?></div>
-       <div class="bs-example" align="right">
-                <input checked="true" name="attendance22" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-          <input name="attendance22" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
-                <input name="attendance22" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
-           </div>
-          <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp == $value['student_number'] && $timein == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp != $value['student_number']){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div> 
-      <?php } ?>    <?php }} ?>
-    </td>
-
-    <td colspan="3"></td>
-    <td style="width: 120px; height: 160px;">
-       <?php foreach($viewStudents as $value){
-        $late = 0;
-        $absent = 0;
-                foreach($viewAttendance as $attendance)
-                {                  
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'L')
-                     $late++;
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'A')
-                     $absent++;
-                } 
-                foreach($logins as $login)
-                {                    
-                         
-                    if($login['student_number'] == $value['student_number'])
-                    {           
-                       $temp= $login['student_number'];                                                         
-                       $timeout = $login['time_out'];
-                       $timein = $login['time_in'];
-
-
-                    }                                     
-                }
-                if($value['seat_number'] == 23){
-       ?>
-       <input type = "hidden" name = "student_number23" value = "<?php echo $value['student_number'];  ?>" />  
-<input name="23" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
-    <p align="right">23</p>
-          <div class="auto-style1" style="width: 40px; height: 10px">Lates: <?php echo $late; ?></div>
-           <div class="auto-style1" style="width: 62px; height: 8px">Absences: <?php echo $absent; ?></div>
-       <div class="bs-example" align="right">
-                <input checked="true" name="attendance23" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-          <input name="attendance23" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
-                <input name="attendance23" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
-           </div>
-          <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp == $value['student_number'] && $timein == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp != $value['student_number']){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div> 
-      <?php } ?>    <?php }} ?>
-    </td>
-
-    <td style="width: 120px; height: 160px;">
-       <?php foreach($viewStudents as $value){
-        $late = 0;
-        $absent = 0;
-                foreach($viewAttendance as $attendance)
-                {                  
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'L')
-                     $late++;
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'A')
-                     $absent++;
-                } 
-                foreach($logins as $login)
-                {                    
-                         
-                    if($login['student_number'] == $value['student_number'])
-                    {           
-                       $temp= $login['student_number'];                                                         
-                       $timeout = $login['time_out'];
-                       $timein = $login['time_in'];
-
-
-                    }                                     
-                }
-                if($value['seat_number'] == 29){
-       ?>
-       <input type = "hidden" name = "student_number29" value = "<?php echo $value['student_number'];  ?>" />  
-<input name="29" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
-    <p align="right">29</p>
-          <div class="auto-style1" style="width: 40px; height: 10px">Lates: <?php echo $late; ?></div>
-           <div class="auto-style1" style="width: 62px; height: 8px">Absences: <?php echo $absent; ?></div>
-       <div class="bs-example" align="right">
-                <input checked="true" name="attendance29" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-          <input name="attendance29" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
-                <input name="attendance29" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
-           </div>
-          <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp == $value['student_number'] && $timein == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp != $value['student_number']){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div> 
-      <?php } ?>    <?php }} ?>
-    </td>
-
-    <td colspan="2"></td>
-    <td style="width: 120px; height: 160px;">
-       <?php foreach($viewStudents as $value){
-        $late = 0;
-        $absent = 0;
-                foreach($viewAttendance as $attendance)
-                {                  
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'L')
-                     $late++;
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'A')
-                     $absent++;
-                } 
-                foreach($logins as $login)
-                {                    
-                         
-                    if($login['student_number'] == $value['student_number'])
-                    {           
-                       $temp= $login['student_number'];                                                         
-                       $timeout = $login['time_out'];
-                       $timein = $login['time_in'];
-
-
-                    }                                     
-                }
-                if($value['seat_number'] == 30){
-       ?>
-       <input type = "hidden" name = "student_number30" value = "<?php echo $value['student_number'];  ?>" />  
-<input name="30" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
-    <p align="right">30</p>
-          <div class="auto-style1" style="width: 40px; height: 10px">Lates: <?php echo $late; ?></div>
-           <div class="auto-style1" style="width: 62px; height: 8px">Absences: <?php echo $absent; ?></div>
-       <div class="bs-example" align="right">
-                <input checked="true" name="attendance30" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-          <input name="attendance30" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
-                <input name="attendance30" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
-           </div>
-          <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp == $value['student_number'] && $timein == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp != $value['student_number']){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div> 
-      <?php } ?>    <?php }} ?>
-    </td>
-  </tr>
-
-  <tr>
-    <td colspan="2"></td>
-    <td style="width: 120px; height: 160px;">
-       <?php foreach($viewStudents as $value){
-        $late = 0;
-        $absent = 0;
-                foreach($viewAttendance as $attendance)
-                {                  
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'L')
-                     $late++;
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'A')
-                     $absent++;
-                } 
-                foreach($logins as $login)
-                {                    
-                         
-                    if($login['student_number'] == $value['student_number'])
-                    {           
-                       $temp= $login['student_number'];                                                         
-                       $timeout = $login['time_out'];
-                       $timein = $login['time_in'];
-
-
-                    }                                     
-                }
-                if($value['seat_number'] == 8){
-       ?>
-       <input type = "hidden" name = "student_number8" value = "<?php echo $value['student_number'];  ?>" />  
-<input name="8" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
-    <p align="right">8</p>
-          <div class="auto-style1" style="width: 40px; height: 10px">Lates: <?php echo $late; ?></div>
-           <div class="auto-style1" style="width: 62px; height: 8px">Absences: <?php echo $absent; ?></div>
-       <div class="bs-example" align="right">
-                <input checked="true" name="attendance8" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-          <input name="attendance8" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
-                <input name="attendance8" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
-           </div>
-          <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp == $value['student_number'] && $timein == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp != $value['student_number']){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div> 
-      <?php } ?>    <?php }} ?>
-    </td>
-
-    <td colspan="2"></td>
-    <td colspan="2"></td>
-
-    <td style="width: 120px; height: 160px;">
-       <?php foreach($viewStudents as $value){
-        $late = 0;
-        $absent = 0;
-                foreach($viewAttendance as $attendance)
-                {                  
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'L')
-                     $late++;
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'A')
-                     $absent++;
-                } 
-                foreach($logins as $login)
-                {                    
-                         
-                    if($login['student_number'] == $value['student_number'])
-                    {           
-                       $temp= $login['student_number'];                                                         
-                       $timeout = $login['time_out'];
-                       $timein = $login['time_in'];
-
-
-                    }                                     
-                }
-                if($value['seat_number'] == 16){
-       ?>
-       <input type = "hidden" name = "student_number16" value = "<?php echo $value['student_number'];  ?>" />  
-<input name="16" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
-    <p align="right">16</p>
-          <div class="auto-style1" style="width: 40px; height: 10px">Lates: <?php echo $late; ?></div>
-           <div class="auto-style1" style="width: 62px; height: 8px">Absences: <?php echo $absent; ?></div>
-       <div class="bs-example" align="right">
-                <input checked="true" name="attendance16" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-          <input name="attendance16" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
-                <input name="attendance16" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
-           </div>
-          <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp == $value['student_number'] && $timein == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp != $value['student_number']){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div> 
-      <?php } ?>    <?php }} ?>
-    </td>
-
-    <td colspan="2"></td>
-    <td style="width: 120px; height: 160px;"></td>
-    <td colspan="3">
-       <?php foreach($viewStudents as $value){
-        $late = 0;
-        $absent = 0;
-                foreach($viewAttendance as $attendance)
-                {                  
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'L')
-                     $late++;
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'A')
-                     $absent++;
-                } 
-                foreach($logins as $login)
-                {                    
-                         
-                    if($login['student_number'] == $value['student_number'])
-                    {           
-                       $temp= $login['student_number'];                                                         
-                       $timeout = $login['time_out'];
-                       $timein = $login['time_in'];
-
-
-                    }                                     
-                }
-                if($value['seat_number'] == 24){
-       ?>
-       <input type = "hidden" name = "student_number24" value = "<?php echo $value['student_number'];  ?>" />  
-<input name="24" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
-    <p align="right">24</p>
-          <div class="auto-style1" style="width: 40px; height: 10px">Lates: <?php echo $late; ?></div>
-           <div class="auto-style1" style="width: 62px; height: 8px">Absences: <?php echo $absent; ?></div>
-       <div class="bs-example" align="right">
-                <input checked="true" name="attendance24" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-          <input name="attendance24" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
-                <input name="attendance24" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
-           </div>
-          <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp == $value['student_number'] && $timein == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp != $value['student_number']){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div> 
-      <?php } ?>    <?php }} ?> 
-    </td>
-
-    <td style="width: 120px; height: 160px;"></td>
-    <td style="width: 120px; height: 160px;"></td>
-    
-    <td style="width: 120px; height: 160px;">
-       <?php foreach($viewStudents as $value){
-        $late = 0;
-        $absent = 0;
-                foreach($viewAttendance as $attendance)
-                {                  
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'L')
-                     $late++;
-                    if($attendance['student_number'] == $value['student_number'] && $attendance['attendance'] == 'A')
-                     $absent++;
-                } 
-                foreach($logins as $login)
-                {                    
-                         
-                    if($login['student_number'] == $value['student_number'])
-                    {           
-                       $temp= $login['student_number'];                                                         
-                       $timeout = $login['time_out'];
-                       $timein = $login['time_in'];
-
-
-                    }                                     
-                }
-                if($value['seat_number'] == 31){
-       ?>
-       <input type = "hidden" name = "student_number31" value = "<?php echo $value['student_number'];  ?>" />  
- <input type = "hidden" name = "student_number31" value = "<?php echo $value['student_number'];  ?>" />        
-<input name="31" value="<?php echo $value['last_name'].' '.$value['first_name']; ?>" class="form-control" disabled = "true" style="width: 120px">
-    <p align="right">31</p>
-          <div class="auto-style1" style="width: 40px; height: 10px">Lates: <?php echo $late; ?></div>
-           <div class="auto-style1" style="width: 62px; height: 8px">Absences: <?php echo $absent; ?></div>
-       <div class="bs-example" align="right">
-                <input checked="true" name="attendance31" type="radio" value="present" style="width: 25px"><span class="label label-success">..</span><br>
-          <input name="attendance31" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
-                <input name="attendance31" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
-           </div>
-          <?php if($temp == $value['student_number'] && $timeout == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp == $value['student_number'] && $timein == '00:00:00'){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
-      <?php } ?>
-      <?php if($temp != $value['student_number']){?>
-      <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div> 
-      <?php } ?>    <?php }} ?>
+                  else if($temp == $value['student_number'] && $timein == '00:00:00' || $temp != $value['student_number'] ){?>
+                  <div class="bs-example" align="right">
+                          <input name="attendance31" type="radio" value=" " style="width: 25px"><span class="label label-success">..</span><br>
+                          <input name="attendance31" type="radio" value="L" style="width: 25px"><span class="label label-warning">..</span><br>
+                          <input checked="true" name="attendance31" type="radio" value="A" style="width: 25px"><span class="label label-danger">..</span><br>
+                          <div class="auto-style2">Status: <?php echo "Not In Campus"; ?></div>      
+                  </div>  <?php } ?>                                           
+    <?php } 
+  } ?>
     </td>
     <td colspan="2"></td>
   </tr>
