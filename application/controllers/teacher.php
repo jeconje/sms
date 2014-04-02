@@ -56,6 +56,28 @@
 				$this->index();
 		}
 
+		public function viewRevAttendance($date,$code) {
+			$data['info'] = $this->session->userdata('logged_in');
+			if($data['info'] == TRUE) {
+
+				$data['date'] = $date;
+				$data['id_code'] = $code;
+				$data['account_id'] = $data['info']['account_id'];	 
+				$data['account_type'] = $data['info']['account_type'];
+
+				$data['teacherInfo'] = $this->teacher_model->teacherInfo($data);
+				$data['faculty_id'] = $data['teacherInfo']['faculty_id'];
+				$data['first_name'] = $data['teacherInfo']['first_name'];
+				$data['last_name'] = $data['teacherInfo']['last_name'];
+					
+				$data['viewStudents'] = $this->teacher_model->viewStudents($data);
+				$data['viewAttendance'] = $this->teacher_model->checkReviewAttendance($data);							
+
+				$this->load->view('seatplan_teacher/review_classroom',$data);
+			} else
+				$this->index();
+		}
+
 	     public function huehue3($id)
 		{
 			$data['info'] = $this->session->userdata('logged_in');
@@ -402,7 +424,7 @@
 	      }
 
 	  	//SEATPLAN VIEW
-		public function classroom() {
+		public function classroom($date,$code) {
 			$data['info'] = $this->session->userdata('logged_in');
 			if($data['info'] == TRUE){
 				$data['id_code'] = $id;
@@ -420,31 +442,31 @@
 
 
 
-				for ($i=1; $i <41 ; $i++) { 
-					$data['a'.$i] = $this->input->post('attendance'.$i);		
-				}
+			// 	for ($i=1; $i <41 ; $i++) { 
+			// 		$data['a'.$i] = $this->input->post('attendance'.$i);		
+			// 	}
 
-				for ($i=1; $i <41 ; $i++) { 
-				$data['student_number'.$i] = $this->input->post('student_number'.$i);	
-				}						
+			// 	for ($i=1; $i <41 ; $i++) { 
+			// 	$data['student_number'.$i] = $this->input->post('student_number'.$i);	
+			// 	}						
 							
-				if(isset($_POST['submit']))
-				{								
-					$this->teacher_model->insertAttendance($data);
-					header('Location:http://localhost/sms/teacher/huehue2/'.$data['id_code']);							
-				}
+			// 	if(isset($_POST['submit']))
+			// 	{								
+			// 		$this->teacher_model->insertAttendance($data);
+			// 		header('Location:http://localhost/sms/teacher/huehue2/'.$data['id_code']);							
+			// 	}
 
-				$data['viewStudents'] = $this->teacher_model->viewStudents($data);
-				$this->load->view('seatplan_teacher/classroom',$data);		
-			} else 
-				$this->index();	
+			// 	$data['viewStudents'] = $this->teacher_model->viewStudents($data);
+			// 	$this->load->view('seatplan_teacher/classroom',$data);		
+			// } else 
+			// 	$this->index();	
 
-				$data['logins'] = $this->teacher_model->viewCampusLogin($data);
-				$data['violation'] = $this->teacher_model->viewViolation($data);		
-				$data['suspension'] = $this->teacher_model->viewSuspension($data);
+				// $data['logins'] = $this->teacher_model->viewCampusLogin($data);
+				// $data['violation'] = $this->teacher_model->viewViolation($data);		
+				// $data['suspension'] = $this->teacher_model->viewSuspension($data);
 				
-				$this->teacher_model->updateStatus();
-				$data['onlyonce'] = $this->teacher_model->viewNumberOfAttendance();
+				// $this->teacher_model->updateStatus();
+				// $data['onlyonce'] = $this->teacher_model->viewNumberOfAttendance();
 				
 				for ($i=1; $i <49 ; $i++) { 
 					$data['a'.$i] = $this->input->post('attendance'.$i);		
@@ -461,7 +483,7 @@
 
 				$data['viewStudents'] = $this->teacher_model->viewStudents($data);
 				// $this->load->view('seatplan_teacher/classroom',$data);	
-				header('Location:http://localhost/sms/teacher/huehue2/'.$data['id_code']);
+				header('Location:http://localhost/sms/teacher/viewRevAttendance/'.$date.'/'.$code);
 			} else
 				$this->index();
 

@@ -61,8 +61,6 @@
           }
 
     
-
-
         //Change password
         public function changepassword($data)
         {
@@ -245,6 +243,20 @@
           $this->db->from('attendance');
           $this->db->where('offer_code',$data['id_code']);        
           $this->db->where('date',$date);
+          $query = $this->db->get();
+          $result = $query -> result_array();
+
+          return $result;          
+
+        }
+
+        public function checkReviewAttendance($data)
+        { 
+
+          $this->db->select();
+          $this->db->from('attendance');
+          //$this->db->where('date',$data['date']);        
+          $this->db->where('offer_code',$data['id_code']);                  
           $query = $this->db->get();
           $result = $query -> result_array();
 
