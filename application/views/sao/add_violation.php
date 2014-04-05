@@ -105,7 +105,7 @@
 
 <script type="text/javascript">
  $(document).ready(function(){
-    $("#student_number").keyup(function() {
+    $("#student_number").focusout(function() {
       var student_number = $('#student_number').val();
         if(student_number=="") {
             $('#violation').attr("disabled",true).css({ "background": "#F0F0F0" });

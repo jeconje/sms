@@ -89,8 +89,10 @@
                     <input type = "hidden" name = "student_number" value="<?php echo $value['student_number']; ?>" />                    
                     <td>
                       <?php echo anchor('teacher/updateStatus/'.$date.'?id='.$value['student_number'], 'Excused', 'id="$value->student_number" class="btn btn-primary"'); ?>
-                     <!--  <a href="<?php echo base_url(); ?>teacher/updateStatus/<?php echo $date;?>/<?php echo $value['student_number']; ?>"><input class="btn btn-primary" name="submit" type="submit" value="Excused"/><a/> -->
-                      </td>            
+                    </td>   
+                    <td>
+                      <?php echo anchor('teacher/updateStatusLate/'.$date.'?id='.$value['student_number'], 'Late', 'id="$value->student_number" class="btn btn-warning"'); ?>
+                    </td>         
                   </tr>
                   <?php }
                       echo form_close();
