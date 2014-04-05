@@ -219,6 +219,22 @@
 
         }
 
+        public function viewReviewAttendance($data)
+        { 
+          date_default_timezone_set('Asia/Manila');                  
+          $date = date('Y-m-d');    
+
+          $this->db->select();
+          $this->db->from('attendance');
+          $this->db->where('offer_code',$data['id_code']);        
+          $this->db->where('date',$date);
+          $query = $this->db->get();
+          $result = $query -> first_row('array');
+
+          return $result;          
+
+        }
+
         public function viewCampusLogin($data)
         {
           date_default_timezone_set('Asia/Manila');                  
@@ -239,7 +255,7 @@
             date_default_timezone_set('Asia/Manila');                  
             $date = date('Y-m-d');  
             
-                  for ($i = 1; $i < 41 ; $i++) { 
+                  for ($i = 1; $i < 49 ; $i++) { 
                  
                       if($data['a'.$i] == 'L' || $data['a'.$i] == 'A'){
                       $insert = array (                            
@@ -258,7 +274,7 @@
 
         public function updateSeat($data)
         {
-            for ($i=1; $i <41 ; $i++) {                       
+            for ($i=1; $i <49 ; $i++) {                       
                 $update = array (
                         'seat_number' => $i
                  );
