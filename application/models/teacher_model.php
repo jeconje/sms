@@ -231,7 +231,7 @@
           $this->db->where('offer_code',$data['id_code']);        
           $this->db->where('date',$date);
           $query = $this->db->get();
-          $result = $query -> first_row('array');
+          $result = $query -> result_array();
 
           return $result;          
 

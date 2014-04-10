@@ -20,7 +20,7 @@
 		{
 			$data['id_code'] = $id;
 			$data['viewStudents'] = $this->teacher_model->viewStudents($data);
-			$data['attendance'] = $this->teacher_model->viewReviewAttendance($data);			
+			$data['viewAttendance'] = $this->teacher_model->viewReviewAttendance($data);			
 
 			$this->load->view('seatplan_teacher/review_laboratory',$data);
 		}
@@ -430,7 +430,7 @@
 				}
 
 				$data['viewStudents'] = $this->teacher_model->viewStudents($data);
-				$this->load->view('seatplan_teacher/review_laboratory',$data);		
+				$this->load->view('seatplan_teacher/laboratory',$data);		
 			} else 
 				$this->index();		
 				

@@ -255,6 +255,7 @@
 
                 type="submit" name ="submit" class="btn btn-primary" onClick = "return confirm('Are you sure you want to submit because you can only submit once?')" >Submit Attendance</button>
                 
+                
             </center>
        </td>
     <!-- END -->
