@@ -57,21 +57,22 @@
         <div class="table-responsive">
               <table class="table table-hover tablesorter"  style="width=20px;">
                 <thead>
-                  <tr>
-                    <th><center>Dates</th>
-                    <th><center></th>
+                  <tr>                    
+                    <th><center>Subject</center></th>
+                    
                    </tr>
                 </thead>
 
-                <tbody  align="center">                                    
-                  <?php foreach($viewDistinctLogs as $value) {                            
-                    ?>
-                  <tr>                    
-                    <?php $id = $value['date']; ?>
-                    <td><?php echo $value['date']; ?></td>                    
-                    <td><a href="<?php echo base_url(); ?>teacher/logs/<?php echo $id; ?>"><input class="btn btn-primary" type="submit" value="View logs"/><a/></td>                    
-                  </tr>
-                  <?php } ?>
+
+                <tbody  align="center">
+                <?php foreach($classes as $view){                   
+                  ?>
+                            
+                    <tr>
+                      <td><?php echo $view['subject_description']; ?></td>
+                      <td><a href="logs?id=<?php echo $view['subject_description']; ?>"><input class="btn btn-primary" name ="submit" type="submit" value="View Logs"/></td>
+                    </tr>
+                 <?php } ?>
                 </tbody>
               </table>
             </div>

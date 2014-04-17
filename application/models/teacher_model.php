@@ -128,7 +128,7 @@
             $this->db->from('offering');          
             $this->db->join('faculty','offering.faculty_id = faculty.faculty_id');
             $this->db->join('subject','offering.offer_code = subject.offer_code');            
-            $this->db->where('offering.faculty_id',$data['faculty_id']);   
+            $this->db->where('offering.faculty_id',$data['faculty_id']);               
             $this->db->order_by('days');
 
             $query = $this->db->get();
@@ -136,6 +136,7 @@
 
             return $result;
         }
+
         
          public function viewCandidates($data)
         {
@@ -287,33 +288,45 @@
         }
 
         public function viewDistinctLogs($data) {
-          $this->db->distinct();
-          $this->db->select ('date');
+          $this->db->distinct();      
+          $this->db->select('date,attendance.offer_code');
           $this->db->from('attendance');
           $this->db->join('offering','attendance.offer_code = offering.offer_code');
           $this->db->join('subject','subject.offer_code = offering.offer_code');
-          $this->db->where('faculty_id',$data['faculty_id']);
-          $this->db->order_by('attendance.date',desc);
+          $this->db->join('faculty','faculty.faculty_id = offering.faculty_id');
+          $this->db->where('faculty.faculty_id',$data['faculty_id']);
+          $this->db->where('subject.subject_description',$data['id']);          
 
           $query = $this->db->get();
           $result = $query -> result_array();
           return $result;
         }
 
+        public function viewSpecificDate($data)
+        {
+          $this->db->select();
+          $this->db->from('attendance');
+          $this->db->join('students','attendance.student_number = students.student_number');
+          $this->db->where('date',$data['id']);
+          $query = $this->db->get();
+          $result = $query -> result_array();
+
+          return $result;
+        }
+
         public function viewLogs($data)
         {          
-          $this->db->select ();
+          $this->db->select('subject_description');      
+          $this->db->select('date');
           $this->db->from('attendance');
           $this->db->join('offering','attendance.offer_code = offering.offer_code');
           $this->db->join('subject','subject.offer_code = offering.offer_code');
-          $this->db->join('students','attendance.student_number = students.student_number');          
-          $this->db->where('attendance.date',$data['date']);          
-          $this->db->where('faculty_id',$data['faculty_id']);
+          $this->db->join('faculty','faculty.faculty_id = offering.faculty_id');
+          $this->db->where('faculty.faculty_id',$data['faculty_id']);
+          $this->db->where('subject.subject_description',$data['id']);          
 
-          $this->db->order_by('subject.subject_description');
           $query = $this->db->get();
           $result = $query -> result_array();
-          return $result;
         }       
 
         public function viewSearchedLogs($data)

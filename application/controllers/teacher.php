@@ -135,7 +135,7 @@
 				$data['account_type'] = $data['info']['account_type'];
 
 				$data['teacherInfo'] = $this->teacher_model->teacherInfo($data);
-				
+					
 				$data['first_name'] = $data['teacherInfo']['first_name'];
 				$data['last_name'] = $data['teacherInfo']['last_name'];
 				$data['faculty_id'] = $data['teacherInfo']['faculty_id'];
@@ -158,14 +158,21 @@
 			if($data['info'] == TRUE){
 			$data['account_id'] = $data['info']['account_id'];	 
 			$data['account_type'] = $data['info']['account_type'];
-
+			$data['id'] = $_GET['id'];
 			$data['teacherInfo'] = $this->teacher_model->teacherInfo($data);
 			$data['faculty_id'] = $data['teacherInfo']['faculty_id'];
 			$data['first_name'] = $data['teacherInfo']['first_name'];
 			$data['last_name'] = $data['teacherInfo']['last_name'];
 
+			$data['faculty_id'] = $data['teacherInfo']['faculty_id'];
+			$data['classes'] = $this->teacher_model->viewClasses($data);
+			$data['students_load'] = $this->teacher_model->studentsStudyLoad();
+
 			$data['viewDistinctLogs'] = $this->teacher_model->viewDistinctLogs($data);				
 				
+			// echo "<pre>";
+			// print_r($data['viewDistinctLogs']);
+			// echo "</pre>";
 				$this->load->view('teacher/attendance',$data);
 			} else
 				$this->index();
@@ -197,7 +204,7 @@
 			if($data['info'] == TRUE){
 			$data['account_id'] = $data['info']['account_id'];	 
 			$data['account_type'] = $data['info']['account_type'];
-
+			$data['id'] = $_GET['id'];
 			$data['teacherInfo'] = $this->teacher_model->teacherInfo($data);
 			$data['faculty_id'] = $data['teacherInfo']['faculty_id'];
 			$data['first_name'] = $data['teacherInfo']['first_name'];
@@ -214,7 +221,7 @@
 			$data['classes'] = $this->teacher_model->viewClasses($data);
 
 			
-			$data['viewLogs'] = $this->teacher_model->viewSearchedLogs($data);
+			//$data['viewLogs'] = $this->teacher_model->viewSearchedLogs($data);
 				
 			
 				
@@ -358,7 +365,6 @@
 				
 				$this->teacher_model->updateStatus();
 				$data['onlyonce'] = $this->teacher_model->viewNumberOfAttendance();
-
 				
 				for ($i=1; $i <49 ; $i++) { 
 					$data['a'.$i] = $this->input->post('attendance'.$i);		
@@ -375,7 +381,8 @@
 				}
 
 				$data['viewStudents'] = $this->teacher_model->viewStudents($data);
-				$this->load->view('seatplan_teacher/classroom',$data);	
+				// $this->load->view('seatplan_teacher/classroom',$data);	
+				header('Location:http://localhost/sms/teacher/huehue2/'.$data['id_code']);
 			} else
 				$this->index();
 		}
@@ -604,6 +611,13 @@
 				$this->index();
 		}
 
+		public function viewSpecificDate()
+		{
+			$data['id'] = $_GET['id'];
+			$data['GraduatePlease'] = $this->teacher_model->viewSpecificdate($data);
+			$this->load->view('teacher/viewSpecificdate',$data);
+		}
+
 
 		//Show Calendar
 		public function calendar_teacher($year=null,$month=null) 
@@ -683,7 +697,9 @@
 		    $this->session->unset_userdata('logged_in');
 		    session_destroy();
 		    $this->index();
-	  	  }	  		  	    
+	  	  }	  		  	 
+	  	  
+	  	 
 
 }
 

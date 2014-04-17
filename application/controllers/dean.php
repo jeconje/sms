@@ -545,6 +545,8 @@
 				$data['last_name'] = $data['deanInfo']['last_name'];
 				$data['event'] = $this->input->post('event');
 				$data['date'] = $this->input->post('date');	
+				$data['start_time'] = $this->input->post('start_time');
+				$data['end_time'] = $this->input->post('end_time');
 				
 				$data['result'] = $this->dean_model->getEvents();
 
@@ -554,10 +556,9 @@
 				$data['datepicker'] = $this->input->post('date');
 				$data['start_time'] = $this->input->post('start_time');
 				$data['end_time'] = $this->input->post('end_time');
+				$data['okasyon'] = $this->input->post('event');
 
 				$data['suspend'] = $this->dean_model->suspendClass($data);
-
-				
 
 
 				$day = (int)substr($row->date,8,2);
@@ -565,23 +566,27 @@
 
 			    $events[(int)$day] = $row->event;
 			    $events = array();
+			    $starts[(int)$day] = $row->start_time;
+			    $starts = array();
+			    $ends[(int)$day] = $row->end_time;
+			    $ends = array();
 
+			    
 			    foreach($data['result'] as $row) {
 
 			    	$day = (int)substr($row['date'],8,2);
 			    	$mon = (int)substr($row['date'],5,2);
 
 				    if(!array_key_exists($day,$events)) { 
-						$events[$day] = $row['event'];
-					}
-
-					else {
+						$events[$day] = "<li><font color='red'><b>".ucfirst($row['event'])."</b><br>( ".$row['start_time']." - ".$row['end_time']. " )</font> <br>";
+					} else {
 						$temp = $row['event'];
-						$events[$day] = $events[$day]."<br> <li>".$temp;
+						$start = $row['start_time'];
+						$end = $row['end_time'];
+						$events[$day] = $events[$day]."<br><li><font color='red'><b>".ucfirst($temp)."</b><br>( ".$start." - ".$end." )</font> <br>";
 					}
 
 					$events_month[$mon][$day] = $events; 
-					
 				} 
 
 				if(isset($_POST['add']))

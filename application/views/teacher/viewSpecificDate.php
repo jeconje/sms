@@ -51,7 +51,7 @@
           </ul>
         </nav>
 <br>
-
+<?php echo form_open('teacher/viewSpecificDate/'.$date); ?>
         <div class="table-responsive">
         <center>
             <!-- <select class="select-style select" id="months" name="subject">
@@ -69,20 +69,24 @@
               <table class="table table-hover tablesorter"  style="width=20px;">
                 <thead>
                   <tr>                    
-                    <th><center>Date</th>
-                    <th><center></th>                                        
+                    <th><center>Student</th> 
+                    <th><center>Status</th>
+                                                           
                   </tr>
                 </thead>                                
-                <tbody  align="center">                                                      
-                  <?php foreach($viewDistinctLogs as $value) {                         
+                <tbody  align="center">                                                                   
+                  <?php foreach($GraduatePlease as $value) {                         
                                               
                   ?>
                             <tr>                                                            
-                              <td><?php echo $value['date']; ?></td>                        
-                              <td><a href="classroom/$value['date']"><input class="btn btn-primary" name ="submit" type="submit" value="View Logs"/></td>  
-                              
+                              <td><?php echo $value['first_name']." ".$value['last_name']; ?></td>    
+                              <td><?php echo $value['status']; ?></td>      
+                              <td><input class="btn btn-success" name ="excuse" type="submit" value="Excuse"/></td>
+                              <td><input class="btn btn-warning" name ="late" type="submit" value="Late"/></td>
+                                                                          
                             </tr> 
-                  <?php }                      
+                  <?php }
+                      echo form_close();
                    ?>
 
                 </tbody>
