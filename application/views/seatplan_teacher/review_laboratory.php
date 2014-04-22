@@ -237,7 +237,7 @@
         <?php if($status == 'A' and $student_number == $value['student_number']) { ?>          
         <span class="label label-danger">Absent</span><br>  
         <?php } 
-        if($status == 'L' and $student_number == $value['student_number']) { ?>          
+        else if($status == 'L' and $student_number == $value['student_number']) { ?>          
         <span class="label label-warning">Late</span><br>
         <?php } else { ?>                                       
         <span class="label label-success">Present</span><br>
